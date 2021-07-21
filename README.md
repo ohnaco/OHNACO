@@ -1,23 +1,47 @@
-# 개발 규칙 
+![logo](img/logo.png)
+
+# 🎈 프로젝트 이름 : 오나코 (오늘도 나는 코딩한다)
+
+## 👨‍👩‍👦‍👦 팀원소개
+
+### 🧑 고노윤(Frontend)
+
+### 👦 김우현(Frontend)
+
+### 👦 김현홍(Backend)
+
+### 👦 손창환(Backend)
+
+### 🧑 양다연(Frontend)
+
+## 개발 기간
+
+21.07.12 ~ 21.08.20
+
+<br>
+
+---
+
+# 개발 규칙
 
 ## Git
 
-### Commit Message 규약 
+### Commit Message 규약
 
-- Git Commit Message Template 
+- Git Commit Message Template
 
 ```bash
 S05P12A10100 - [feat] : /FE
 # 이슈 번호 - [속성] : 내용 /FE 또는 /BE
-##### 제목은 최대 50 글자까지만 입력 
+##### 제목은 최대 50 글자까지만 입력
 ##### -> S05P12A10190 - [feat] : 이메일 중복검사/ FE|
 
 
-######## 본문은 한 줄에 최대 72 글자까지만 입력 
+######## 본문은 한 줄에 최대 72 글자까지만 입력
 ############################ -> |
 
 
-######## 꼬리말은 Optional 
+######## 꼬리말은 Optional
 
 #   속성 분류
 #   feat       : 새로운 기능 추가
@@ -35,8 +59,8 @@ S05P12A10100 - [feat] : /FE
 #   hotfix     : 급하게 치명적인 버그 수정
 
 # ------------------
-#     제목 첫 글자를 대문자로 시작 
-#     제목은 명령문으로 작성 
+#     제목 첫 글자를 대문자로 시작
+#     제목은 명령문으로 작성
 #     제목 끝에 마침표(.) 금지
 #     제목과 본문을 한 줄 띄워 분리하기
 #     본문은 한 줄당 72자 내로 작성.
@@ -52,40 +76,39 @@ S05P12A10100 - [feat] : /FE
 #        - Resolves : 이슈를 해결했을 때 사용
 #       ex) Resolves S05P12A10190
 #        - [이슈 번호] #comment [댓글 내용]
-#        : 댓글 남기기 
+#        : 댓글 남기기
 
 ```
-
 
 ```
 git config --global commit.template <.gitmessage.txt 경로>
 ```
 
-
-
-
 <hr>
 
-### Git Flow 규약 
+### Git Flow 규약
 
 Ref : https://techblog.woowahan.com/2553/
 
-#### Branch 
+#### Branch
 
 **Master - (fix) - Develop - Feature**
+
 - Master : 제품으로 출시될 수 있는 브랜치
 - Develop : 다음 출시 버전을 개발하는 브랜치
 - Feature : 기능을 개발하는 브랜치
 - Fix : 발생한 버그를 수정 하는 브랜치
-<br>
+  <br>
 
 #### Branch Naming 규칙
+
 ```
 Master, Develop = 수정X
 feature/fe(be)/기능명
 - feature/fe/login
 - feature/be/login
 ```
+
 <br>
 
 #### feature 브랜치 생성 방법
@@ -97,6 +120,7 @@ $ git checkout -b feature/fe(be)/login develop
 
 <br>
 
-#### Merge 규칙 
+#### Merge 규칙
+
 - merge를 하기 전 적어도 1명의 팀원에게 알리고 코드 리뷰가 가능하면 수행 후 merge
 - merge 후 branch 삭제
