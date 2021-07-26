@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.Map;
 
 
@@ -34,13 +35,15 @@ public class UserController {
 
     @PostMapping("/join")
     @ApiOperation(value = "임시정보 저장 => email, password값 전달")
-    public Object tempJoin(@RequestBody Map<String, String> tempUser) {
+    public Object tempJoin(@RequestBody Map<String, String> tempUser) throws MessagingException {
         String msg = "success";
+        String emailCode = userService.randomCode();
         userService.tempUserSave(TempUserDto.builder()
                 .email(tempUser.get("email"))
                 .password(tempUser.get("password"))
-                .token(userService.randomCode())
+                .token(emailCode)
                 .build());
+        userService.sendMail("kimho1995@naver.com", "[OHNACO 이메일 인증 코드]", emailCode);
         ResponseEntity response = new ResponseEntity<>(msg, HttpStatus.OK);
         return response;
     }
