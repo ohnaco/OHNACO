@@ -1,6 +1,9 @@
 package com.prossafy101.ohnaco.service;
 
+import com.prossafy101.ohnaco.entity.user.Positions;
 import com.prossafy101.ohnaco.entity.user.TempUserDto;
+import com.prossafy101.ohnaco.entity.user.User;
+import com.prossafy101.ohnaco.repository.PositionsRepository;
 import com.prossafy101.ohnaco.repository.TempUserRepository;
 import com.prossafy101.ohnaco.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,8 @@ public class UserService {
     private UserRepository userRepo;
     @Autowired
     private TempUserRepository tempUserRepo;
+    @Autowired
+    private PositionsRepository positionsRepo;
 
     private JavaMailSender javaMailSender;
     public UserService(JavaMailSender javaMailSender) {
@@ -33,6 +38,15 @@ public class UserService {
         }
         return isSameEmail;
     }
+    //중복 닉네임 체크
+    public boolean isSameNickname(String nickname) {
+        boolean isSameNickname = false;
+        if(userRepo.findByNickname(nickname) != null) {
+            isSameNickname = true;
+        }
+        return isSameNickname;
+    }
+
     // 레디스에 이메일(기본키), 패스워드, 인증코드 저장
     public void tempUserSave(TempUserDto tempUserDto) {
         tempUserRepo.save(tempUserDto);
@@ -98,6 +112,34 @@ public class UserService {
         helper.setText(sb.toString(), true); //ture넣을경우 html
 
         javaMailSender.send(mimeMessage);
+    }
+
+    //유저 정보 저장
+    public void userSave(User user) {
+        userRepo.save(user);
+    }
+
+    //유저아이디 랜덤값 생성
+    //이메일 랜덤 대문자 + 숫자 8개 choice
+    public String createUserid() {
+        StringBuffer sb = new StringBuffer();
+        Random rand = new Random();
+        do {
+            for (int i = 0; i < 13; i++) {
+                int randNum = rand.nextInt(2);
+                if (randNum == 0) {
+                    sb.append((char) ((int) (rand.nextInt(26) + 'A')));
+                } else {
+                    sb.append(rand.nextInt(10));
+                }
+            }
+        } while(userRepo.findByUserid(sb.toString()) != null);
+        return sb.toString();
+    }
+
+    //position명으로 id값 찾기
+    public Positions positionsName(String position) {
+        return positionsRepo.findByPositionname(position);
     }
 
 }

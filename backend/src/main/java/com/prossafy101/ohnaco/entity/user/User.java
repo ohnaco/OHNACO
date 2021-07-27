@@ -2,6 +2,7 @@ package com.prossafy101.ohnaco.entity.user;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -9,10 +10,12 @@ import javax.persistence.*;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int userid;
+    private String userid;
 
     @Column(unique = true, nullable = false)
     private String nickname;
@@ -23,8 +26,10 @@ public class User {
     private String password;
     private String githubid;
     private String social;
-//    private String imageUrl;
 
-//    @OneToOne
-//    private String positionId;
+    @OneToOne
+    @JoinColumn(name = "positionid")
+    private Positions positions;
+
+//    private String imageUrl;
 }
