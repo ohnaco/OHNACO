@@ -5,7 +5,12 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
@@ -15,11 +20,14 @@ import java.util.Date;
 @Component
 public class JwtUtil {
 
-    public final static long TOKEN_VALIDATION_SECOND = 1000L * 10;
-    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 24 * 2;
+    public final static long TOKEN_VALIDATION_SECOND = 1000L * 3;
+    public final static long REFRESH_TOKEN_VALIDATION_SECOND = 1000L * 60 * 60 *24 * 2;
 
     public final static String ACCESS_TOKEN_NAME = "accessToken";
     public final static String REFRESH_TOKEN_NAME = "refreshToken";
+
+    @Autowired
+    private CustomUserDetailsService userDetailsService;
 
     @Value("${spring.jwt.secret}")
     private String SECRET_KEY;
@@ -37,7 +45,7 @@ public class JwtUtil {
 
     Jwt Parser를 빌드하고 Parser에 토큰 넣어서 payload(body) 부분 발췌
      */
-    public Claims extractAllClaims(String token) {
+    public Claims extractAllClaims(String token){
         return Jwts.parserBuilder()
                 .setSigningKey(getSigningKey(SECRET_KEY))
                 .build()
@@ -58,13 +66,13 @@ public class JwtUtil {
     }
 
     // AccessToken 생성
-    public String generateAccessToken(User user) {
-        return generateToken(user.getEmail(), TOKEN_VALIDATION_SECOND);
+    public String generateAccessToken(String email) {
+        return generateToken(email, TOKEN_VALIDATION_SECOND);
     }
 
     // RefreshToken 생성
-    public String generateRefreshToken(User user) {
-        return generateToken(user.getEmail(), REFRESH_TOKEN_VALIDATION_SECOND);
+    public String generateRefreshToken(String email) {
+        return generateToken(email, REFRESH_TOKEN_VALIDATION_SECOND);
     }
 
     // Token 생성 메소드
@@ -81,6 +89,12 @@ public class JwtUtil {
                 .compact();
 
         return token;
+    }
+
+    // 인증 토큰 생성
+    public Authentication getAuthentication(String token) {
+        UserDetails userDetails = userDetailsService.loadUserByUsername(this.getEmail(token));
+        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
     // 유효한 토큰인지 확인
