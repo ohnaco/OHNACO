@@ -108,27 +108,21 @@ public class UserController {
 
     @PostMapping("/join")
     @ApiOperation(value = "임시정보 저장 => email, password값 전달")
-    public Object tempJoin(@RequestBody TempUserDto tempUser) {
-        HttpStatus status = HttpStatus.OK;
+    public Object tempJoin(@RequestBody TempUserDto tempUserDto) {
+        HttpStatus status = null;
         Map<String, Object> result = new HashMap<>();
         String emailCode = userService.randomCode();
         try {
-            userService.tempUserSave(TempUserDto.builder()
-                    .email(tempUser.getEmail())
-                    .password(tempUser.getPassword())
-                    .token(emailCode)
-                    .build());
-            //********************************유저 이메일로 변경해줘야함!!************************
-            userService.sendMail(tempUser.getEmail(), "[OHNACO 이메일 인증 코드]", emailCode);
-            result.put("message", "성공.");
-            status = HttpStatus.OK;
-        } catch(MessagingException e) {
-            result.put("message", "메시지 전송 실패");
+            userService.tempSaveAndSendEmail(TempUserDto.builder()
+                    .email(tempUserDto.getEmail()).password(tempUserDto.getPassword()).token(emailCode).build());
+        } catch (Exception e) {
             status = HttpStatus.BAD_REQUEST;
-        } catch(Exception e) {
-            result.put("message", "임시회원 저장 오류");
-            status = HttpStatus.BAD_REQUEST;
+            result.put("message", e.getMessage());
+            return new ResponseEntity<>(result , status);
         }
+
+        result.put("message", "성공.");
+        status = HttpStatus.OK;
 
         return new ResponseEntity<>(result , status);
     }
@@ -136,9 +130,16 @@ public class UserController {
     @PostMapping("/join/codecheck")
     @ApiOperation(value = "인증코드 검사 => email, token 전달")
     public Object checkEmailCode(@RequestBody TempUserDto tempUser) {
-        HttpStatus status = HttpStatus.OK;
+        HttpStatus status = null;
         Map<String, Object> result = new HashMap<>();
-        Optional<TempUserDto> tempUserDto = userService.tempUserByEmail(tempUser.getEmail());
+        Optional<TempUserDto> tempUserDto;
+        try {
+            tempUserDto = userService.tempUserByEmail(tempUser.getEmail());
+        } catch (Exception e) {
+            result.put("message", "임시 이메일 찾기 실패");
+            status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>(result , status);
+        }
         if(tempUserDto.isPresent()) {
             if(!tempUserDto.get().getToken().equals(tempUser.getToken())) {
                 result.put("message", "코드번호 불일치");
@@ -155,14 +156,21 @@ public class UserController {
         return new ResponseEntity<>(result , status);
     }
 
-    @PostMapping("/join/resend")
+    @GetMapping("/join/resend")
     @ApiOperation(value = "이메일 재전송 => email값 전달")
-    public Object tempJoin(@RequestBody UserDto userDto) {
+    public Object tempJoin(@RequestParam(required = true) String email) {
         HttpStatus status = HttpStatus.OK;
         Map<String, Object> result = new HashMap<>();
         String emailCode = userService.randomCode();
 //        System.out.println(userDto.getEmail());
-        Optional<TempUserDto> tempUserDto = userService.tempUserByEmail(userDto.getEmail());
+        Optional<TempUserDto> tempUserDto;
+        try {
+            tempUserDto = userService.tempUserByEmail(email);
+        } catch (Exception e) {
+            result.put("message", "임시 이메일 찾기 실패");
+            status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>(result , status);
+        }
         if(!tempUserDto.isPresent()) {
             result.put("message", "존재하지 않는 이메일입니다.");
             status = HttpStatus.BAD_REQUEST;
@@ -170,30 +178,34 @@ public class UserController {
             tempUserDto.get().setToken(emailCode);
 
             try {
-                userService.tempUserSave(tempUserDto.get());
-                //********************************유저 이메일로 변경해줘야함!!************************
-                userService.sendMail(userDto.getEmail(), "[OHNACO 이메일 인증 코드]", emailCode);
-                result.put("message", "전송 성공.");
-                status = HttpStatus.OK;
-            } catch(MessagingException e) {
-                result.put("message", "메시지 전송 실패");
+                userService.tempSaveAndSendEmail(TempUserDto.builder()
+                        .email(tempUserDto.get().getEmail()).password(tempUserDto.get().getPassword()).token(emailCode).build());
+            } catch (Exception e) {
                 status = HttpStatus.BAD_REQUEST;
-            } catch(Exception e) {
-                result.put("message", "임시회원저장 오류");
-                status = HttpStatus.BAD_REQUEST;
+                result.put("message", e.getMessage());
+                return new ResponseEntity<>(result , status);
             }
 
+            result.put("message", "성공.");
+            status = HttpStatus.OK;
         }
+
         return new ResponseEntity<>(result , status);
     }
 
     @PostMapping("/join/profile")
     @ApiOperation(value = "회원정보 저장 => email, image(아직 구현x), nickname, githubid, position 전달 multipart?로 전송필요")
-    public Object join(UserDto userDto) throws Exception {
+    public Object join(@RequestBody UserDto userDto) {
         HttpStatus status = HttpStatus.OK;
         Map<String, Object> result = new HashMap<>();
-
-        Optional<TempUserDto> tempUserDto = userService.tempUserByEmail(userDto.getEmail());
+        Optional<TempUserDto> tempUserDto;
+        try {
+            tempUserDto = userService.tempUserByEmail(userDto.getEmail());
+        } catch (Exception e) {
+            result.put("message", "임시 이메일 찾기 실패");
+            status = HttpStatus.BAD_REQUEST;
+            return new ResponseEntity<>(result , status);
+        }
         if(!tempUserDto.isPresent()) {
             result.put("message", "존재하지 않는 이메일입니다.");
             status = HttpStatus.BAD_REQUEST;
@@ -206,7 +218,6 @@ public class UserController {
                         .nickname(userDto.getNickname())
                         .githubid(userDto.getGithubid())
                         .positions(userService.positionsName(userDto.getPosition()))
-                        .image(userService.imageUpload(userDto.getImage()))
                         .build());
 
                 userService.tempUserDelete(userDto.getEmail());

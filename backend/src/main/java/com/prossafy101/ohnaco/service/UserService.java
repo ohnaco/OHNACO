@@ -10,6 +10,8 @@ import com.prossafy101.ohnaco.repository.PositionsRepository;
 import com.prossafy101.ohnaco.repository.TempUserRepository;
 import com.prossafy101.ohnaco.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -227,5 +229,20 @@ public class UserService {
         imageRepository.save(image);
 
         return image;
+    }
+
+    //임시저장 및 이메일 전송
+    public void tempSaveAndSendEmail(TempUserDto tempUser) throws Exception {
+        try {
+            tempUserSave(tempUser);
+        } catch(Exception e) {
+            throw new Exception("임시회원 저장 오류.");
+        }
+        try {
+            //********************************유저 이메일로 변경해줘야함!!************************
+            sendMail(tempUser.getEmail(), "[OHNACO 이메일 인증 코드]", tempUser.getToken());
+        } catch(MessagingException e) {
+            throw new Exception("임시회원 저장 오류.");
+        }
     }
 }

@@ -13,5 +13,4 @@ public class UserDto implements Serializable {
     private String githubid;
     private String social;
     private String position;
-    private MultipartFile image;
 }
