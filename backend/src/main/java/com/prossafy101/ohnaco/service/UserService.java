@@ -62,20 +62,16 @@ public class UserService {
     }
 
     //중복 이메일 체크
-    public boolean isSameEmail(String email) {
-        boolean isSameEmail = false;
+    public void isSameEmail(String email) throws Exception {
         if(userRepository.findByEmail(email) != null) {
-            isSameEmail = true;
+            throw new Exception("중복된 이메일이 존재합니다.");
         }
-        return isSameEmail;
     }
     //중복 닉네임 체크
-    public boolean isSameNickname(String nickname) {
-        boolean isSameNickname = false;
+    public void isSameNickname(String nickname) throws Exception {
         if(userRepository.findByNickname(nickname) != null) {
-            isSameNickname = true;
+            throw new Exception("중복된 닉네임이 존재합니다.");
         }
-        return isSameNickname;
     }
 
     // 레디스에 이메일(기본키), 패스워드, 인증코드 저장
