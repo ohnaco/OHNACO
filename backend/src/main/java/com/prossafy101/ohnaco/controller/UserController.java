@@ -171,5 +171,4 @@ public class UserController {
         ResponseEntity response = new ResponseEntity<>(msg, HttpStatus.OK);
         return response;
     }
-
 }
