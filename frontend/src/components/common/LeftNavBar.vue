@@ -32,6 +32,11 @@
             {{ item.title }}
           </router-link>
         </v-row>
+        <v-row class="mt-15">
+          <v-col align="right"
+            ><p class="white--text" v-on:click="logout">Logout</p></v-col
+          >
+        </v-row>
       </v-container>
     </v-navigation-drawer>
   </v-card>
@@ -56,6 +61,11 @@ export default {
       ],
       right: null,
     };
+  },
+  methods: {
+    logout() {
+      console.log("로그아웃");
+    },
   },
 };
 </script>
