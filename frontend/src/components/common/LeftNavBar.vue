@@ -26,6 +26,13 @@
           >
         </v-row>
       </v-container>
+      <v-container class="mt-15">
+        <v-row v-for="item in items" :key="item.title" class="menu-item">
+          <router-link :to="item.path" class="white--text">
+            {{ item.title }}
+          </router-link>
+        </v-row>
+      </v-container>
     </v-navigation-drawer>
   </v-card>
 </template>
@@ -41,6 +48,13 @@ export default {
   data() {
     return {
       username: "코린이",
+      items: [
+        { title: "To Do", path: "/todo" },
+        { title: "Statistics", path: "/statistics" },
+        { title: "Tech", path: "/tech" },
+        { title: "Dev Talk", path: "/devtalk" },
+      ],
+      right: null,
     };
   },
 };
@@ -49,5 +63,14 @@ export default {
 <style lang="css" scoped>
 * {
   color: white;
+}
+
+a {
+  text-decoration: none;
+}
+
+.menu-item {
+  font-size: 30px;
+  padding: 20px 30px;
 }
 </style>
