@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const requestSignup = (data, callback, errorCallback) => {
-  axios.post('http://localhost:8080//join', data)
+  axios.post('http://i5a101.p.ssafy.io:8197/user/join', data)
   .then((res) => {
     callback(res);
   })
@@ -11,7 +11,7 @@ const requestSignup = (data, callback, errorCallback) => {
 };
 
 const requestSignupEmail = (data, callback, errorCallback) => {
-  axios.post('http://localhost:8080/join/codecheck', data)
+  axios.post('http://i5a101.p.ssafy.io:8197/user/join/codecheck', data)
   .then((res) => {
     callback(res);
   })
@@ -21,7 +21,7 @@ const requestSignupEmail = (data, callback, errorCallback) => {
 };
 
 const requestSignupEmailAgain = (data, callback, errorCallback) => {
-  axios.post('http://localhost:8080/join/resend', data)
+  axios.get('http://i5a101.p.ssafy.io:8197/user/join/resend?email=' + data.email)
   .then((res) => {
     callback(res);
   })
@@ -31,7 +31,27 @@ const requestSignupEmailAgain = (data, callback, errorCallback) => {
 };
 
 const requestSignupProfile = (data, callback, errorCallback) => {
-  axios.post('http://localhost:8080/join/profile', data)
+  axios.post('http://i5a101.p.ssafy.io:8197/user/join/profile', data)
+  .then((res) => {
+    callback(res);
+  })
+  .catch((err) => {
+    errorCallback(err);
+  });
+};
+
+const requestSignupIdCheck = (data, callback, errorCallback) => {
+  axios.get('http://i5a101.p.ssafy.io:8197/user/join/idcheck?email=' + data.email)
+  .then((res) => {
+    callback(res);
+  })
+  .catch((err) => {
+    errorCallback(err);
+  });
+};
+
+const requestSignupNicknameCheck = (data, callback, errorCallback) => {
+  axios.get('http://i5a101.p.ssafy.io:8197/user/namecheck?nickname=' + data.nickname)
   .then((res) => {
     callback(res);
   })
@@ -45,6 +65,8 @@ const UserApi = {
   requestSignupEmail: (data, callback, errorCallback) => requestSignupEmail(data, callback, errorCallback),
   requestSignupEmailAgain: (data, callback, errorCallback) => requestSignupEmailAgain(data, callback, errorCallback),
   requestSignupProfile: (data, callback, errorCallback) => requestSignupProfile(data, callback, errorCallback),
+  requestSignupIdCheck: (data, callback, errorCallback) => requestSignupIdCheck(data, callback, errorCallback),
+  requestSignupNicknameCheck: (data, callback, errorCallback) => requestSignupNicknameCheck(data, callback, errorCallback),
 };
 
 export default UserApi;
