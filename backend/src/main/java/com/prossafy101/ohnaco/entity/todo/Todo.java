@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -18,11 +20,10 @@ import java.sql.Time;
 public class Todo {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long todoid;
+    private String todoid;
 
     private String title;
-    private Date date;
+    private LocalDate date;
     private Time goaltime;
     private Time completetime;
     private Boolean issuccess;

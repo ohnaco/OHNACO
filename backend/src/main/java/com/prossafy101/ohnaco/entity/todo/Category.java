@@ -10,7 +10,7 @@ import javax.persistence.Id;
 public class Category {
 
     @Id
-    private int categoryid;
+    private Long categoryid;
 
     private String categoryname;
 }
