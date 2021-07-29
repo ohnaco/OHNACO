@@ -70,6 +70,13 @@ public class UserController {
         return new ResponseEntity<>(result , status);
     }
 
+    @GetMapping("/signOut")
+    public Object signOut(@RequestParam String email) {
+        redisUtil.deleteData(email);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
     @GetMapping("/join/idcheck")
     @ApiOperation(value = "아이디 중복 체크")
     public Object checkId(@RequestParam(required = true) String email) {
