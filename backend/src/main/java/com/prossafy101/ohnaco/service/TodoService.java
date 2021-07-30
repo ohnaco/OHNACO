@@ -40,8 +40,7 @@ public class TodoService {
     }
 
     public List<Todo> getTodos(String userid, String date) {
-        List<Todo> list = todoRepository.getAllByDateAndAndUser(LocalDate.parse(date), userRepository.findByUserid(userid));
-        System.out.println(list.get(0));
+        List<Todo> list = todoRepository.getAllByDateAndUser(LocalDate.parse(date), userRepository.findByUserid(userid));
         return list;
     }
 
