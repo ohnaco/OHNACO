@@ -6,6 +6,11 @@ import JoinEmail from "../views/user/JoinEmail.vue";
 import JoinProfile from "../views/user/JoinProfile.vue";
 import JoinSuccess from "../views/user/JoinSuccess.vue";
 
+import Todo from "@/views/todo/TodoHome.vue";
+import Statistics from "@/views/statistics/Statstics.vue";
+import Tech from "@/views/tech/TechNews.vue";
+import DevTalk from "@/views/devtalk/QuestionList.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -33,6 +38,26 @@ const routes = [
     path: "/joinsuccess/",
     name: "JoinSuccess",
     component: JoinSuccess,
+  },
+  {
+    path: "/todo",
+    name: "Todo",
+    component: Todo,
+  },
+  {
+    path: "/statistics",
+    name: "Statistics",
+    component: Statistics,
+  },
+  {
+    path: "/tech",
+    name: "Tech",
+    component: Tech,
+  },
+  {
+    path: "/devtalk",
+    name: "DevTalk",
+    component: DevTalk,
   },
 ];
 
