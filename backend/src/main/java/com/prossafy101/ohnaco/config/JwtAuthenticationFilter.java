@@ -3,7 +3,6 @@ package com.prossafy101.ohnaco.config;
 import com.prossafy101.ohnaco.service.JwtUtil;
 import com.prossafy101.ohnaco.service.RedisUtil;
 import io.jsonwebtoken.ExpiredJwtException;
-
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;

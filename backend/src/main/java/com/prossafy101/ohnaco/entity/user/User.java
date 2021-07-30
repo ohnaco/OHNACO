@@ -1,10 +1,12 @@
 package com.prossafy101.ohnaco.entity.user;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -13,10 +15,12 @@ import java.util.List;
 
 @Entity
 @Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class User implements UserDetails {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String userid;
 
     @Column(unique = true, nullable = false)
@@ -28,7 +32,14 @@ public class User implements UserDetails {
     private String password;
     private String githubid;
     private String social;
-    private String image;
+
+    @OneToOne
+    @JoinColumn(name = "positionid")
+    private Positions positions;
+
+    @OneToOne
+    @JoinColumn(name = "imageid")
+    private Image image;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -62,7 +73,4 @@ public class User implements UserDetails {
         return true;
     }
 
-//    @OneToOne
-//    @JoinColumn(name="positionId")
-//    private Position position;
 }
