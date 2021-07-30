@@ -10,6 +10,8 @@ import com.prossafy101.ohnaco.repository.PositionsRepository;
 import com.prossafy101.ohnaco.repository.TempUserRepository;
 import com.prossafy101.ohnaco.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -62,20 +64,16 @@ public class UserService {
     }
 
     //중복 이메일 체크
-    public boolean isSameEmail(String email) {
-        boolean isSameEmail = false;
+    public void isSameEmail(String email) throws Exception {
         if(userRepository.findByEmail(email) != null) {
-            isSameEmail = true;
+            throw new Exception("중복된 이메일이 존재합니다.");
         }
-        return isSameEmail;
     }
     //중복 닉네임 체크
-    public boolean isSameNickname(String nickname) {
-        boolean isSameNickname = false;
+    public void isSameNickname(String nickname) throws Exception {
         if(userRepository.findByNickname(nickname) != null) {
-            isSameNickname = true;
+            throw new Exception("중복된 닉네임이 존재합니다.");
         }
-        return isSameNickname;
     }
 
     // 레디스에 이메일(기본키), 패스워드, 인증코드 저장
@@ -187,7 +185,7 @@ public class UserService {
         String current_date = simpleDateFormat.format(new Date());
 
         // 프로젝트 폴더에 저장하기 위해 절대경로를 설정 (Window 의 Tomcat 은 Temp 파일을 이용한다)
-        String absolutePath = System.getProperty("user.dir") + "\\";
+        String absolutePath = System.getProperty("user.dir") + "/";
 
         // 경로를 지정하고 그곳에다가 저장할 심산이다
         String path = "images/" + current_date;
@@ -231,5 +229,20 @@ public class UserService {
         imageRepository.save(image);
 
         return image;
+    }
+
+    //임시저장 및 이메일 전송
+    public void tempSaveAndSendEmail(TempUserDto tempUser) throws Exception {
+        try {
+            tempUserSave(tempUser);
+        } catch(Exception e) {
+            throw new Exception("임시회원 저장 오류.");
+        }
+        try {
+            //********************************유저 이메일로 변경해줘야함!!************************
+            sendMail(tempUser.getEmail(), "[OHNACO 이메일 인증 코드]", tempUser.getToken());
+        } catch(MessagingException e) {
+            throw new Exception("임시회원 저장 오류.");
+        }
     }
 }
