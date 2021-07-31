@@ -13,4 +13,5 @@ public class TodoDto {
     private String goaltime;
     private String date;
     private String userid;
+    private String todoid;
 }

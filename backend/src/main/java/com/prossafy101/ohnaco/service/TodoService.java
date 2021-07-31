@@ -60,4 +60,26 @@ public class TodoService {
         return sb.toString();
     }
 
+
+    public Todo modifyTodo(TodoDto dto) {
+        Todo todo = todoRepository.findByTodoid(dto.getTodoid());
+
+        todo.setTitle(dto.getTitle());
+        todo.setGoaltime(Time.valueOf(dto.getGoaltime()));
+        todo.setCategory(categoryRepository.findByCategoryid(dto.getCategoryid()));
+        todoRepository.save(todo);
+        return todo;
+    }
+
+    public void deleteTodo(String userid, String todoid) {
+        todoRepository.deleteTodoByTodoidAndUser(todoid, userRepository.findByUserid(userid));
+    }
+
+    public Todo completeTodo(String userid, String todoid) {
+        Todo todo = todoRepository.findByTodoid(todoid);
+
+        todo.setIssuccess(true);
+        todoRepository.save(todo);
+        return todo;
+    }
 }

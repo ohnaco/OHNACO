@@ -61,4 +61,48 @@ public class TodoController {
 
     }
 
+    @PutMapping("/item")
+    public Object modifyTodo(@RequestBody TodoDto dto) {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            Todo newTodo = todoService.modifyTodo(dto);
+
+            result.put("newTodo", newTodo);
+            result.put("status", "success");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            result.put("status", "fail");
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/item")
+    public Object deleteTodo(@RequestParam String userid, @RequestParam String todoid) {
+        Map<String, String> result = new HashMap<>();
+        try {
+            todoService.deleteTodo(todoid, userid);
+            result.put("status", "success");
+        } catch (Exception e) {
+            result.put("status", "fail");
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PutMapping("/complete")
+    public Object completeTodo(@RequestParam String userid, @RequestParam String todoid) {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            result.put("todo", todoService.completeTodo(userid, todoid));
+            result.put("status", "success");
+        } catch(Exception e) {
+            result.put("status", "fail");
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
