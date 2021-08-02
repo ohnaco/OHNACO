@@ -9,7 +9,7 @@ import java.sql.Time;
 public class TodoDto {
 
     private String title;
-    private Long categoryid;
+    private String categoryid;
     private String goaltime;
     private String date;
     private String userid;
