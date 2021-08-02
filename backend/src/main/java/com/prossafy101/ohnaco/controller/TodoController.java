@@ -5,6 +5,7 @@ import com.prossafy101.ohnaco.entity.todo.TodoDto;
 import com.prossafy101.ohnaco.repository.CategoryRepository;
 import com.prossafy101.ohnaco.repository.TodoRepository;
 import com.prossafy101.ohnaco.repository.UserRepository;
+import com.prossafy101.ohnaco.service.JwtUtil;
 import com.prossafy101.ohnaco.service.TodoService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.sql.Date;
 import java.util.*;
 
@@ -22,11 +24,16 @@ public class TodoController {
     @Autowired
     private TodoService todoService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @GetMapping("/item")
     @ApiOperation(value = "Todo 불러오기 => userid, date 전달")
-    public Object getTodos(@RequestParam String userid, @RequestParam String date) {
+    public Object getTodos(@RequestParam String date, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         List<Todo> list = null;
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
 
         try {
             list = todoService.getTodos(userid, date);
@@ -80,8 +87,10 @@ public class TodoController {
     }
 
     @DeleteMapping("/item")
-    public Object deleteTodo(@RequestParam String userid, @RequestParam String todoid) {
+    public Object deleteTodo(@RequestParam String todoid, HttpServletRequest req) {
         Map<String, String> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
         try {
             todoService.deleteTodo(todoid, userid);
             result.put("status", "success");
@@ -93,9 +102,10 @@ public class TodoController {
     }
 
     @PutMapping("/complete")
-    public Object completeTodo(@RequestParam String userid, @RequestParam String todoid) {
+    public Object completeTodo(@RequestParam String todoid, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
-
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
         try {
             result.put("todo", todoService.completeTodo(userid, todoid));
             result.put("status", "success");
@@ -106,11 +116,11 @@ public class TodoController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-
     @PostMapping("/past")
-    public Object addTodo(@RequestParam String userid, @RequestParam String todoid) {
+    public Object addTodo(@RequestParam String todoid, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
-
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
         try {
             result.put("todo", todoService.addTodo(userid, todoid));
             result.put("status", "success");

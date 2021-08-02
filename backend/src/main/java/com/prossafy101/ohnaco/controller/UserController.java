@@ -50,11 +50,11 @@ public class UserController {
         try {
             User user = userService.signIn(dto);
 
-            String accessToken = jwtUtil.generateAccessToken(dto.getEmail());
-            String refreshToken = jwtUtil.generateRefreshToken(dto.getEmail());
+            String accessToken = jwtUtil.generateAccessToken(user.getUserid(), dto.getEmail());
+            String refreshToken = jwtUtil.generateRefreshToken(user.getUserid(), dto.getEmail());
 
             logger.info(refreshToken);
-            res.setHeader("accessToken", accessToken);
+            res.setHeader("Authorization", "Bearer " + accessToken);
             redisUtil.setData(user.getEmail(), refreshToken,  JwtUtil.REFRESH_TOKEN_VALIDATION_SECOND);
 
             result.put("userId", user.getUserid());
