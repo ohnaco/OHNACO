@@ -1,5 +1,6 @@
 package com.prossafy101.ohnaco.entity.todo;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.prossafy101.ohnaco.entity.user.User;
 import lombok.*;
 
@@ -30,6 +31,7 @@ public class Todo {
     @JoinColumn(name = "categoryid")
     private Category category;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne
     @JoinColumn(name = "userid")
     private User user;

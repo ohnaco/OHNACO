@@ -2,6 +2,7 @@ package com.prossafy101.ohnaco.service;
 
 import com.prossafy101.ohnaco.entity.user.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -58,6 +59,21 @@ public class JwtUtil {
         return extractAllClaims(token).get("email", String.class);
     }
 
+    // 발췌한 payload에서 userid 추출
+    public String getUserid(String token) {
+        String userid = null;
+        System.out.println("test");
+        try {
+            System.out.println("확인");
+            userid = extractAllClaims(token).get("userid", String.class);
+        } catch (ExpiredJwtException e) {
+            System.out.println("dfs");
+            userid = e.getClaims().get("userid", String.class);
+        }
+
+        return userid;
+    }
+
     // 토큰이 만료되었는지 확인
     public Boolean isTokenExpired(String token) {
         Date expiration = extractAllClaims(token).getExpiration();
@@ -65,20 +81,21 @@ public class JwtUtil {
     }
 
     // AccessToken 생성
-    public String generateAccessToken(String email) {
-        return generateToken(email, TOKEN_VALIDATION_SECOND);
+    public String generateAccessToken(String userid, String email) {
+        return generateToken(userid, email, TOKEN_VALIDATION_SECOND);
     }
 
     // RefreshToken 생성
-    public String generateRefreshToken(String email) {
-        return generateToken(email, REFRESH_TOKEN_VALIDATION_SECOND);
+    public String generateRefreshToken(String userid, String email) {
+        return generateToken(userid, email, REFRESH_TOKEN_VALIDATION_SECOND);
     }
 
     // Token 생성 메소드
-    public String generateToken(String email, long expireSecond) {
+    public String generateToken(String userid, String email, long expireSecond) {
 
         Claims claims = Jwts.claims();
         claims.put("email", email);
+        claims.put("userid", userid);
 
         String token = Jwts.builder()
                 .setClaims(claims)

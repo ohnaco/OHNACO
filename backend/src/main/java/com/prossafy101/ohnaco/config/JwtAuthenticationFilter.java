@@ -28,12 +28,13 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest)servletRequest;
-        String token = req.getHeader("accessToken");
+        String token = req.getHeader("Authorization");
         String email = null;
         String refreshToken = null;
 
         try {
-            if (token != null) {
+            if (token != null && token.startsWith("Bearer ")) {
+                token = token.substring(7);
                 logger.info("token : " + token);
                 email = jwtUtil.getEmail(token);
                 Authentication authentication = jwtUtil.getAuthentication(token);
@@ -50,7 +51,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         try {
             if (refreshToken != null) {
                 if (email.equals(jwtUtil.getEmail(refreshToken))) {
-                    String newToken = jwtUtil.generateAccessToken(email);
+                    String newToken = jwtUtil.generateAccessToken(jwtUtil.getUserid(refreshToken), email);
                     Authentication authentication = jwtUtil.getAuthentication(newToken);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                     HttpServletResponse response = (HttpServletResponse) servletResponse;
