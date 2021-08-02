@@ -21,7 +21,7 @@ public class Todo {
     private String todoid;
 
     private String title;
-    private LocalDate date;
+    private LocalDateTime date;
     private Time goaltime;
     private Time completetime;
     private Boolean issuccess;

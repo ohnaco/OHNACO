@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Random;
 
@@ -33,14 +34,33 @@ public class TodoService {
                     .user(userRepository.findByUserid(dto.getUserid()))
                     .title(dto.getTitle())
                     .category(categoryRepository.findByCategoryid(dto.getCategoryid()))
-                    .date(LocalDate.parse(dto.getDate()))
+                    .date(LocalDateTime.now())
                     .goaltime(Time.valueOf(dto.getGoaltime()))
                     .issuccess(false)
                     .build()).getTodoid();
     }
 
+    public String addTodo(String userid, String todoid) {
+        Todo todo = todoRepository.findByTodoid(todoid);
+        String newTodo = todoRepository.save(Todo.builder()
+                .todoid(createTodoid())
+                .user(userRepository.findByUserid(userid))
+                .title(todo.getTitle())
+                .category(todo.getCategory())
+                .date(LocalDateTime.now())
+                .goaltime(todo.getGoaltime())
+                .issuccess(false)
+                .build()).getTodoid();
+
+        return newTodo;
+    }
+
     public List<Todo> getTodos(String userid, String date) {
-        List<Todo> list = todoRepository.getAllByDateAndUser(LocalDate.parse(date), userRepository.findByUserid(userid));
+
+        LocalDateTime startDatetime = LocalDateTime.of(LocalDate.parse(date), LocalTime.of(0,0,0));
+        LocalDateTime endDatetime = LocalDateTime.of(LocalDate.parse(date), LocalTime.of(23,59,59));
+
+        List<Todo> list = todoRepository.getAllByDateBetweenAndUserOrderByDate(startDatetime, endDatetime, userRepository.findByUserid(userid));
         return list;
     }
 
