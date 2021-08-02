@@ -16,8 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+
 import java.util.*;
 
 @RestController
@@ -30,6 +32,7 @@ public class TodoController {
     @Autowired
     private JwtUtil jwtUtil;
 
+
     @Autowired
     private UserService userService;
 
@@ -40,8 +43,6 @@ public class TodoController {
         List<Todo> list = null;
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        System.out.println(token);
-        System.out.println(userid);
 
         try {
             list = todoService.getTodos(userid, date);
