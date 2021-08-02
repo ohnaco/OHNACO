@@ -1,7 +1,8 @@
+<!-- Todo Card 왼쪽 상단에 표시되는 Category 부분 -->
 <template>
-  <v-col class="d-inline-flex">
-    <h3 class="category-underline" :class="todoCategory.eng">
-      {{ todoCategory.kor }}
+  <v-col class="d-inline-flex ml-3">
+    <h3 class="category-underline pr-2 pl-2" :class="todoCategory.categoryid">
+      {{ todoCategory.categoryname }}
     </h3>
   </v-col>
 </template>
@@ -23,7 +24,7 @@ export default {
   border-bottom-color: rgb(255, 198, 166);
 }
 
-.operating-system {
+.cs {
   border-bottom-color: rgb(255, 146, 231);
 }
 </style>
