@@ -1,17 +1,17 @@
 <template>
   <div>
     <div class="logo">
-      <BigFullLogo/>
+      <BigFullLogo />
     </div>
     <!-- 로그인 폼 -->
     <div class="join_form">
       <div class="join_name">로그인</div>
       <div class="join_box">
         <!-- 이메일 -->
-        <input 
-          type="text" 
-          id="email" 
-          class="email" 
+        <input
+          type="text"
+          id="email"
+          class="email"
           placeholder="이메일 주소"
           v-model="email"
         />
@@ -24,10 +24,7 @@
           v-model="password"
         />
         <!-- 로그인 버튼 -->
-        <button 
-          class="login_btn"
-          @click="login"
-        >로그인</button>
+        <button class="login_btn" @click="login">로그인</button>
         <div class="signup_findpwd_btn">
           <button class="signup_btn" @click="goSignup">회원가입</button>
           <button class="findpwd_btn" @click="goFindpwd">비밀번호 찾기</button>
@@ -71,10 +68,7 @@
           </div>
         </div>
         <!-- github 버튼 -->
-        <button 
-          class="github_btn"
-          @click="githubLogin"
-        >
+        <button class="github_btn" @click="githubLogin">
           <svg
             width="32"
             height="32"
@@ -94,7 +88,7 @@
 </template>
 
 <script>
-import BigFullLogo from '@/components/common/BigFullLogo.vue'
+import BigFullLogo from "@/components/common/BigFullLogo.vue";
 import User from "../../api/User";
 
 export default {
@@ -106,40 +100,40 @@ export default {
     return {
       email: null,
       password: null,
-    }
+    };
   },
   methods: {
     goSignup: function () {
-      this.$router.push({ name: 'Join' })
+      this.$router.push({ name: "Join" });
     },
     goFindpwd: function () {
-      this.$router.push({ name: '' })
+      this.$router.push({ name: "" });
     },
     login: function () {
-      let {email, password} = this;
+      let { email, password } = this;
       let data = {
         email,
         password,
-      }
+      };
       User.requestLogin(
-        data, 
-        res => {
-          console.log(res)
-          // localstorage에 'jwt'키로 저장
-          localStorage.setItem('jwt', res.data.accessToken)
-          alert('로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)')
-          this.$router.push({ name : 'TodoHome' })
+        data,
+        (res) => {
+          console.log(res);
+          // sessionStorage에 'jwt-access-token'키로 저장
+          sessionStorage.setItem("jwt-access-token", res.headers.authorization.substring(7));
+          alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
+          this.$router.push("/todo");
         },
-        err => {
-          console.log(err)
-          alert('이메일과 비밀번호를 다시 확인해주세요.')
+        (err) => {
+          console.log(err);
+          alert("이메일과 비밀번호를 다시 확인해주세요.");
         }
-      )
+      );
     },
     githubLogin: function (res) {
-      console.log(res)
+      console.log(res);
     },
-  }
+  },
 };
 </script>
 
@@ -200,7 +194,7 @@ export default {
   padding: 10.6px 16.6px 9.9px 17.2px;
   border-radius: 5px;
   border: solid 1px #607d8b;
-  background-color: #607D8B;
+  background-color: #607d8b;
   font-family: Gmarket Sans TTF;
   font-style: normal;
   font-weight: bold;
