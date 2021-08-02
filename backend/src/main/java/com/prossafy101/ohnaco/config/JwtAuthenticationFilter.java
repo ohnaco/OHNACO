@@ -55,7 +55,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
                     Authentication authentication = jwtUtil.getAuthentication(newToken);
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                     HttpServletResponse response = (HttpServletResponse) servletResponse;
-                    response.addHeader("accessToken", newToken);
+                    response.addHeader("Authorization", "Bearer" + newToken);
                 }
             }
         } catch(ExpiredJwtException e) {
