@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -34,6 +35,9 @@ public class UserController {
 
     @Autowired
     private RedisUtil redisUtil;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
@@ -77,6 +81,7 @@ public class UserController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
     @GetMapping("/join/idcheck")
     @ApiOperation(value = "아이디 중복 체크")
     public Object checkId(@RequestParam(required = true) String email) {
@@ -118,7 +123,7 @@ public class UserController {
         String emailCode = userService.randomCode();
         try {
             userService.tempSaveAndSendEmail(TempUserDto.builder()
-                    .email(tempUserDto.getEmail()).password(tempUserDto.getPassword()).token(emailCode).build());
+                    .email(tempUserDto.getEmail()).password(passwordEncoder.encode(tempUserDto.getPassword())).token(emailCode).timeToLive(10).build(), tempUserDto.getEmail());
             result.put("status", true);
             result.put("message", "임시정보 저장 성공");
         } catch (Exception e) {
@@ -179,7 +184,7 @@ public class UserController {
 
             try {
                 userService.tempSaveAndSendEmail(TempUserDto.builder()
-                        .email(tempUserDto.get().getEmail()).password(tempUserDto.get().getPassword()).token(emailCode).build());
+                        .email(tempUserDto.get().getEmail()).password(passwordEncoder.encode(tempUserDto.get().getPassword())).token(emailCode).timeToLive(10).build(), tempUserDto.get().getEmail());
                 result.put("status", true);
                 result.put("message", "이메일 보내기 성공.");
             } catch (Exception e) {
@@ -225,5 +230,55 @@ public class UserController {
             }
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+
+    @PostMapping("/findpwd")
+    @ApiOperation(value = "비밀번호찾기 => email")
+    public Object findPwd(@RequestBody Map<String, String> map) {
+        Map<String, Object> result = new HashMap<>();
+        String emailCode = userService.randomCode();
+        if(userService.findByEmail(map.get("email")) == null) {
+            result.put("status", false);
+            result.put("message", "일치하는 이메일이 없습니다.");
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        try {
+            userService.tempSaveAndSendEmail(TempUserDto.builder().email("findPwd:"+map.get("email")).token(emailCode).timeToLive(5).build(), map.get("email"));
+            result.put("status", true);
+            result.put("message", "임시정보 저장 및 전송 성공");
+        } catch (Exception e) {
+            result.put("status", false);
+            result.put("message", e.getMessage());
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/findpwd")
+    @ApiOperation(value = "비밀번호찾기인증")
+    public Object findPwdConfirm(@RequestParam String email, @RequestParam String token) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            if(userService.isTokenConfirm(email, token)) {
+                result.put("status", true);
+                result.put("message", "인증 성공");
+            } else {
+                result.put("status", false);
+                result.put("message", "인증 실패");
+            }
+        } catch (Exception e) {
+            result.put("status", false);
+            result.put("message", e.getMessage());
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PostMapping("/findpwd/newpwd")
+    @ApiOperation(value = "변경된 비밀번호 저장 => email, newpwd")
+    public Object changeNewPwd(@RequestBody UserDto userDto) {
+        Map<String, Object> result = new HashMap<>();
+        User user = userService.findByEmail(userDto.getEmail());
+        userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(passwordEncoder.encode(userDto.getPassword())).nickname(user.getNickname()).positions(user.getPositions()).githubid(user.getGithubid()).build());
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

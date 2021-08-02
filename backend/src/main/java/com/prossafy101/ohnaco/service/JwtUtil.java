@@ -62,10 +62,9 @@ public class JwtUtil {
     // 발췌한 payload에서 userid 추출
     public String getUserid(String token) {
         String userid = null;
+
         try {
-            if (isTokenExpired(token)) {
-                userid = extractAllClaims(token).get("userid", String.class);
-            }
+            userid = extractAllClaims(token).get("userid", String.class);
         } catch (ExpiredJwtException e) {
             userid = e.getClaims().get("userid", String.class);
         }

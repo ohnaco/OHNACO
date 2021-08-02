@@ -32,7 +32,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/user/**").permitAll()
                 .antMatchers("/todo/**").authenticated()
-  //              .antMatchers("/**").anonymous()
+//                .antMatchers("/**").anonymous()
+
                 .anyRequest().authenticated()
                 .and()
                 .cors().configurationSource(corsConfigurationSource())
