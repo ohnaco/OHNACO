@@ -40,9 +40,24 @@ public class TodoService {
                     .build()).getTodoid();
     }
 
+    public String addTodo(String userid, String todoid) {
+        Todo todo = todoRepository.findByTodoid(todoid);
+        String newTodo = todoRepository.save(Todo.builder()
+                .todoid(createTodoid())
+                .user(userRepository.findByUserid(userid))
+                .title(todo.getTitle())
+                .category(todo.getCategory())
+                .date(LocalDateTime.now())
+                .goaltime(todo.getGoaltime())
+                .issuccess(false)
+                .build()).getTodoid();
+
+        return newTodo;
+    }
+
     public List<Todo> getTodos(String userid, String date) {
 
-        LocalDateTime startDatetime = LocalDateTime.of(LocalDate.parse(date).minusDays(1), LocalTime.of(0,0,0));
+        LocalDateTime startDatetime = LocalDateTime.of(LocalDate.parse(date), LocalTime.of(0,0,0));
         LocalDateTime endDatetime = LocalDateTime.of(LocalDate.parse(date), LocalTime.of(23,59,59));
 
         List<Todo> list = todoRepository.getAllByDateBetweenAndUserOrderByDate(startDatetime, endDatetime, userRepository.findByUserid(userid));

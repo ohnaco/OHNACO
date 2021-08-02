@@ -105,4 +105,19 @@ public class TodoController {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+
+    @PostMapping("/past")
+    public Object addTodo(@RequestParam String userid, @RequestParam String todoid) {
+        Map<String, Object> result = new HashMap<>();
+
+        try {
+            result.put("todo", todoService.addTodo(userid, todoid));
+            result.put("status", "success");
+        } catch(Exception e) {
+            result.put("status", "fail");
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
