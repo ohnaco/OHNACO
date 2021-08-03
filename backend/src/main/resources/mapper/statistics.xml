@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.prossafy101.ohnaco.repository.StatisticsRepository">
+    <select id="getTotalTime" parameterType="hashmap" resultType="StatisticsTotalDto">
+        SELECT SEC_TO_TIME(sum(TIME_TO_SEC(goaltime))) as 'totalgoaltime', SEC_TO_TIME(sum(TIME_TO_SEC(completetime))) as 'totalcompletetime'
+        from todo
+        where date BETWEEN #{startDate} and #{endDate} and userid=#{userid}
+    </select>
+
+    <select id="getCategoryTime" parameterType="hashmap" resultType="StatisticsCategoryDto">
+        SELECT c.categoryname as categoryname , SEC_TO_TIME(sum(TIME_TO_SEC(goaltime))) as 'goaltime', SEC_TO_TIME(sum(TIME_TO_SEC(completetime))) as 'completetime'
+        from todo t join category c on(t.categoryid=c.categoryid)
+        where date BETWEEN #{startDate} and #{endDate} and userid=#{userid} group by c.categoryid;
+    </select>
+
+</mapper>

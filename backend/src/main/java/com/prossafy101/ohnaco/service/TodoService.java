@@ -141,9 +141,6 @@ public class TodoService {
             //최신 update날짜가 같은경우 오늘 날짜만 커밋 업데이트한다.
 
             if (!commitDto.getUpdatedate().equals(date)) {    //다른경우 하루씩 미뤄주면서 업데이트 해준다.
-                Calendar cal = Calendar.getInstance();
-                cal.setTime(new java.util.Date());
-                DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                 commitDto.setDay7(commitDto.getDay6());
                 commitDto.setDay6(commitDto.getDay5());
                 commitDto.setDay5(commitDto.getDay4());

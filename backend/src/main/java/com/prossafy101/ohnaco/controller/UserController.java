@@ -4,6 +4,7 @@ import com.prossafy101.ohnaco.entity.user.SignInDto;
 import com.prossafy101.ohnaco.entity.user.TempUserDto;
 import com.prossafy101.ohnaco.entity.user.User;
 import com.prossafy101.ohnaco.entity.user.UserDto;
+import com.prossafy101.ohnaco.repository.StatisticsRepository;
 import com.prossafy101.ohnaco.service.JwtUtil;
 import com.prossafy101.ohnaco.service.RedisUtil;
 import com.prossafy101.ohnaco.service.UserService;
@@ -19,6 +20,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -38,13 +42,22 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private StatisticsRepository stRepo;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
     @PostMapping("/test")
     public ResponseEntity<?> test() {
+        Map<String, Object> result = new HashMap<>();
+        System.out.println(LocalDateTime.of(LocalDate.parse("2021-07-25"), LocalTime.of(23,59,59)));
+        Map<String, Object> map = new HashMap<>();
+        map.put("startDate", LocalDateTime.of(LocalDate.parse("2021-07-01"), LocalTime.of(0,0,0)));
+        map.put("endDate", LocalDateTime.of(LocalDate.parse("2021-07-25"), LocalTime.of(23,59,59)));
+        map.put("userid", "LB34PP33DAE57");
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        result.put("test", stRepo.getCategoryTime(map));
+        return new ResponseEntity<>(result,HttpStatus.OK);
     }
 
     @PostMapping("/signIn")
