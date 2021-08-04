@@ -22,6 +22,13 @@
         group by t.categoryid
     </select>
 
+    <select id="getEntireCategoryTime" parameterType="hashmap" resultType="StatisticsPositionDto">
+        select c.categoryname , SEC_TO_TIME(round(sum(TIME_TO_SEC(completetime)) / (select count(*) from user ))) as 'time'
+        from todo t join category c on (t.categoryid = c.categoryid)
+        where date BETWEEN #{startDate} and #{endDate}
+        group by t.categoryid
+    </select>
+
     <select id="getTotalTimeForDays" parameterType="hashmap" resultType="map" >
         select DATE(date) as date, SEC_TO_TIME(round(sum(TIME_TO_SEC(completetime)) / (select count(*) from user))) as 'time'
         from todo

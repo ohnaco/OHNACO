@@ -13,6 +13,8 @@ public interface StatisticsRepository {
     StatisticsTotalDto getTotalTime(Map<String, Object> map);
     List<StatisticsCategoryDto> getCategoryTime(Map<String, Object> map);
     List<StatisticsPositionDto> getPositionTime(Map<String, Object> map);
+    List<StatisticsPositionDto> getEntireCategoryTime(Map<String, Object> map);
+
     List<Map<String, Object>> getTotalTimeForDays(Map<String, Object> map);
     List<Map<String, Object>> getPositionTimeForDays(Map<String, Object> map);
     List<Map<String, Object>> getMyTimeForDays(Map<String, Object> map);

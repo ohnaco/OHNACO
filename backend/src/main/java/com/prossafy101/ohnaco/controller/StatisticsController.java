@@ -48,6 +48,7 @@ public class StatisticsController {
             result.put("totalTime", statisticsService.getToatalTime(userid, startDate, endDate));
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
             result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
+            result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
             result.put("entireMemberTime", statisticsService.getTotalTimeForDays(startDate, endDate));
             result.put("positionMemberTime", statisticsService.getPositionTimeForDays(userid, startDate, endDate));
             result.put("myTimeForDays", statisticsService.getMyTimeForDays(userid, startDate, endDate));
