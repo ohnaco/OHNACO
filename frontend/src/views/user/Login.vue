@@ -99,6 +99,7 @@ export default {
         (res) => {
           // sessionStorage에 'jwt-access-token'키로 저장
           localStorage.setItem("jwt-access-token", res.headers.authorization.substring(7));
+          this.setUser(res);
           alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
           this.$router.push("/todo");
         },
