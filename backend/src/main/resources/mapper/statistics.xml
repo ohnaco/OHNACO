@@ -15,4 +15,33 @@
         where date BETWEEN #{startDate} and #{endDate} and userid=#{userid} group by c.categoryid;
     </select>
 
+    <select id="getPositionTime" parameterType="hashmap" resultType="StatisticsPositionDto">
+        select c.categoryname , SEC_TO_TIME(round(sum(TIME_TO_SEC(completetime)) / (select count(*) from user where positionid = #{positionid}))) as 'time'
+        from todo t join category c on (t.categoryid = c.categoryid)
+        where date BETWEEN #{startDate} and #{endDate} and userid in (select userid from user where positionid = #{positionid})
+        group by t.categoryid
+    </select>
+
+    <select id="getTotalTimeForDays" parameterType="hashmap" resultType="map" >
+        select DATE(date) as date, SEC_TO_TIME(round(sum(TIME_TO_SEC(completetime)) / (select count(*) from user))) as 'time'
+        from todo
+        group by DATE(date)
+        having date BETWEEN '2021-08-01' and '2021-08-03'
+    </select>
+
+    <select id="getPositionTimeForDays" parameterType="hashmap" resultType="map" >
+        select DATE(date) as date, SEC_TO_TIME(round(sum(TIME_TO_SEC(completetime)) / (select count(*) from user where positionid = #{positionid}))) as 'time'
+        from todo
+        where userid in (select userid from user where positionid = #{positionid})
+        group by DATE(date)
+        having date BETWEEN '2021-08-01' and '2021-08-03'
+    </select>
+
+    <select id="getMyTimeForDays" parameterType="hashmap" resultType="map" >
+        select DATE(date) as date, SEC_TO_TIME(sum(TIME_TO_SEC(completetime))) as 'time'
+        from todo
+        where userid = #{userid}
+        group by DATE(date)
+        having date BETWEEN '2021-08-01' and '2021-08-03'
+    </select>
 </mapper>

@@ -104,6 +104,7 @@ public class TodoController {
             todoService.deleteTodo(todoid, userid);
             result.put("status", "success");
         } catch (Exception e) {
+            e.printStackTrace();
             result.put("status", "fail");
         }
 
@@ -111,12 +112,12 @@ public class TodoController {
     }
 
     @PutMapping("/complete")
-    public Object completeTodo(@RequestParam String todoid, HttpServletRequest req) {
+    public Object completeTodo(@RequestBody TodoDto dto, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         try {
-            result.put("todo", todoService.completeTodo(userid, todoid));
+            result.put("todo", todoService.completeTodo(userid, dto));
             result.put("status", "success");
         } catch(Exception e) {
             result.put("status", "fail");

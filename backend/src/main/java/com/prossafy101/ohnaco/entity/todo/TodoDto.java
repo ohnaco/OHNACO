@@ -14,4 +14,5 @@ public class TodoDto {
     private String date;
     private String userid;
     private String todoid;
+    private Time completetime;
 }

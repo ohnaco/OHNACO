@@ -41,12 +41,16 @@ public class StatisticsController {
         result.put("yesterdayTime", statisticsService.getCategoryTime(userid, df.format(cal.getTime()), df.format(cal.getTime())));
         cal.setTime(new Date());
         if(option.equals("week")) {
-            cal.add(Calendar.DATE, -1);
+            cal.add(Calendar.DATE, 0);
             String endDate = df.format(cal.getTime());
             cal.add(Calendar.DATE, -6);
             String startDate = df.format(cal.getTime());
             result.put("totalTime", statisticsService.getToatalTime(userid, startDate, endDate));
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
+            result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
+            result.put("entireMemberTime", statisticsService.getTotalTimeForDays(startDate, endDate));
+            result.put("positionMemberTime", statisticsService.getPositionTimeForDays(userid, startDate, endDate));
+            result.put("myTimeForDays", statisticsService.getMyTimeForDays(userid, startDate, endDate));
             System.out.println(startDate + " " + endDate);
         } else {
             cal.add(Calendar.DATE, -1);
@@ -55,6 +59,7 @@ public class StatisticsController {
             String startDate = df.format(cal.getTime());
             result.put("totalTime", statisticsService.getToatalTime(userid, startDate, endDate));
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
+            result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
         }
 
         return new ResponseEntity<>(result , HttpStatus.OK);

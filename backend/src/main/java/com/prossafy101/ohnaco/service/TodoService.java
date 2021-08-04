@@ -101,14 +101,15 @@ public class TodoService {
         return todo;
     }
 
-    public void deleteTodo(String userid, String todoid) {
+    public void deleteTodo(String todoid, String userid) {
         todoRepository.deleteTodoByTodoidAndUser(todoid, userRepository.findByUserid(userid));
     }
 
-    public Todo completeTodo(String userid, String todoid) {
-        Todo todo = todoRepository.findByTodoid(todoid);
+    public Todo completeTodo(String userid, TodoDto dto) {
+        Todo todo = todoRepository.findByTodoid(dto.getTodoid());
 
         todo.setIssuccess(true);
+        todo.setCompletetime(dto.getCompletetime());
         todoRepository.save(todo);
         return todo;
     }

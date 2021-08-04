@@ -5,6 +5,7 @@ import com.prossafy101.ohnaco.entity.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,5 +22,6 @@ public interface TodoRepository  extends JpaRepository<Todo, Long> {
 
     List<Todo> getAllByDateBetweenAndUserOrderByDate(LocalDateTime startDatetime, LocalDateTime endDatetime, User user);
 
+    @Transactional
     void deleteTodoByTodoidAndUser(String todoid, User user);
 }
