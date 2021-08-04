@@ -8,21 +8,9 @@
       <div class="join_name">로그인</div>
       <div class="join_box">
         <!-- 이메일 -->
-        <input
-          type="text"
-          id="email"
-          class="email"
-          placeholder="이메일 주소"
-          v-model="email"
-        />
+        <input type="text" id="email" class="email" placeholder="이메일 주소" v-model="email" />
         <!-- 비번 -->
-        <input
-          type="password"
-          id="pwd"
-          class="pwd"
-          placeholder="비밀번호"
-          v-model="password"
-        />
+        <input type="password" id="pwd" class="pwd" placeholder="비밀번호" v-model="password" />
         <!-- 로그인 버튼 -->
         <button class="login_btn" @click="login">로그인</button>
         <div class="signup_findpwd_btn">
@@ -39,13 +27,7 @@
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <line
-                x1="4.37114e-08"
-                y1="0.5"
-                x2="165"
-                y2="0.500014"
-                stroke="#607D8B"
-              />
+              <line x1="4.37114e-08" y1="0.5" x2="165" y2="0.500014" stroke="#607D8B" />
             </svg>
           </div>
           <p class="social_text">소셜 계정 로그인</p>
@@ -57,13 +39,7 @@
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <line
-                x1="4.37114e-08"
-                y1="0.5"
-                x2="165"
-                y2="0.500014"
-                stroke="#607D8B"
-              />
+              <line x1="4.37114e-08" y1="0.5" x2="165" y2="0.500014" stroke="#607D8B" />
             </svg>
           </div>
         </div>
@@ -90,6 +66,8 @@
 <script>
 import BigFullLogo from "@/components/common/BigFullLogo.vue";
 import User from "../../api/User";
+import { createNamespacedHelpers } from "vuex";
+const userHelper = createNamespacedHelpers("userStore");
 
 export default {
   name: "Join",
@@ -103,6 +81,7 @@ export default {
     };
   },
   methods: {
+    ...userHelper.mapActions(["setUser"]),
     goSignup: function () {
       this.$router.push({ name: "Join" });
     },
@@ -118,9 +97,8 @@ export default {
       User.requestLogin(
         data,
         (res) => {
-          console.log(res);
           // sessionStorage에 'jwt-access-token'키로 저장
-          sessionStorage.setItem("jwt-access-token", res.headers.authorization.substring(7));
+          localStorage.setItem("jwt-access-token", res.headers.authorization.substring(7));
           alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
           this.$router.push("/todo");
         },

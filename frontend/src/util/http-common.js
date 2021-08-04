@@ -1,6 +1,6 @@
 import axios from 'axios';
 // import jwt_decode from 'jwt-decode';
-const storage = window.sessionStorage;
+const storage = localStorage;
 axios.defaults.baseURL = 'http://i5a101.p.ssafy.io:8197/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
