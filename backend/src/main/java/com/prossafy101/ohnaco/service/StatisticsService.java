@@ -157,4 +157,19 @@ public class StatisticsService {
         return statisticsRepository.getMyTimeForWeeks(map);
     }
 
+    public List<Map<String, Object>> getPositionTimeForWeeks(String userid, String startDate, String endDate) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
+        map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
+        map.put("userid", userid);
+        return statisticsRepository.getPositionTimeForWeeks(map);
+    }
+
+    public List<Map<String, Object>> getTotalTimeForWeeks(String startDate, String endDate) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
+        map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
+        return statisticsRepository.getTotalTimeForWeeks(map);
+    }
+
 }
