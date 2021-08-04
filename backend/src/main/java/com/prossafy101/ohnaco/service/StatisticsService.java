@@ -24,7 +24,6 @@ public class StatisticsService {
     private UserRepository userRepository;
 
     String[] category = {"CS", "알고리즘", "프레임워크", "자격증", "기타"};
-    boolean[] isCategory = new boolean[5];
 
     //해당 유저의 주간/월간 시간과 목표시간 총합
     public StatisticsTotalDto getToatalTime(String userid, String startDate, String endDate) {
@@ -41,11 +40,13 @@ public class StatisticsService {
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
         map.put("userid", userid);
+        boolean[] isCategory = new boolean[5];
         List<StatisticsCategoryDto> list = statisticsRepository.getCategoryTime(map);
         for(StatisticsCategoryDto dto : list) {
             for(int i = 0 ; i < 5;  i++) {
-                if(dto.getCategoryname().equals(category[i]))
+                if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
+                }
             }
         }
 
@@ -64,7 +65,7 @@ public class StatisticsService {
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
         map.put("positionid", positionid);
-
+        boolean[] isCategory = new boolean[5];
         List<StatisticsPositionDto> list = statisticsRepository.getPositionTime(map);
         for(StatisticsPositionDto dto : list) {
             for(int i = 0 ; i < 5;  i++) {
@@ -86,7 +87,7 @@ public class StatisticsService {
         Map<String, Object> map = new HashMap<>();
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
-
+        boolean[] isCategory = new boolean[5];
         List<StatisticsPositionDto> list = statisticsRepository.getEntireCategoryTime(map);
         for(StatisticsPositionDto dto : list) {
             for(int i = 0 ; i < 5;  i++) {
