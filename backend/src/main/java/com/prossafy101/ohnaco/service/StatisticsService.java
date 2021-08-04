@@ -8,12 +8,11 @@ import com.prossafy101.ohnaco.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class StatisticsService {
@@ -34,6 +33,7 @@ public class StatisticsService {
         return statisticsRepository.getTotalTime(map);
     }
 
+
     //해당 유저의 카테고리별 시간과 목표시간 총합
     public List<StatisticsCategoryDto> getCategoryTime(String userid, String startDate, String endDate) {
         Map<String, Object> map = new HashMap<>();
@@ -41,8 +41,10 @@ public class StatisticsService {
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
         map.put("userid", userid);
         boolean[] isCategory = new boolean[5];
+        long total = 0;
         List<StatisticsCategoryDto> list = statisticsRepository.getCategoryTime(map);
         for(StatisticsCategoryDto dto : list) {
+            total += dto.getCompletetime();
             for(int i = 0 ; i < 5;  i++) {
                 if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
@@ -55,7 +57,14 @@ public class StatisticsService {
                 list.add(new StatisticsCategoryDto(category[i]));
             }
         }
-
+        Collections.sort(list, new Comparator<StatisticsCategoryDto>() {
+            @Override
+            public int compare(StatisticsCategoryDto o1, StatisticsCategoryDto o2) {
+                return o1.getCategoryname().compareTo(o2.getCategoryname());
+            }
+        });
+        StatisticsCategoryDto entire = new StatisticsCategoryDto("entire", total);
+        list.add(entire);
         return list;
     }
 
@@ -79,7 +88,12 @@ public class StatisticsService {
                 list.add(new StatisticsPositionDto(category[i]));
             }
         }
-
+        Collections.sort(list, new Comparator<StatisticsPositionDto>() {
+            @Override
+            public int compare(StatisticsPositionDto o1, StatisticsPositionDto o2) {
+                return o1.getCategoryname().compareTo(o2.getCategoryname());
+            }
+        });
         return list;
     }
 
@@ -101,7 +115,12 @@ public class StatisticsService {
                 list.add(new StatisticsPositionDto(category[i]));
             }
         }
-
+        Collections.sort(list, new Comparator<StatisticsPositionDto>() {
+            @Override
+            public int compare(StatisticsPositionDto o1, StatisticsPositionDto o2) {
+                return o1.getCategoryname().compareTo(o2.getCategoryname());
+            }
+        });
         return list;
     }
 

@@ -9,7 +9,7 @@ import java.sql.Time;
 @NoArgsConstructor
 public class StatisticsPositionDto {
     private String categoryname;
-    private Time time;
+    private Long time;
 
     public StatisticsPositionDto(String categoryname)  {
         this.categoryname = categoryname;

@@ -6,6 +6,6 @@ import java.sql.Time;
 
 @Data
 public class StatisticsTotalDto {
-    private Time totalcompletetime;
-    private Time totalgoaltime;
+    private Long totalcompletetime;
+    private Long totalgoaltime;
 }

@@ -10,10 +10,15 @@ import java.sql.Time;
 @NoArgsConstructor
 public class StatisticsCategoryDto {
     private String categoryname;
-    private Time completetime;
-    private Time goaltime;
+    private Long completetime;
+    private Long goaltime;
 
     public StatisticsCategoryDto(String categoryname)  {
         this.categoryname = categoryname;
+    }
+
+    public StatisticsCategoryDto(String categoryname, Long completetime) {
+        this.categoryname = categoryname;
+        this.completetime = completetime;
     }
 }
