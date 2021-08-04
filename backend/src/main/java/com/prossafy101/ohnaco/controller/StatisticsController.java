@@ -51,7 +51,7 @@ public class StatisticsController {
             result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
             result.put("entireMemberTime", statisticsService.getTotalTimeForDays(startDate, endDate));
             result.put("positionMemberTime", statisticsService.getPositionTimeForDays(userid, startDate, endDate));
-            result.put("myTimeForDays", statisticsService.getMyTimeForDays(userid, startDate, endDate));
+            result.put("myTime", statisticsService.getMyTimeForDays(userid, startDate, endDate));
 
             System.out.println(startDate + " " + endDate);
         } else {
@@ -62,9 +62,10 @@ public class StatisticsController {
             result.put("totalTime", statisticsService.getToatalTime(userid, startDate, endDate));
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
             result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
-            result.put("myTimeForWeeks", statisticsService.getMyTimeForWeeks(userid, startDate, endDate));
-            result.put("positionTimeForWeeks", statisticsService.getPositionTimeForWeeks(userid, startDate, endDate));
-            result.put("totalTimeForWeeks", statisticsService.getTotalTimeForWeeks( startDate, endDate));
+            result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
+            result.put("myTime", statisticsService.getMyTimeForWeeks(userid, startDate, endDate));
+            result.put("positionMemberTime", statisticsService.getPositionTimeForWeeks(userid, startDate, endDate));
+            result.put("entireMemberTime", statisticsService.getTotalTimeForWeeks( startDate, endDate));
 
         }
 
