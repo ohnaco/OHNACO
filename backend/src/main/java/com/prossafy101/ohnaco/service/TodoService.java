@@ -38,7 +38,7 @@ public class TodoService {
     @Autowired
     private CommitRepository commitRepo;
 
-    public String createTodo(TodoDto dto) {
+    public Todo createTodo(TodoDto dto) {
             return todoRepository.save(Todo.builder()
                     .todoid(createTodoid())
                     .user(userRepository.findByUserid(dto.getUserid()))
@@ -47,7 +47,7 @@ public class TodoService {
                     .date(LocalDateTime.now())
                     .goaltime(Time.valueOf(dto.getGoaltime()))
                     .issuccess(false)
-                    .build()).getTodoid();
+                    .build());
     }
 
     public String addTodo(String userid, String todoid) {

@@ -18,4 +18,6 @@ public interface StatisticsRepository {
     List<Map<String, Object>> getTotalTimeForDays(Map<String, Object> map);
     List<Map<String, Object>> getPositionTimeForDays(Map<String, Object> map);
     List<Map<String, Object>> getMyTimeForDays(Map<String, Object> map);
+    List<Map<String, Object>> getMyTimeForWeeks(Map<String, Object> map);
+
 }

@@ -61,6 +61,8 @@ public class StatisticsController {
             result.put("totalTime", statisticsService.getToatalTime(userid, startDate, endDate));
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
             result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
+            result.put("myTimeForWeeks", statisticsService.getMyTimeForWeeks(userid, startDate, endDate));
+
         }
 
         return new ResponseEntity<>(result , HttpStatus.OK);

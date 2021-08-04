@@ -33,7 +33,7 @@
         select DATE(date) as date, SEC_TO_TIME(round(sum(TIME_TO_SEC(completetime)) / (select count(*) from user))) as 'time'
         from todo
         group by DATE(date)
-        having date BETWEEN '2021-08-01' and '2021-08-03'
+        having date BETWEEN #{startDate} and #{endDate}
     </select>
 
     <select id="getPositionTimeForDays" parameterType="hashmap" resultType="map" >
@@ -41,7 +41,7 @@
         from todo
         where userid in (select userid from user where positionid = #{positionid})
         group by DATE(date)
-        having date BETWEEN '2021-08-01' and '2021-08-03'
+        having date BETWEEN #{startDate} and #{endDate}
     </select>
 
     <select id="getMyTimeForDays" parameterType="hashmap" resultType="map" >
@@ -49,6 +49,13 @@
         from todo
         where userid = #{userid}
         group by DATE(date)
-        having date BETWEEN '2021-08-01' and '2021-08-03'
+        having date BETWEEN #{startDate} and #{endDate}
+    </select>
+
+    <select id="getMyTimeForWeeks" parameterType="hashmap" resultType="map" >
+        select DAYOFWEEK(date) as day, SEC_TO_TIME(avg(TIME_TO_SEC(completetime))) as 'time'
+        from todo
+        where userid = #{userid} AND date BETWEEN #{startDate} and #{endDate}
+        group by DAYOFWEEK(date)
     </select>
 </mapper>

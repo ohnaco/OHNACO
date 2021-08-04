@@ -62,12 +62,12 @@ public class TodoController {
 
     @PostMapping("/item")
     public Object createTodo(@RequestBody TodoDto dto) {
-        Map<String, String> result = new HashMap<>();
+        Map<String, Object> result = new HashMap<>();
         try {
-            String todoid = todoService.createTodo(dto);
+            Todo todo = todoService.createTodo(dto);
 
             result.put("status", "success");
-            result.put("todoid", todoid);
+            result.put("todo", todo);
         } catch(Exception e) {
             e.printStackTrace();
             result.put("status", "fail");
