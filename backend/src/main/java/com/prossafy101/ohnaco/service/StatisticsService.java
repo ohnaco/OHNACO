@@ -44,7 +44,8 @@ public class StatisticsService {
         long total = 0;
         List<StatisticsCategoryDto> list = statisticsRepository.getCategoryTime(map);
         for(StatisticsCategoryDto dto : list) {
-            total += dto.getCompletetime();
+            if(dto.getCompletetime() != null)
+                total += dto.getCompletetime();
             for(int i = 0 ; i < 5;  i++) {
                 if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
