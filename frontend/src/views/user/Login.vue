@@ -1,12 +1,16 @@
 <template>
   <div>
+<<<<<<< HEAD
     <div class="logo">
       <BigFullLogo />
     </div>
+=======
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
     <!-- 로그인 폼 -->
-    <div class="join_form">
-      <div class="join_name">로그인</div>
-      <div class="join_box">
+    <div class="join-form">
+      <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
+      <div class="join-name">로그인</div>
+      <div class="join-box">
         <!-- 이메일 -->
         <input
           type="text"
@@ -24,63 +28,31 @@
           v-model="password"
         />
         <!-- 로그인 버튼 -->
+<<<<<<< HEAD
         <button class="login_btn" @click="login">로그인</button>
         <div class="signup_findpwd_btn">
           <button class="signup_btn" @click="goSignup">회원가입</button>
           <button class="findpwd_btn" @click="goFindpwd">비밀번호 찾기</button>
+=======
+        <button class="mt-1" @click="doLogin"><img src="@/assets/images/login-btn.svg" alt="login" /></button>
+        <div>
+          <button class="signup-btn" @click="goSignup">회원가입</button>
+          <button class="findpwd-btn" @click="goFindpwd">비밀번호 찾기</button>
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
         </div>
         <!-- 소셜 로그인 -->
-        <div class="social_login">
+        <div class="social-login">
           <div>
-            <svg
-              width="100"
-              height="1"
-              viewBox="0 0 165 1"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="4.37114e-08"
-                y1="0.5"
-                x2="165"
-                y2="0.500014"
-                stroke="#607D8B"
-              />
-            </svg>
+            <img src="@/assets/images/login-line.svg" alt="line" />
           </div>
-          <p class="social_text">소셜 계정 로그인</p>
+          <p class="social-text">소셜 계정 로그인</p>
           <div>
-            <svg
-              width="100"
-              height="1"
-              viewBox="0 0 165 1"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <line
-                x1="4.37114e-08"
-                y1="0.5"
-                x2="165"
-                y2="0.500014"
-                stroke="#607D8B"
-              />
-            </svg>
+            <img src="@/assets/images/login-line.svg" alt="line" />
           </div>
         </div>
         <!-- github 버튼 -->
-        <button class="github_btn" @click="githubLogin">
-          <svg
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M30.2397 1.76025C29.0657 0.586215 27.653 0 26.0001 0H5.9999C4.34696 0 2.93428 0.586215 1.76025 1.76025C0.586215 2.93428 0 4.34696 0 5.9999V26.0001C0 27.653 0.586215 29.0657 1.76025 30.2397C2.93428 31.4138 4.34696 32 5.9999 32H10.6672C10.9715 32 11.2006 31.9888 11.3543 31.968C11.5332 31.9321 11.6947 31.8367 11.8124 31.6973C11.9646 31.5371 12.0414 31.3049 12.0414 31.0005L12.0302 29.5831C12.0238 28.6797 12.0206 27.9654 12.0206 27.4368L11.5401 27.5201C11.2358 27.5762 10.8514 27.6002 10.3853 27.5938C9.89949 27.5848 9.41523 27.5361 8.93738 27.448C8.42869 27.3541 7.94983 27.1399 7.54072 26.8234C7.11226 26.4992 6.79269 26.0523 6.62456 25.542L6.41634 25.0615C6.24084 24.6825 6.02036 24.3259 5.75965 23.9996C5.46173 23.6104 5.15902 23.3477 4.8531 23.2084L4.70894 23.1043C4.60843 23.0323 4.517 22.9484 4.43666 22.8544C4.35992 22.7672 4.29675 22.6689 4.24926 22.5629C4.20762 22.4652 4.24285 22.3851 4.35337 22.3226C4.46549 22.2586 4.6657 22.2281 4.95881 22.2281L5.37524 22.2922C5.65233 22.3467 5.9967 22.5132 6.40513 22.7903C6.81846 23.0721 7.16373 23.4426 7.41579 23.8747C7.73612 24.4433 8.12053 24.8773 8.5722 25.1768C9.02388 25.4747 9.47875 25.6253 9.93683 25.6253C10.3949 25.6253 10.7905 25.5901 11.1253 25.5212C11.449 25.4543 11.7636 25.3489 12.0623 25.2073C12.1872 24.2783 12.5268 23.5607 13.0825 23.061C12.3624 22.9904 11.6486 22.8651 10.9475 22.6862C10.2632 22.4982 9.60519 22.2254 8.98864 21.8742C8.34355 21.523 7.77377 21.0484 7.31168 20.4775C6.86801 19.9217 6.50283 19.193 6.21773 18.2912C5.93423 17.3879 5.79168 16.3452 5.79168 15.1647C5.79168 13.4846 6.33946 12.0543 7.43661 10.8722C6.92407 9.61009 6.97212 8.1926 7.58236 6.62456C7.98599 6.49802 8.58341 6.59252 9.37464 6.90485C10.1659 7.21718 10.7457 7.48466 11.1141 7.70569C11.4825 7.92993 11.7772 8.11732 11.9998 8.26948C13.3019 7.90711 14.6476 7.72496 15.9992 7.72811C17.375 7.72811 18.7076 7.9091 20.0002 8.26948L20.7914 7.76976C21.4 7.40434 22.042 7.09757 22.7086 6.8536C23.4454 6.5749 24.006 6.49962 24.3968 6.62456C25.0215 8.1942 25.0759 9.61009 24.5618 10.8738C25.6589 12.0543 26.2083 13.4846 26.2083 15.1663C26.2083 16.3468 26.0658 17.3927 25.7807 18.3008C25.4972 19.2106 25.1288 19.9393 24.6771 20.4887C24.2069 21.0523 23.6347 21.5223 22.9905 21.8742C22.3178 22.249 21.6643 22.5196 21.0317 22.6862C20.3306 22.8657 19.6168 22.9915 18.8966 23.0626C19.6174 23.6873 19.9794 24.6723 19.9794 26.0193V31.0005C19.9794 31.236 20.013 31.4266 20.0835 31.5723C20.1159 31.6426 20.1621 31.7056 20.2193 31.7576C20.2765 31.8096 20.3436 31.8495 20.4166 31.8751C20.5704 31.9295 20.7049 31.9648 20.8235 31.9776C20.942 31.9936 21.1118 31.9984 21.3328 31.9984H26.0001C27.653 31.9984 29.0657 31.4122 30.2397 30.2381C31.4122 29.0657 32 27.6514 32 25.9985V5.9999C32 4.34696 31.4122 2.93428 30.2381 1.76025H30.2397Z"
-              fill="black"
-            />
-          </svg>
+        <button class="github-btn" @click="githubLogin">
+          <img src="@/assets/images/github-btn.svg" alt="gihub_logo" />
         </button>
       </div>
     </div>
@@ -88,16 +60,12 @@
 </template>
 
 <script>
-import BigFullLogo from "@/components/common/BigFullLogo.vue";
 import User from "../../api/User";
 import { createNamespacedHelpers } from "vuex";
 const userHelper = createNamespacedHelpers("userStore");
 
 export default {
   name: "Join",
-  components: {
-    BigFullLogo,
-  },
   data: function () {
     return {
       email: null,
@@ -112,7 +80,7 @@ export default {
     goFindpwd: function () {
       this.$router.push({ name: "" });
     },
-    login: function () {
+    doLogin: function () {
       let { email, password } = this;
       let data = {
         email,
@@ -121,14 +89,10 @@ export default {
       User.requestLogin(
         data,
         (res) => {
-          // sessionStorage에 'jwt-access-token'키로 저장
-          localStorage.setItem(
-            "jwt-access-token",
-            res.headers.authorization.substring(7)
-          );
+          localStorage.setItem("jwt-access-token", res.headers.authorization.substring(7));
           this.setUser(res);
           alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
-          this.$router.push("/todo");
+          this.$router.push({ name: "Todo" });
         },
         (err) => {
           console.log(err);
@@ -144,11 +108,11 @@ export default {
 </script>
 
 <style scoped>
-.join_form {
+.join-form {
   display: grid;
   place-items: center;
 }
-.join_name {
+.join-name {
   width: 109px;
   height: 27px;
   flex-grow: 0;
@@ -156,28 +120,23 @@ export default {
   font-family: GmarketSansTTF;
   font-size: 18px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
   text-align: center;
   color: #607d8b;
 }
-.join_box {
-  left: 488px;
-  top: 360px;
-  width: 280px;
-  height: 280px;
-  flex-grow: 0;
+.join-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
   margin: 10px 0 0;
-  padding: 32px 72px 19px;
+  padding: 32px 0px 19px;
   border-radius: 10px;
   border: solid 1px #607d8b;
   background-color: rgba(255, 255, 255, 0);
 }
 .email {
-  width: 250px;
-  height: 20px;
+  width: 230px;
+  height: 30px;
   margin: 0 1px 10px 0;
   padding: 10.6px 16.6px 9.9px 17.2px;
   border-radius: 5px;
@@ -185,14 +144,15 @@ export default {
   background-color: #ffffff;
 }
 .pwd {
-  width: 250px;
-  height: 20px;
+  width: 230px;
+  height: 30px;
   margin: 10px 1px 10px 0;
   padding: 10.6px 16.6px 9.9px 17.2px;
   border-radius: 5px;
   border: solid 1px #607d8b;
   background-color: #ffffff;
 }
+<<<<<<< HEAD
 .login_btn {
   width: 290px;
   height: 40px;
@@ -208,55 +168,42 @@ export default {
   color: #ffffff;
   cursor: pointer;
 }
+=======
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
 input::placeholder {
   font-family: GmarketSansTTF;
-  font-size: 15px;
+  font-size: 13px;
   font-weight: 300;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
   color: #c6c8c9;
 }
-.social_login {
+.social-login {
   margin-top: 10px;
   display: flex;
   justify-content: space-evenly;
   font-size: 12px;
   color: #607d8b;
 }
-.social_text {
-  margin-top: 2px;
+.social-text {
+  margin-top: 5px;
   font-size: 10px;
 }
-.signup_btn {
-  background-color: transparent;
+.signup-btn {
   outline: 0;
   border: 0;
-  margin: 5px;
+  margin: 5px 50px 5px 5px;
   font-size: 12px;
   color: #607d8b;
   cursor: pointer;
 }
-.findpwd_btn {
-  background-color: transparent;
+.findpwd-btn {
   outline: 0;
   border: 0;
-  margin: 5px;
+  margin: 5px 5px 5px 50px;
   font-size: 12px;
   color: #607d8b;
   cursor: pointer;
 }
-.signup_findpwd_btn {
-  display: flex;
-  justify-content: space-between;
-}
-.github_btn {
-  background-color: transparent;
-  outline: 0;
-  border: 0;
-  margin: 5px;
+.github-btn {
   cursor: pointer;
 }
 </style>

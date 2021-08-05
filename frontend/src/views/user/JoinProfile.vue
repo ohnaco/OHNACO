@@ -1,52 +1,24 @@
 l
 <template>
   <div>
+<<<<<<< HEAD
     <div class="logo">
       <BigFullLogo />
     </div>
+=======
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
     <!-- 회원가입 프로필 등록 폼 -->
-    <div class="join_form">
-      <div class="join_name">회원가입</div>
-      <div class="join_box">
+    <div class="join-form">
+      <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
+      <div class="join-name">회원가입</div>
+      <div class="join-box">
         <!-- 프로필 사진 추가 및 미리보기-->
-        <div class="profile_circle">
+        <div>
+          <img src="@/assets/images/profile-img.svg" alt="ohnaco-logo" />
+        </div>
+        <!-- <div class="profile-circle">
           <label for="profile" class="imagebtn">
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              xmlns:xlink="http://www.w3.org/1999/xlink"
-            >
-              <circle cx="10.0774" cy="10.0857" r="9.61788" fill="#80DEEA" />
-              <rect
-                x="3.89453"
-                y="3.21582"
-                width="12.3658"
-                height="13.7399"
-                fill="url(#pattern0)"
-              />
-              <defs>
-                <pattern
-                  id="pattern0"
-                  patternContentUnits="objectBoundingBox"
-                  width="1"
-                  height="1"
-                >
-                  <use
-                    xlink:href="#image0"
-                    transform="translate(-0.0555566) scale(0.0694446 0.0625)"
-                  />
-                </pattern>
-                <image
-                  id="image0"
-                  width="16"
-                  height="16"
-                  xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAABmJLR0QAAAAAAAD5Q7t/AAAACXBIWXMAAABgAAAAYADwa0LPAAAAB3RJTUUH5QcRCyUdV3ifpAAAAVVJREFUSMdjZCASROfW/5/kwcfHkvtP5Oels2cZ2xiyGApVVGDy/6sYpjH037nDPPun8L99RkbzurtulWt8/kzIXBZiHcA+95/771BFxX+fGbIYnBEWwwDcQavYT7IcVVJiYGC4xcBw8SIhc5mIdQCtwKgDWJJKy9Q6b/Dy/n3FHs68RU0Nl8K/Cxhm/mNVVWVMZDDHZ+DfrwwX/rFqasYn1Nb29LDgTGPMYj9X/vW5dYsx/latcLfU7dvoqZrm4BWDJoPR7dtMdLcYBsQYrjOcU1Ud8DTABCtA6G4zNApYYCXX3//sDPgSIcMChpn/xVRVGRMZ0hleLl+OS9n/+QwzGcQjIxkSGNIZX92+jUsds/bPhr/St24xEuvgJK5at965+vr/whjM/727cAFnkK5iOMkkZGAw71vzruLk0ZJwWDkg++eDP9b37sFSL4Y8TBymjkgAAGkOhJxrfQxGAAAAJXRFWHRkYXRlOmNyZWF0ZQAyMDIxLTA3LTE3VDExOjM3OjI5KzAwOjAwx8+9agAAACV0RVh0ZGF0ZTptb2RpZnkAMjAyMS0wNy0xN1QxMTozNzoyOSswMDowMLaSBdYAAAAASUVORK5CYII="
-                />
-              </defs>
-            </svg>
+            <img src="@/assets/images/profile-btn.svg" alt="sample_profile">
           </label>
           <input
             type="file"
@@ -54,16 +26,17 @@ l
             @change="previewImage"
             accept="image/*"
           />
-          <div v-if="imageData.length > 0">
-            <img class="preview" :src="imageData" />
+          <div v-if="image.length > 0">
+            <img class="preview" :src="image" />
           </div>
-        </div>
+        </div> -->
         <!-- 닉네임 -->
         <input
           type="text"
           id="nickname"
           class="nickname"
           placeholder="닉네임*"
+<<<<<<< HEAD
           v-model="nickName"
           v-bind:class="{
             error: error.nickName,
@@ -72,17 +45,32 @@ l
         />
         <div class="error_message" v-if="error.nickName">
           {{ error.nickName }}
+=======
+          @input="nicknameCheck"
+          v-model="nickname"
+          v-bind:class="{
+            error: error.nickname && error.nicknameCheck,
+            complete:
+              !error.nickname && nickname.length !== 0 && error.nicknameCheck,
+          }"
+        />
+        <div class="error-message" v-if="error.nickname">
+          {{ error.nickname }}
+        </div>
+        <div class="error-message" v-if="error.nicknameCheck">
+          {{ error.nicknameCheck }}
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
         </div>
         <!-- 깃헙 아이디 -->
         <input
-          :type="passwordType"
+          type="text"
           id="github"
           class="github"
           placeholder="Github ID"
-          v-model="githubID"
+          v-model="githubid"
         />
         <!-- 희망 직무 -->
-        <select v-model="desiredJob" class="form-select">
+        <select v-model="position" class="form-select">
           <option value="" disabled>희망직무</option>
           <option value="Backend">Backend</option>
           <option value="Frontend">Frontend</option>
@@ -94,8 +82,9 @@ l
           <option value="etc.">etc.</option>
         </select>
         <!-- 버튼 -->
-        <div class="back_next_btn">
+        <div class="page-btn">
           <!-- 이전 페이지:이메일 인증 페이지 -->
+<<<<<<< HEAD
           <button class="page_btn" @click="goJoinEmail">
             <svg
               width="59"
@@ -141,6 +130,20 @@ l
                 fill="#607D8B"
               />
             </svg>
+=======
+          <button 
+            class="mr-15" 
+            @click="goJoinEmail"
+          >
+            <img src="@/assets/images/back-btn.svg" alt="back" />
+          </button>
+          <!-- 다음 페이지 : 회원가입 완료 페이지 -->
+          <button
+            class="ml-15"
+            @click="joinFinish"
+          >
+            <img src="@/assets/images/next-btn.svg" alt="next" />
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
           </button>
         </div>
       </div>
@@ -149,32 +152,43 @@ l
 </template>
 
 <script>
+<<<<<<< HEAD
 import BigFullLogo from "@/components/common/BigFullLogo.vue";
+=======
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
 import User from "../../api/User";
 
 export default {
   name: "Join",
+<<<<<<< HEAD
   components: {
     BigFullLogo,
   },
+=======
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
   data: function () {
     return {
       email: this.$route.params.email,
-      imageData: "",
-      nickName: "",
-      githubID: "",
-      desiredJob: "",
+      nickname: "",
+      githubid: "",
+      position: "",
       error: {
+<<<<<<< HEAD
         nickName: false,
+=======
+        nickname: false,
+        nicknameCheck: false,
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
       },
       isSubmit: false,
+      isCheck: false,
     };
   },
   created() {
     this.component = this;
   },
   watch: {
-    nickName: function () {
+    nickname: function () {
       this.checkForm();
     },
   },
@@ -182,20 +196,20 @@ export default {
     goJoinEmail: function () {
       this.$router.push({ name: "JoinEmail" });
     },
-    previewImage: function (event) {
-      var input = event.target;
-      if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.onload = (e) => {
-          this.imageData = e.target.result;
-        };
-        reader.readAsDataURL(input.files[0]);
-      }
-    },
+    // previewImage: function(event) {
+    //   var input = event.target;
+    //   if (input.files && input.files[0]) {
+    //     var reader = new FileReader();
+    //     reader.onload = (e) => {
+    //       this.image = e.target.result;
+    //     };
+    //     reader.readAsDataURL(input.files[0]);
+    //   }
+    // },
     checkForm: function () {
-      if (this.nickName.length <= 1)
-        this.error.nickName = "두글자 이상 닉네임을 입력해주세요";
-      else this.error.nickName = false;
+      if (this.nickname.length <= 1)
+        this.error.nickname = "두글자 이상 닉네임을 입력해주세요";
+      else this.error.nickname = false;
 
       let isSubmit = true;
       Object.values(this.error).map((v) => {
@@ -203,14 +217,32 @@ export default {
       });
       this.isSubmit = isSubmit;
     },
+    nicknameCheck: function () {
+      let { nickname } = this;
+      let data = {
+        nickname,
+      };
+      if (this.nickname) {
+        User.requestSignupNicknameCheck(data, (res) => {
+          console.log(res);
+          if (res.data.status) {
+            this.error.nicknameCheck = null;
+            this.isCheck = res.data.status;
+          } else this.error.nicknameCheck = res.data.message;
+        }),
+          (err) => {
+            console.log(err);
+          };
+      }
+    },
     joinFinish: function () {
-      if (this.isSubmit) {
-        let { nickName, imageData, githubID, desiredJob } = this;
+      if (this.isSubmit && this.isCheck) {
+        let { email, nickname, githubid, position } = this;
         let data = {
-          nickName,
-          imageData,
-          githubID,
-          desiredJob,
+          email,
+          nickname,
+          githubid,
+          position,
         };
         this.isSubmit = false;
         User.requestSignupProfile(
@@ -233,11 +265,11 @@ export default {
 </script>
 
 <style scoped>
-.join_form {
+.join-form {
   display: grid;
   place-items: center;
 }
-.join_name {
+.join-name {
   width: 109px;
   height: 27px;
   flex-grow: 0;
@@ -252,71 +284,34 @@ export default {
   text-align: center;
   color: #607d8b;
 }
-.join_box {
-  left: 488px;
-  top: 360px;
-  width: 280px;
-  height: 450px;
-  flex-grow: 0;
+.join-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
   margin: 10px 0 0;
-  padding: 32px 72px 19px;
+  padding: 32px 0px 19px;
   border-radius: 10px;
   border: solid 1px #607d8b;
   background-color: rgba(255, 255, 255, 0);
 }
-.profile_circle {
-  position: relative;
-  width: 169px;
-  height: 169px;
-  border-radius: 50%;
-  background: #eceff1;
-  border: 1px solid #eceff1;
-  display: inline-block;
-}
-.imagebtn {
-  position: absolute;
-  left: 70%;
-  top: 90%;
-  z-index: 2;
-  cursor: pointer;
-}
-.preview {
-  position: absolute;
-  left: -1%;
-  top: -1%;
-  width: 169px;
-  height: 169px;
-  border-radius: 50%;
-  background: #eceff1;
-  border: 1px solid #eceff1;
-  z-index: 1;
-}
-.profile_circle input[type="file"] {
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  border: 0;
-}
 .nickname {
-  width: 250px;
-  height: 20px;
-  margin: 50px 1px 10px 0;
+  width: 230px;
+  height: 30px;
+  margin: 30px 1px 10px 0;
   padding: 10.6px 16.6px 9.9px 17.2px;
   border-radius: 5px;
   border: solid 1px #607d8b;
   background-color: #ffffff;
 }
-.error_message {
+.error-message {
   font-family: GmarketSansTTF;
   font-size: 10px;
   color: crimson;
 }
 .github {
-  width: 250px;
-  height: 20px;
+  width: 230px;
+  height: 30px;
   margin: 10px 1px 10px 0;
   padding: 10.6px 16.6px 9.9px 17.2px;
   border-radius: 5px;
@@ -324,43 +319,26 @@ export default {
   background-color: #ffffff;
 }
 .form-select {
-  width: 286px;
-  height: 43px;
+  width: 230px;
+  height: 30px;
   margin: 10px 0 18px 0px;
-  padding: 10.6px 16.6px 9.9px 17.2px;
+  padding: 0px;
   border-radius: 5px;
   border: solid 1px #607d8b;
-  background-color: #ffffff;
+  padding: 0px 16.6px 0px 17.2px;
   font-family: GmarketSansTTF;
   font-size: 15px;
   font-weight: 300;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
   cursor: pointer;
 }
 input::placeholder {
   font-family: GmarketSansTTF;
   font-size: 15px;
   font-weight: 300;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
   color: #c6c8c9;
 }
-.page_btn {
-  background-color: transparent;
-  outline: 0;
-  border: 0;
+.page-btn {
   margin: 5px;
   cursor: pointer;
-}
-.back_next_btn {
-  display: flex;
-  justify-content: space-between;
 }
 </style>

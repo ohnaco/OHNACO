@@ -1,12 +1,16 @@
 <template>
   <div>
+<<<<<<< HEAD
     <div class="logo">
       <BigFullLogo />
     </div>
+=======
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
     <!-- 회원가입 폼 -->
-    <div class="join_form">
-      <div class="join_name">회원가입</div>
-      <div class="join_box">
+    <div class="join-form">
+      <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
+      <div class="join-name">회원가입</div>
+      <div class="join-box">
         <!-- 이메일 -->
         <input
           type="text"
@@ -19,8 +23,13 @@
             complete: !error.email && email.length != 0 && !error.emailCheck,
           }"
         />
+<<<<<<< HEAD
         <div class="error_message" v-if="error.email">{{ error.email }}</div>
         <div class="error_message" v-if="error.emailCheck">
+=======
+        <div class="error-message" v-if="error.email">{{ error.email }}</div>
+        <div class="error-message" v-if="error.emailCheck">
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
           {{ error.emailCheck }}
         </div>
         <!-- 비번 -->
@@ -34,7 +43,11 @@
             complete: !error.password && password.length != 0,
           }"
         />
+<<<<<<< HEAD
         <div class="error_message" v-if="error.password">
+=======
+        <div class="error-message" v-if="error.password">
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
           {{ error.password }}
         </div>
         <!-- 비번확인 -->
@@ -49,11 +62,16 @@
               complete: !error.passwordConfirm && passwordConfirm.length !== 0,
             }"
           />
+<<<<<<< HEAD
           <div class="error_message" v-if="error.passwordConfirm">
+=======
+          <div class="error-message" v-if="error.passwordConfirm">
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
             {{ error.passwordConfirm }}
           </div>
         </div>
         <!-- 페이지 전환 버튼 -->
+<<<<<<< HEAD
         <div class="back_next_btn" @click="goMain">
           <!-- 이전페이지 버튼 -->
           <button class="page_btn">
@@ -79,35 +97,28 @@
           <!-- 다음페이지 버튼 : 회원가입 이메일 인증 -->
           <button
             class="page_btn"
+=======
+        <div class="page-btn" @click="goMain">
+          <!-- 이전페이지 버튼 -->
+          <button class="mr-15">
+            <img src="@/assets/images/back-btn.svg" alt="back" />
+          </button>
+          <!-- 다음페이지 버튼 : 회원가입 이메일 인증 -->
+          <button
+            class="ms-15"
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
             @click.prevent="goJoinEmail"
             :disabled="!isSubmit"
             :class="{ disabled: !isSubmit }"
           >
-            <svg
-              width="56"
-              height="22"
-              viewBox="0 0 56 22"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M13.23 7.282H11.34V13.456H10.752V1.5H11.34V6.736H13.23V7.282ZM6.23 12.07C6.79 12.07 7.35 12.014 7.91 11.902C8.47933 11.79 8.95067 11.6453 9.324 11.468V12.042C8.96 12.2193 8.498 12.3593 7.938 12.462C7.378 12.5647 6.80867 12.616 6.23 12.616H1.526V2.06H8.386V2.606H2.114V12.07H6.23ZM20.2008 1.528C21.6661 1.528 22.8841 1.71467 23.8548 2.088C24.8348 2.452 25.3248 2.998 25.3248 3.726C25.3248 4.454 24.8348 5.00467 23.8548 5.378C22.8841 5.742 21.6661 5.924 20.2008 5.924C18.7355 5.924 17.5128 5.742 16.5328 5.378C15.5621 5.00467 15.0768 4.454 15.0768 3.726C15.0768 2.998 15.5621 2.452 16.5328 2.088C17.5128 1.71467 18.7355 1.528 20.2008 1.528ZM20.2008 2.074C18.9315 2.074 17.8581 2.214 16.9808 2.494C16.1128 2.774 15.6788 3.18467 15.6788 3.726C15.6788 4.26733 16.1128 4.678 16.9808 4.958C17.8581 5.238 18.9315 5.378 20.2008 5.378C21.4701 5.378 22.5388 5.238 23.4068 4.958C24.2841 4.678 24.7228 4.26733 24.7228 3.726C24.7228 3.18467 24.2841 2.774 23.4068 2.494C22.5388 2.214 21.4701 2.074 20.2008 2.074ZM26.1088 7.814H14.2928V7.268H26.1088V7.814ZM25.1708 13.19H15.2448V9.438H25.1708V13.19ZM24.5828 12.644V9.984H15.8328V12.644H24.5828Z"
-                fill="#607D8B"
-              />
-              <path
-                fill-rule="evenodd"
-                clip-rule="evenodd"
-                d="M27 7.62543C27 7.45968 27.0564 7.30072 27.1569 7.18352C27.2574 7.06631 27.3936 7.00047 27.5357 7.00047H40.1702L36.7987 3.06822C36.6981 2.95087 36.6416 2.79171 36.6416 2.62575C36.6416 2.45979 36.6981 2.30063 36.7987 2.18328C36.8992 2.06593 37.0357 2 37.1779 2C37.3202 2 37.4566 2.06593 37.5572 2.18328L41.8426 7.18296C41.8925 7.24101 41.9321 7.30998 41.9591 7.3859C41.9861 7.46183 42 7.54323 42 7.62543C42 7.70763 41.9861 7.78903 41.9591 7.86496C41.9321 7.94088 41.8925 8.00985 41.8426 8.0679L37.5572 13.0676C37.4566 13.1849 37.3202 13.2509 37.1779 13.2509C37.0357 13.2509 36.8992 13.1849 36.7987 13.0676C36.6981 12.9502 36.6416 12.7911 36.6416 12.6251C36.6416 12.4592 36.6981 12.3 36.7987 12.1826L40.1702 8.25039H27.5357C27.3936 8.25039 27.2574 8.18455 27.1569 8.06734C27.0564 7.95014 27 7.79118 27 7.62543Z"
-                fill="#607D8B"
-              />
-            </svg>
+            <img src="@/assets/images/next-btn.svg" alt="next" />
           </button>
         </div>
         <!-- footer -->
         <div>
-          <div class="join_footer_text">
+          <div class="join-footer-text">
             이미 계정이 있으신가요?
-            <button class="go_login" @click="gologin">로그인</button>
+            <button class="go-login" @click="goLogin">로그인</button>
           </div>
         </div>
       </div>
@@ -116,16 +127,12 @@
 </template>
 
 <script>
-import BigFullLogo from "@/components/common/BigFullLogo.vue";
 import * as EmailValidator from "email-validator";
 import PV from "password-validator";
 import User from "../../api/User";
 
 export default {
   name: "Join",
-  components: {
-    BigFullLogo,
-  },
   data: function () {
     return {
       email: "",
@@ -174,7 +181,7 @@ export default {
     goMain: function () {
       this.$router.push({ name: "" });
     },
-    gologin: function () {
+    goLogin: function () {
       this.$router.push({ name: "Login" });
     },
     checkForm: function () {
@@ -253,11 +260,11 @@ export default {
 </script>
 
 <style scoped>
-.join_form {
+.join-form {
   display: grid;
   place-items: center;
 }
-.join_name {
+.join-name {
   width: 109px;
   height: 27px;
   flex-grow: 0;
@@ -272,20 +279,20 @@ export default {
   text-align: center;
   color: #607d8b;
 }
-.join_box {
-  left: 488px;
-  top: 360px;
-  width: 280px;
-  flex-grow: 0;
+.join-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 300px;
   margin: 10px 0 0;
-  padding: 32px 72px 19px;
+  padding: 32px 0px 19px;
   border-radius: 10px;
   border: solid 1px #607d8b;
   background-color: rgba(255, 255, 255, 0);
 }
 .email {
-  width: 250px;
-  height: 20px;
+  width: 230px;
+  height: 30px;
   margin: 0 1px 10px 0;
   padding: 10.6px 16.6px 9.9px 17.2px;
   border-radius: 5px;
@@ -293,8 +300,8 @@ export default {
   background-color: #ffffff;
 }
 .pwd {
-  width: 250px;
-  height: 20px;
+  width: 230px;
+  height: 30px;
   margin: 10px 1px 10px 0;
   padding: 10.6px 16.6px 9.9px 17.2px;
   border-radius: 5px;
@@ -302,8 +309,8 @@ export default {
   background-color: #ffffff;
 }
 .pwd-check {
-  width: 250px;
-  height: 20px;
+  width: 230px;
+  height: 30px;
   margin: 10px 0 10px 0px;
   padding: 10.6px 16.6px 9.9px 17.2px;
   border-radius: 5px;
@@ -321,45 +328,35 @@ input::placeholder {
   text-align: left;
   color: #c6c8c9;
 }
-.error_message {
+.v-application .error {
+  background-color: #ffffff !important;
+  border: solid 1px crimson;
+}
+.error-message {
   font-family: GmarketSansTTF;
   font-size: 10px;
   color: crimson;
+  display: flex;
+  justify-content: center;
 }
-.page_btn {
+.page-btn {
   background-color: transparent;
   outline: 0;
   border: 0;
   margin-top: 10px;
   cursor: pointer;
 }
-.back_next_btn {
+.join-footer-text {
   display: flex;
-  justify-content: space-between;
-  width: 290px;
-}
-.join_footer_text {
-  position: relative;
   height: 16px;
   flex-grow: 0;
-  margin: 66px 0 0 56px;
+  margin-top: 50px;
   font-family: GmarketSansTTF;
-  font-size: 14px;
+  font-size: 12px;
   font-weight: 300;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: left;
   color: #c6c8c9;
-  margin-left: 30px;
-  margin-right: 30px;
 }
-.go_login {
-  position: relative;
-  background-color: transparent;
-  outline: 0;
-  border: 0;
+.go-login {
   color: #607d8b;
   cursor: pointer;
 }

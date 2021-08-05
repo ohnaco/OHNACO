@@ -14,4 +14,8 @@ public class StatisticsPositionDto {
     public StatisticsPositionDto(String categoryname)  {
         this.categoryname = categoryname;
     }
+    public StatisticsPositionDto(String categoryname, Long time)  {
+        this.categoryname = categoryname;
+        this.time = time;
+    }
 }
