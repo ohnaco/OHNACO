@@ -3,6 +3,7 @@ import axios from 'axios';
 const storage = localStorage;
 axios.defaults.baseURL = 'http://i5a101.p.ssafy.io:8197/';
 axios.defaults.headers.post['Content-Type'] = 'application/json';
+axios.defaults.headers.put['Content-Type'] = 'application/json';
 
 // 요청 인터셉터 추가
 const instance = axios.create();
