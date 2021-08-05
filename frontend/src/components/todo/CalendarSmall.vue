@@ -13,7 +13,7 @@
 <script>
 export default {
   props: {
-    value : Date
+    value : String
   },
   data() {
     return {
