@@ -34,6 +34,17 @@ const createTodo = (data, callback, errorCallback) => {
     });
 };
 
+const updateTodo = (data, callback, errorCallback) => {
+  http
+    .put("/todo/item", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 const deleteTodo = (data, callback, errorCallback) => {
   http
     .delete("/todo/item", {
@@ -50,5 +61,6 @@ const deleteTodo = (data, callback, errorCallback) => {
 export default {
   loadTodoList,
   createTodo,
+  updateTodo,
   deleteTodo
 };
