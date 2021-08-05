@@ -281,6 +281,10 @@ input::placeholder {
   text-align: left;
   color: #c6c8c9;
 }
+.v-application .error {
+  background-color: #ffffff !important;
+  border: solid 1px crimson;
+}
 .error-message {
   font-family: GmarketSansTTF;
   font-size: 10px;
