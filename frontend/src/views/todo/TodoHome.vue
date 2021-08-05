@@ -6,8 +6,12 @@
         <div class="d-flex align-center text-h4 ma-5"
           ><img src="@/assets/images/todo-icon.svg" class="mr-2"/><b>To Do List</b></div
         >
-        <todo-card :items="todoLists"></todo-card>
-        <button><img src="@/assets/images/todo-add-btn.svg"></button>
+        </div>
+        <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" />
+        <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" />
+        <button @click="toggleCreate">
+          <img src="@/assets/images/todo-add-btn.svg" />
+        </button>
       </v-col>
       <v-col cols="3">
         <!-- 달력 -->
@@ -18,6 +22,7 @@
 
 <script>
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
+import TodoAdd from "@/components/todo/TodoAdd.vue";
 import TodoCard from "@/components/todo/TodoCard.vue";
 import { createNamespacedHelpers } from 'vuex';
 const todoListHelper = createNamespacedHelpers('todoStore');
@@ -26,11 +31,10 @@ export default {
   components: {
     LeftNavBar,
     TodoCard,
+    TodoAdd,
   },
   computed: {
-    ...todoListHelper.mapState({
-      todoLists: state => state.todoLists
-    })
+    ...todoListHelper.mapState(["todoLists"]),
   },
   created() {
     this.setTodoList();
