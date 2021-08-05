@@ -46,8 +46,11 @@ public class StatisticsService {
         long total = 0;
         List<StatisticsCategoryDto> list = statisticsRepository.getCategoryTime(map);
         for(StatisticsCategoryDto dto : list) {
-            if(dto.getCompletetime() != null)
+            if(dto.getCompletetime() != null) {
                 total += dto.getCompletetime();
+            } else {
+                dto.setCompletetime(0L);
+            }
             for(int i = 0 ; i < 5;  i++) {
                 if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
@@ -137,6 +140,9 @@ public class StatisticsService {
         String[] split = startDate.split("-");
         cal.set(Integer.parseInt(split[0]), Integer.parseInt(split[1])-1, Integer.parseInt(split[2]));
         for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
             if(!list.get(i).get("date").toString().equals(df.format(cal.getTime()))) {
                 map = new HashMap<>();
                 map.put("date", df.format(cal.getTime()));
@@ -168,6 +174,9 @@ public class StatisticsService {
         String[] split = startDate.split("-");
         cal.set(Integer.parseInt(split[0]), Integer.parseInt(split[1])-1, Integer.parseInt(split[2]));
         for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
             if(!list.get(i).get("date").toString().equals(df.format(cal.getTime()))) {
                 map = new HashMap<>();
                 map.put("date", df.format(cal.getTime()));
@@ -198,6 +207,9 @@ public class StatisticsService {
         String[] split = startDate.split("-");
         cal.set(Integer.parseInt(split[0]), Integer.parseInt(split[1])-1, Integer.parseInt(split[2]));
         for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
             if(!list.get(i).get("date").toString().equals(df.format(cal.getTime()))) {
                 map = new HashMap<>();
                 map.put("date", df.format(cal.getTime()));
@@ -224,6 +236,9 @@ public class StatisticsService {
         map.put("userid", userid);
         List<Map<String, Object>> list = statisticsRepository.getMyTimeForWeeks(map);
         for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
             if(!list.get(i).get("day").toString().equals(Integer.toString(i+1))) {
                 map = new HashMap<>();
                 map.put("day", i+1);
@@ -248,6 +263,9 @@ public class StatisticsService {
 
         List<Map<String, Object>> list = statisticsRepository.getPositionTimeForWeeks(map);
         for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
             if(!list.get(i).get("day").toString().equals(Integer.toString(i+1))) {
                 map = new HashMap<>();
                 map.put("day", i+1);
@@ -271,6 +289,9 @@ public class StatisticsService {
 
         List<Map<String, Object>> list = statisticsRepository.getTotalTimeForWeeks(map);
         for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
             if(!list.get(i).get("day").toString().equals(Integer.toString(i+1))) {
                 map = new HashMap<>();
                 map.put("day", i+1);
