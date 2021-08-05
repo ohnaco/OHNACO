@@ -24,10 +24,15 @@
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TodoAdd from "@/components/todo/TodoAdd.vue";
 import TodoCard from "@/components/todo/TodoCard.vue";
-import { createNamespacedHelpers } from 'vuex';
-const todoListHelper = createNamespacedHelpers('todoStore');
+import { createNamespacedHelpers } from "vuex";
+const todoListHelper = createNamespacedHelpers("todoStore");
 
 export default {
+  data() {
+    return {
+      isCreateTodo: false,
+    };
+  },
   components: {
     LeftNavBar,
     TodoCard,
@@ -40,9 +45,10 @@ export default {
     this.setTodoList();
   },
   methods: {
-    ...todoListHelper.mapActions([
-      'setTodoList'
-    ])
-  }
+    ...todoListHelper.mapActions(["setTodoList"]),
+    toggleCreate() {
+      this.isCreateTodo = !this.isCreateTodo;
+    },
+  },
 };
 </script>

@@ -23,7 +23,19 @@ const loadTodoList = (callback, errorCallback) => {
     });
 };
 
+const createTodo = (data, callback, errorCallback) => {
+  http
+    .post("/todo/item", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 
 export default {
   loadTodoList,
+  createTodo
 };

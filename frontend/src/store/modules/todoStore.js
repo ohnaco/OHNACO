@@ -9,6 +9,9 @@ export default {
         SET_TODO(state, value) {
             state.todoLists = value;
         },
+        CREATE_TODO(state, newTodo) {
+          state.todoLists.push(newTodo);
+        },    
     },
     actions: { // 메소드가 들어가는 곳
         setTodoList({ commit }) {
@@ -20,6 +23,20 @@ export default {
                 alert(err);
             });
             
+        },
+        createTodo({ commit }, payload) {
+          Todo.createTodo(
+            payload,
+            (res) => {
+              alert(
+                res.data.status === "success" ? "create success" : "create fail"
+              );
+              commit("CREATE_TODO", res.data.todo);
+            },
+            (err) => {
+              alert(err);
+            }
+          );
         }
     },
     getters: { // computer 같은 개념
