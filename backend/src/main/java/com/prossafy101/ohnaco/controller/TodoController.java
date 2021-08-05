@@ -158,20 +158,28 @@ public class TodoController {
         endDate.append(splitDate[0]);
         endDate.append("-");
         endDate.append(splitDate[1]);
-        endDate.append("-31");
+        Calendar cal = Calendar.getInstance();
+        try {
+            cal.set(Integer.parseInt(splitDate[0]), Integer.parseInt(splitDate[1]) - 1, 1);
+        } catch (Exception e) {
+            result.put("status", "fail");
+            result.put("message", "잘못된 정보입니다.");
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        }
+        endDate.append("-"+cal.getActualMaximum(Calendar.DAY_OF_MONTH));
         try {
             list = todoService.getMonthTodos(userid, startDate.toString(), endDate.toString());
             result.put("list", list);
             if(list.size() == 0)
                 result.put("status", "success");
             else
-                result.put("status", "empty");
+                result.put("status", "fail");
         } catch (Exception e) {
             e.printStackTrace();
             result.put("status", "fail");
         }
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @GetMapping("/commit")
