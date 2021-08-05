@@ -50,10 +50,10 @@
                   </vue-timepicker>
                 </v-col>
                 <v-col class="d-flex justify-end">
-                  <v-btn icon x-large class="mr-2"
+                  <v-btn icon x-large class="mr-2" @click="finishCreate"
                     ><img src="@/assets/images/todo-create-no.svg"
                   /></v-btn>
-                  <v-btn icon x-large class="mr-2"
+                  <v-btn icon x-large class="mr-2" @click="onCreateOK"
                     ><img src="@/assets/images/todo-create-ok.svg"
                   /></v-btn>
                 </v-col>
@@ -68,6 +68,9 @@
 
 <script>
 import VueTimepicker from "vue2-timepicker/src/vue-timepicker.vue";
+import { createNamespacedHelpers } from "vuex";
+const userHelper = createNamespacedHelpers("userStore");
+const todoAddHelper = createNamespacedHelpers("todoStore");
 
 export default {
   name: "TodoAdd",
@@ -89,6 +92,44 @@ export default {
         goaltime: "",
       },
     };
+  },
+  props: {
+    editTodo: {
+      type: Object,
+    },
+    editMode: {
+      type: Boolean,
+    },
+    todoid: {
+      type: String,
+    },
+  },
+  created() {
+    this.newTodo.userid = this.user.userId;
+
+    if (this.editMode) {
+      this.newTodo.categoryid = this.editTodo.categoryid;
+      this.newTodo.title = this.editTodo.title;
+      this.newTodo.goaltime = this.editTodo.goaltime;
+    }
+  },
+  computed: {
+    ...userHelper.mapState(["user"]),
+  },
+  methods: {
+    ...todoAddHelper.mapActions(["createTodo", "updateTodo"]),
+    finishCreate() {
+      this.$refs.form.reset();
+      if (this.editMode) this.$emit("close-edit");
+      else this.$emit("finish-create");
+    },
+    onCreateOK() {
+      if (this.editMode) {
+        this.newTodo.todoid = this.todoid;
+        this.updateTodo(JSON.stringify(this.newTodo));
+      } else this.createTodo(JSON.stringify(this.newTodo));
+      this.finishCreate();
+    },
   },
 };
 </script>

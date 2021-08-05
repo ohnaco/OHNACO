@@ -12,6 +12,15 @@ export default {
         CREATE_TODO(state, newTodo) {
           state.todoLists.push(newTodo);
         },
+        UPDATE_TODO(state, editTodo) {
+          const index = state.todoLists.findIndex(
+            (todo) => todo.todoid === editTodo.todoid
+          );
+    
+          if (index !== -1) {
+            state.todoLists.splice(index, 1, editTodo);
+          }
+        },    
         DELETE_TODO(state, todoid) {
           state.todoLists = state.todoLists.filter(
             (todo) => todo.todoid !== todoid
@@ -43,6 +52,20 @@ export default {
             }
           );
         },
+        updateTodo({ commit }, payload) {
+          Todo.updateTodo(
+            payload,
+            (res) => {
+              alert(
+                res.data.status === "success" ? "update success" : "update fail"
+              );
+              commit("UPDATE_TODO", payload);
+            },
+            (err) => {
+              alert(err);
+            }
+          );
+        },    
         deleteTodo({ commit }, payload) {
           Todo.deleteTodo(
             payload,

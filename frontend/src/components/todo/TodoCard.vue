@@ -50,18 +50,33 @@
             </div>
           </div>
         </v-card>
+        <!-- edit mode -->
+        <div v-else>
+          <todo-add
+            :editTodo="item"
+            :editMode="isEdit"
+            :todoid="item.todoid"
+            @close-edit="deActivateEditMode"
+          />
+        </div>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+import TodoAdd from "./TodoAdd.vue";
 import TodoCardCategory from "./TodoCardCategory.vue";
 import { createNamespacedHelpers } from "vuex";
 const todoHelper = createNamespacedHelpers("todoStore");
 
 export default {
-  components: { TodoCardCategory },
+  data() {
+    return {
+      isEdit: false,
+    };
+  },
+  components: { TodoCardCategory, TodoAdd },
   name: "TodoCard",
   props: {
     item: {
@@ -69,6 +84,12 @@ export default {
     },
   },
   methods: {
+    activateEditMode() {
+      this.isEdit = true;
+    },
+    deActivateEditMode() {
+      this.isEdit = false;
+    },
     ...todoHelper.mapActions(["deleteTodo"]),
   },
 };
