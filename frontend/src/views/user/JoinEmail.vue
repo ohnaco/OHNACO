@@ -162,6 +162,15 @@ input::placeholder {
 }
 .join-footer-text {
   display: flex;
+<<<<<<< HEAD
+  justify-content: space-between;
+  width: 250px;
+  margin-left: 17px;
+  margin-right: 15px;
+}
+.join_footer_text {
+=======
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
   height: 16px;
   flex-grow: 0;
   margin-top: 50px;

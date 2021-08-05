@@ -1,5 +1,11 @@
 <template>
   <div>
+<<<<<<< HEAD
+    <div class="logo">
+      <BigFullLogo />
+    </div>
+=======
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
     <!-- 로그인 폼 -->
     <div class="join-form">
       <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
@@ -22,10 +28,17 @@
           v-model="password"
         />
         <!-- 로그인 버튼 -->
+<<<<<<< HEAD
+        <button class="login_btn" @click="login">로그인</button>
+        <div class="signup_findpwd_btn">
+          <button class="signup_btn" @click="goSignup">회원가입</button>
+          <button class="findpwd_btn" @click="goFindpwd">비밀번호 찾기</button>
+=======
         <button class="mt-1" @click="doLogin"><img src="@/assets/images/login-btn.svg" alt="login" /></button>
         <div>
           <button class="signup-btn" @click="goSignup">회원가입</button>
           <button class="findpwd-btn" @click="goFindpwd">비밀번호 찾기</button>
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
         </div>
         <!-- 소셜 로그인 -->
         <div class="social-login">
@@ -48,6 +61,8 @@
 
 <script>
 import User from "../../api/User";
+import { createNamespacedHelpers } from "vuex";
+const userHelper = createNamespacedHelpers("userStore");
 
 export default {
   name: "Join",
@@ -58,6 +73,7 @@ export default {
     };
   },
   methods: {
+    ...userHelper.mapActions(["setUser"]),
     goSignup: function () {
       this.$router.push({ name: "Join" });
     },
@@ -73,8 +89,8 @@ export default {
       User.requestLogin(
         data,
         (res) => {
-          console.log(res);
           localStorage.setItem("jwt-access-token", res.headers.authorization.substring(7));
+          this.setUser(res);
           alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
           this.$router.push({ name: "Todo" });
         },
@@ -136,6 +152,24 @@ export default {
   border: solid 1px #607d8b;
   background-color: #ffffff;
 }
+<<<<<<< HEAD
+.login_btn {
+  width: 290px;
+  height: 40px;
+  margin: 10px 1px 10px 0;
+  padding: 10.6px 16.6px 9.9px 17.2px;
+  border-radius: 5px;
+  border: solid 1px #607d8b;
+  background-color: #607d8b;
+  font-family: Gmarket Sans TTF;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  color: #ffffff;
+  cursor: pointer;
+}
+=======
+>>>>>>> dbdbc4797a8c2f045453c6acad2d57e491b54a73
 input::placeholder {
   font-family: GmarketSansTTF;
   font-size: 13px;
