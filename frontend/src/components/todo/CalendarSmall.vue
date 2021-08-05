@@ -2,7 +2,7 @@
   <div id="app" class="m-5">
     <v-app id="inspire">
       <v-row justify="center">
-        <v-date-picker full-width v-model="picker" color="#607D8B">
+        <v-date-picker full-width v-model="picker" color="#607D8B" v-on="moveTodoDate()">
           <img src="@/assets/images/calendar.svg" style="position:absolute ; top:10px ; right:25px" @click="onEmit()">
         </v-date-picker>
       </v-row>
@@ -12,17 +12,27 @@
 
 <script>
 export default {
+  props: {
+    value : Date
+  },
   data() {
     return {
-      picker: new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10),
+      picker: this.value,
     };
   },
   methods: {
     onEmit() {
       this.$emit("modalOn_child");
     },
+    moveTodoDate() {
+      this.$emit("todoDate", this.picker);
+    }
+  },
+
+  watch: {
+    value: function () {
+      this.picker=this.value;
+    }
   },
 };
 </script>

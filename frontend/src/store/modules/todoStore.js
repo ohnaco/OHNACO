@@ -31,8 +31,9 @@ export default {
   },
   actions: {
     // 메소드가 들어가는 곳
-    setTodoList({ commit }) {
-      Todo.loadTodoList(
+    setTodoList({ commit }, data ) {
+      console.log(data);
+      Todo.loadTodoList(data,
         (res) => {
           commit("SET_TODO", res.data);
         },

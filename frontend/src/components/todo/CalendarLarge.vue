@@ -35,6 +35,7 @@
               :event-color="getEventColor"
               :type="type"
               @click:event="showEvent"
+              @click:date="viewDay"
               @change="updateRange"
             ></v-calendar>
             <v-menu
@@ -179,6 +180,9 @@ export default {
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
+    viewDay(){
+      this.$emit("todoDate", this.focus);
+    }
   },
 };
 </script>

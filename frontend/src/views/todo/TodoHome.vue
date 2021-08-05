@@ -6,6 +6,7 @@
         <div class="d-flex align-center text-h4 ma-5"
           ><img src="@/assets/images/todo-icon.svg" class="mr-2"/><b>To Do List</b></div
         >
+        <span>{{date}}</span>
         <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" />
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" />
         <button @click="toggleCreate">
@@ -16,13 +17,13 @@
         <!-- 우측달력 -->
         <p></p>
         <p></p>
-        <CalendarSmall @modalOn_child="modalOn" style="width:100%"></CalendarSmall>
+        <CalendarSmall @modalOn_child="modalOn" @todoDate="moveDate" style="width:100%" v-model="date"></CalendarSmall>
         <!--우측달력 끝-->
       </v-col>
     </v-row>
     <!--큰달력 모달-->
     <ModalView v-if="this.isModal" @close-modal="isModal = false">
-      <CalendarLarge/>
+      <CalendarLarge @todoDate="moveDateAndCloseModal"/>
     </ModalView>
     <!--큰달력 모달 끝-->
   </v-layout>
@@ -43,6 +44,7 @@ export default {
     return {
       isCreateTodo: false,
       isModal : false,
+      date : this.$moment().format("YYYY-MM-DD"),
     };
   },
   components: {
@@ -57,7 +59,7 @@ export default {
     ...todoListHelper.mapState(["todoLists"]),
   },
   created() {
-    this.setTodoList();
+    this.setTodoList(this.date);
   },
   methods: {
     ...todoListHelper.mapActions(["setTodoList"]),
@@ -67,6 +69,21 @@ export default {
     modalOn() {
       this.isModal=true;
     },
+    moveDate(date) {
+      this.date=date;
+    },
+    moveDateAndCloseModal(date) {
+      this.isModal=false;
+      this.date=date;
+    },
+
+  },
+
+  watch: {
+    date: function () {
+      console.log("바꼇당ㅎㅎ");
+      this.setTodoList(this.date);
+    }
   },
 };
 </script>
