@@ -8,8 +8,8 @@
           <b>To Do List</b>
         </div>
         <div class="d-flex flex-row align-center ma-5">
-          <h2>{{ date }}</h2>
-          <daily-commit />
+          <h2 v-text="date"></h2>
+          <daily-commit v-if="isDateToday" />
         </div>
         <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" />
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" />
@@ -40,8 +40,9 @@ import TodoCard from "@/components/todo/TodoCard.vue";
 import CalendarSmall from "@/components/todo/CalendarSmall.vue";
 import CalendarLarge from "@/components/todo/CalendarLarge.vue";
 import ModalView from '@/components/common/ModalView.vue';
-import { createNamespacedHelpers } from "vuex";
 import DailyCommit from "@/components/todo/DailyCommit.vue";
+
+import { createNamespacedHelpers } from "vuex";
 const todoListHelper = createNamespacedHelpers("todoStore");
 
 export default {
@@ -50,6 +51,7 @@ export default {
       isCreateTodo: false,
       isModal : false,
       date : this.$moment().format("YYYY-MM-DD"),
+      isDateToday: null
     };
   },
   components: {
@@ -66,6 +68,7 @@ export default {
   },
   created() {
     this.setTodoList(this.date);
+    this.isDateToday = this.isToday(this.date);
   },
   methods: {
     ...todoListHelper.mapActions(["setTodoList"]),
@@ -82,13 +85,15 @@ export default {
       this.isModal=false;
       this.date=date;
     },
-
+    isToday(date) {
+      const today = this.$moment().format("YYYY-MM-DD");
+      return date === today;
+    }
   },
-
   watch: {
     date: function () {
-      console.log("바꼇당ㅎㅎ");
       this.setTodoList(this.date);
+      this.isDateToday = this.isToday(this.date);
     }
   },
 };

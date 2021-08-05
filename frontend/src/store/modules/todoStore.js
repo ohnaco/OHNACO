@@ -5,6 +5,7 @@ export default {
   state: {
     // data 가 들어가는 곳
     todoLists: [],
+    commitHistory: {},
   },
   mutations: {
     // 여기서 data 를 업데이트
@@ -28,11 +29,13 @@ export default {
         (todo) => todo.todoid !== todoid
       );
     },
+    SET_COMMIT_HISTORY(state, commitHistory) {
+      state.commitHistory = commitHistory;
+    } 
   },
   actions: {
     // 메소드가 들어가는 곳
     setTodoList({ commit }, data ) {
-      console.log(data);
       Todo.loadTodoList(data,
         (res) => {
           commit("SET_TODO", res.data);
@@ -84,8 +87,21 @@ export default {
         }
       );
     },
+    refreshCommit({ commit }) {
+      Todo.getCommitHistory(
+        (res) => {
+          commit("SET_COMMIT_HISTORY", res.data.commit);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    }
   },
   getters: {
     // computer 같은 개념
+    getDay1Commit(state) {
+      return state.commitHistory["day1"];
+    }
   },
 };

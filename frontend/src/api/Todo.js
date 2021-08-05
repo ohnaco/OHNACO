@@ -66,10 +66,22 @@ const loadByMonth = (data, callback, errorCallback) => {
     });
 };
 
+const getCommitHistory = (callback, errorCallback) => {
+  http
+  .get("/todo/commit")
+  .then((res) => {
+    callback(res);
+  })
+  .catch((err) => {
+    errorCallback(err);
+  });
+};
+
 export default {
   loadTodoList,
   createTodo,
   updateTodo,
   deleteTodo,
   loadByMonth,
+  getCommitHistory
 };
