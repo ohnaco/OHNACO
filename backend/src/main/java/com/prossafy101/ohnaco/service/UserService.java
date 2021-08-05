@@ -51,7 +51,7 @@ public class UserService {
     }
 
     public User signIn(SignInDto dto) throws Exception {
-        User user = userRepository.findByEmail(dto.getEmail());
+        User user = findByEmail(dto.getEmail());
 
         if(user == null)
             throw new Exception("회원이 존재하지 않습니다.");
@@ -65,7 +65,7 @@ public class UserService {
 
     //중복 이메일 체크
     public void isSameEmail(String email) throws Exception {
-        if(userRepository.findByEmail(email) != null) {
+        if(findByEmail(email) != null) {
             throw new Exception("중복된 이메일이 존재합니다.");
         }
     }
@@ -105,7 +105,7 @@ public class UserService {
         return tempUserRepository.findById(email);
     }
     //이메일 보내기
-    public void sendMail(String toEmail, String subject, String emailCode) throws MessagingException {
+    public void sendMail(String toEmail, String subject, TempUserDto tempUserDto) throws MessagingException {
         MimeMessage mimeMessage = javaMailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
 
@@ -118,26 +118,40 @@ public class UserService {
         sb.append("<head>");
         sb.append("</head>");
         sb.append("<body>");
-        sb.append(
-                " <div" 																																																	+
-                        "	style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 400px; height: 600px; border-top: 4px solid #02b875; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">"		+
-                        "	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">"																															+
-                        "		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">ONCACO</span><br />"																													+
-                        "		<span style=\"color: #02b875\">메일인증</span> 안내입니다."																																				+
-                        "	</h1>\n"																																																+
-                        "	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">"																													+
-                        "		안녕하세요.<br />"																																													+
-                        "		ONACO에 가입해 주셔서 진심으로 감사드립니다.<br />"																																						+
-                        "		아래 <b style=\"color: #02b875\">'메일 인증 코드'</b>를 입력하셔서 회원가입을 완료해 주세요.<br />"																													+
-                        "		감사합니다."																																															+
-                        "	</p>"																																																	+
-                        "	<p"																																																	+
-                        "		style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #02b875; line-height: 45px; vertical-align: middle; font-size: 16px;\">"							+
-                        emailCode                                                                                                                                                                                           +
-                        "		</p>"																																														+
-                        "	<div style=\"border-top: 1px solid #DDD; padding: 5px;\"></div>"																																		+
-                        " </div>"
-        );
+        sb.append(" <div" +
+                "	style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 400px; height: 600px; border-top: 4px solid #02b875; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">" +
+                "	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">" +
+                "		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">ONCACO</span><br />" +
+                "		<span style=\"color: #02b875\">메일인증</span> 안내입니다." +
+                "	</h1>\n" +
+                "	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">" +
+                "		안녕하세요.<br />" +
+                "		ONACO에 가입해 주셔서 진심으로 감사드립니다.<br />");
+        if(tempUserDto.getPassword() != null) {
+            sb.append("		아래 <b style=\"color: #02b875\">'메일 인증 코드'</b>를 입력하셔서 회원가입을 완료해 주세요.<br />" +
+                    "		감사합니다." +
+                    "	</p>" +
+                    "	<p" +
+                    "		style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #02b875; line-height: 45px; vertical-align: middle; font-size: 16px;\">" +
+                    tempUserDto.getToken()
+            );
+        } else {
+            sb.append("		아래 <b style=\"color: #02b875\">'패스워드 변경 링크'</b>를 클릭하여서 패스워드 변경을 완료해 주세요.<br />" +
+                    "		감사합니다." +
+                    "	</p>" +
+                    "	<p" +
+                    "		style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #02b875; line-height: 45px; vertical-align: middle; font-size: 16px;\">"
+            );
+            sb.append("<a href='http://localhost:8197/user/findpwd?email=" +
+                    toEmail +
+                    "&token=" +
+                    tempUserDto.getToken() +
+                    "' target='_blenk'>이메일 인증 확인</a>"
+            );
+        }
+        sb.append("		</p>" +
+                "	<div style=\"border-top: 1px solid #DDD; padding: 5px;\"></div>" +
+                " </div>");
         sb.append("</body>");
         sb.append("</html>");
         helper.setText(sb.toString(), true); //ture넣을경우 html
@@ -232,17 +246,44 @@ public class UserService {
     }
 
     //임시저장 및 이메일 전송
-    public void tempSaveAndSendEmail(TempUserDto tempUser) throws Exception {
+    public void tempSaveAndSendEmail(TempUserDto tempUser, String toEmail) throws Exception {
         try {
-            tempUserSave(tempUser);
+            tempUserRepository.save(tempUser);
         } catch(Exception e) {
             throw new Exception("임시회원 저장 오류.");
         }
         try {
             //********************************유저 이메일로 변경해줘야함!!************************
-            sendMail(tempUser.getEmail(), "[OHNACO 이메일 인증 코드]", tempUser.getToken());
+            sendMail(toEmail,"[OHNACO 이메일 인증 코드]", tempUser);
+
         } catch(MessagingException e) {
-            throw new Exception("임시회원 저장 오류.");
+            throw new Exception("메일 보내기 오류.");
         }
+    }
+
+    //패스워드 찾기 redis에 저장된 값과 비교
+    public boolean isTokenConfirm(String email, String token) throws Exception {
+        Optional<TempUserDto> tempUserDto;
+        try {
+            tempUserDto = tempUserRepository.findById("findPwd:" + email);
+        } catch (Exception e) {
+            throw new Exception("이메일 찾기 오류");
+        }
+        if(tempUserDto.isPresent()) {
+            if(tempUserDto.get().getToken().equals(token)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // 유저 이메일로 찾기
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+    //유저 아이디로 찾기
+    public User findByUserid(String userid) {
+        return userRepository.findByUserid(userid);
     }
 }

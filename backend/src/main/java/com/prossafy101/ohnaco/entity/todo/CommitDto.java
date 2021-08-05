@@ -1,4 +1,4 @@
-package com.prossafy101.ohnaco.entity.user;
+package com.prossafy101.ohnaco.entity.todo;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -15,15 +15,21 @@ import java.util.concurrent.TimeUnit;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@RedisHash("tempUser")
-public class TempUserDto {
+@RedisHash("commit")
+public class CommitDto {
     @Id
-    private String email;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    private String password;
-    private String token;
-    private boolean isCheck;
-
-    @TimeToLive(unit = TimeUnit.MINUTES)
+    private String userid;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String updatedate;
+    private int day1;
+    private int day2;
+    private int day3;
+    private int day4;
+    private int day5;
+    private int day6;
+    private int day7;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @TimeToLive(unit = TimeUnit.HOURS)
     private int timeToLive;
 }
