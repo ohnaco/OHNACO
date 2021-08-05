@@ -63,11 +63,10 @@ const routes = [
 
 const originalPush = VueRouter.prototype.push;
 VueRouter.prototype.push = function push(location) {
-	return originalPush.call(this, location).catch(err => {
-		if (err.name !== 'NavigationDuplicated') throw err;
-	});
+  return originalPush.call(this, location).catch((err) => {
+    if (err.name !== "NavigationDuplicated") throw err;
+  });
 };
-
 
 const router = new VueRouter({
   mode: "history",

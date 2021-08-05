@@ -10,7 +10,8 @@
     </div>
     <div style="width: 100%; height: 60%">
       <div class="time">
-        {{formattedElapsedTime}}</div>
+        {{ formattedElapsedTime }}
+      </div>
       <div class="pause">
         <img
           src="@/assets/pause.png"
@@ -28,21 +29,24 @@
         />
       </div>
       <div class="stop">
-        <img src="@/assets/stop.png" alt="" style="width: 100%; height: 100%" 
-         v-on:click="reset"/>
+        <img
+          src="@/assets/stop.png"
+          alt=""
+          style="width: 100%; height: 100%"
+          v-on:click="reset"
+        />
       </div>
     </div>
   </div>
 </template>
 <script>
-
 export default {
   name: "App",
   data() {
     return {
       category: "CS",
       title: "운영체제공부",
-      issue : "sass201020",
+      issue: "sass201020",
       time: 0,
       timer: undefined,
       ispaused: false,
@@ -54,20 +58,20 @@ export default {
       date.setSeconds(this.time / 1000);
       const utc = date.toUTCString();
       return utc.substr(utc.indexOf(":") - 2, 8);
-    }
+    },
   },
   mounted() {
-    this.start()
+    this.start();
   },
   methods: {
     start() {
-      this.ispaused=!this.ispaused;
+      this.ispaused = !this.ispaused;
       this.timer = setInterval(() => {
         this.time += 1000;
       }, 1000);
     },
     stop() {
-      this.ispaused=!this.ispaused;
+      this.ispaused = !this.ispaused;
       clearInterval(this.timer);
     },
     reset() {
@@ -75,8 +79,8 @@ export default {
       this.time = 0;
       //리셋하면 카테고리, 완료시간, 제목 디비로 보내기(완료했다고 업데이트)
       //그리고 컴포넌트 변경(원래카드로, 시작대신 완료체크된거뜨게)
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -18,9 +18,18 @@
         </button>
       </v-col>
       <v-col cols="3">
-        <!-- 달력 -->
+        <!-- 우측달력 -->
+        <p></p>
+        <p></p>
+        <CalendarSmall @modalOn_child="modalOn" @todoDate="moveDate" style="width:100%" v-model="date"></CalendarSmall>
+        <!--우측달력 끝-->
       </v-col>
     </v-row>
+    <!--큰달력 모달-->
+    <ModalView v-if="this.isModal" @close-modal="isModal = false">
+      <CalendarLarge @todoDate="moveDateAndCloseModal"/>
+    </ModalView>
+    <!--큰달력 모달 끝-->
   </v-layout>
 </template>
 
@@ -28,6 +37,9 @@
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TodoAdd from "@/components/todo/TodoAdd.vue";
 import TodoCard from "@/components/todo/TodoCard.vue";
+import CalendarSmall from "@/components/todo/CalendarSmall.vue";
+import CalendarLarge from "@/components/todo/CalendarLarge.vue";
+import ModalView from '@/components/common/ModalView.vue';
 import { createNamespacedHelpers } from "vuex";
 import DailyCommit from "@/components/todo/DailyCommit.vue";
 const todoListHelper = createNamespacedHelpers("todoStore");
@@ -36,7 +48,8 @@ export default {
   data() {
     return {
       isCreateTodo: false,
-      date: "8월 5일 (목)"
+      isModal : false,
+      date : this.$moment().format("YYYY-MM-DD"),
     };
   },
   components: {
@@ -44,18 +57,39 @@ export default {
     TodoCard,
     TodoAdd,
     DailyCommit,
+    CalendarSmall,
+    CalendarLarge,
+    ModalView,
   },
   computed: {
     ...todoListHelper.mapState(["todoLists"]),
   },
   created() {
-    this.setTodoList();
+    this.setTodoList(this.date);
   },
   methods: {
     ...todoListHelper.mapActions(["setTodoList"]),
     toggleCreate() {
       this.isCreateTodo = !this.isCreateTodo;
     },
+    modalOn() {
+      this.isModal=true;
+    },
+    moveDate(date) {
+      this.date=date;
+    },
+    moveDateAndCloseModal(date) {
+      this.isModal=false;
+      this.date=date;
+    },
+
+  },
+
+  watch: {
+    date: function () {
+      console.log("바꼇당ㅎㅎ");
+      this.setTodoList(this.date);
+    }
   },
 };
 </script>
