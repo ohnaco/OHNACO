@@ -6,7 +6,6 @@
         <div class="d-flex align-center text-h4 ma-5"
           ><img src="@/assets/images/todo-icon.svg" class="mr-2"/><b>To Do List</b></div
         >
-        </div>
         <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" />
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" />
         <button @click="toggleCreate">
@@ -14,9 +13,18 @@
         </button>
       </v-col>
       <v-col cols="3">
-        <!-- 달력 -->
+        <!-- 우측달력 -->
+        <p></p>
+        <p></p>
+        <CalendarSmall @modalOn_child="modalOn" style="width:100%"></CalendarSmall>
+        <!--우측달력 끝-->
       </v-col>
     </v-row>
+    <!--큰달력 모달-->
+    <ModalView v-if="this.isModal" @close-modal="isModal = false">
+      <CalendarLarge/>
+    </ModalView>
+    <!--큰달력 모달 끝-->
   </v-layout>
 </template>
 
@@ -24,6 +32,9 @@
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TodoAdd from "@/components/todo/TodoAdd.vue";
 import TodoCard from "@/components/todo/TodoCard.vue";
+import CalendarSmall from "@/components/todo/CalendarSmall.vue";
+import CalendarLarge from "@/components/todo/CalendarLarge.vue";
+import ModalView from '@/components/common/ModalView.vue';
 import { createNamespacedHelpers } from "vuex";
 const todoListHelper = createNamespacedHelpers("todoStore");
 
@@ -31,12 +42,16 @@ export default {
   data() {
     return {
       isCreateTodo: false,
+      isModal : false,
     };
   },
   components: {
     LeftNavBar,
     TodoCard,
     TodoAdd,
+    CalendarSmall,
+    CalendarLarge,
+    ModalView,
   },
   computed: {
     ...todoListHelper.mapState(["todoLists"]),
@@ -48,6 +63,9 @@ export default {
     ...todoListHelper.mapActions(["setTodoList"]),
     toggleCreate() {
       this.isCreateTodo = !this.isCreateTodo;
+    },
+    modalOn() {
+      this.isModal=true;
     },
   },
 };

@@ -58,9 +58,25 @@ const deleteTodo = (data, callback, errorCallback) => {
     });
 };
 
+const loadByMonth = (data, callback, errorCallback) => {
+  http
+    .get("/todo/month", {
+      params: {
+        date: data,
+      },
+    })
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 export default {
   loadTodoList,
   createTodo,
   updateTodo,
-  deleteTodo
+  deleteTodo,
+  loadByMonth,
 };
