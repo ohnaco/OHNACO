@@ -56,15 +56,17 @@ public class TodoController {
             result.put("status", "fail");
         }
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
     @PostMapping("/item")
-    public Object createTodo(@RequestBody TodoDto dto) {
+    public Object createTodo(@RequestBody TodoDto dto, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
         try {
-            Todo todo = todoService.createTodo(dto);
+            Todo todo = todoService.createTodo(dto, userid);
 
             result.put("status", "success");
             result.put("todo", todo);
@@ -112,12 +114,11 @@ public class TodoController {
     }
 
     @PutMapping("/complete")
-    public Object completeTodo(@RequestBody TodoDto dto, HttpServletRequest req) {
+    public Object completeTodo(@RequestBody TodoDto dto) {
         Map<String, Object> result = new HashMap<>();
-        String token = req.getHeader("Authorization").substring(7);
-        String userid = jwtUtil.getUserid(token);
+
         try {
-            result.put("todo", todoService.completeTodo(userid, dto));
+            result.put("todo", todoService.completeTodo(dto));
             result.put("status", "success");
         } catch(Exception e) {
             result.put("status", "fail");
@@ -127,12 +128,12 @@ public class TodoController {
     }
 
     @PostMapping("/past")
-    public Object addTodo(@RequestParam String todoid, HttpServletRequest req) {
+    public Object addTodo(@RequestParam Map<String, String> map, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         try {
-            result.put("todo", todoService.addTodo(userid, todoid));
+            result.put("todo", todoService.addTodo(userid, map.get("todoid"), map.get("date")));
             result.put("status", "success");
         } catch(Exception e) {
             result.put("status", "fail");
