@@ -58,13 +58,13 @@ public class StatisticsController {
             String endDate = df.format(cal.getTime());
             cal.add(Calendar.DATE, -30);
             String startDate = df.format(cal.getTime());
-            result.put("totalTime", statisticsService.getToatalTime(userid, startDate, endDate));
-            result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
-            result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
-            result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
-            result.put("myTime", statisticsService.getMyTimeForWeeks(userid, startDate, endDate));
-            result.put("positionMemberTime", statisticsService.getPositionTimeForWeeks(userid, startDate, endDate));
-            result.put("entireMemberTime", statisticsService.getTotalTimeForWeeks(startDate, endDate));
+            result.put("mtotalTime", statisticsService.getToatalTime(userid, startDate, endDate));
+            result.put("mcategoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
+            result.put("mpositionTime", statisticsService.getPositionTime(userid, startDate, endDate));
+            result.put("mentireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
+            result.put("mmyTime", statisticsService.getMyTimeForWeeks(userid, startDate, endDate));
+            result.put("mpositionMemberTime", statisticsService.getPositionTimeForWeeks(userid, startDate, endDate));
+            result.put("mentireMemberTime", statisticsService.getTotalTimeForWeeks(startDate, endDate));
 
         }
 
