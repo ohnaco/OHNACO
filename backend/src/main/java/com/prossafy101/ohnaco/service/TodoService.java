@@ -9,6 +9,7 @@ import com.prossafy101.ohnaco.repository.CommitRepository;
 import com.prossafy101.ohnaco.repository.TodoRepository;
 import com.prossafy101.ohnaco.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -38,26 +39,28 @@ public class TodoService {
     @Autowired
     private CommitRepository commitRepo;
 
-    public Todo createTodo(TodoDto dto) {
+    public Todo createTodo(TodoDto dto, String userid) {
             return todoRepository.save(Todo.builder()
                     .todoid(createTodoid())
-                    .user(userRepository.findByUserid(dto.getUserid()))
+                    .user(userRepository.findByUserid(userid))
                     .title(dto.getTitle())
                     .category(categoryRepository.findByCategoryid(dto.getCategoryid()))
-                    .date(LocalDateTime.now())
+                    .date(LocalDate.parse(dto.getDate()))
+                    .created(LocalDateTime.now())
                     .goaltime(Time.valueOf(dto.getGoaltime()))
                     .issuccess(false)
                     .build());
     }
 
-    public String addTodo(String userid, String todoid) {
+    public String addTodo(String userid, String todoid, String date) {
         Todo todo = todoRepository.findByTodoid(todoid);
         String newTodo = todoRepository.save(Todo.builder()
                 .todoid(createTodoid())
                 .user(userRepository.findByUserid(userid))
                 .title(todo.getTitle())
                 .category(todo.getCategory())
-                .date(LocalDateTime.now())
+                .date(LocalDate.parse(date))
+                .created(LocalDateTime.now())
                 .goaltime(todo.getGoaltime())
                 .issuccess(false)
                 .build()).getTodoid();
@@ -66,11 +69,7 @@ public class TodoService {
     }
 
     public List<Todo> getTodos(String userid, String date) {
-
-        LocalDateTime startDatetime = LocalDateTime.of(LocalDate.parse(date), LocalTime.of(0,0,0));
-        LocalDateTime endDatetime = LocalDateTime.of(LocalDate.parse(date), LocalTime.of(23,59,59));
-
-        List<Todo> list = todoRepository.getAllByDateBetweenAndUserOrderByDate(startDatetime, endDatetime, userRepository.findByUserid(userid));
+        List<Todo> list = todoRepository.findByDateAndUser(LocalDate.parse(date), userRepository.findByUserid(userid), Sort.by("created"));
         return list;
     }
 
@@ -93,7 +92,6 @@ public class TodoService {
 
     public Todo modifyTodo(TodoDto dto) {
         Todo todo = todoRepository.findByTodoid(dto.getTodoid());
-
         todo.setTitle(dto.getTitle());
         todo.setGoaltime(Time.valueOf(dto.getGoaltime()));
         todo.setCategory(categoryRepository.findByCategoryid(dto.getCategoryid()));
@@ -105,7 +103,7 @@ public class TodoService {
         todoRepository.deleteTodoByTodoidAndUser(todoid, userRepository.findByUserid(userid));
     }
 
-    public Todo completeTodo(String userid, TodoDto dto) {
+    public Todo completeTodo(TodoDto dto) {
         Todo todo = todoRepository.findByTodoid(dto.getTodoid());
 
         todo.setIssuccess(true);
@@ -114,11 +112,11 @@ public class TodoService {
         return todo;
     }
 
-    public List<Todo> getMonthTodos(String userid, String startDate, String endDate) {
-        LocalDateTime startDatetime = LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0));
-        LocalDateTime endDatetime = LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59));
+    public List<Todo> getMonthTodos(String userid, String start, String end) {
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
 
-        List<Todo> list = todoRepository.getAllByDateBetweenAndUserOrderByDate(startDatetime, endDatetime, userRepository.findByUserid(userid));
+        List<Todo> list = todoRepository.getAllByDateBetweenAndUser(startDate, endDate, userRepository.findByUserid(userid), Sort.by("date", "created"));
         return list;
     }
 
