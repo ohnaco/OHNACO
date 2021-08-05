@@ -79,7 +79,7 @@ public class UserService {
     // 레디스에 이메일(기본키), 패스워드, 인증코드 저장
     public void tempUserSave(TempUserDto tempUserDto) {
         TempUserDto tempUser = tempUserDto;
-        tempUser.setPassword(passwordEncoder.encode(tempUserDto.getPassword()));
+        tempUser.setPassword(tempUserDto.getPassword());
         tempUserRepository.save(tempUser);
     }
     //이메일 랜덤 대문자 + 숫자 8개 choice
