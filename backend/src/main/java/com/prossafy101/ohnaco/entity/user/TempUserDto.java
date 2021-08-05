@@ -22,6 +22,7 @@ public class TempUserDto {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
     private String token;
+    private boolean isCheck;
 
     @TimeToLive(unit = TimeUnit.MINUTES)
     private int timeToLive;

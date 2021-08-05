@@ -136,7 +136,7 @@ public class UserController {
         String emailCode = userService.randomCode();
         try {
             userService.tempSaveAndSendEmail(TempUserDto.builder()
-                    .email(tempUserDto.getEmail()).password(passwordEncoder.encode(tempUserDto.getPassword())).token(emailCode).timeToLive(10).build(), tempUserDto.getEmail());
+                    .email(tempUserDto.getEmail()).password(passwordEncoder.encode(tempUserDto.getPassword())).token(emailCode).isCheck(false).timeToLive(10).build(), tempUserDto.getEmail());
             result.put("status", true);
             result.put("message", "임시정보 저장 성공");
         } catch (Exception e) {
@@ -166,6 +166,9 @@ public class UserController {
             } else {
                 result.put("status", true);
                 result.put("message", "코드번호 일치.");
+                tempUserDto.get().setCheck(true);
+                tempUserDto.get().setTimeToLive(30);
+                userService.tempUserSave(tempUserDto.get());
             }
         } else {
             result.put("status", false);
@@ -197,7 +200,7 @@ public class UserController {
 
             try {
                 userService.tempSaveAndSendEmail(TempUserDto.builder()
-                        .email(tempUserDto.get().getEmail()).password(passwordEncoder.encode(tempUserDto.get().getPassword())).token(emailCode).timeToLive(10).build(), tempUserDto.get().getEmail());
+                        .email(tempUserDto.get().getEmail()).password(passwordEncoder.encode(tempUserDto.get().getPassword())).token(emailCode).isCheck(false).timeToLive(10).build(), tempUserDto.get().getEmail());
                 result.put("status", true);
                 result.put("message", "이메일 보내기 성공.");
             } catch (Exception e) {
@@ -224,6 +227,11 @@ public class UserController {
             result.put("status", false);
             result.put("message", "존재하지 않는 이메일입니다.");
         } else {
+            if(!tempUserDto.get().isCheck()) {
+                result.put("status", false);
+                result.put("message", "인증코드 오류.");
+                return new ResponseEntity<>(result , HttpStatus.OK);
+            }
             try {
                 userService.userSave(User.builder()
                         .userid(userService.createUserid())
