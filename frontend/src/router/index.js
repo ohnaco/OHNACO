@@ -7,7 +7,7 @@ import JoinProfile from "../views/user/JoinProfile.vue";
 import JoinSuccess from "../views/user/JoinSuccess.vue";
 
 import Todo from "@/views/todo/TodoHome.vue";
-import Statistics from "@/views/statistics/Statstics.vue";
+import Statistics from "@/views/statistics/Statistics.vue";
 import Tech from "@/views/tech/TechNews.vue";
 import DevTalk from "@/views/devtalk/QuestionList.vue";
 
