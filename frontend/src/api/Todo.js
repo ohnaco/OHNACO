@@ -34,8 +34,21 @@ const createTodo = (data, callback, errorCallback) => {
     });
 };
 
+const deleteTodo = (data, callback, errorCallback) => {
+  http
+    .delete("/todo/item", {
+      params: { todoid: data },
+    })
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
 
 export default {
   loadTodoList,
-  createTodo
+  createTodo,
+  deleteTodo
 };

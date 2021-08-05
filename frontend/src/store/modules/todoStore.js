@@ -11,7 +11,12 @@ export default {
         },
         CREATE_TODO(state, newTodo) {
           state.todoLists.push(newTodo);
-        },    
+        },
+        DELETE_TODO(state, todoid) {
+          state.todoLists = state.todoLists.filter(
+            (todo) => todo.todoid !== todoid
+          );
+        },     
     },
     actions: { // 메소드가 들어가는 곳
         setTodoList({ commit }) {
@@ -37,7 +42,21 @@ export default {
               alert(err);
             }
           );
-        }
+        },
+        deleteTodo({ commit }, payload) {
+          Todo.deleteTodo(
+            payload,
+            (res) => {
+              alert(
+                res.data.status === "success" ? "delete success" : "delete fail"
+              );
+              commit("DELETE_TODO", payload);
+            },
+            (err) => {
+              alert(err);
+            }
+          );
+        },    
     },
     getters: { // computer 같은 개념
 

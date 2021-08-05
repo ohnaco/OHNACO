@@ -57,11 +57,19 @@
 
 <script>
 import TodoCardCategory from "./TodoCardCategory.vue";
+import { createNamespacedHelpers } from "vuex";
+const todoHelper = createNamespacedHelpers("todoStore");
+
 export default {
   components: { TodoCardCategory },
   name: "TodoCard",
   props: {
-    items: { type: Array, default: () => [] },
+    item: {
+      type: Object,
+    },
+  },
+  methods: {
+    ...todoHelper.mapActions(["deleteTodo"]),
   },
 };
 </script>
