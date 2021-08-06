@@ -3,27 +3,34 @@
     <v-row style="background: #EFEFEF">
       <v-col cols="2"><left-nav-bar></left-nav-bar></v-col>
       <v-col cols="10" class="pa-10">
+        <!-- 상단 제목 및 버튼 -->
         <v-flex class="d-flex justify-space-between text-h4 mt-10 mb-5">
           <b>Statistics</b>
+          <!-- 주간 월간 버튼 -->
           <div>
-            <!-- 주간 버튼 -->
-            <v-btn 
-            text
-            @click="week"
-            color="#607D8B">
+            <v-btn-toggle 
+            v-model="text"
+            borderless
+            tile
+            background-color="#EFEFEF"
+            >
+              <v-btn 
+                text
+                @click="week"
+                color="#607D8B">
               <v-avatar>
                 <img src="@/assets/images/week-btn.svg" alt="week-btn" />
               </v-avatar>
             </v-btn>
-            <!-- 월간 버튼 -->
-            <v-btn 
-            text
-            @click="month"
-            color="#607D8B">
+              <v-btn 
+                text
+                @click="month"
+                color="#607D8B">
               <v-avatar>
                 <img src="@/assets/images/month-btn.svg" alt="week-btn" />
               </v-avatar>
-            </v-btn>
+              </v-btn>
+            </v-btn-toggle>
           </div>
         </v-flex>
         <v-flex class="d-flex">
@@ -42,12 +49,9 @@
             </v-col>
             <!-- 랭킹 -->
             <v-col lg="6" md="6" sm="10" xs="10">
-              <v-card
-                height="80"
-                class="pa-3"
-              >
-              <total-ranking></total-ranking>
-              </v-card>
+              <!-- <v-card height="80" class="pa-3">
+                <total-ranking></total-ranking>
+              </v-card> -->
             </v-col>
             <!-- 목표시간 공부시간 -->
             <v-col lg="4" md="6" sm="10" xs="10">
@@ -72,7 +76,7 @@
               ></compare-myself>
               </v-card>
             </v-col>
-            <!-- 유저별 공부시간 -->
+            <!-- 전체 유저별 카테고리 공부시간 -->
             <v-col lg="4" md="6" sm="10" xs="10">
               <v-card
                 height="600"
@@ -86,7 +90,7 @@
               </v-card>
             </v-col>
             <!-- 카테고리별 공부시간 -->
-            <v-col lg="5" md="6" sm="10" xs="10">
+            <v-col lg="4" md="6" sm="10" xs="10">
               <v-card
                 height="420"
                 class="pa-3"
@@ -96,8 +100,8 @@
               ></category-study-time>
               </v-card>
             </v-col>
-            <!-- 주간 공부시간 -->
-            <v-col lg="7" md="12" sm="10" xs="10">
+            <!-- 주간, 요일별 공부시간 -->
+            <v-col lg="8" md="12" sm="10" xs="10">
               <v-card
                 height="420"
                 class="pa-3"
@@ -120,7 +124,7 @@
 <script>
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TotalStudyTime from "@/components/statistics/TotalStudyTime.vue";
-import TotalRanking from "@/components/statistics/TotalRanking.vue";
+// import TotalRanking from "@/components/statistics/TotalRanking.vue";
 import CategoryStudyTime from "@/components/statistics/CategoryStudyTime.vue";
 import CompareMyself from "@/components/statistics/CompareMyself.vue";
 import CompareOtherByCategory from "@/components/statistics/CompareOtherByCategory.vue";
@@ -134,7 +138,7 @@ export default {
   components: {
     LeftNavBar,
     TotalStudyTime,
-    TotalRanking,
+    // TotalRanking,
     CategoryStudyTime,
     CompareMyself,
     CompareOtherByCategory,
@@ -149,7 +153,7 @@ export default {
   computed: {
     ...statisticsHelper.mapState(['statsInfo']),
   },
-  created() {
+  mounted() {
     this.getStats(this.option)
   },
   methods: {
@@ -168,9 +172,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.row {
-  justify-content: center;
-}
-</style>
