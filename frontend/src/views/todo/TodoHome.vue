@@ -12,7 +12,7 @@
           <daily-commit v-if="isDateToday" />
         </div>
         <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" />
-        <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" />
+        <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
         <button @click="toggleCreate" v-if="!isCreateTodo">
           <img src="@/assets/images/todo-add-btn.svg" />
         </button>

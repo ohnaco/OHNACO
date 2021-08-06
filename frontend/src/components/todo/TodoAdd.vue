@@ -125,7 +125,7 @@ export default {
     },
     onCreateOK() {
       if (this.editMode) {
-        this.newTodo.todoid = this.todoid;
+        this.newTodo.todoid = this.editTodo.todoid;
         this.updateTodo(JSON.stringify(this.newTodo));
       } else this.createTodo(JSON.stringify(this.newTodo));
       this.finishCreate();
