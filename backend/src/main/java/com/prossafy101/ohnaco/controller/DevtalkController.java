@@ -1,6 +1,9 @@
 package com.prossafy101.ohnaco.controller;
 
+import com.prossafy101.ohnaco.entity.devtalk.Answer;
+import com.prossafy101.ohnaco.entity.devtalk.AnswerDto;
 import com.prossafy101.ohnaco.entity.devtalk.QuestionDto;
+import com.prossafy101.ohnaco.service.AnswerService;
 import com.prossafy101.ohnaco.service.JwtUtil;
 import com.prossafy101.ohnaco.service.QuestionSerivce;
 import com.prossafy101.ohnaco.service.UserService;
@@ -21,7 +24,9 @@ import java.util.Map;
 @RequestMapping("/devtalk")
 public class DevtalkController {
     @Autowired
-    private QuestionSerivce questionSerivce;
+    private QuestionSerivce questionService;
+    @Autowired
+    private AnswerService answerService;
     @Autowired
     private JwtUtil jwtUtil;
     @Autowired
@@ -33,7 +38,19 @@ public class DevtalkController {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        questionSerivce.save(questionDto, userService.findByUserid(userid));
+        questionService.save(questionDto, userService.findByUserid(userid));
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/question")
+    public Object getQuestion(@RequestParam int questionid, HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+
+        result.put("question",questionService.getQuestionByid(questionid) );
+        result.put("answer", answerService.getAnswers(questionid));
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -45,7 +62,7 @@ public class DevtalkController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         try {
-            questionSerivce.updateQuestion(questionDto, userService.findByUserid(userid));
+            questionService.updateQuestion(questionDto, userService.findByUserid(userid));
             result.put("status", true);
             result.put("message", "성공적으로 수정 했습니다.");
         } catch (Exception e) {
@@ -62,7 +79,7 @@ public class DevtalkController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         try {
-            questionSerivce.deleteQuestion(questionid, userService.findByUserid(userid));
+            questionService.deleteQuestion(questionid, userService.findByUserid(userid));
             result.put("status", true);
             result.put("message", "성공적으로 삭제 했습니다.");
         } catch (Exception e) {
@@ -80,7 +97,7 @@ public class DevtalkController {
                                  @RequestParam(required = false, defaultValue = "") String tagname) {
         Map<String, Object> result = new HashMap<>();
         Pageable page = PageRequest.of(pageno-1, 10, Sort.by("questiondate").descending());
-        result.put("question", questionSerivce.getAllQuestion(page, search, tagname).getContent());
+        result.put("question", questionService.getAllQuestion(page, search, tagname).getContent());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -88,7 +105,7 @@ public class DevtalkController {
     @ApiOperation(value = "tag 포함하는 정보 불러오기 => tagname")
     public Object getTagContain(@RequestParam String tagname) {
         Map<String, Object> result = new HashMap<>();
-        result.put("tag", questionSerivce.findTagContain(tagname));
+        result.put("tag", questionService.findTagContain(tagname));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -97,8 +114,61 @@ public class DevtalkController {
     public Object getTagContain() {
         Map<String, Object> result = new HashMap<>();
         Pageable page = PageRequest.of(0, 10, Sort.by("views").descending());
-        result.put("issue", questionSerivce.getHotIssue(page).getContent());
-        result.put("tag", questionSerivce.getAllTag());
+        result.put("issue", questionService.getHotIssue(page).getContent());
+        result.put("tag", questionService.getAllTag());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+
+    @PostMapping("/answer")
+    @ApiOperation(value ="답변 작성하기 => questionid, title, content 전달")
+    public Object createAnswer(@RequestBody AnswerDto dto, HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+
+//        Answer answer = answerService.createAnswer(dto, userService.findByUserid(userid));
+//        AnswerDto answerDto = AnswerDto.builder().answertitle(answer.getAnswertitle()).answercontent(answer.getAnswercontent())
+//                .answerdate(answer.getAnswerdate()).answerid(answer.getAnswerid()).build();
+        result.put("answer", answerService.createAnswer(dto, userService.findByUserid(userid)));
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @PutMapping("/answer")
+    @ApiOperation(value ="답변 수정하기 => answerid, title, content 전달")
+    public Object updateAnswer(@RequestBody AnswerDto dto,HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+
+        try {
+//            Answer answer = answerService.updateAnswer(dto, userid);
+//            AnswerDto answerDto = AnswerDto.builder().answertitle(answer.getAnswertitle()).answercontent(answer.getAnswercontent())
+//                    .answerdate(answer.getAnswerdate()).answerid(answer.getAnswerid()).questionid(answer.getQuestion().getQuestionid()).build();
+            result.put("answer", answerService.updateAnswer(dto, userid));
+            result.put("status", "success");
+        } catch(Exception e) {
+            result.put("status", "fail");
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/answer")
+    @ApiOperation(value ="답변 수정하기 => answerid, title, content 전달")
+    public Object deleteAnswer(@RequestParam int answerid,HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+        try {
+            answerService.deleteAnswer(answerid, userService.findByUserid(userid));
+            result.put("status", true);
+            result.put("message", "성공적으로 삭제 했습니다.");
+        } catch (Exception e) {
+            result.put("status", false);
+            result.put("message", e.getMessage());
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
 }
