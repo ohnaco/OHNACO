@@ -82,27 +82,20 @@ export default {
             show: false
           },
         },
-        // responsive: [{
-        //   breakpoint: 480,
-        //   options: {
-        //     legend: {
-        //       position: 'bottom',
-        //       offsetX: -10,
-        //       offsetY: 0
-        //     }
-        //   }
-        // }],
         plotOptions: {
           bar: {
             horizontal: false,
-            borderRadius: 10
           },
         },
         dataLabels: {
-          enabled: false,
+          enabled: true,
           style: {
             colors: ['#fff']
           },
+          formatter: function (val) {
+            const hour = Math.floor(val / 3600)
+            return hour + '시간'
+          }
         },
         xaxis: {
           type: 'text',
@@ -131,8 +124,50 @@ export default {
       },
     }
   },
+  watch: {
+    categoryTime: function () {
+      const newSeries = [{
+        name: 'CS',
+        data: [
+          this.entireCategoryTime[0].time,
+          this.positionTime[0].time,
+          this.categoryTime[0].completetime,
+        ]
+      }, 
+      {
+        name: '알고리즘',
+        data: [
+          this.entireCategoryTime[2].time,
+          this.positionTime[2].time,
+          this.categoryTime[2].completetime,
+        ]
+      }, 
+      {
+        name: '자격증',
+        data: [
+          this.entireCategoryTime[3].time,
+          this.positionTime[3].time,
+          this.categoryTime[3].completetime,
+        ]
+      }, 
+      {
+        name: '프레임워크',
+        data: [
+          this.entireCategoryTime[4].time,
+          this.positionTime[4].time,
+          this.categoryTime[4].completetime,
+        ]
+      }, 
+      {
+        name: '기타',
+        data: [
+          this.entireCategoryTime[1].time,
+          this.positionTime[1].time,
+          this.categoryTime[1].completetime,
+        ]
+      }]
+      this.series = newSeries
+    }
+  },
 };
 </script>
-
-<style scoped>
-</style>

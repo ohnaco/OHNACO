@@ -2,13 +2,14 @@
   <!-- 카테고리별 공부시간 -->
   <div>
     <div class="ms-5 mt-5 mb-15"><b>카테고리별 공부시간</b></div>
-    <apexchart
-      class="ml-10 mr-10"
-      type="pie"
-      width="380"
-      :options="chartOptions"
-      :series="series"
-    ></apexchart>
+    <div class="d-flex justify-content-center">
+      <apexchart
+        type="pie"
+        width="350"
+        :options="chartOptions"
+        :series="series"
+      ></apexchart>
+    </div>
   </div>
 </template>
 
@@ -36,7 +37,8 @@ export default {
       ],
       chartOptions: {
         chart: {
-          width: 380,
+          id: 'example',
+          width: 350,
           type: "pie",
         },
         dataLabels: {
@@ -45,21 +47,10 @@ export default {
         legend: {
           horizontalAlign: "center",
           position: "bottom",
-          fontSize: '10px',
+          fontSize: '9px',
         },
         labels: ["CS", "알고리즘", "자격증", "프레임워크", "기타"],
         colors: ["#607D8B", "#80DEEA", "#000000", "#C3C3C3", "#848484"],
-        // responsive: [{
-        //   breakpoint: 1200,
-        //   options: {
-        //     chart: {
-        //       width: 50
-        //     },
-        //     legend: {
-        //       show: false
-        //     }
-        //   }
-        // }]
         tooltip: {
           y: {
             formatter: function (val) {
@@ -72,9 +63,17 @@ export default {
       },
     };
   },
+  watch: {
+    categoryTime: function () {
+      const newSeries = [
+        this.categoryTime[0].completetime,
+        this.categoryTime[2].completetime,
+        this.categoryTime[3].completetime,
+        this.categoryTime[4].completetime,
+        this.categoryTime[1].completetime,
+      ]
+      this.series = newSeries
+    }
+  },
 };
 </script>
-
-<style scoped>
-
-</style>
