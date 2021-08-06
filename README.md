@@ -1,4 +1,4 @@
-![logo](img/logo.png)
+<img src="/uploads/eff350a368323e6d4c1a6d87aa0652ad/logo.png" alt="logo" width="500"/>
 
 # 🎈 프로젝트 이름 : 오나코 (오늘도 나는 코딩한다)
 
@@ -10,13 +10,18 @@
 
 ## 핵심 기능
 
+### Todo 타이머 
+
+<img src="/uploads/b53a186e146fa734f57679b802fad4b4/timer.gif" alt="timer" width="700"/>
+
 ### 1일 1커밋 알림
 
-![커밋](/uploads/1969c068107f22bf30b89138a22ac339/커밋.gif)
+<img src="/uploads/1969c068107f22bf30b89138a22ac339/커밋.gif" alt="commit" width="700"/>
 
 ### 공부시간 통계
 
-![통계](/uploads/a5cc685ac67e6a4d9f6bf1b058e15529/통계.gif)
+<img src="/uploads/a5cc685ac67e6a4d9f6bf1b058e15529/통계.gif" alt="statistics" width="700"/>
+
 
 ## 👨‍👩‍👦‍👦 팀원소개
 
@@ -38,9 +43,16 @@
 
 ## 기획
 
+### 와이어프레임 
+[와이어프레임 링크](https://www.figma.com/file/Ybb6iYwJCP9iihZ2bNyI1R/OHNACO?node-id=0%3A1)
+
+### 기능 구조 
+
+<img src="/uploads/0629834b40885cdac3da2082613948cb/dtd.png" alt="dfd" width="700"/>
+
 ### ERD
 
-![ERD](img/erd.png)
+<img src="img/erd.png" alt="ERD" width="700"/>
 
 ## <br>
 
