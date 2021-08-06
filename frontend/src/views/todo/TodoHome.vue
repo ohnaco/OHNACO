@@ -2,47 +2,100 @@
   <v-layout>
     <v-row>
       <v-col cols="2"><left-nav-bar></left-nav-bar></v-col>
-      <v-col cols="7" class="d-flex flex-column">
-        <v-flex class="d-flex align-end text-h4 mt-10 mb-5"
-          ><img src="@/assets/images/todo-icon.svg" /><b>To Do List</b></v-flex
-        >
-        <todo-card :items="todoList"></todo-card>
+      <v-col cols="7" class="d-flex flex-column" style="height:100vh ; overflow:scroll">
+        <div class="d-flex align-center text-h4 ma-5">
+          <img src="@/assets/images/todo-icon.svg" class="mr-2" />
+          <b>To Do List</b>
+        </div>
+        <div class="d-flex flex-row align-center ma-5">
+          <h2 v-text="date"></h2>
+          <daily-commit v-if="isDateToday" />
+        </div>
+        <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" />
+        <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" />
+        <button @click="toggleCreate" v-if="!isCreateTodo">
+          <img src="@/assets/images/todo-add-btn.svg" />
+        </button>
       </v-col>
       <v-col cols="3">
-        <!-- 달력 -->
+        <!-- 우측달력 -->
+        <p></p>
+        <p></p>
+        <CalendarSmall @modalOn_child="modalOn" @todoDate="moveDate" style="width:100%" v-model="date"></CalendarSmall>
+        <!--우측달력 끝-->
       </v-col>
     </v-row>
+    <!--큰달력 모달-->
+    <ModalView v-if="this.isModal" @close-modal="isModal = false">
+      <CalendarLarge @todoDate="moveDateAndCloseModal"/>
+    </ModalView>
+    <!--큰달력 모달 끝-->
   </v-layout>
 </template>
 
 <script>
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
+import TodoAdd from "@/components/todo/TodoAdd.vue";
 import TodoCard from "@/components/todo/TodoCard.vue";
+import CalendarSmall from "@/components/todo/CalendarSmall.vue";
+import CalendarLarge from "@/components/todo/CalendarLarge.vue";
+import ModalView from '@/components/common/ModalView.vue';
+import DailyCommit from "@/components/todo/DailyCommit.vue";
+
+import { createNamespacedHelpers } from "vuex";
+const todoListHelper = createNamespacedHelpers("todoStore");
 
 export default {
   data() {
     return {
-      todoList: [
-        {
-          id: "algo-0730-1",
-          title: "SWEA 미로 찾기 풀기",
-          category: { kor: "알고리즘", eng: "algorithm" },
-          target: 3,
-          start: false,
-        },
-        {
-          id: "os-0730-2",
-          title: "세마포어 vs 뮤텍스",
-          category: { kor: "운영체제", eng: "operating-system" },
-          target: 4,
-          start: false,
-        },
-      ],
+      isCreateTodo: false,
+      isModal : false,
+      date : this.$moment().format("YYYY-MM-DD"),
+      isDateToday: null,
+      isAddOnGoing:false,
     };
   },
   components: {
     LeftNavBar,
     TodoCard,
+    TodoAdd,
+    DailyCommit,
+    CalendarSmall,
+    CalendarLarge,
+    ModalView,
+  },
+  computed: {
+    ...todoListHelper.mapState(["todoLists"]),
+  },
+  created() {
+    this.setTodoList(this.date);
+    this.isDateToday = this.isToday(this.date);
+  },
+  methods: {
+    ...todoListHelper.mapActions(["setTodoList"]),
+    toggleCreate() {
+      this.isCreateTodo = !this.isCreateTodo;
+    },
+    modalOn() {
+      this.isModal=true;
+    },
+    moveDate(date) {
+      this.date=date;
+    },
+    moveDateAndCloseModal(date) {
+      this.isModal=false;
+      this.date=date;
+    },
+    isToday(date) {
+      const today = this.$moment().format("YYYY-MM-DD");
+      return date === today;
+    }
+  },
+  watch: {
+    date: function () {
+      this.setTodoList(this.date);
+      this.isDateToday = this.isToday(this.date);
+    }
   },
 };
 </script>

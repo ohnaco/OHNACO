@@ -1,13 +1,15 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import statisticsStore from "./modules/statisticsStore";
+import todoStore from "./modules/todoStore";
+import userStore from "./modules/userStore";
 
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
   modules: {
-    statisticsStore: statisticsStore,
-  }
+    todoStore: todoStore,
+    userStore: userStore,
+  },
 });
 
 export default store;
