@@ -100,12 +100,10 @@ export default {
     editMode: {
       type: Boolean,
     },
-    todoid: {
-      type: String,
-    },
   },
   created() {
     this.newTodo.userid = this.user.userId;
+    this.newTodo.date = this.date;
 
     if (this.editMode) {
       this.newTodo.categoryid = this.editTodo.categoryid;
