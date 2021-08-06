@@ -86,7 +86,7 @@ public class TodoController {
         try {
             Todo newTodo = todoService.modifyTodo(dto);
 
-            result.put("newTodo", newTodo);
+            result.put("todo", newTodo);
             result.put("status", "success");
         }
         catch (Exception e) {
