@@ -137,6 +137,12 @@
             <version>4.2.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.9</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -144,6 +150,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.4.4</version>
                 <configuration>
                     <excludes>
                         <exclude>
