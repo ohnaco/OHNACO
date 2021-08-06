@@ -2,7 +2,7 @@
   <v-layout>
     <v-row>
       <v-col cols="2"><left-nav-bar></left-nav-bar></v-col>
-      <v-col cols="7" class="d-flex flex-column">
+      <v-col cols="7" class="d-flex flex-column" style="height:100vh ; overflow:scroll">
         <div class="d-flex align-center text-h4 ma-5">
           <img src="@/assets/images/todo-icon.svg" class="mr-2" />
           <b>To Do List</b>
@@ -13,7 +13,7 @@
         </div>
         <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" />
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" />
-        <button @click="toggleCreate">
+        <button @click="toggleCreate" v-if="!isCreateTodo">
           <img src="@/assets/images/todo-add-btn.svg" />
         </button>
       </v-col>
@@ -51,7 +51,8 @@ export default {
       isCreateTodo: false,
       isModal : false,
       date : this.$moment().format("YYYY-MM-DD"),
-      isDateToday: null
+      isDateToday: null,
+      isAddOnGoing:false,
     };
   },
   components: {
