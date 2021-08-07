@@ -17,8 +17,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import reactor.netty.http.server.HttpServerRequest;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -42,6 +44,7 @@ public class UserController {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+    
     @Autowired
     private StatisticsRepository stRepo;
 
@@ -58,6 +61,17 @@ public class UserController {
 
         result.put("test", stRepo.getCategoryTime(map));
         return new ResponseEntity<>(result,HttpStatus.OK);
+    }
+
+    @GetMapping("/info")
+    public Object getInfo(HttpServletRequest req) {
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+
+        Map<String, Object> result = new HashMap<>();
+        result.put("user", userService.findByUserid(userid));
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PostMapping("/signIn")
