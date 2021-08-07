@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -44,8 +46,11 @@ public class StatisticsService {
         long total = 0;
         List<StatisticsCategoryDto> list = statisticsRepository.getCategoryTime(map);
         for(StatisticsCategoryDto dto : list) {
-            if(dto.getCompletetime() != null)
+            if(dto.getCompletetime() != null) {
                 total += dto.getCompletetime();
+            } else {
+                dto.setCompletetime(0L);
+            }
             for(int i = 0 ; i < 5;  i++) {
                 if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
@@ -55,7 +60,7 @@ public class StatisticsService {
 
         for(int i = 0 ; i < 5;  i++) {
             if(!isCategory[i]) {
-                list.add(new StatisticsCategoryDto(category[i]));
+                list.add(new StatisticsCategoryDto(category[i], 0L, 0L));
             }
         }
         Collections.sort(list, new Comparator<StatisticsCategoryDto>() {
@@ -64,7 +69,7 @@ public class StatisticsService {
                 return o1.getCategoryname().compareTo(o2.getCategoryname());
             }
         });
-        StatisticsCategoryDto entire = new StatisticsCategoryDto("entire", total);
+        StatisticsCategoryDto entire = new StatisticsCategoryDto("entire", total, 0L);
         list.add(entire);
         return list;
     }
@@ -86,7 +91,7 @@ public class StatisticsService {
 
         for(int i = 0 ; i < 5;  i++) {
             if(!isCategory[i]) {
-                list.add(new StatisticsPositionDto(category[i]));
+                list.add(new StatisticsPositionDto(category[i], 0L));
             }
         }
         Collections.sort(list, new Comparator<StatisticsPositionDto>() {
@@ -113,7 +118,7 @@ public class StatisticsService {
 
         for(int i = 0 ; i < 5;  i++) {
             if(!isCategory[i]) {
-                list.add(new StatisticsPositionDto(category[i]));
+                list.add(new StatisticsPositionDto(category[i], 0L));
             }
         }
         Collections.sort(list, new Comparator<StatisticsPositionDto>() {
@@ -129,7 +134,32 @@ public class StatisticsService {
         Map<String, Object> map = new HashMap<>();
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
-        return statisticsRepository.getTotalTimeForDays(map);
+        List<Map<String, Object>> list = statisticsRepository.getTotalTimeForDays(map);
+        Calendar cal = Calendar.getInstance();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String[] split = startDate.split("-");
+        cal.set(Integer.parseInt(split[0]), Integer.parseInt(split[1])-1, Integer.parseInt(split[2]));
+        for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
+            if(!list.get(i).get("date").toString().equals(df.format(cal.getTime()))) {
+                map = new HashMap<>();
+                map.put("date", df.format(cal.getTime()));
+                map.put("time", 0L);
+                list.add(i, map);
+            }
+            cal.add(Calendar.DATE, 1);
+        }
+        for(int i=list.size(); i<7; i++) {
+            map = new HashMap<>();
+            map.put("date", df.format(cal.getTime()));
+            map.put("time", 0L);
+            list.add(map);
+            cal.add(Calendar.DATE, 1);
+        }
+
+        return list;
     }
 
     public List<Map<String, Object>> getPositionTimeForDays(String userid, String startDate, String endDate) {
@@ -138,7 +168,32 @@ public class StatisticsService {
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
         map.put("positionid", positionid);
-        return statisticsRepository.getPositionTimeForDays(map);
+        List<Map<String, Object>> list = statisticsRepository.getPositionTimeForDays(map);
+        Calendar cal = Calendar.getInstance();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String[] split = startDate.split("-");
+        cal.set(Integer.parseInt(split[0]), Integer.parseInt(split[1])-1, Integer.parseInt(split[2]));
+        for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
+            if(!list.get(i).get("date").toString().equals(df.format(cal.getTime()))) {
+                map = new HashMap<>();
+                map.put("date", df.format(cal.getTime()));
+                map.put("time", 0L);
+                list.add(i, map);
+            }
+            cal.add(Calendar.DATE, 1);
+        }
+        for(int i=list.size(); i<7; i++) {
+            map = new HashMap<>();
+            map.put("date", df.format(cal.getTime()));
+            map.put("time", 0L);
+            list.add(map);
+            cal.add(Calendar.DATE, 1);
+        }
+
+        return list;
     }
 
     public List<Map<String, Object>> getMyTimeForDays(String userid, String startDate, String endDate) {
@@ -146,7 +201,32 @@ public class StatisticsService {
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
         map.put("userid", userid);
-        return statisticsRepository.getMyTimeForDays(map);
+        List<Map<String, Object>> list = statisticsRepository.getMyTimeForDays(map);
+        Calendar cal = Calendar.getInstance();
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        String[] split = startDate.split("-");
+        cal.set(Integer.parseInt(split[0]), Integer.parseInt(split[1])-1, Integer.parseInt(split[2]));
+        for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
+            if(!list.get(i).get("date").toString().equals(df.format(cal.getTime()))) {
+                map = new HashMap<>();
+                map.put("date", df.format(cal.getTime()));
+                map.put("time", 0L);
+                list.add(i, map);
+            }
+            cal.add(Calendar.DATE, 1);
+        }
+        for(int i=list.size(); i<7; i++) {
+            map = new HashMap<>();
+            map.put("date", df.format(cal.getTime()));
+            map.put("time", 0L);
+            list.add(map);
+            cal.add(Calendar.DATE, 1);
+        }
+
+        return list;
     }
 
     public List<Map<String, Object>> getMyTimeForWeeks(String userid, String startDate, String endDate) {
@@ -154,7 +234,25 @@ public class StatisticsService {
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
         map.put("userid", userid);
-        return statisticsRepository.getMyTimeForWeeks(map);
+        List<Map<String, Object>> list = statisticsRepository.getMyTimeForWeeks(map);
+        for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
+            if(!list.get(i).get("day").toString().equals(Integer.toString(i+1))) {
+                map = new HashMap<>();
+                map.put("day", i+1);
+                map.put("time", 0L);
+                list.add(i, map);
+            }
+        }
+        for(int i=list.size(); i<7; i++) {
+            map = new HashMap<>();
+            map.put("day", i+1);
+            map.put("time", 0L);
+            list.add(map);
+        }
+        return list;
     }
 
     public List<Map<String, Object>> getPositionTimeForWeeks(String userid, String startDate, String endDate) {
@@ -162,14 +260,52 @@ public class StatisticsService {
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
         map.put("userid", userid);
-        return statisticsRepository.getPositionTimeForWeeks(map);
+
+        List<Map<String, Object>> list = statisticsRepository.getPositionTimeForWeeks(map);
+        for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
+            if(!list.get(i).get("day").toString().equals(Integer.toString(i+1))) {
+                map = new HashMap<>();
+                map.put("day", i+1);
+                map.put("time", 0L);
+                list.add(i, map);
+            }
+        }
+        for(int i=list.size(); i<7; i++) {
+            map = new HashMap<>();
+            map.put("day", i+1);
+            map.put("time", 0L);
+            list.add(map);
+        }
+        return list;
     }
 
     public List<Map<String, Object>> getTotalTimeForWeeks(String startDate, String endDate) {
         Map<String, Object> map = new HashMap<>();
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
-        return statisticsRepository.getTotalTimeForWeeks(map);
+
+        List<Map<String, Object>> list = statisticsRepository.getTotalTimeForWeeks(map);
+        for(int i=0; i<list.size(); i++) {
+            if(!list.get(i).containsKey("time")) {
+                list.get(i).put("time", 0L);
+            }
+            if(!list.get(i).get("day").toString().equals(Integer.toString(i+1))) {
+                map = new HashMap<>();
+                map.put("day", i+1);
+                map.put("time", 0L);
+                list.add(i, map);
+            }
+        }
+        for(int i=list.size(); i<7; i++) {
+            map = new HashMap<>();
+            map.put("day", i+1);
+            map.put("time", 0L);
+            list.add(map);
+        }
+        return list;
     }
 
 }

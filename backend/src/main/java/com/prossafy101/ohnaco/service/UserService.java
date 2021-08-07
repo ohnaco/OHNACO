@@ -59,7 +59,6 @@ public class UserService {
         if(!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new Exception("비밀번호가 틀립니다.");
         }
-
         return user;
     }
 
@@ -79,7 +78,7 @@ public class UserService {
     // 레디스에 이메일(기본키), 패스워드, 인증코드 저장
     public void tempUserSave(TempUserDto tempUserDto) {
         TempUserDto tempUser = tempUserDto;
-        tempUser.setPassword(passwordEncoder.encode(tempUserDto.getPassword()));
+        tempUser.setPassword(tempUserDto.getPassword());
         tempUserRepository.save(tempUser);
     }
     //이메일 랜덤 대문자 + 숫자 8개 choice
@@ -119,20 +118,20 @@ public class UserService {
         sb.append("</head>");
         sb.append("<body>");
         sb.append(" <div" +
-                "	style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 400px; height: 600px; border-top: 4px solid #02b875; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">" +
+                "	style=\"font-family: 'Apple SD Gothic Neo', 'sans-serif' !important; width: 400px; height: 600px; border-top: 4px solid #00BCD4; margin: 100px auto; padding: 30px 0; box-sizing: border-box;\">" +
                 "	<h1 style=\"margin: 0; padding: 0 5px; font-size: 28px; font-weight: 400;\">" +
                 "		<span style=\"font-size: 15px; margin: 0 0 10px 3px;\">ONCACO</span><br />" +
-                "		<span style=\"color: #02b875\">메일인증</span> 안내입니다." +
+                "		<span style=\"color: #00BCD4\">메일인증</span> 안내입니다." +
                 "	</h1>\n" +
                 "	<p style=\"font-size: 16px; line-height: 26px; margin-top: 50px; padding: 0 5px;\">" +
                 "		안녕하세요.<br />" +
                 "		ONACO에 가입해 주셔서 진심으로 감사드립니다.<br />");
         if(tempUserDto.getPassword() != null) {
-            sb.append("		아래 <b style=\"color: #02b875\">'메일 인증 코드'</b>를 입력하셔서 회원가입을 완료해 주세요.<br />" +
+            sb.append("		아래 <b style=\"color: #00BCD4\">'메일 인증 코드'</b>를 입력하셔서 회원가입을 완료해 주세요.<br />" +
                     "		감사합니다." +
                     "	</p>" +
                     "	<p" +
-                    "		style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #02b875; line-height: 45px; vertical-align: middle; font-size: 16px;\">" +
+                    "		style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #607D8B; color: white; line-height: 45px; vertical-align: middle; font-size: 16px;\">" +
                     tempUserDto.getToken()
             );
         } else {
@@ -146,7 +145,7 @@ public class UserService {
                     toEmail +
                     "&token=" +
                     tempUserDto.getToken() +
-                    "' target='_blenk'>이메일 인증 확인</a>"
+                    "' target='_blank'>이메일 인증 확인</a>"
             );
         }
         sb.append("		</p>" +

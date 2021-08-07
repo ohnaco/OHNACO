@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class QuestionSerivce {
+public class QuestionService {
     @Autowired
     private QuestionRepository questionRepository;
     @Autowired
@@ -31,10 +31,11 @@ public class QuestionSerivce {
         }
        if(questionDto.getQuestiondate() == null) {
            questionRepository.save(Question.builder().questiontitle(questionDto.getQuestiontitle())
-                   .questioncontent(questionDto.getQuestioncontent()).questiondate(LocalDateTime.now()).views(0).user(user).tag(tagList).build());
+                   .questioncontent(questionDto.getQuestioncontent()).questiondate(LocalDateTime.now()).views(0).likes(0).user(user).tag(tagList).build());
        } else {
            questionRepository.save(Question.builder().questionid(questionDto.getQuestionid()).questiontitle(questionDto.getQuestiontitle())
-                   .questioncontent(questionDto.getQuestioncontent()).questiondate(questionDto.getQuestiondate()).views(questionDto.getViews()).user(user).tag(tagList).build());
+                   .questioncontent(questionDto.getQuestioncontent()).questiondate(questionDto.getQuestiondate())
+                   .views(questionDto.getViews()).likes(questionDto.getLikes()).user(user).tag(tagList).build());
        }
 
     }
@@ -45,7 +46,8 @@ public class QuestionSerivce {
         if(!question.getUser().getUserid().equals(user.getUserid())) throw new Exception("userid와 작성자가 일치하지 않습니다.");
         questionDto.setQuestionid(question.getQuestionid());
         questionDto.setQuestiondate(question.getQuestiondate());
-        questionDto.setViews(question.getViews());
+        questionDto.setViews(question.getViews());  //
+        questionDto.setLike(question.getLikes());
         save(questionDto, user);
     }
 

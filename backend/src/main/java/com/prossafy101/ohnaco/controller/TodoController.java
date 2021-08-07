@@ -56,15 +56,18 @@ public class TodoController {
             result.put("status", "fail");
         }
 
-        return new ResponseEntity<>(list, HttpStatus.OK);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 
     @PostMapping("/item")
-    public Object createTodo(@RequestBody TodoDto dto) {
+    @ApiOperation(value = "Todo 생성하기 => title, categoryid, goaltime, date 전달")
+    public Object createTodo(@RequestBody TodoDto dto, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
         try {
-            Todo todo = todoService.createTodo(dto);
+            Todo todo = todoService.createTodo(dto, userid);
 
             result.put("status", "success");
             result.put("todo", todo);
@@ -78,13 +81,14 @@ public class TodoController {
     }
 
     @PutMapping("/item")
+    @ApiOperation(value = "Todo 수정하기 => todoid, title, categoryid, goaltime, date 전달")
     public Object modifyTodo(@RequestBody TodoDto dto) {
         Map<String, Object> result = new HashMap<>();
 
         try {
             Todo newTodo = todoService.modifyTodo(dto);
 
-            result.put("newTodo", newTodo);
+            result.put("todo", newTodo);
             result.put("status", "success");
         }
         catch (Exception e) {
@@ -96,6 +100,7 @@ public class TodoController {
     }
 
     @DeleteMapping("/item")
+    @ApiOperation(value = "Todo 삭제하기 => todoid 전달")
     public Object deleteTodo(@RequestParam String todoid, HttpServletRequest req) {
         Map<String, String> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
@@ -112,12 +117,12 @@ public class TodoController {
     }
 
     @PutMapping("/complete")
-    public Object completeTodo(@RequestBody TodoDto dto, HttpServletRequest req) {
+    @ApiOperation(value = "Todo 완료 => todoid, completetime 전달")
+    public Object completeTodo(@RequestBody TodoDto dto) {
         Map<String, Object> result = new HashMap<>();
-        String token = req.getHeader("Authorization").substring(7);
-        String userid = jwtUtil.getUserid(token);
+
         try {
-            result.put("todo", todoService.completeTodo(userid, dto));
+            result.put("todo", todoService.completeTodo(dto));
             result.put("status", "success");
         } catch(Exception e) {
             result.put("status", "fail");
@@ -127,12 +132,13 @@ public class TodoController {
     }
 
     @PostMapping("/past")
-    public Object addTodo(@RequestParam String todoid, HttpServletRequest req) {
+    @ApiOperation(value = "Todo 과거로부터 복사 => todoid, date 전달")
+    public Object addTodo(@RequestBody Map<String, String> map, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         try {
-            result.put("todo", todoService.addTodo(userid, todoid));
+            result.put("todo", todoService.addTodo(userid, map.get("todoid"), map.get("date")));
             result.put("status", "success");
         } catch(Exception e) {
             result.put("status", "fail");
@@ -142,7 +148,7 @@ public class TodoController {
     }
 
     @GetMapping("/month")
-    @ApiOperation(value = "해당 년월 Todo 불러오기 => userid, date 전달")
+    @ApiOperation(value = "해당 년월 Todo 불러오기 => date 전달")
     public Object getMonthTodos(@RequestParam String date, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);

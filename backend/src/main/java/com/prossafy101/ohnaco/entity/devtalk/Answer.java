@@ -24,6 +24,9 @@ public class Answer {
     private String answercontent;
     private LocalDateTime answerdate;
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private int likes;
+
     @ManyToOne
     @JoinColumn(name = "userid")
     private User user;
