@@ -53,7 +53,6 @@ public class StatisticsController {
             result.put("positionMemberTime", statisticsService.getPositionTimeForDays(userid, startDate, endDate));
             result.put("myTime", statisticsService.getMyTimeForDays(userid, startDate, endDate));
 
-            System.out.println(startDate + " " + endDate);
         } else {
             cal.add(Calendar.DATE, -1);
             String endDate = df.format(cal.getTime());
@@ -65,7 +64,7 @@ public class StatisticsController {
             result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
             result.put("myTime", statisticsService.getMyTimeForWeeks(userid, startDate, endDate));
             result.put("positionMemberTime", statisticsService.getPositionTimeForWeeks(userid, startDate, endDate));
-            result.put("entireMemberTime", statisticsService.getTotalTimeForWeeks( startDate, endDate));
+            result.put("entireMemberTime", statisticsService.getTotalTimeForWeeks(startDate, endDate));
 
         }
 

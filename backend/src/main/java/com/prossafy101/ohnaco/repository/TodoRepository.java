@@ -2,6 +2,7 @@ package com.prossafy101.ohnaco.repository;
 
 import com.prossafy101.ohnaco.entity.todo.Todo;
 import com.prossafy101.ohnaco.entity.user.User;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +21,10 @@ public interface TodoRepository  extends JpaRepository<Todo, Long> {
 
     Todo findByTodoid(String todoid);
 
-    List<Todo> getAllByDateBetweenAndUserOrderByDate(LocalDateTime startDatetime, LocalDateTime endDatetime, User user);
+//    List<Todo> getAllByDateAndUser(LocalDate date, User user, Sort sort);
+    List<Todo> findByDateAndUser(LocalDate date, User user, Sort sort);
+
+    List<Todo> getAllByDateBetweenAndUser(LocalDate startDate, LocalDate endDate, User user, Sort sort);
 
     @Transactional
     void deleteTodoByTodoidAndUser(String todoid, User user);

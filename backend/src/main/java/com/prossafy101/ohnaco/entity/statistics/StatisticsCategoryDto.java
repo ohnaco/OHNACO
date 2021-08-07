@@ -21,4 +21,10 @@ public class StatisticsCategoryDto {
         this.categoryname = categoryname;
         this.completetime = completetime;
     }
+
+    public StatisticsCategoryDto(String categoryname, Long completetime, Long goaltime) {
+        this.categoryname = categoryname;
+        this.completetime = completetime;
+        this.goaltime = goaltime;
+    }
 }

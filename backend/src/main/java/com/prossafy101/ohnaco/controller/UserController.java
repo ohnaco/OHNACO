@@ -214,7 +214,7 @@ public class UserController {
 
             try {
                 userService.tempSaveAndSendEmail(TempUserDto.builder()
-                        .email(tempUserDto.get().getEmail()).password(passwordEncoder.encode(tempUserDto.get().getPassword())).token(emailCode).isCheck(false).timeToLive(10).build(), tempUserDto.get().getEmail());
+                        .email(tempUserDto.get().getEmail()).password(tempUserDto.get().getPassword()).token(emailCode).isCheck(false).timeToLive(10).build(), tempUserDto.get().getEmail());
                 result.put("status", true);
                 result.put("message", "이메일 보내기 성공.");
             } catch (Exception e) {
