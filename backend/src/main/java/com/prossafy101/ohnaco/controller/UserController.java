@@ -8,6 +8,11 @@ import com.prossafy101.ohnaco.repository.StatisticsRepository;
 import com.prossafy101.ohnaco.service.JwtUtil;
 import com.prossafy101.ohnaco.service.RedisUtil;
 import com.prossafy101.ohnaco.service.UserService;
+import com.rometools.rome.feed.synd.SyndEntry;
+import com.rometools.rome.feed.synd.SyndFeed;
+import com.rometools.rome.io.FeedException;
+import com.rometools.rome.io.SyndFeedInput;
+import com.rometools.rome.io.XmlReader;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,10 +27,13 @@ import reactor.netty.http.server.HttpServerRequest;
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -49,6 +57,47 @@ public class UserController {
     private StatisticsRepository stRepo;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
+    @GetMapping("/rss")
+    public Object rss() {
+        Map<String, Object> result = new HashMap<>();
+
+        String rssUrl = "http://javacan.tistory.com/rss";
+
+        try {
+            URL feedUrl = new URL(rssUrl);
+            SyndFeedInput input = new SyndFeedInput();
+            SyndFeed feed = input.build(new XmlReader(feedUrl));
+
+            System.out.println("RSS title: " + feed.getTitle());
+            System.out.println("RSS author: " + feed.getAuthor());
+
+            List entries = feed.getEntries();
+            for (int i = 0; i < entries.size(); i++) {
+                String[] arr = new String[5];
+                SyndEntry entry = (SyndEntry) entries.get(i);
+                System.out.println("--- Entry " + i);
+                System.out.println(entry.getTitle());
+                arr[0] = entry.getTitle();
+                System.out.println(entry.getAuthor());
+                arr[1] = entry.getAuthor();
+                System.out.println(entry.getDescription().getValue());
+                arr[2] = entry.getDescription().getValue();
+                System.out.println(entry.getLink());
+                arr[3] = entry.getLink();
+                System.out.println(entry.getPublishedDate());
+                arr[4] = entry.getPublishedDate().toString();
+                result.put("a" + i , arr);
+            }
+        } catch (IllegalArgumentException e) {
+            // ...
+        } catch (FeedException e) {
+            // ...
+        } catch (IOException e) {
+            // ...
+        }
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
     @PostMapping("/test")
     public ResponseEntity<?> test() {
