@@ -40,20 +40,22 @@ public class TodoService {
     private CommitRepository commitRepo;
 
     public Todo createTodo(TodoDto dto, String userid) {
-            return todoRepository.save(Todo.builder()
-                    .todoid(createTodoid())
-                    .user(userRepository.findByUserid(userid))
-                    .title(dto.getTitle())
-                    .category(categoryRepository.findByCategoryid(dto.getCategoryid()))
-                    .date(LocalDate.parse(dto.getDate()))
-                    .created(LocalDateTime.now())
-                    .goaltime(Time.valueOf(dto.getGoaltime()))
-                    .issuccess(false)
-                    .build());
+        return todoRepository.save(Todo.builder()
+                .todoid(createTodoid())
+                .user(userRepository.findByUserid(userid))
+                .title(dto.getTitle())
+                .category(categoryRepository.findByCategoryid(dto.getCategoryid()))
+                .date(LocalDate.parse(dto.getDate()))
+                .created(LocalDateTime.now())
+                .goaltime(Time.valueOf(dto.getGoaltime()))
+                .issuccess(false)
+                .build());
     }
 
     public String addTodo(String userid, String todoid, String date) {
+        System.out.println(todoid);
         Todo todo = todoRepository.findByTodoid(todoid);
+        System.out.println(todo.getTitle());
         String newTodo = todoRepository.save(Todo.builder()
                 .todoid(createTodoid())
                 .user(userRepository.findByUserid(userid))
@@ -64,7 +66,7 @@ public class TodoService {
                 .goaltime(todo.getGoaltime())
                 .issuccess(false)
                 .build()).getTodoid();
-
+        System.out.println(newTodo);
         return newTodo;
     }
 

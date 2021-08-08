@@ -21,7 +21,7 @@ public interface TodoRepository  extends JpaRepository<Todo, Long> {
 
     Todo findByTodoid(String todoid);
 
-//    List<Todo> getAllByDateAndUser(LocalDate date, User user, Sort sort);
+    //    List<Todo> getAllByDateAndUser(LocalDate date, User user, Sort sort);
     List<Todo> findByDateAndUser(LocalDate date, User user, Sort sort);
 
     List<Todo> getAllByDateBetweenAndUser(LocalDate startDate, LocalDate endDate, User user, Sort sort);
