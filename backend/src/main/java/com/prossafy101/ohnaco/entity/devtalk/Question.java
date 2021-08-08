@@ -22,7 +22,10 @@ public class Question {
     private String questiontitle;
     private String questioncontent;
     private LocalDateTime questiondate;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int views;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private int likes;
 
     @ManyToOne
     @JoinColumn(name = "userid")
@@ -33,4 +36,8 @@ public class Question {
             joinColumns = @JoinColumn(name = "questionid"),
             inverseJoinColumns = @JoinColumn(name = "tagid"))
     private List<Tag> tag = new ArrayList<>();
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL)
+    private List<Answer> answeres;
 }

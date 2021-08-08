@@ -23,7 +23,7 @@ public class AnswerService {
 
     public Answer createAnswer(AnswerDto dto, User user) {
         return answerRepository.save(Answer.builder().answertitle(dto.getAnswertitle()).answercontent(dto.getAnswercontent())
-        .answerdate(LocalDateTime.now()).question(questionRepository.findByQuestionid(dto.getQuestionid())).user(user).build());
+        .answerdate(LocalDateTime.now()).likes(dto.getLikes()).question(questionRepository.findByQuestionid(dto.getQuestionid())).user(user).build());
     }
 
 
@@ -39,6 +39,7 @@ public class AnswerService {
         .answerdate(answer.getAnswerdate())
         .answercontent(dto.getAnswercontent())
         .answerid(answer.getAnswerid())
+        .likes(answer.getLikes())
         .user(answer.getUser())
         .question(answer.getQuestion())
         .build());

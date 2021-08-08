@@ -59,7 +59,6 @@ public class UserService {
         if(!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new Exception("비밀번호가 틀립니다.");
         }
-
         return user;
     }
 

@@ -1,6 +1,7 @@
 package com.prossafy101.ohnaco.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.SetOperations;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,31 @@ public class RedisUtil {
         ValueOperations<String, String> vop = redisTemplate.opsForValue();
         Duration expire = Duration.ofMillis(expireTime);
         vop.set(key, value, expire);
+    }
+
+    public void setVisitData(String key) {
+        ValueOperations<String, String> vop = redisTemplate.opsForValue();
+        vop.increment(key, 1);
+    }
+
+    public boolean getLikeUseridData(String key, String userid) {
+        SetOperations<String, String> vop = redisTemplate.opsForSet();
+        return vop.isMember(key, userid);
+    }
+
+    public Long getLikeCountData(String key) {
+        SetOperations<String, String> vop = redisTemplate.opsForSet();
+        return vop.size(key);
+    }
+
+    public Long delLikeUserData(String key, String userid) {
+        SetOperations<String, String> vop = redisTemplate.opsForSet();
+        return vop.remove(key, userid);
+    }
+
+    public void setLikeData(String key, String value) {
+        SetOperations<String, String> vop = redisTemplate.opsForSet();
+        vop.add(key, value);
     }
 
     public void deleteData(String key) {
