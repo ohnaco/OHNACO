@@ -44,7 +44,6 @@
 </template>
 
 <script>
-import User from "../../api/User";
 import { createNamespacedHelpers } from "vuex";
 const userHelper = createNamespacedHelpers("userStore");
 
@@ -57,7 +56,7 @@ export default {
     };
   },
   methods: {
-    ...userHelper.mapActions(["setUser"]),
+    ...userHelper.mapActions(["login"]),
     goSignup: function () {
       this.$router.push({ name: "Join" });
     },
@@ -70,19 +69,7 @@ export default {
         email,
         password,
       };
-      User.requestLogin(
-        data,
-        (res) => {
-          localStorage.setItem("jwt-access-token", res.headers.authorization.substring(7));
-          this.setUser(res);
-          alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
-          this.$router.push({ name: "Todo" });
-        },
-        (err) => {
-          console.log(err);
-          alert("이메일과 비밀번호를 다시 확인해주세요.");
-        }
-      );
+      this.login(data);
     },
     githubLogin: function (res) {
       console.log(res);

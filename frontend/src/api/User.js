@@ -11,6 +11,17 @@ const requestLogin = (data, callback, errorCallback) => {
     });
 };
 
+const requestUserInfo = (callback, errorCallback) => {
+  http
+    .get("/user/info")
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 const requestSignup = (data, callback, errorCallback) => {
   http
     .post("/user/join", data)
@@ -79,6 +90,7 @@ const requestSignupNicknameCheck = (data, callback, errorCallback) => {
 
 export default {
   requestLogin,
+  requestUserInfo,
   requestSignup,
   requestSignupEmail,
   requestSignupEmailAgain,
