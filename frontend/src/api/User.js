@@ -1,8 +1,8 @@
-import axios from "axios";
+import http from "@/util/http-common.js";
 
 const requestLogin = (data, callback, errorCallback) => {
-  axios
-    .post("http://i5a101.p.ssafy.io:8197/user/signIn", data)
+  http
+    .post("/user/signIn", data)
     .then((res) => {
       callback(res);
     })
@@ -12,8 +12,8 @@ const requestLogin = (data, callback, errorCallback) => {
 };
 
 const requestSignup = (data, callback, errorCallback) => {
-  axios
-    .post("http://i5a101.p.ssafy.io:8197/user/join", data)
+  http
+    .post("/user/join", data)
     .then((res) => {
       callback(res);
     })
@@ -23,8 +23,8 @@ const requestSignup = (data, callback, errorCallback) => {
 };
 
 const requestSignupEmail = (data, callback, errorCallback) => {
-  axios
-    .post("http://i5a101.p.ssafy.io:8197/user/join/codecheck", data)
+  http
+    .post("/user/join/codecheck", data)
     .then((res) => {
       callback(res);
     })
@@ -34,8 +34,8 @@ const requestSignupEmail = (data, callback, errorCallback) => {
 };
 
 const requestSignupEmailAgain = (data, callback, errorCallback) => {
-  axios
-    .get("http://i5a101.p.ssafy.io:8197/user/join/resend?email=" + data.email)
+  http
+    .get("/user/join/resend?email=" + data.email)
     .then((res) => {
       callback(res);
     })
@@ -45,8 +45,8 @@ const requestSignupEmailAgain = (data, callback, errorCallback) => {
 };
 
 const requestSignupProfile = (data, callback, errorCallback) => {
-  axios
-    .post("http://i5a101.p.ssafy.io:8197/user/join/profile", data)
+  http
+    .post("/user/join/profile", data)
     .then((res) => {
       callback(res);
     })
@@ -56,8 +56,8 @@ const requestSignupProfile = (data, callback, errorCallback) => {
 };
 
 const requestSignupIdCheck = (data, callback, errorCallback) => {
-  axios
-    .get("http://i5a101.p.ssafy.io:8197/user/join/idcheck?email=" + data.email)
+  http
+    .get("/user/join/idcheck?email=" + data.email)
     .then((res) => {
       callback(res);
     })
@@ -67,10 +67,8 @@ const requestSignupIdCheck = (data, callback, errorCallback) => {
 };
 
 const requestSignupNicknameCheck = (data, callback, errorCallback) => {
-  axios
-    .get(
-      "http://i5a101.p.ssafy.io:8197/user/namecheck?nickname=" + data.nickname
-    )
+  http
+    .get("/user/namecheck?nickname=" + data.nickname)
     .then((res) => {
       callback(res);
     })
@@ -79,21 +77,12 @@ const requestSignupNicknameCheck = (data, callback, errorCallback) => {
     });
 };
 
-const UserApi = {
-  requestLogin: (data, callback, errorCallback) =>
-    requestLogin(data, callback, errorCallback),
-  requestSignup: (data, callback, errorCallback) =>
-    requestSignup(data, callback, errorCallback),
-  requestSignupEmail: (data, callback, errorCallback) =>
-    requestSignupEmail(data, callback, errorCallback),
-  requestSignupEmailAgain: (data, callback, errorCallback) =>
-    requestSignupEmailAgain(data, callback, errorCallback),
-  requestSignupProfile: (data, callback, errorCallback) =>
-    requestSignupProfile(data, callback, errorCallback),
-  requestSignupIdCheck: (data, callback, errorCallback) =>
-    requestSignupIdCheck(data, callback, errorCallback),
-  requestSignupNicknameCheck: (data, callback, errorCallback) =>
-    requestSignupNicknameCheck(data, callback, errorCallback),
+export default {
+  requestLogin,
+  requestSignup,
+  requestSignupEmail,
+  requestSignupEmailAgain,
+  requestSignupProfile,
+  requestSignupIdCheck,
+  requestSignupNicknameCheck,
 };
-
-export default UserApi;
