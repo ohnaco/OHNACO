@@ -55,6 +55,11 @@ export default {
         }
       );
     },
+    logout({ commit }) {
+      localStorage.removeItem("jwt-access-token");
+      commit("DELETE_USER");
+      router.push({ name: "Login" });
+    },
   },
   getters: {
     // computer 같은 개념
