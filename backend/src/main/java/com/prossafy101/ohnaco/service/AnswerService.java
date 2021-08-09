@@ -21,7 +21,16 @@ public class AnswerService {
     @Autowired
     private QuestionRepository questionRepository;
 
+    @Autowired
+    private NotificationService notificationService;
+
     public Answer createAnswer(AnswerDto dto, User user) {
+        try {
+            notificationService.answerNofify(questionRepository.findById(dto.getQuestionid()).get().getUser().getUserid());
+        } catch( Exception e) {
+            e.printStackTrace();
+        }
+
         return answerRepository.save(Answer.builder().answertitle(dto.getAnswertitle()).answercontent(dto.getAnswercontent())
         .answerdate(LocalDateTime.now()).likes(dto.getLikes()).question(questionRepository.findByQuestionid(dto.getQuestionid())).user(user).build());
     }
