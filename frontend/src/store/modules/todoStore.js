@@ -16,27 +16,24 @@ export default {
       state.todoLists.push(newTodo);
     },
     UPDATE_TODO(state, editTodo) {
-      const index = state.todoLists.findIndex(
-        (todo) => todo.todoid === editTodo.todoid
-      );
+      const index = state.todoLists.findIndex((todo) => todo.todoid === editTodo.todoid);
 
       if (index !== -1) {
         state.todoLists.splice(index, 1, editTodo);
       }
     },
     DELETE_TODO(state, todoid) {
-      state.todoLists = state.todoLists.filter(
-        (todo) => todo.todoid !== todoid
-      );
+      state.todoLists = state.todoLists.filter((todo) => todo.todoid !== todoid);
     },
     SET_COMMIT_HISTORY(state, commitHistory) {
       state.commitHistory = commitHistory;
-    } 
+    },
   },
   actions: {
     // 메소드가 들어가는 곳
-    setTodoList({ commit }, data ) {
-      Todo.loadTodoList(data,
+    setTodoList({ commit }, data) {
+      Todo.loadTodoList(
+        data,
         (res) => {
           commit("SET_TODO", res.data.list);
         },
@@ -49,9 +46,7 @@ export default {
       Todo.createTodo(
         payload,
         (res) => {
-          alert(
-            res.data.status === "success" ? "create success" : "create fail"
-          );
+          alert(res.data.status === "success" ? "create success" : "create fail");
           commit("CREATE_TODO", res.data.todo);
         },
         (err) => {
@@ -63,10 +58,8 @@ export default {
       Todo.updateTodo(
         payload,
         (res) => {
-          alert(
-            res.data.status === "success" ? "update success" : "update fail"
-          );
-          commit("UPDATE_TODO", res.data.newTodo);
+          alert(res.data.status === "success" ? "update success" : "update fail");
+          commit("UPDATE_TODO", res.data.todo);
         },
         (err) => {
           alert(err);
@@ -77,9 +70,7 @@ export default {
       Todo.deleteTodo(
         payload,
         (res) => {
-          alert(
-            res.data.status === "success" ? "delete success" : "delete fail"
-          );
+          alert(res.data.status === "success" ? "delete success" : "delete fail");
           commit("DELETE_TODO", payload);
         },
         (err) => {
@@ -96,12 +87,12 @@ export default {
           alert(err);
         }
       );
-    }
+    },
   },
   getters: {
     // computer 같은 개념
     getDay1Commit(state) {
       return state.commitHistory["day1"];
-    }
+    },
   },
 };
