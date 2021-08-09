@@ -1,0 +1,15 @@
+@font-face {
+    font-family: 'GmarketSans';
+    src: local('GmarketSans'), url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'GmarketSans';
+    src: local('GmarketSans'), url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+$body-font-family: 'GmarketSans';
