@@ -40,20 +40,22 @@ public class TodoService {
     private CommitRepository commitRepo;
 
     public Todo createTodo(TodoDto dto, String userid) {
-            return todoRepository.save(Todo.builder()
-                    .todoid(createTodoid())
-                    .user(userRepository.findByUserid(userid))
-                    .title(dto.getTitle())
-                    .category(categoryRepository.findByCategoryid(dto.getCategoryid()))
-                    .date(LocalDate.parse(dto.getDate()))
-                    .created(LocalDateTime.now())
-                    .goaltime(Time.valueOf(dto.getGoaltime()))
-                    .issuccess(false)
-                    .build());
+        return todoRepository.save(Todo.builder()
+                .todoid(createTodoid())
+                .user(userRepository.findByUserid(userid))
+                .title(dto.getTitle())
+                .category(categoryRepository.findByCategoryid(dto.getCategoryid()))
+                .date(LocalDate.parse(dto.getDate()))
+                .created(LocalDateTime.now())
+                .goaltime(Time.valueOf(dto.getGoaltime()))
+                .issuccess(false)
+                .build());
     }
 
     public String addTodo(String userid, String todoid, String date) {
+        System.out.println(todoid);
         Todo todo = todoRepository.findByTodoid(todoid);
+        System.out.println(todo.getTitle());
         String newTodo = todoRepository.save(Todo.builder()
                 .todoid(createTodoid())
                 .user(userRepository.findByUserid(userid))
@@ -64,7 +66,7 @@ public class TodoService {
                 .goaltime(todo.getGoaltime())
                 .issuccess(false)
                 .build()).getTodoid();
-
+        System.out.println(newTodo);
         return newTodo;
     }
 
@@ -130,7 +132,7 @@ public class TodoService {
     }
 
     //commit기록 업데이트 해서 redis에 저장
-    public void CommitUpdate(String userid, String githubid, String date) {
+    public void commitUpdate(String userid, String githubid, String date) {
         Optional<CommitDto> commitOpt = getCommit(userid);
         CommitDto commitDto;
         if(!commitOpt.isPresent()) {    // 처음 commit정보를 가져올 경우
@@ -163,7 +165,7 @@ public class TodoService {
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         for(User user: users) {
             if(user.getGithubid() != null) {
-                CommitUpdate(user.getUserid(), user.getGithubid(),df.format(cal.getTime()));
+                commitUpdate(user.getUserid(), user.getGithubid(),df.format(cal.getTime()));
             }
         }
     }
