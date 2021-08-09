@@ -210,7 +210,7 @@ public class TodoController {
             cal.setTime(new Date());
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                todoService.CommitUpdate(userid, user.getGithubid(), df.format(cal.getTime()));
+                todoService.commitUpdate(userid, user.getGithubid(), df.format(cal.getTime()));
                 result.put("commit", todoService.getCommit(userid).get());
                 result.put("status", true);
                 result.put("message", "업데이트 성공");
