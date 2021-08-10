@@ -88,4 +88,9 @@ public class QuestionService {
     public Page<Question> getHotIssue(Pageable pageable) {
         return questionRepository.findAll(pageable);
     }
+
+    //해당 유저의 질문 가져오기
+    public Page<Question> getQuestionByUser(User user, Pageable pageable) {
+        return questionRepository.findAllByUser(user, pageable);
+    }
 }

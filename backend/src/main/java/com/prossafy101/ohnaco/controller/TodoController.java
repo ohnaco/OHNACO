@@ -222,4 +222,34 @@ public class TodoController {
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
+
+    @PutMapping("/statechange")
+    @ApiOperation(value = "todoid값 필요 ongoing값 반대로 만들어주기기")
+    public Object updateOngoing(@RequestBody TodoDto todoDto, HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+        try {
+            todoService.ongoingToggle(todoDto.getTodoid(), userid);
+            result.put("status", "success");
+        } catch (Exception e) {
+            result.put("status", e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+
+    @PutMapping("/timeupdate")
+    @ApiOperation(value = "todoid, completetime 필요 업데이트해주기")
+    public Object updateCompeletTime(@RequestBody TodoDto todoDto, HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+        try {
+            todoService.updateCompleteTime(todoDto.getTodoid(), todoDto.getCompletetime(), userid);
+            result.put("status", "success");
+        } catch (Exception e) {
+            result.put("status", e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
 }

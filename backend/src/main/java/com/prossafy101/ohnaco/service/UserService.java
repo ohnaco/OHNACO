@@ -285,4 +285,9 @@ public class UserService {
     public User findByUserid(String userid) {
         return userRepository.findByUserid(userid);
     }
+
+    //패스워드 체크
+    public boolean checkPassword(String password, User user) {
+        return passwordEncoder.matches(password, user.getPassword());
+    }
 }

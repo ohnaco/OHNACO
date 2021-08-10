@@ -49,6 +49,7 @@ public class TodoService {
                 .created(LocalDateTime.now())
                 .goaltime(Time.valueOf(dto.getGoaltime()))
                 .issuccess(false)
+                .ongoing(false)
                 .build());
     }
 
@@ -65,6 +66,7 @@ public class TodoService {
                 .created(LocalDateTime.now())
                 .goaltime(todo.getGoaltime())
                 .issuccess(false)
+                .ongoing(false)
                 .build()).getTodoid();
         System.out.println(newTodo);
         return newTodo;
@@ -168,5 +170,21 @@ public class TodoService {
                 commitUpdate(user.getUserid(), user.getGithubid(),df.format(cal.getTime()));
             }
         }
+    }
+
+    //ongoing toggle
+    public void ongoingToggle(String todoid, String userid) throws Exception {
+        Todo todo = todoRepository.findByTodoid(todoid);
+        if(!todo.getUser().getUserid().equals(userid)) throw new Exception("user가 일치하지 않습니다");
+        todo.setOngoing(todo.getOngoing()?false:true);
+        todoRepository.save(todo);
+    }
+
+    // completetime만 update
+    public void updateCompleteTime(String todoid, Time completetime, String userid) throws Exception {
+        Todo todo = todoRepository.findByTodoid(todoid);
+        if(!todo.getUser().getUserid().equals(userid)) throw new Exception("user가 일치하지 않습니다");
+        todo.setCompletetime(completetime);
+        todoRepository.save(todo);
     }
 }
