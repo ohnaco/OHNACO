@@ -15,4 +15,5 @@ public class TodoDto {
     private String userid;
     private String todoid;
     private Time completetime;
+    private Boolean ongoing;
 }
