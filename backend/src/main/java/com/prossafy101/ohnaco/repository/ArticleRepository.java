@@ -9,6 +9,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     Page<Article> findAll(Pageable pageable);
@@ -19,5 +21,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     Page<Article> findArticles(@Param("title") String title, @Param("content") String content, @Param("userid")String userid, Pageable pageable);
 
     Article findArticleByLink(String link);
+
+    @Query(value = "select a from Article a where a.articleid in :articleids")
+    List<Article> findAllByArticleids(List<Long> articleids);
 
 }

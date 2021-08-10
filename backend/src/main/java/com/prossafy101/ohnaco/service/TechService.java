@@ -120,6 +120,10 @@ public class TechService {
 
     }
 
+    public List<Article> getFindArticleId(List<Long> articleids) {
+        return articleRepository.findAllByArticleids(articleids);
+    }
+
     @Scheduled(cron = "0 0 1 * * *")
     public void getRSSArticles() {
 
