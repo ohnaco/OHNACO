@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.Set;
 
 @Component
 public class RedisUtil {
@@ -46,6 +45,11 @@ public class RedisUtil {
     public List<String> getScrapData (String key, int start, int end) {
         ListOperations<String, String> vop = redisTemplate.opsForList();
         return vop.range(key, start, end);
+    }
+
+    public Long getScrapSizeData (String key) {
+        ListOperations<String, String> vop = redisTemplate.opsForList();
+        return vop.size(key);
     }
 
     public void setVisitData(String key) {
