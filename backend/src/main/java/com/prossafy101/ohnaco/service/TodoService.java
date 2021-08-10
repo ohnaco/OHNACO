@@ -48,6 +48,7 @@ public class TodoService {
                 .date(LocalDate.parse(dto.getDate()))
                 .created(LocalDateTime.now())
                 .goaltime(Time.valueOf(dto.getGoaltime()))
+                .completetime(dto.getCompletetime())
                 .issuccess(false)
                 .ongoing(false)
                 .build());
