@@ -38,7 +38,7 @@ export default {
     setTodoList({ commit }, data ) {
       Todo.loadTodoList(data,
         (res) => {
-          commit("SET_TODO", res.data);
+          commit("SET_TODO", res.data.list);
         },
         (err) => {
           alert(err);
@@ -66,7 +66,7 @@ export default {
           alert(
             res.data.status === "success" ? "update success" : "update fail"
           );
-          commit("UPDATE_TODO", payload);
+          commit("UPDATE_TODO", res.data.newTodo);
         },
         (err) => {
           alert(err);
