@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,4 +29,6 @@ public class Article {
 
     private String image;
     private LocalDateTime publisheddate;
+
+
 }

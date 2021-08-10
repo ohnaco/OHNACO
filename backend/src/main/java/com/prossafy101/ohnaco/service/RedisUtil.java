@@ -25,6 +25,21 @@ public class RedisUtil {
         vop.set(key, value, expire);
     }
 
+    public void setScrapData(String key, String articleid) {
+        SetOperations<String, String> vop = redisTemplate.opsForSet();
+        vop.add(key, articleid);
+    }
+
+    public Long removeScrapData(String key, String articleid) {
+        SetOperations<String, String> vop = redisTemplate.opsForSet();
+        return vop.remove(key, articleid);
+    }
+
+    public boolean getScrapUseridData (String key, String articleid) {
+        SetOperations<String, String> vop = redisTemplate.opsForSet();
+        return vop.isMember(key, articleid);
+    }
+
     public void setVisitData(String key) {
         ValueOperations<String, String> vop = redisTemplate.opsForValue();
         vop.increment(key, 1);
