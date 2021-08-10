@@ -2,7 +2,7 @@
   <v-layout>
     <v-row>
       <v-col cols="2"><left-nav-bar></left-nav-bar></v-col>
-      <v-col cols="7" class="d-flex flex-column" style="height:100vh ; overflow:scroll">
+      <v-col cols="7" class="d-flex flex-column" style="height: 100vh; overflow: scroll">
         <div class="d-flex align-center text-h4 ma-5">
           <img src="@/assets/images/todo-icon.svg" class="mr-2" />
           <b>To Do List</b>
@@ -21,13 +21,18 @@
         <!-- 우측달력 -->
         <p></p>
         <p></p>
-        <CalendarSmall @modalOn_child="modalOn" @todoDate="moveDate" style="width:100%" v-model="date"></CalendarSmall>
+        <CalendarSmall
+          @modalOn_child="modalOn"
+          @todoDate="moveDate"
+          style="width: 100%"
+          v-model="date"
+        ></CalendarSmall>
         <!--우측달력 끝-->
       </v-col>
     </v-row>
     <!--큰달력 모달-->
     <ModalView v-if="this.isModal" @close-modal="isModal = false">
-      <CalendarLarge @todoDate="moveDateAndCloseModal"/>
+      <CalendarLarge @todoDate="moveDateAndCloseModal" />
     </ModalView>
     <!--큰달력 모달 끝-->
   </v-layout>
@@ -39,7 +44,7 @@ import TodoAdd from "@/components/todo/TodoAdd.vue";
 import TodoCard from "@/components/todo/TodoCard.vue";
 import CalendarSmall from "@/components/todo/CalendarSmall.vue";
 import CalendarLarge from "@/components/todo/CalendarLarge.vue";
-import ModalView from '@/components/common/ModalView.vue';
+import ModalView from "@/components/common/ModalView.vue";
 import DailyCommit from "@/components/todo/DailyCommit.vue";
 
 import { createNamespacedHelpers } from "vuex";
@@ -49,10 +54,10 @@ export default {
   data() {
     return {
       isCreateTodo: false,
-      isModal : false,
-      date : this.$moment().format("YYYY-MM-DD"),
+      isModal: false,
+      date: this.$moment().format("YYYY-MM-DD"),
       isDateToday: null,
-      isAddOnGoing:false,
+      isAddOnGoing: false,
     };
   },
   components: {
@@ -77,25 +82,25 @@ export default {
       this.isCreateTodo = !this.isCreateTodo;
     },
     modalOn() {
-      this.isModal=true;
+      this.isModal = true;
     },
     moveDate(date) {
-      this.date=date;
+      this.date = date;
     },
     moveDateAndCloseModal(date) {
-      this.isModal=false;
-      this.date=date;
+      this.isModal = false;
+      this.date = date;
     },
     isToday(date) {
       const today = this.$moment().format("YYYY-MM-DD");
       return date === today;
-    }
+    },
   },
   watch: {
     date: function () {
       this.setTodoList(this.date);
       this.isDateToday = this.isToday(this.date);
-    }
+    },
   },
 };
 </script>
