@@ -1,38 +1,92 @@
-![logo](img/logo.png)
+<img src="/uploads/eff350a368323e6d4c1a6d87aa0652ad/logo.png" alt="logo" width="500"/>
 
 # 🎈 프로젝트 이름 : 오나코 (오늘도 나는 코딩한다)
 
-## 👨‍👩‍👦‍👦 팀원소개
+## 🖌 프로젝트 개요
 
-### 🧑 고노윤(Frontend)
+#### 개발자 취준생의 효율적인 공부를 위해 Todo 항목별 타이머 기능과 기록된 공부시간을 활용한 통계 기능을 제공합니다!
 
-### 👦 김우현(Frontend)
-
-### 👦 김현홍(Backend)
-
-### 👦 손창환(Backend)
-
-### 🧑 양다연(Frontend)
-
-## 개발 기간
-
-21.07.12 ~ 21.08.20
+#### 그 뿐만 아니라, 최신 IT 정보를 담은 기술 블로그와 뉴스를 모아서 보여주고 사용자들끼리 질의응답을 할 수 있는 공간도 제공됩니다.
 
 <br>
 
-## 기획
+## 🎯 핵심 기능
+
+### Todo 타이머 
+
+<img src="/uploads/b53a186e146fa734f57679b802fad4b4/timer.gif" alt="timer" width="700"/>
+
+### 1일 1커밋 알림
+
+<img src="/uploads/1969c068107f22bf30b89138a22ac339/커밋.gif" alt="commit" width="700"/>
+
+### 공부시간 통계
+
+<img src="/uploads/a5cc685ac67e6a4d9f6bf1b058e15529/통계.gif" alt="statistics" width="700"/>
+
+<br>
+<br>
+
+## 👨‍👩‍👦‍👦 팀원소개
+
+#### 🧑 고노윤(Frontend)
+
+#### 👦 김우현(Frontend)
+
+#### 👦 김현홍(Backend)
+
+#### 👦 손창환(Backend)
+
+#### 🧑 양다연(Frontend)
+
+<br>
+
+## 📆 개발 기간
+
+#### 21.07.12 ~ 21.08.20 (6주)
+
+<br>
+
+## 🛠 기술 스택
+
+### Frontend
+- Vue(2.6.14)
+- Vuex(3.6.2)
+- Vuetify(2.4.0)
+- Bootstrap(5.0.2)
+- Bootstrap-vue(2.21.2)
+- HTML
+- SCSS
+- CSS
+
+### Backend
+- Java 8
+- Spring Boot(2.5.3)
+- JPA
+- MyBatis
+- Redis
+- MariaDB
+
+<br>
+
+## 📜 기획
+
+### 와이어프레임 
+[와이어프레임 링크](https://www.figma.com/file/Ybb6iYwJCP9iihZ2bNyI1R/OHNACO?node-id=0%3A1)
+
+### 기능 구조 
+
+<img src="/uploads/0629834b40885cdac3da2082613948cb/dtd.png" alt="dfd" width="700"/>
 
 ### ERD
 
-![ERD](img/erd.png)
+<img src="img/erd.png" alt="ERD" width="700"/>
 
-## <br>
+<br>
 
-# 개발 규칙
+## ⚙ 개발 규칙
 
-## Git
-
-### Commit Message 규약
+### Git Commit Message 규약
 
 - Git Commit Message Template
 
@@ -89,8 +143,7 @@ S05P12A10100 - [feat] : /FE
 ```
 git config --global commit.template <.gitmessage.txt 경로>
 ```
-
-<hr>
+<br>
 
 ### Git Flow 규약
 
@@ -115,16 +168,12 @@ feature/fe(be)/기능명
 - feature/be/login
 ```
 
-<br>
-
 #### feature 브랜치 생성 방법
 
 ```
 //develop 브랜치에서 생성
 $ git checkout -b feature/fe(be)/login develop
 ```
-
-<br>
 
 #### Merge 규칙
 

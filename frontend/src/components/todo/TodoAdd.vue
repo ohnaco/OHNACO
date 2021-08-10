@@ -100,17 +100,19 @@ export default {
     editMode: {
       type: Boolean,
     },
-    todoid: {
+    date: {
       type: String,
     },
   },
   created() {
-    this.newTodo.userid = this.user.userId;
+    this.newTodo.userid = this.user.userid;
+    this.newTodo.date = this.date;
 
     if (this.editMode) {
       this.newTodo.categoryid = this.editTodo.categoryid;
       this.newTodo.title = this.editTodo.title;
       this.newTodo.goaltime = this.editTodo.goaltime;
+      this.newTodo.date = this.editTodo.date;
     }
   },
   computed: {
@@ -125,7 +127,7 @@ export default {
     },
     onCreateOK() {
       if (this.editMode) {
-        this.newTodo.todoid = this.todoid;
+        this.newTodo.todoid = this.editTodo.todoid;
         this.updateTodo(JSON.stringify(this.newTodo));
       } else this.createTodo(JSON.stringify(this.newTodo));
       this.finishCreate();
