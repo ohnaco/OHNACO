@@ -15,7 +15,7 @@
                 required
                 style="width: 70%; float: left; font-size: 12px"
               ></b-form-input>
-              <img src="@/assets/search.svg" style="float: left" />
+              <!--<img src="@/assets/search.svg" style="float: left" />-->
             </b-col>
             <b-col style="height: 100%" class="pl-3 pr-3 pt-0 pb-0">
               <div style="float: right; height: 100%">
