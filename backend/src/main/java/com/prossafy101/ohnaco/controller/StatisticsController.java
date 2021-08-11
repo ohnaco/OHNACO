@@ -44,7 +44,7 @@ public class StatisticsController {
             cal.add(Calendar.DATE, -6);
             String startDate = df.format(cal.getTime());
             Optional<StatisticsTotalDto> totalDto = statisticsService.getToatalTime(userid, startDate, endDate);
-            result.put("totalTime", totalDto.isPresent()?totalDto.get().getTotalcompletetime():0);
+            result.put("totalTime", totalDto.get() == null?totalDto.get().getTotalcompletetime():0);
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
             result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
             result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
@@ -58,7 +58,7 @@ public class StatisticsController {
             cal.add(Calendar.DATE, -30);
             String startDate = df.format(cal.getTime());
             Optional<StatisticsTotalDto> totalDto = statisticsService.getToatalTime(userid, startDate, endDate);
-            result.put("totalTime", totalDto.isPresent()?totalDto.get().getTotalcompletetime():0);
+            result.put("totalTime",  totalDto.get() == null?totalDto.get().getTotalcompletetime():0);
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
             result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
             result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
