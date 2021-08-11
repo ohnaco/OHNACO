@@ -9,6 +9,7 @@ import com.prossafy101.ohnaco.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -73,6 +74,11 @@ public class QuestionService {
            return questionRepository.findAllByTag(tagRepository.findByTagname(tagname), pageable);
        }
        return null;
+    }
+
+    //모든 질문 반환(Sort사용)
+    public List<Question> getAllQuestionSort(Sort sort) {
+        return questionRepository.findAll(sort);
     }
 
     //태그 like검색 일치하는 모든 정보 반환
