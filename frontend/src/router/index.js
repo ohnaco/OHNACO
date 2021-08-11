@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import Main from "../views/Main.vue";
 import Login from "../views/user/Login.vue";
 import Join from "../views/user/Join.vue";
 import JoinEmail from "../views/user/JoinEmail.vue";
@@ -14,6 +15,11 @@ import DevTalk from "@/views/devtalk/QuestionList.vue";
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: "/main",
+    name: "Main",
+    component: Main,
+  },
   {
     path: "/login/",
     name: "Login",
