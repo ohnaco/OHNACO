@@ -13,6 +13,7 @@ import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
 import com.rometools.rome.io.SyndFeedInput;
 import com.rometools.rome.io.XmlReader;
+import org.apache.commons.text.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -141,7 +142,7 @@ public class TechService {
                     Article article = Article.builder()
                             .blogid(blog.getBlogid())
                             .title(entry.getTitle())
-                            .content(entry.getDescription().getValue().substring(0, 150))
+                            .content(StringEscapeUtils.unescapeHtml3(entry.getDescription().getValue().substring(0, 150)))
                             .link(entry.getLink())
                             .publisheddate(entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
                             .build();
