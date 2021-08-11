@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.text.StringEscapeUtils;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -26,7 +27,7 @@ public class ArticleDto {
     public ArticleDto(Article article, boolean isScrap) {
         this.articleid = article.getArticleid();
         this.title = article.getTitle();
-        this.content = article.getContent();
+        this.content = StringEscapeUtils.unescapeHtml4(article.getContent());
         this.link = article.getLink();
         this.blogid = article.getBlogid();
         this.image = article.getImage();

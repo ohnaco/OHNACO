@@ -142,7 +142,7 @@ public class TechService {
                     Article article = Article.builder()
                             .blogid(blog.getBlogid())
                             .title(entry.getTitle())
-                            .content(StringEscapeUtils.unescapeHtml3(entry.getDescription().getValue().substring(0, 150)))
+                            .content(StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue().substring(0, 150)))
                             .link(entry.getLink())
                             .publisheddate(entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
                             .build();
@@ -151,7 +151,7 @@ public class TechService {
                         articleRepository.save(article);
 
                     System.out.println(entry.getAuthor());
-                    System.out.println(entry.getDescription().getValue());
+                    System.out.println(StringEscapeUtils.unescapeHtml3(entry.getDescription().getValue().substring(0, 150)));
                     System.out.println(entry.getLink());
                     System.out.println(entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 
