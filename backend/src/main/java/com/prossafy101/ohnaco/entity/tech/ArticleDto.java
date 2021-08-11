@@ -23,8 +23,9 @@ public class ArticleDto {
     private String image;
     private LocalDateTime publisheddate;
     private boolean isScrap;
+    private boolean isSubscribe;
 
-    public ArticleDto(Article article, boolean isScrap) {
+    public ArticleDto(Article article, boolean isScrap, boolean isSubscribe) {
         this.articleid = article.getArticleid();
         this.title = article.getTitle();
         this.content = StringEscapeUtils.unescapeHtml4(article.getContent());
@@ -33,6 +34,7 @@ public class ArticleDto {
         this.image = article.getImage();
         this.publisheddate = article.getPublisheddate();
         this.isScrap = isScrap;
+        this.isSubscribe = isSubscribe;
     }
 
 }

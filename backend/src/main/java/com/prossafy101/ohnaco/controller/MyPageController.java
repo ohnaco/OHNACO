@@ -69,7 +69,7 @@ public class MyPageController {
         List<ArticleDto> articleDtos = new ArrayList<>();
         List<Article> articles = techService.getFindArticleId(articleids);
         for(Article article : articles) {
-            articleDtos.add(new ArticleDto(article, true));
+            articleDtos.add(new ArticleDto(article, true, true));
         }
         result.put("scrap",articleDtos);
         result.put("scrapCount", redisUtil.getScrapSizeData("tech:scrap:" + userid));
@@ -110,7 +110,7 @@ public class MyPageController {
         List<ArticleDto> articleDtos = new ArrayList<>();
         List<Article> articles = techService.getFindArticleId(articleids);
         for(Article article : articles) {
-            articleDtos.add(new ArticleDto(article, true));
+            articleDtos.add(new ArticleDto(article, true, true));
         }
         result.put("scrap",articleDtos);
         return new ResponseEntity<>(result, HttpStatus.OK);

@@ -101,7 +101,9 @@ public class TechController {
 
         Pageable page = PageRequest.of(pageno-1, 10, Sort.by("publisheddate").descending());
         Page<Article> temp = techService.getAllArticles(page, keyword);
-        Page<ArticleDto> list = temp.map(article -> new ArticleDto(article, redisUtil.getScrapUseridData(scrapKey + userid, article.getArticleid().toString())));
+        Page<ArticleDto> list = temp.map(article -> new ArticleDto(article, redisUtil.getScrapUseridData(scrapKey + userid,
+                article.getArticleid().toString()),
+                techService.isSubscribe(userid, article.getBlogid())));
         result.put("list", list);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -116,7 +118,9 @@ public class TechController {
 
         Pageable page = PageRequest.of(pageno-1, 10, Sort.by("publisheddate").descending());
         Page<Article> temp = techService.getSubscribeArticles(page, keyword, userid);
-        Page<ArticleDto> list = temp.map(article -> new ArticleDto(article, redisUtil.getScrapUseridData(scrapKey + userid, article.getArticleid().toString())));
+        Page<ArticleDto> list = temp.map(article -> new ArticleDto(article,
+                redisUtil.getScrapUseridData(scrapKey + userid, article.getArticleid().toString()),
+                techService.isSubscribe(userid, article.getBlogid())));
         result.put("list", list);
 
         return new ResponseEntity<>(result, HttpStatus.OK);
