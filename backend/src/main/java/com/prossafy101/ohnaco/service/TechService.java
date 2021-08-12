@@ -148,7 +148,7 @@ public class TechService {
                     Article article = Article.builder()
                             .blogid(blog.getBlogid())
                             .title(entry.getTitle())
-                            .content(StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue().substring(0, 150)))
+                            .content(StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue().substring(0, 150)).replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""))
                             .link(entry.getLink())
                             .publisheddate(entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
                             .build();
