@@ -12,7 +12,9 @@ public class RedisConfig {
     @Bean
     public RedisConnectionFactory redisConnectionFactory() {
         LettuceConnectionFactory lettuceConnectionFactory = new LettuceConnectionFactory();
+        lettuceConnectionFactory.setPassword("ssafyroot");
         return lettuceConnectionFactory;
+
     }
 
     @Bean
