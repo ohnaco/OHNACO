@@ -4,6 +4,8 @@ import todoStore from "./modules/todoStore";
 import userStore from "./modules/userStore";
 import techStore from "./modules/techStore";
 import statisticsStore from "./modules/statisticsStore";
+import mypageStore from "./modules/mypageStore";
+
 
 Vue.use(Vuex);
 
