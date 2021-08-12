@@ -171,7 +171,7 @@ public class DevtalkController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/listall")
+    @GetMapping("/load")
     @ApiOperation(value = "question 불러오기")
     public Object getAllQuestionSort(HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
