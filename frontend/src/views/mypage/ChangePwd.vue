@@ -159,13 +159,16 @@ export default {
           data,
           (res) => {
             console.log(res);
-            this.isSubmit = true;
-            alert("비밀번호가 변경되었습니다.");
-            this.$router.push({ name: "MyPage" });
+            if (res.data.status == false) {
+              alert('비밀번호를 다시 확인해주세요.')
+            } else {
+              this.isSubmit = true;
+              alert("비밀번호가 변경되었습니다.");
+              this.$router.push({ name: "MyPage" });
+            }
           },
           (err) => {
             this.isSubmit = true;
-            alert("현재 비밀번호를 다시 확인해주세요.")
             console.log(err);
           }
         );
