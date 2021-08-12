@@ -66,6 +66,9 @@
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TopNavBar from "@/components/common/TopNavBar.vue";
 
+import { createNamespacedHelpers } from "vuex";
+const techHelper = createNamespacedHelpers("techStore");
+
 export default {
   components: {
     LeftNavBar,
@@ -76,6 +79,15 @@ export default {
       selected: 1,
       src: "http://itimg.chosun.com/sitedata/image/202105/06/2021050601877_0.png",
     };
+  },
+  created() {
+    this.setAllBlogList();
+  },
+  computed: {
+    ...techHelper.mapState(["blogList"]),
+  },
+  methods: {
+    ...techHelper.mapActions(["setAllBlogList", "subscribeBlog", "unSubscribeBlog"]),
   },
 };
 </script>

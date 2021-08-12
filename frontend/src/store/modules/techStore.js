@@ -14,9 +14,23 @@ export default {
     SET_ALL_TECH_LIST(state, list) {
       state.techList = list;
     },
+    SET_SUBSCRIBE_TECH_LIST(state, list) {
+      state.techList = list;
+    },
     SCRAP_TOGGLE_BLOG(state, articleid) {
       const index = state.techList.findIndex((tech) => tech.articleid === articleid);
       state.techList[index].scrap = !state.techList[index].scrap;
+    },
+    SET_ALL_BLOG_LIST(state, list) {
+      state.blogList = list;
+    },
+    SUBSCRIBE_BLOG(state, blogid) {
+      const index = state.blogList.findIndex((blog) => blog.blogid === blogid);
+      state.blogList[index].issubscribe = true;
+    },
+    UNSUBSCRIBE_BLOG(state, blogid) {
+      const index = state.blogList.findIndex((blog) => blog.blogid === blogid);
+      state.blogList[index].issubscribe = false;
     },
   },
   actions: {
@@ -33,12 +47,65 @@ export default {
         }
       );
     },
+    setSubscribeTechList({ commit }, data) {
+      Tech.loadSubscribeTechList(
+        data,
+        (res) => {
+          const subscribe = res.data.list.content;
+          commit("SET_SUBSCRIBE_TECH_LIST", subscribe);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
     scrapTech({ commit }, id) {
       Tech.scrapTech(
         id,
         (res) => {
           if (res.data.status) commit("SCRAP_TOGGLE_BLOG", id);
           else alert("scrap fail");
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+    setAllBlogList({ commit }) {
+      Tech.loadAllBlogList(
+        (res) => {
+          const blog = res.data.list;
+          commit("SET_ALL_BLOG_LIST", blog);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+    subscribeBlog({ commit }, id) {
+      const data = {
+        blogid: id,
+      };
+      Tech.subscribeBlog(
+        data,
+        (res) => {
+          if (res.data.status) commit("SUBSCRIBE_BLOG", id);
+          else alert("subscribe fail");
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+    unSubscribeBlog({ commit }, id) {
+      const data = {
+        blogid: id,
+      };
+      Tech.unSubscribeBlog(
+        data,
+        (res) => {
+          if (res.data.status) commit("UNSUBSCRIBE_BLOG", id);
+          else alert("unsubscribe fail");
         },
         (err) => {
           alert(err);

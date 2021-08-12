@@ -3,10 +3,20 @@ import http from "@/util/http-common.js";
 const loadAllTechList = (data, callback, errorCallback) => {
   http
     .get("/tech/article/list", {
-      params: {
-        pageno: data.pageno,
-        keyword: data.keyword,
-      },
+      params: data,
+    })
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const loadSubscribeTechList = (data, callback, errorCallback) => {
+  http
+    .get("/tech/article/subscribe", {
+      params: data,
     })
     .then((res) => {
       callback(res);
@@ -27,7 +37,44 @@ const scrapTech = (data, callback, errorCallback) => {
     });
 };
 
+const loadAllBlogList = (callback, errorCallback) => {
+  http
+    .get("/tech/blog/list")
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const subscribeBlog = (data, callback, errorCallback) => {
+  http
+    .post("/tech/blog/subscribe", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const unSubscribeBlog = (data, callback, errorCallback) => {
+  http
+    .put("/tech/blog/subscribe", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 export default {
   loadAllTechList,
+  loadSubscribeTechList,
   scrapTech,
+  loadAllBlogList,
+  subscribeBlog,
+  unSubscribeBlog,
 };

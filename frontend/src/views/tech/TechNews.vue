@@ -8,12 +8,12 @@
       <v-row dense class="ma-2 justify-space-between align-center">
         <v-col cols="12" sm="12" md="4" order="last">
           <v-btn-toggle v-model="type" borderless group>
-            <v-btn>
+            <v-btn @click="setSubscribeTechList(param)">
               <v-icon left color="#ff8a65"> mdi-checkbox-blank-circle </v-icon>
               <span>Subscribe</span>
             </v-btn>
 
-            <v-btn>
+            <v-btn @click="setAllTechList(param)">
               <v-icon left color="#7b61ff"> mdi-checkbox-blank-circle </v-icon>
               <span>All</span>
             </v-btn>
@@ -22,7 +22,7 @@
 
         <v-col cols="12" sm="12" md="4" order="first">
           <v-text-field
-            v-model="keyword"
+            v-model="param.keyword"
             label="검색어를 입력하세요."
             append-icon="mdi-magnify"
           ></v-text-field>
@@ -35,13 +35,15 @@
       </v-row>
     </v-col>
   </v-row>
-  </v-container>
 </template>
 
 <script>
 import TechCard from "@/components/tech/TechCard.vue";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TopNavBar from "@/components/common/TopNavBar.vue";
+
+import { createNamespacedHelpers } from "vuex";
+const techHelper = createNamespacedHelpers("techStore");
 
 export default {
   components: {
@@ -65,7 +67,7 @@ export default {
     ...techHelper.mapState(["techList"]),
   },
   methods: {
-    ...techHelper.mapActions(["setAllTechList"]),
+    ...techHelper.mapActions(["setAllTechList", "setSubscribeTechList"]),
   },
 };
 </script>
