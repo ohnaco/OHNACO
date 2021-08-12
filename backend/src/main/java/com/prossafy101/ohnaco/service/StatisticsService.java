@@ -2,13 +2,11 @@ package com.prossafy101.ohnaco.service;
 
 import com.prossafy101.ohnaco.entity.statistics.StatisticsCategoryDto;
 import com.prossafy101.ohnaco.entity.statistics.StatisticsPositionDto;
-import com.prossafy101.ohnaco.entity.statistics.StatisticsTotalDto;
 import com.prossafy101.ohnaco.repository.StatisticsRepository;
 import com.prossafy101.ohnaco.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -27,7 +25,7 @@ public class StatisticsService {
     String[] category = {"CS", "알고리즘", "프레임워크", "자격증", "기타"};
 
     //해당 유저의 주간/월간 시간과 목표시간 총합
-    public Optional<StatisticsTotalDto> getToatalTime(String userid, String startDate, String endDate) {
+    public Long getToatalTime(String userid, String startDate, String endDate) {
         Map<String, Object> map = new HashMap<>();
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
@@ -84,8 +82,12 @@ public class StatisticsService {
         List<StatisticsPositionDto> list = statisticsRepository.getPositionTime(map);
         for(StatisticsPositionDto dto : list) {
             for(int i = 0 ; i < 5;  i++) {
-                if(dto.getCategoryname().equals(category[i]))
+                if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
+                    if(dto.getTime() == null) {
+                        dto.setTime(0L);
+                    }
+                }
             }
         }
 
@@ -111,8 +113,12 @@ public class StatisticsService {
         List<StatisticsPositionDto> list = statisticsRepository.getEntireCategoryTime(map);
         for(StatisticsPositionDto dto : list) {
             for(int i = 0 ; i < 5;  i++) {
-                if(dto.getCategoryname().equals(category[i]))
+                if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
+                    if(dto.getTime() == null) {
+                        dto.setTime(0L);
+                    }
+                }
             }
         }
 
