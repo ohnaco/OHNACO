@@ -141,7 +141,7 @@ public class UserService {
                     "	<p" +
                     "		style=\"display: inline-block; width: 210px; height: 45px; margin: 30px 5px 40px; background: #02b875; line-height: 45px; vertical-align: middle; font-size: 16px;\">"
             );
-            sb.append("<a href='http://localhost:8197/user/findpwd?email=" +
+            sb.append("<a href='https://i5a101.p.ssafy.io/findpwdnewpwd?email=" +
                     toEmail +
                     "&token=" +
                     tempUserDto.getToken() +
