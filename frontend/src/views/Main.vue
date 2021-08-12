@@ -5,7 +5,7 @@
 <script>
 
 export default {
-  name: "Home",
+  name: "Main",
   methods: {
     goLogin: function () {
       this.$router.push({ name: "Login" });
