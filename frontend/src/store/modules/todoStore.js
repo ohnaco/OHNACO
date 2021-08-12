@@ -5,7 +5,7 @@ export default {
   state: {
     // data 가 들어가는 곳
     todoLists: [],
-    commitHistory: {},
+    todayCommit: null,
   },
   mutations: {
     // 여기서 data 를 업데이트
@@ -25,8 +25,8 @@ export default {
     DELETE_TODO(state, todoid) {
       state.todoLists = state.todoLists.filter((todo) => todo.todoid !== todoid);
     },
-    SET_COMMIT_HISTORY(state, commitHistory) {
-      state.commitHistory = commitHistory;
+    SET_TODAY_COMMIT(state, flag) {
+      state.todayCommit = flag;
     },
   },
   actions: {
@@ -81,7 +81,8 @@ export default {
     refreshCommit({ commit }) {
       Todo.getCommitHistory(
         (res) => {
-          commit("SET_COMMIT_HISTORY", res.data.commit);
+          const day1 = res.data.commit.day1;
+          commit("SET_TODAY_COMMIT", day1 > 0 ? true : false);
         },
         (err) => {
           alert(err);
@@ -89,10 +90,5 @@ export default {
       );
     },
   },
-  getters: {
-    // computer 같은 개념
-    getDay1Commit(state) {
-      return state.commitHistory["day1"];
-    },
-  },
+  getters: {},
 };
