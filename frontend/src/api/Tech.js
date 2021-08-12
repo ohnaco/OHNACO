@@ -16,6 +16,18 @@ const loadAllTechList = (data, callback, errorCallback) => {
     });
 };
 
+const scrapTech = (data, callback, errorCallback) => {
+  http
+    .post("/tech/scrap?articleid=" + data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 export default {
   loadAllTechList,
+  scrapTech,
 };

@@ -4,10 +4,18 @@
       src="http://itimg.chosun.com/sitedata/image/202105/06/2021050601877_0.png"
       height="150px"
     >
-      <v-btn v-if="item.scrap" icon x-large right absolute @click.prevent>
+      <v-btn
+        v-if="item.scrap"
+        icon
+        x-large
+        right
+        absolute
+        @click.prevent
+        @click="scrapTech(item.articleid)"
+      >
         <v-icon>mdi-bookmark</v-icon>
       </v-btn>
-      <v-btn v-else icon x-large right absolute @click.prevent>
+      <v-btn v-else icon x-large right absolute @click.prevent @click="scrapTech(item.articleid)">
         <v-icon>mdi-bookmark-outline</v-icon>
       </v-btn>
     </v-img>
@@ -35,6 +43,9 @@
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const techHelper = createNamespacedHelpers("techStore");
+
 export default {
   props: {
     item: {
@@ -47,6 +58,7 @@ export default {
     };
   },
   methods: {
+    ...techHelper.mapActions(["scrapTech"]),
     diffTime(time) {
       const moment = require("moment");
       const today = moment();
