@@ -82,8 +82,12 @@ public class StatisticsService {
         List<StatisticsPositionDto> list = statisticsRepository.getPositionTime(map);
         for(StatisticsPositionDto dto : list) {
             for(int i = 0 ; i < 5;  i++) {
-                if(dto.getCategoryname().equals(category[i]))
+                if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
+                    if(dto.getTime() == null) {
+                        dto.setTime(0L);
+                    }
+                }
             }
         }
 
@@ -109,8 +113,12 @@ public class StatisticsService {
         List<StatisticsPositionDto> list = statisticsRepository.getEntireCategoryTime(map);
         for(StatisticsPositionDto dto : list) {
             for(int i = 0 ; i < 5;  i++) {
-                if(dto.getCategoryname().equals(category[i]))
+                if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
+                    if(dto.getTime() == null) {
+                        dto.setTime(0L);
+                    }
+                }
             }
         }
 
