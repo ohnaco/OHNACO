@@ -2,18 +2,22 @@
   <!-- 어제의 나 vs 오늘의 나 -->
   <div>
     <div class="ms-5 mt-5 mb-5"><b>지난 2일간 공부기록</b></div>
-    <apexchart
-      type="radar"
-      height="380"
-      :options="chartOptions"
-      :series="series1"
-    ></apexchart>
-    <apexchart
-      type="bar"
-      height="100"
-      :options="barOptions"
-      :series="series2"
-    ></apexchart>
+    <div id="chart">
+      <apexchart
+        type="radar"
+        height="380"
+        :options="chartOptions"
+        :series="series1"
+      ></apexchart>
+    </div>
+    <div id="chart">
+      <apexchart
+        type="bar"
+        height="100"
+        :options="barOptions"
+        :series="series2"
+      ></apexchart>
+    </div>
   </div>
 </template>
 
@@ -26,12 +30,8 @@ export default {
     apexchart: VueApexCharts,
   },
   props: {
-    todayTime: {
-      type: Array
-    },
-    yesterdayTime: {
-      type: Array
-    }
+    todayTime: Array,
+    yesterdayTime: Array,
   },
   data: function () {
     return {

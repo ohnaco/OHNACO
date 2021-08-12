@@ -9,7 +9,6 @@
           <!-- 주간 월간 버튼 -->
           <div>
             <v-btn-toggle 
-            v-model="text"
             borderless
             tile
             background-color="#EFEFEF"
@@ -43,7 +42,7 @@
               >
               <total-study-time 
               :option="this.option"
-              :totalTime="statsInfo.totalTime.totalcompletetime"
+              :totalTime="statsInfo.totalTime"
               ></total-study-time>
               </v-card>
             </v-col>
