@@ -61,7 +61,7 @@ export default {
       this.$router.push({ name: "Join" });
     },
     goFindpwd: function () {
-      this.$router.push({ name: "" });
+      this.$router.push({ name: "FindPwd" });
     },
     doLogin: function () {
       let { email, password } = this;
