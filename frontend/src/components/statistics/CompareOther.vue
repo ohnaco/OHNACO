@@ -1,7 +1,7 @@
 <template>
   <!-- 일주일 유저 평균 공부시간 -->
   <div>
-    <div class="ms-3" v-if="option=='week'">
+    <div id="chart" class="ms-3" v-if="option=='week'">
       <div class="ms-5 mt-5"><b>최근 일주일 평균 공부시간</b></div>
       <apexchart 
         type="line" 
@@ -9,7 +9,7 @@
         :options="weekOptions" 
         :series="series"></apexchart>
     </div>
-    <div class="ms-3" v-if="option=='month'">
+    <div id="chart" class="ms-3" v-if="option=='month'">
       <div class="ms-5 mt-5"><b>일별 평균 공부시간</b></div>
       <apexchart 
         type="line" 
@@ -29,18 +29,10 @@ export default {
     apexchart: VueApexCharts,
   },
   props: {
-    myTime: {
-      type: Array
-    },
-    positionMemberTime: {
-      type: Array
-    },
-    entireMemberTime: {
-      type: Array
-    },
-    option: {
-      type: String,
-    },
+    myTime: Array,
+    positionMemberTime: Array,
+    entireMemberTime: Array,
+    option: String,
   },
   data: function () {
     return {

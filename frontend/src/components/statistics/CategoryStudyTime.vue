@@ -2,7 +2,7 @@
   <!-- 카테고리별 공부시간 -->
   <div>
     <div class="ms-5 mt-5 mb-15"><b>카테고리별 공부시간</b></div>
-    <div class="d-flex justify-content-center">
+    <div id="chart" class="d-flex justify-content-center">
       <apexchart
         type="pie"
         width="350"
@@ -22,9 +22,7 @@ export default {
     apexchart: VueApexCharts,
   },
   props: {
-    categoryTime: {
-      type: Array
-    },
+    categoryTime: Array,
   },
   data: function () {
     return {
@@ -75,5 +73,24 @@ export default {
       this.series = newSeries
     }
   },
+  // methods: {
+  //   categorydata: function () {
+  //     const series = [
+  //       this.categoryTime[0].completetime,
+  //       this.categoryTime[2].completetime,
+  //       this.categoryTime[3].completetime,
+  //       this.categoryTime[4].completetime,
+  //       this.categoryTime[1].completetime,
+  //     ]
+  //     return this.series = series
+  //   }
+  // },
+  // created() {
+  //   this.categorydata(this.series)
+  // }
 };
 </script>
+
+<style scoped>
+
+</style>

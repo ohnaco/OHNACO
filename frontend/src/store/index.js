@@ -3,6 +3,7 @@ import Vuex from "vuex";
 import todoStore from "./modules/todoStore";
 import userStore from "./modules/userStore";
 import techStore from "./modules/techStore";
+import statisticsStore from "./modules/statisticsStore";
 
 Vue.use(Vuex);
 
@@ -11,6 +12,7 @@ const store = new Vuex.Store({
     todoStore: todoStore,
     userStore: userStore,
     techStore: techStore,
+    statisticsStore: statisticsStore,
   },
 });
 

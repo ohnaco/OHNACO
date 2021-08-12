@@ -173,19 +173,18 @@ public class TodoService {
         }
     }
 
-    //ongoing toggle
-    public void ongoingToggle(String todoid, String userid) throws Exception {
+    // completetime, ongoing update
+    public void updateCompleteTime(String todoid, Time completetime, String userid, int flag) throws Exception {
         Todo todo = todoRepository.findByTodoid(todoid);
         if(!todo.getUser().getUserid().equals(userid)) throw new Exception("user가 일치하지 않습니다");
-        todo.setOngoing(todo.getOngoing()?false:true);
-        todoRepository.save(todo);
-    }
-
-    // completetime만 update
-    public void updateCompleteTime(String todoid, Time completetime, String userid) throws Exception {
-        Todo todo = todoRepository.findByTodoid(todoid);
-        if(!todo.getUser().getUserid().equals(userid)) throw new Exception("user가 일치하지 않습니다");
-        todo.setCompletetime(completetime);
+        if(flag == 0) {
+            todo.setOngoing(todo.getOngoing()?false:true);
+        } else if(flag == 1) {
+            todo.setCompletetime(completetime);
+        } else {
+            todo.setOngoing(todo.getOngoing()?false:true);
+            todo.setCompletetime(completetime);
+        }
         todoRepository.save(todo);
     }
 }

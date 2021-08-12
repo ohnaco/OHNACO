@@ -1,10 +1,15 @@
 package com.prossafy101.ohnaco.controller;
 
+import com.prossafy101.ohnaco.entity.devtalk.Answer;
+import com.prossafy101.ohnaco.entity.devtalk.Question;
+import com.prossafy101.ohnaco.entity.tech.Article;
+import com.prossafy101.ohnaco.entity.tech.ArticleDto;
 import com.prossafy101.ohnaco.entity.user.User;
 import com.prossafy101.ohnaco.entity.user.UserDto;
 import com.prossafy101.ohnaco.service.*;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
@@ -14,8 +19,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/mypage")
@@ -32,6 +36,10 @@ public class MyPageController {
     private TodoService todoService;
     @Autowired
     private PasswordEncoder passwordEncoder;
+    @Autowired
+    private RedisUtil redisUtil;
+    @Autowired
+    private TechService techService;
 
     @GetMapping("/list")
     @ApiOperation(value = "내 정보, 질문, 답변, 스크랩트 정보 가져오기 (최신 5개씩)")
@@ -47,9 +55,24 @@ public class MyPageController {
             todoService.commitUpdate(userid, user.getGithubid(), LocalDate.now().toString());
             result.put("commit", todoService.getCommit(userid));
         }
-        result.put("question", questionService.getQuestionByUser(user, PageRequest.of(0, 5, Sort.by("questiondate").descending())).getContent());
-        result.put("answer",answerService.getAnswerByUser(user, PageRequest.of(0, 5, Sort.by("answerdate").descending())).getContent());
-        result.put("scrap","");
+        Page<Question> questions = questionService.getQuestionByUser(user, PageRequest.of(0, 5, Sort.by("questiondate").descending()));
+        Page<Answer> answers = answerService.getAnswerByUser(user, PageRequest.of(0, 5, Sort.by("answerdate").descending()));
+        result.put("question", questions.getContent());
+        result.put("questionCount", questions.getTotalElements());
+        result.put("answer",answers.getContent());
+        result.put("answerCount", answers.getTotalElements());
+        List<String> scraps = redisUtil.getScrapData("tech:scrap:" + userid, 0, 4);
+        List<Long> articleids = new ArrayList<>();
+        for(String scrap : scraps) {
+            articleids.add(Long.parseLong(scrap));
+        }
+        List<ArticleDto> articleDtos = new ArrayList<>();
+        List<Article> articles = techService.getFindArticleId(articleids);
+        for(Article article : articles) {
+            articleDtos.add(new ArticleDto(article, true, true));
+        }
+        result.put("scrap",articleDtos);
+        result.put("scrapCount", redisUtil.getScrapSizeData("tech:scrap:" + userid));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -79,7 +102,17 @@ public class MyPageController {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        result.put("scrap","");
+        List<String> scraps = redisUtil.getScrapData("tech:scrap:" + userid, (pageno-1)*10, (pageno)*10-1);
+        List<Long> articleids = new ArrayList<>();
+        for(String scrap : scraps) {
+            articleids.add(Long.parseLong(scrap));
+        }
+        List<ArticleDto> articleDtos = new ArrayList<>();
+        List<Article> articles = techService.getFindArticleId(articleids);
+        for(Article article : articles) {
+            articleDtos.add(new ArticleDto(article, true, true));
+        }
+        result.put("scrap",articleDtos);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
