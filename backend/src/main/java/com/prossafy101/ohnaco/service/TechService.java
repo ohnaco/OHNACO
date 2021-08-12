@@ -125,6 +125,12 @@ public class TechService {
         return articleRepository.findAllByArticleids(articleids);
     }
 
+    public boolean isSubscribe(String userid, Long blogid) {
+        Blog blog = blogRepository.findById(blogid).get();
+        List<User> users = blog.getUsers();
+        return users.stream().filter(user -> user.getUserid().equals(userid)).findFirst().isPresent();
+    }
+
     @Scheduled(cron = "0 0 1 * * *")
     public void getRSSArticles() {
 
