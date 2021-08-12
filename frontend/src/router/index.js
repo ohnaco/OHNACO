@@ -9,6 +9,11 @@ import JoinEmail from "@/views/user/JoinEmail.vue";
 import JoinProfile from "@/views/user/JoinProfile.vue";
 import JoinSuccess from "@/views/user/JoinSuccess.vue";
 
+import FindPwd from "@/views/user/FindPwd.vue";
+import FindPwdEmail from "@/views/user/FindPwdEmail.vue";
+import FindPwdNewPwd from "@/views/user/FindPwdNewPwd.vue";
+import FindPwdSuccess from "@/views/user/FindPwdSuccess.vue";
+
 import Todo from "@/views/todo/TodoHome.vue";
 import Statistics from "@/views/statistics/Statistics.vue";
 import Tech from "@/views/tech/TechNews.vue";
@@ -54,6 +59,26 @@ const routes = [
     path: "/joinsuccess",
     name: "JoinSuccess",
     component: JoinSuccess,
+  },
+  {
+    path: "/findpwd",
+    name: "FindPwd",
+    component: FindPwd,
+  },
+  {
+    path: "/findpwdemail",
+    name: "FindPwdEmail",
+    component: FindPwdEmail,
+  },
+  {
+    path: "/findpwdnewpwd",
+    name: "FindPwdNewPwd",
+    component: FindPwdNewPwd,
+  },
+  {
+    path: "/findpwdsuccess",
+    name: "FindPwdSuccess",
+    component: FindPwdSuccess,
   },
   {
     path: "/todo",
