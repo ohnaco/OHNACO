@@ -1,35 +1,39 @@
 <template>
   <v-card color="#607D8B">
     <TopNavBar/> 
-    <v-container class="pa-0">
-      <v-list-item class="ml-10 mr-10 flex-wrap">
+    <v-container class="pa-3">
+      <v-list-item class="ml-8 mr-8 flex-wrap justify-content-center">
         <!-- 프로필 사진 -->
-        <v-list-item-avatar size="230" class="m-5">
-          <v-img src="@/assets/images/profile-img.svg" alt="ohnaco-logo"></v-img>
-        </v-list-item-avatar>
+        <v-col cols="12" md="3">
+          <v-list-item-avatar size="200" class="m-5">
+            <v-img src="@/assets/images/profile-img.svg" alt="profile-img"></v-img>
+          </v-list-item-avatar>
+        </v-col>
         <!-- 이름 설정 버튼 -->
-        <v-list-item-content class="pa-5 white--text ml-5">
-          <v-list-item-title class="text-h4">
-            <v-card-actions>
-              <div class="mr-4">
-                {{ info.nickname }}
-              </div>
-              <v-btn 
-              icon
-              @click="goChangeInfo"
-              >
-                <v-img src="@/assets/images/settings-btn.svg" alt="settings-btn"></v-img>
-              </v-btn>
-            </v-card-actions>
-          </v-list-item-title>
-          <!-- 희망 직무 -->
-          <v-list-item-subtitle class="text-h5 ml-3 white--text">{{ info.positions.positionname }}</v-list-item-subtitle>
-          <!-- github -->
-          <WeekCommit
-            :commit="commit"
-            :githubid="info.githubid"
-          />
-        </v-list-item-content>
+        <v-col cols="12" md="9">
+          <v-list-item-content class="pa-3 white--text">
+            <v-list-item-title class="text-h4">
+              <v-card-actions>
+                <div class="mr-4">
+                  {{ info.nickname }}
+                </div>
+                <v-btn 
+                icon
+                @click="goChangeInfo"
+                >
+                  <v-img src="@/assets/images/settings-btn.svg" alt="settings-btn"></v-img>
+                </v-btn>
+              </v-card-actions>
+            </v-list-item-title>
+            <!-- 희망 직무 -->
+            <v-list-item-subtitle class="text-h5 ml-3 white--text">{{ info.positions.positionname }}</v-list-item-subtitle>
+            <!-- github -->
+            <WeekCommit
+              :commit="commit"
+              :githubid="info.githubid"
+            />
+          </v-list-item-content>
+        </v-col>
       </v-list-item>
     </v-container>
   </v-card>
