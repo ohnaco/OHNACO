@@ -1,7 +1,9 @@
 package com.prossafy101.ohnaco.controller;
 
 import com.prossafy101.ohnaco.entity.devtalk.Answer;
+import com.prossafy101.ohnaco.entity.devtalk.AnswerDto;
 import com.prossafy101.ohnaco.entity.devtalk.Question;
+import com.prossafy101.ohnaco.entity.devtalk.QuestionDto;
 import com.prossafy101.ohnaco.entity.tech.Article;
 import com.prossafy101.ohnaco.entity.tech.ArticleDto;
 import com.prossafy101.ohnaco.entity.user.User;
@@ -41,6 +43,10 @@ public class MyPageController {
     @Autowired
     private TechService techService;
 
+    String visitKey = "devtalk:question:visit:";
+    String likeQuestionKey = "devtalk:question:like:";
+    String likeAnswerKey = "devtalk:answer:like:";
+
     @GetMapping("/list")
     @ApiOperation(value = "내 정보, 질문, 답변, 스크랩트 정보 가져오기 (최신 5개씩)")
     public Object getMyInfoList(HttpServletRequest req) {
@@ -55,11 +61,30 @@ public class MyPageController {
             todoService.commitUpdate(userid, user.getGithubid(), LocalDate.now().toString());
             result.put("commit", todoService.getCommit(userid));
         }
+
         Page<Question> questions = questionService.getQuestionByUser(user, PageRequest.of(0, 5, Sort.by("questiondate").descending()));
+        List<Question> questionList = questions.getContent();
+        List<QuestionDto> questionDtos = new ArrayList<>();
+        for(Question question : questionList) {
+            questionDtos.add(QuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .questioncontent(question.getQuestioncontent()).questiondate(question.getQuestiondate()).user(question.getUser())
+                    .tag(question.getTag()).visit(redisUtil.getData(visitKey+question.getQuestionid()))
+                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid())).build());
+        }
+
         Page<Answer> answers = answerService.getAnswerByUser(user, PageRequest.of(0, 5, Sort.by("answerdate").descending()));
-        result.put("question", questions.getContent());
+        List<Answer> answerList = answers.getContent();
+        List<AnswerDto> answerDto = new ArrayList<>();
+        for(Answer answer : answerList) {
+            answerDto.add(AnswerDto.builder().answerid(answer.getAnswerid()).answertitle(answer.getAnswertitle())
+                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate())
+                    .user(answer.getUser()).userLike(redisUtil.getLikeUseridData(likeAnswerKey+answer.getAnswerid(), userid))
+                    .like(redisUtil.getLikeCountData(likeAnswerKey+answer.getAnswerid())).build());
+        }
+
+        result.put("question", questionDtos);
         result.put("questionCount", questions.getTotalElements());
-        result.put("answer",answers.getContent());
+        result.put("answer",answerDto);
         result.put("answerCount", answers.getTotalElements());
         List<String> scraps = redisUtil.getScrapData("tech:scrap:" + userid, 0, 4);
         List<Long> articleids = new ArrayList<>();
@@ -92,7 +117,15 @@ public class MyPageController {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        result.put("answer",answerService.getAnswerByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("answerdate").descending())).getContent());
+        List<Answer> answers = answerService.getAnswerByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("answerdate").descending())).getContent();
+        List<AnswerDto> answerDto = new ArrayList<>();
+        for(Answer answer : answers) {
+            answerDto.add(AnswerDto.builder().answerid(answer.getAnswerid()).answertitle(answer.getAnswertitle())
+                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).questionid(answer.getQuestion().getQuestionid())
+                    .user(answer.getUser()).userLike(redisUtil.getLikeUseridData(likeAnswerKey+answer.getAnswerid(), userid))
+                    .like(redisUtil.getLikeCountData(likeAnswerKey+answer.getAnswerid())).build());
+        }
+        result.put("answer",answerDto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
