@@ -1,5 +1,6 @@
 package com.prossafy101.ohnaco.controller;
 
+import com.prossafy101.ohnaco.entity.statistics.StatisticsTotalDto;
 import com.prossafy101.ohnaco.entity.user.TempUserDto;
 import com.prossafy101.ohnaco.service.JwtUtil;
 import com.prossafy101.ohnaco.service.StatisticsService;
@@ -12,10 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @RequestMapping("/statistics")
@@ -45,7 +43,8 @@ public class StatisticsController {
             String endDate = df.format(cal.getTime());
             cal.add(Calendar.DATE, -6);
             String startDate = df.format(cal.getTime());
-            result.put("totalTime", statisticsService.getToatalTime(userid, startDate, endDate));
+            Optional<StatisticsTotalDto> totalDto = statisticsService.getToatalTime(userid, startDate, endDate);
+            result.put("totalTime", totalDto.get() == null?totalDto.get().getTotalcompletetime():0);
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
             result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
             result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
@@ -58,7 +57,8 @@ public class StatisticsController {
             String endDate = df.format(cal.getTime());
             cal.add(Calendar.DATE, -30);
             String startDate = df.format(cal.getTime());
-            result.put("totalTime", statisticsService.getToatalTime(userid, startDate, endDate));
+            Optional<StatisticsTotalDto> totalDto = statisticsService.getToatalTime(userid, startDate, endDate);
+            result.put("totalTime",  totalDto.get() == null?totalDto.get().getTotalcompletetime():0);
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
             result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
             result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));

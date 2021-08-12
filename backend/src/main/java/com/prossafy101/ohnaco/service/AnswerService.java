@@ -6,6 +6,8 @@ import com.prossafy101.ohnaco.entity.user.User;
 import com.prossafy101.ohnaco.repository.AnswerRepository;
 import com.prossafy101.ohnaco.repository.QuestionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -65,5 +67,9 @@ public class AnswerService {
         answerRepository.deleteAnswerByAnsweridAndUser(answerid, user);
 
 
+    }
+
+    public Page<Answer> getAnswerByUser(User user, Pageable pageable) {
+        return answerRepository.findAllByUser(user, pageable);
     }
 }

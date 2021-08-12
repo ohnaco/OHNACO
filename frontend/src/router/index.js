@@ -1,41 +1,57 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Login from "../views/user/Login.vue";
-import Join from "../views/user/Join.vue";
-import JoinEmail from "../views/user/JoinEmail.vue";
-import JoinProfile from "../views/user/JoinProfile.vue";
-import JoinSuccess from "../views/user/JoinSuccess.vue";
+
+import Main from "@/views/Main.vue";
+
+import Login from "@/views/user/Login.vue";
+import Join from "@/views/user/Join.vue";
+import JoinEmail from "@/views/user/JoinEmail.vue";
+import JoinProfile from "@/views/user/JoinProfile.vue";
+import JoinSuccess from "@/views/user/JoinSuccess.vue";
 
 import Todo from "@/views/todo/TodoHome.vue";
 import Statistics from "@/views/statistics/Statistics.vue";
 import Tech from "@/views/tech/TechNews.vue";
+import Subscribe from "@/views/tech/TechSubscribe.vue";
 import DevTalk from "@/views/devtalk/QuestionList.vue";
+
+import MyPage from "@/views/mypage/MyPage.vue";
+import MyAnswers from "@/views/mypage/MyAnswers.vue";
+import MyQuestions from "@/views/mypage/MyQuestions.vue";
+import MyTechScraps from "@/views/mypage/MyTechScraps.vue";
+import ChangeInfo from "@/views/mypage/ChangeInfo.vue";
+import ChangePwd from "@/views/mypage/ChangePwd.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/login/",
+    path: "/",
+    name: "Main",
+    component: Main,
+  },
+  {
+    path: "/login",
     name: "Login",
     component: Login,
   },
   {
-    path: "/join/",
+    path: "/join",
     name: "Join",
     component: Join,
   },
   {
-    path: "/joinemail/",
+    path: "/joinemail",
     name: "JoinEmail",
     component: JoinEmail,
   },
   {
-    path: "/joinprofile/",
+    path: "/joinprofile",
     name: "JoinProfile",
     component: JoinProfile,
   },
   {
-    path: "/joinsuccess/",
+    path: "/joinsuccess",
     name: "JoinSuccess",
     component: JoinSuccess,
   },
@@ -55,9 +71,44 @@ const routes = [
     component: Tech,
   },
   {
+    path: "/tech/subscribe",
+    name: "Subscribe",
+    component: Subscribe,
+  },
+  {
     path: "/devtalk",
     name: "DevTalk",
     component: DevTalk,
+  },
+  {
+    path: "/mypage",
+    name: "MyPage",
+    component: MyPage,
+  },
+  {
+    path: "/myanswers",
+    name: "MyAnswers",
+    component: MyAnswers,
+  },
+  {
+    path: "/myquestions",
+    name: "MyQuestions",
+    component: MyQuestions,
+  },
+  {
+    path: "/mytechscraps",
+    name: "MyTechScraps",
+    component: MyTechScraps,
+  },
+  {
+    path: "/changeinfo",
+    name: "ChangeInfo",
+    component: ChangeInfo,
+  },
+  {
+    path: "/changepwd",
+    name: "ChangePwd",
+    component: ChangePwd,
   },
 ];
 

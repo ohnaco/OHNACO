@@ -27,7 +27,7 @@ public class StatisticsService {
     String[] category = {"CS", "알고리즘", "프레임워크", "자격증", "기타"};
 
     //해당 유저의 주간/월간 시간과 목표시간 총합
-    public StatisticsTotalDto getToatalTime(String userid, String startDate, String endDate) {
+    public Optional<StatisticsTotalDto> getToatalTime(String userid, String startDate, String endDate) {
         Map<String, Object> map = new HashMap<>();
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));

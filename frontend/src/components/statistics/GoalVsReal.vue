@@ -2,14 +2,14 @@
   <!-- 목표 공부시간 vs 실제 공부시간-->
   <div>
     <div class="ms-5 mt-5 mb-5"><b>목표시간 VS 실제시간</b></div>
-    <div>
-    <apexchart
-      type="bar"
-      height="495"
-      width="90%"
-      :options="chartOptions"
-      :series="series"
-    ></apexchart>
+    <div id="chart">
+      <apexchart
+        type="bar"
+        height="495"
+        width="90%"
+        :options="chartOptions"
+        :series="series"
+      ></apexchart>
     </div>
   </div>
 </template>
@@ -23,9 +23,7 @@ export default {
     apexchart: VueApexCharts,
   },
   props: {
-    categoryTime: { 
-      type: Array,
-    },
+    categoryTime: Array,
   },
   data: function () {
     return {
