@@ -1,5 +1,9 @@
 <template>
-  <button @click="goLogin">로그인</button>
+<div class="container">
+  <button @click="goLogin">
+    <img src="@/assets/images/login-btn.svg" alt="">
+  </button>
+</div>
 </template>
 
 <script>

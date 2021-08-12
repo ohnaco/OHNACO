@@ -30,6 +30,6 @@ public class CommitDto {
     private int day6;
     private int day7;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @TimeToLive(unit = TimeUnit.HOURS)
+    @TimeToLive(unit = TimeUnit.DAYS)
     private int timeToLive;
 }
