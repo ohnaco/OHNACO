@@ -2,7 +2,7 @@
   <!-- 직군별 유저 카테고리 공부시간 -->
   <div>
     <div class="ms-5 mt-5 mb-10"><b>유저 vs 나의 공부시간</b></div>
-    <div>
+    <div id="chart">
       <apexchart 
         type="bar" 
         height="474" 
@@ -21,15 +21,9 @@ export default {
     apexchart: VueApexCharts,
   },
   props: {
-    categoryTime: {
-      type: Array
-    },
-    positionTime: {
-      type: Array
-    },
-    entireCategoryTime: {
-      type: Array
-    },
+    categoryTime: Array,
+    positionTime: Array,
+    entireCategoryTime: Array,
   },
   data: function () {
     return {
