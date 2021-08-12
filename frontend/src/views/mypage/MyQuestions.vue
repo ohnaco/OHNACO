@@ -6,12 +6,17 @@
         :commit="mypageInfo.commit"
       />
     </div>
-    <v-container class="mt-5" style="width: 70%">
-      내 질문 ({{ mypageInfo.questionCount }})
+    <v-container style="width: 60%">
+      <div class="mt-10 mb-3 d-flex justify-space-between">
+        내 질문 ({{ mypageInfo.questionCount }})
+        <button @click="goback"><img src="@/assets/images/mypage-back-btn.svg" alt="back-btn"></button>
+      </div>
       <v-divider></v-divider>
       <QuestionCard
-      v-for="(question, i) in myQuestions"
-      :key="i"
+        v-for="question in myQuestions"
+        :key="question.questionid"
+        :item="question"
+        @click="goDetail(question)"
       />
       <infinite-loading @infinite="infiniteHandler" spinner="circles"></infinite-loading>
       <v-divider></v-divider>
@@ -34,31 +39,39 @@ export default {
   components: {
     MyPageProfile,
     QuestionCard,
-    InfiniteLoading
+    InfiniteLoading,
   },
   data: function () {
     return {
-      pagenum: 1,
+      pageno: 1,
       myQuestions: []
     }
   },
   created() {
     this.getMyPage();
-    // this.getQuestions(this.pagenum);
   },
   computed: {
     ...mypageHelper.mapState(['mypageInfo']),
   },
   methods: {
     ...mypageHelper.mapActions(['getMyPage']),
+    goback: function () {
+      this.$router.push({ name: 'MyPage' })
+    },
+    goDetail: function (question) {
+      this.$router.push({
+        name: "QuestionDetail",
+        params:{ id: question.questionid },
+      });
+    },
     infiniteHandler($state) {
       MyPage.requestMyQuestions(
-        this.pagenum,
-        (res) => {
+        this.pageno,
+        ({data}) => {
           setTimeout(() => {
-            if (res.data.length) {
-              this.pagenum += 1;
-              this.myQuestions = this.myQuestions.concat(res.data)
+            if (data.question.length) {
+              this.pageno += 1;
+              this.myQuestions.push(...data.question)
               $state.loaded();
             } else {
               $state.complete();

@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="mt-5">
     <v-card-actions>
       <div class="mr-4">
         내 답변 ({{answerCount}}) 
@@ -12,21 +12,23 @@
         <v-img src="@/assets/images/mypage-all-btn.svg" alt="show-all"></v-img>
       </v-btn>
     </v-card-actions>
+    <!-- 답변 5개 모아보기 -->
     <v-simple-table class="elevation-2">
       <template v-slot:default>
         <tbody>
           <tr
             v-for="(answer, i) in answers"
             :key="i"
+            @click="gotoDetail(answer)"
           >
             <td>
               <v-list-item three-line class="pa-0">
                 <v-list-item-content>
-                  <v-list-item-title class="mb-5">
+                  <v-list-item-title class="mt-3 mb-5">
                     <img src="@/assets/images/question-mark.svg" style="width: 11px" alt="question">
-                    {{ answer.answertitle }}
+                    <b class="ml-1">{{ answer.answertitle }}</b>
                   </v-list-item-title>
-                  <v-list-item-subtitle>
+                  <v-list-item-subtitle class="mb-2">
                     <img src="@/assets/images/answer-mark.svg" style="width: 11px" alt="answer">
                     {{ answer.answercontent }}
                   </v-list-item-subtitle>
@@ -48,7 +50,7 @@
 import moment from 'moment'
 
 export default {
-  name: 'MyQuestionCard',
+  name: 'MyAnswerCard',
   props: {
     answers: {
       type: Array
@@ -67,9 +69,12 @@ export default {
     goMyAnswers: function () {
       this.$router.push({ name: "MyAnswers" });
     },
-    goAnswerdetail: function (answer) {
-      this.$router.push({name: 'QuestionDetail', params: { pk: `${answer.answerid}` }})
-    }
+    gotoDetail: function (answer) {
+      this.$router.push({
+        name: "QuestionDetail",
+        params:{ id: answer.answerid },
+      });
+    },
   }
 }
 </script>
