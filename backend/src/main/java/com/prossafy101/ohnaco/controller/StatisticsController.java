@@ -1,7 +1,5 @@
 package com.prossafy101.ohnaco.controller;
 
-import com.prossafy101.ohnaco.entity.statistics.StatisticsTotalDto;
-import com.prossafy101.ohnaco.entity.user.TempUserDto;
 import com.prossafy101.ohnaco.service.JwtUtil;
 import com.prossafy101.ohnaco.service.StatisticsService;
 import io.swagger.annotations.ApiOperation;
@@ -43,8 +41,8 @@ public class StatisticsController {
             String endDate = df.format(cal.getTime());
             cal.add(Calendar.DATE, -6);
             String startDate = df.format(cal.getTime());
-            Optional<StatisticsTotalDto> totalDto = statisticsService.getToatalTime(userid, startDate, endDate);
-            result.put("totalTime", totalDto.isPresent()?totalDto.get().getTotalcompletetime():0);
+            Long totalDto = statisticsService.getToatalTime(userid, startDate, endDate);
+            result.put("totalTime", totalDto!=null?totalDto:0);
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
             result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
             result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
@@ -57,8 +55,8 @@ public class StatisticsController {
             String endDate = df.format(cal.getTime());
             cal.add(Calendar.DATE, -30);
             String startDate = df.format(cal.getTime());
-            Optional<StatisticsTotalDto> totalDto = statisticsService.getToatalTime(userid, startDate, endDate);
-            result.put("totalTime",  totalDto.isPresent()?totalDto.get().getTotalcompletetime():0);
+            Long totalDto = statisticsService.getToatalTime(userid, startDate, endDate);
+            result.put("totalTime", totalDto!=null?totalDto:0);
             result.put("categoryTime", statisticsService.getCategoryTime(userid, startDate, endDate));
             result.put("positionTime", statisticsService.getPositionTime(userid, startDate, endDate));
             result.put("entireCategoryTime", statisticsService.getEntireCategoryTime(startDate, endDate));
