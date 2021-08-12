@@ -9,6 +9,7 @@ import JoinSuccess from "../views/user/JoinSuccess.vue";
 import Todo from "@/views/todo/TodoHome.vue";
 import Statistics from "@/views/statistics/Statistics.vue";
 import Tech from "@/views/tech/TechNews.vue";
+import Subscribe from "@/views/tech/TechSubscribe.vue";
 import DevTalk from "@/views/devtalk/QuestionList.vue";
 
 Vue.use(VueRouter);
@@ -53,6 +54,11 @@ const routes = [
     path: "/tech",
     name: "Tech",
     component: Tech,
+  },
+  {
+    path: "/tech/subscribe",
+    name: "Subscribe",
+    component: Subscribe,
   },
   {
     path: "/devtalk",

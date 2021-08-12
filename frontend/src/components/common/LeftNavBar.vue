@@ -1,16 +1,9 @@
 <template>
   <v-card class="mx-auto">
-    <v-navigation-drawer
-      height="100vh"
-      width="100%"
-      class="blue-grey base pt-3 mx-auto"
-      permanent
-    >
+    <v-navigation-drawer height="100vh" width="100%" class="blue-grey base pt-3 mx-auto" permanent>
       <v-container>
         <v-row justify="center">
-          <router-link to="/"
-            ><img src="@/assets/images/logo-img.svg" class="mr-1"
-          /></router-link>
+          <router-link to="/"><img src="@/assets/images/logo-img.svg" class="mr-1" /></router-link>
           <img src="@/assets/images/logo-txt.svg" />
         </v-row>
       </v-container>
@@ -21,8 +14,7 @@
         <v-row>
           <v-col align="center"
             ><div class="text-h6">
-              {{ user.nickname
-              }}<v-icon medium color="white" class="ml-2">mdi-bell</v-icon>
+              {{ user.nickname }}<v-icon medium color="white" class="ml-2">mdi-bell</v-icon>
             </div></v-col
           >
         </v-row>
@@ -34,7 +26,7 @@
           </router-link>
         </v-row>
         <v-row class="mt-15">
-          <v-col align="right"><p class="white--text">Logout</p></v-col>
+          <v-col align="right"><button class="white--text" @click="logout">Logout</button></v-col>
         </v-row>
       </v-container>
     </v-navigation-drawer>
@@ -63,6 +55,9 @@ export default {
   },
   computed: {
     ...userHelper.mapState(["user"]),
+  },
+  methods: {
+    ...userHelper.mapActions(["logout"]),
   },
 };
 </script>

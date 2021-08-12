@@ -6,13 +6,7 @@
       <div class="join-name">로그인</div>
       <div class="join-box">
         <!-- 이메일 -->
-        <input
-          type="text"
-          id="email"
-          class="email"
-          placeholder="이메일 주소"
-          v-model="email"
-        />
+        <input type="text" id="email" class="email" placeholder="이메일 주소" v-model="email" />
         <!-- 비번 -->
         <input
           type="password"
@@ -20,9 +14,12 @@
           class="pwd"
           placeholder="비밀번호"
           v-model="password"
+          @keyup.enter="doLogin"
         />
         <!-- 로그인 버튼 -->
-        <button class="mt-1" @click="doLogin"><img src="@/assets/images/login-btn.svg" alt="login" /></button>
+        <button class="mt-1" @click="doLogin">
+          <img src="@/assets/images/login-btn.svg" alt="login" />
+        </button>
         <div>
           <button class="signup-btn" @click="goSignup">회원가입</button>
           <button class="findpwd-btn" @click="goFindpwd">비밀번호 찾기</button>
@@ -47,7 +44,6 @@
 </template>
 
 <script>
-import User from "../../api/User";
 import { createNamespacedHelpers } from "vuex";
 const userHelper = createNamespacedHelpers("userStore");
 
@@ -60,7 +56,7 @@ export default {
     };
   },
   methods: {
-    ...userHelper.mapActions(["setUser"]),
+    ...userHelper.mapActions(["login"]),
     goSignup: function () {
       this.$router.push({ name: "Join" });
     },
@@ -73,19 +69,7 @@ export default {
         email,
         password,
       };
-      User.requestLogin(
-        data,
-        (res) => {
-          localStorage.setItem("jwt-access-token", res.headers.authorization.substring(7));
-          this.setUser(res);
-          alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
-          this.$router.push({ name: "Todo" });
-        },
-        (err) => {
-          console.log(err);
-          alert("이메일과 비밀번호를 다시 확인해주세요.");
-        }
-      );
+      this.login(data);
     },
     githubLogin: function (res) {
       console.log(res);
