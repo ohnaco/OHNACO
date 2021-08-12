@@ -59,7 +59,6 @@ public class UserService {
         if(!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new Exception("비밀번호가 틀립니다.");
         }
-
         return user;
     }
 
@@ -285,5 +284,10 @@ public class UserService {
     //유저 아이디로 찾기
     public User findByUserid(String userid) {
         return userRepository.findByUserid(userid);
+    }
+
+    //패스워드 체크
+    public boolean checkPassword(String password, User user) {
+        return passwordEncoder.matches(password, user.getPassword());
     }
 }

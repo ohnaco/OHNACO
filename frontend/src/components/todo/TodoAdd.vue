@@ -100,15 +100,19 @@ export default {
     editMode: {
       type: Boolean,
     },
+    date: {
+      type: String,
+    },
   },
   created() {
-    this.newTodo.userid = this.user.userId;
+    this.newTodo.userid = this.user.userid;
     this.newTodo.date = this.date;
 
     if (this.editMode) {
       this.newTodo.categoryid = this.editTodo.categoryid;
       this.newTodo.title = this.editTodo.title;
       this.newTodo.goaltime = this.editTodo.goaltime;
+      this.newTodo.date = this.editTodo.date;
     }
   },
   computed: {

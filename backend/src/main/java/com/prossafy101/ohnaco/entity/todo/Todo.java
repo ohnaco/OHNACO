@@ -27,6 +27,7 @@ public class Todo {
     private Time goaltime;
     private Time completetime;
     private Boolean issuccess;
+    private Boolean ongoing;
 
     @ManyToOne
     @JoinColumn(name = "categoryid")

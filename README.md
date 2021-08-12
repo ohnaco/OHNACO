@@ -8,7 +8,9 @@
 
 #### 그 뿐만 아니라, 최신 IT 정보를 담은 기술 블로그와 뉴스를 모아서 보여주고 사용자들끼리 질의응답을 할 수 있는 공간도 제공됩니다.
 
-## 핵심 기능
+<br>
+
+## 🎯 핵심 기능
 
 ### Todo 타이머 
 
@@ -22,26 +24,52 @@
 
 <img src="/uploads/a5cc685ac67e6a4d9f6bf1b058e15529/통계.gif" alt="statistics" width="700"/>
 
+<br>
+<br>
 
 ## 👨‍👩‍👦‍👦 팀원소개
 
-### 🧑 고노윤(Frontend)
+#### 🧑 고노윤(Frontend)
 
-### 👦 김우현(Frontend)
+#### 👦 김우현(Frontend)
 
-### 👦 김현홍(Backend)
+#### 👦 김현홍(Backend)
 
-### 👦 손창환(Backend)
+#### 👦 손창환(Backend)
 
-### 🧑 양다연(Frontend)
-
-## 개발 기간
-
-21.07.12 ~ 21.08.20
+#### 🧑 양다연(Frontend)
 
 <br>
 
-## 기획
+## 📆 개발 기간
+
+#### 21.07.12 ~ 21.08.20 (6주)
+
+<br>
+
+## 🛠 기술 스택
+
+### Frontend
+- Vue(2.6.14)
+- Vuex(3.6.2)
+- Vuetify(2.4.0)
+- Bootstrap(5.0.2)
+- Bootstrap-vue(2.21.2)
+- HTML
+- SCSS
+- CSS
+
+### Backend
+- Java 8
+- Spring Boot(2.5.3)
+- JPA
+- MyBatis
+- Redis
+- MariaDB
+
+<br>
+
+## 📜 기획
 
 ### 와이어프레임 
 [와이어프레임 링크](https://www.figma.com/file/Ybb6iYwJCP9iihZ2bNyI1R/OHNACO?node-id=0%3A1)
@@ -54,13 +82,11 @@
 
 <img src="img/erd.png" alt="ERD" width="700"/>
 
-## <br>
+<br>
 
-# 개발 규칙
+## ⚙ 개발 규칙
 
-## Git
-
-### Commit Message 규약
+### Git Commit Message 규약
 
 - Git Commit Message Template
 
@@ -117,8 +143,7 @@ S05P12A10100 - [feat] : /FE
 ```
 git config --global commit.template <.gitmessage.txt 경로>
 ```
-
-<hr>
+<br>
 
 ### Git Flow 규약
 
@@ -143,16 +168,12 @@ feature/fe(be)/기능명
 - feature/be/login
 ```
 
-<br>
-
 #### feature 브랜치 생성 방법
 
 ```
 //develop 브랜치에서 생성
 $ git checkout -b feature/fe(be)/login develop
 ```
-
-<br>
 
 #### Merge 규칙
 
