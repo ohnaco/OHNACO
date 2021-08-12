@@ -58,6 +58,15 @@ export default {
       type: "",
     };
   },
+  created() {
+    this.setAllTechList(this.param);
+  },
+  computed: {
+    ...techHelper.mapState(["techList"]),
+  },
+  methods: {
+    ...techHelper.mapActions(["setAllTechList"]),
+  },
 };
 </script>
 
