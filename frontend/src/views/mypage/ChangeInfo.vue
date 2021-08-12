@@ -49,7 +49,7 @@
           <option value="etc.">etc.</option>
         </select>
         <!-- 비밀번호 변경 -->
-        <div class="mr-auto ml-10 mb-8">
+        <div class="mr-auto ml-10 mt-2 mb-8">
           <button @click="gochangePwd">
             <img src="@/assets/images/change-pwd-btn.svg" alt="change-pwd"/>
           </button>

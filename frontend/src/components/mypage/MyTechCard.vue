@@ -11,12 +11,14 @@
       >
         <v-img src="@/assets/images/mypage-all-btn.svg" alt="show-all"></v-img>      </v-btn>
     </v-card-actions>
+    <!-- 스크랩 간단 모아보기 -->
     <v-simple-table class="elevation-2">
       <template v-slot:default>
         <tbody>
           <tr
             v-for="(scrap, i) in scraps"
             :key="i"
+            @click="goBlog(scrap)"
           >
             <td align="center" class="pr-0">
               <v-list-item-avatar
@@ -27,16 +29,16 @@
               </v-list-item-avatar>
             </td>
             <td class="pl-0">
-              <v-list-item two-line>
-                <v-list-item-content>
-                  <v-list-item-title class="text-h5 mb-1">
-                    {{ scrap.title }}
-                  </v-list-item-title>
-                  <v-list-item-subtitle>{{ scrap.content }}</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
+              <div class="mt-3">
+                <b>{{ scrap.title }}</b>
+              </div>
+              <div class="mt-5">
+                {{ scrap.content | cutcontent }}
+              </div>
+              <div class="tech-date mt-2 mb-2">
+                {{ scrap.publisheddate | datetime }}
+              </div>
             </td>
-            <td>{{ scrap.answerdate | datetime }}</td>
             <v-divider></v-divider>
           </tr>
         </tbody>
@@ -49,7 +51,7 @@
 import moment from 'moment'
 
 export default {
-  name: 'MyQuestionCard',
+  name: 'MyTechCard',
   props: {
     scrapCount: {
       type: Number
@@ -62,16 +64,25 @@ export default {
     datetime: function (value) {
       if (value)
         return moment(String(value)).format('YYYY.MM.DD')
+    },
+    cutcontent: function (value) {
+      return value.substr(0, 50) + '...'
     }
   },
   methods: {
     goMyScraps: function () {
       this.$router.push({ name: "MyTechScraps" });
     },
-  }
+    goBlog: function (scrap) {
+      window.open(scrap.link)
+    }
+  },
 }
 </script>
 
-<style>
-
+<style scoped>
+.tech-date {
+  display: flex;
+  justify-content: flex-end;
+}
 </style>
