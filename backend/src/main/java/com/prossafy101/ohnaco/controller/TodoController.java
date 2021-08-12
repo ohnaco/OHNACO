@@ -230,7 +230,7 @@ public class TodoController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         try {
-            todoService.ongoingToggle(todoDto.getTodoid(), userid);
+            todoService.updateCompleteTime(todoDto.getTodoid(), null, userid, 0);
             result.put("status", "success");
         } catch (Exception e) {
             result.put("status", e.getMessage());
@@ -245,7 +245,22 @@ public class TodoController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         try {
-            todoService.updateCompleteTime(todoDto.getTodoid(), todoDto.getCompletetime(), userid);
+            todoService.updateCompleteTime(todoDto.getTodoid(), todoDto.getCompletetime(), userid, 1);
+            result.put("status", "success");
+        } catch (Exception e) {
+            result.put("status", e.getMessage());
+        }
+        return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+
+    @PutMapping("/forcequit")
+    @ApiOperation(value = "todoid, completetime 필요 업데이트해주기")
+    public Object updateForceQuit(@RequestBody TodoDto todoDto, HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+        try {
+            todoService.updateCompleteTime(todoDto.getTodoid(), todoDto.getCompletetime(), userid, 2);
             result.put("status", "success");
         } catch (Exception e) {
             result.put("status", e.getMessage());
