@@ -116,7 +116,7 @@
           class="mt-3 mb-3"
           style="font-family: GmarketSansMedium; float: right"
           @click="onCreateOK()"
-          >수정</v-btn
+          >등록</v-btn
         >
       </b-container>
     </v-col>
@@ -126,6 +126,7 @@
 import marked from "marked";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import { createNamespacedHelpers } from "vuex";
+const userHelper = createNamespacedHelpers("userStore");
 const devtalkHelper = createNamespacedHelpers("devTalkStore");
 
 export default {
@@ -143,37 +144,32 @@ export default {
   },
   computed: {
     computed: {
+    ...userHelper.mapState(["user"]),
   },
     compiledMarkdown: function () {
       return marked(this.content, { sanitize: true });
     },
   },
   methods: {
-    ...devtalkHelper.mapActions(["updateQuestion"]),
+    ...devtalkHelper.mapActions(["addQuestion"]),
     remove (item) {
       this.chips.splice(this.chips.indexOf(item), 1)
       this.chips = [...this.chips]
     },
     goBack(){
-      this.$router.push("devtalk"); //뒤로가기구현해야함
+      this.$router.push("devtalk");
     },
-    update() {
+    onCreateOK() {
       const newQuestion = {
         questiontitle: this.title,
         questioncontent: this.content,
         tagName: this.chips,
       }
-      console.log(JSON.stringify(newQuestion));
       this.addQuestion(JSON.stringify(newQuestion));
-      this.goBack();
+      setTimeout(() => {
+  this.goBack();
+}, 2000);
     },
-  },
-  created(){
-      this.title=this.$route.params.origin.questiontitle;
-      this.content=this.$route.params.origin.questioncontent;
-      for(var i=0 ; i<this.$route.params.origin.tag.length ; i++){
-          this.chips.push(this.$route.params.origin.tag[i].tagname);
-      }
   },
 };
 </script>
