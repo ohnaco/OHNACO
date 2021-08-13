@@ -27,4 +27,12 @@ export default {
 .cs {
   border-bottom-color: rgb(255, 146, 231);
 }
+
+.framework {
+  border-bottom-color: rgb(95, 201, 79);
+}
+
+.certificate {
+  border-bottom-color: rgb(149, 151, 235);
+}
 </style>
