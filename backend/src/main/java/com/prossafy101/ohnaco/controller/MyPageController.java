@@ -209,7 +209,7 @@ public class MyPageController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @DeleteMapping("deleteuser")
+    @DeleteMapping("/deleteuser")
     public Object deleteUser(HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
