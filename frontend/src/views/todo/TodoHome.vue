@@ -1,11 +1,20 @@
 <template>
   <v-layout>
     <v-row>
-      <v-col cols="2"><left-nav-bar></left-nav-bar></v-col>
-      <v-col cols="7" class="d-flex flex-column" style="height: 100vh; overflow: scroll">
+      <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
+        ><left-nav-bar></left-nav-bar
+      ></v-col>
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"><top-nav-bar></top-nav-bar></v-col>
+      <v-col
+        cols="12"
+        sm="12"
+        md="7"
+        class="d-flex flex-column"
+        style="height: 100vh; overflow: scroll"
+      >
         <div class="d-flex align-center text-h4 ma-5">
           <img src="@/assets/images/todo-icon.svg" class="mr-2" />
-          <b>To Do List</b>
+          <div class="text-sm-h6 text-md-h4">To Do List</div>
         </div>
         <div class="d-flex flex-row align-center ma-5">
           <h2 v-text="date"></h2>
@@ -17,10 +26,8 @@
           <img src="@/assets/images/todo-add-btn.svg" />
         </button>
       </v-col>
-      <v-col cols="3">
+      <v-col cols="12" sm="12" md="3">
         <!-- 우측달력 -->
-        <p></p>
-        <p></p>
         <CalendarSmall
           @modalOn_child="modalOn"
           @todoDate="moveDate"
@@ -40,6 +47,7 @@
 
 <script>
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
+import TopNavBar from "@/components/common/TopNavBar.vue";
 import TodoAdd from "@/components/todo/TodoAdd.vue";
 import TodoCard from "@/components/todo/TodoCard.vue";
 import CalendarSmall from "@/components/todo/CalendarSmall.vue";
@@ -62,6 +70,7 @@ export default {
   },
   components: {
     LeftNavBar,
+    TopNavBar,
     TodoCard,
     TodoAdd,
     DailyCommit,
