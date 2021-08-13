@@ -78,11 +78,14 @@
 </template>
 
 <script>
-import Todo from "../../api/Todo";
+import { createNamespacedHelpers } from "vuex";
+import http from "@/util/http-common.js";
+const todoHelper = createNamespacedHelpers("todoStore");
 
 export default {
   data: () => ({
     focus: "",
+    Mdata:{},
     type: "month",
     typeToLabel: {
       month: "Month",
@@ -104,11 +107,15 @@ export default {
       "grey darken-1",
     ],
   }),
+  computed: {
+    ...todoHelper.mapState(["todoListsByMonth"]),
+  },
   mounted() {
     this.focus = "2021-08-05";
     this.$refs.calendar.checkChange();
   },
   methods: {
+    ...todoHelper.mapActions(["loadByMonth"]),
     getEventColor(event) {
       return event.color;
     },
@@ -139,50 +146,53 @@ export default {
 
       nativeEvent.stopPropagation();
     },
-    
-    loadMonth() {
-      Todo.loadByMonth(
-          this.focus,
-          (res) => {
-            console.log(res);
-            this.isCheck = res.data.status;
-            this.error.emailCheck = res.data.message;
-            if (this.isCheck) {
-              this.error.emailCheck = null;
-            }
-          },
-          (err) => {
-            console.log(err);
-          }
-        );
-    },
 
-    updateRange() {
-      this.loadMonth();
+    async updateRange() {
+      await http
+        .get("/todo/month", {
+          params: {
+            date: "2021-08-13",
+          },
+        })
+        .then((response) => {
+          this.Mdata=response.data.list;
+        })
+        .catch((error) => {
+          alert(error);
+        });
       const events = [];
-      console.log(this.focus+"zz");
-      events.push({
-        name: "테스트임", //카테고리이름
-        start: new Date(), //시작일
-        //end: second,
-        color: this.colors[1], //랜덤색상
-        timed: false, //하루만
-      });
-      events.push({
-        name: "테스트임2",
-        start: new Date(),
-        //end: second,
-        color: this.colors[1],
-        timed: false,
-      });
+
+      for (var i = 0; i < this.Mdata.length; i++) {
+        events.push({
+          name: this.Mdata[i].category.categoryname, //카테고리이름
+          details: this.Mdata[i].title, //카테고리이름
+          start: new Date(this.Mdata[i].date), //시작일
+          color: this.colors[this.rnd(0, this.colors.length - 1)], //랜덤색상
+          timed: false, //하루만
+        });
+      }
       this.events = events;
     },
     rnd(a, b) {
       return Math.floor((b - a + 1) * Math.random()) + a;
     },
-    viewDay(){
+    viewDay() {
       this.$emit("todoDate", this.focus);
-    }
+    },
+    loadMonth(payload) {
+      http
+        .get("/todo/month", {
+          params: {
+            date: payload,
+          },
+        })
+        .then((response) => {
+          this.Mdata=response.data.list;
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    },
   },
 };
 </script>

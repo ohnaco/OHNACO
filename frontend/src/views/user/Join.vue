@@ -82,7 +82,7 @@
 <script>
 import * as EmailValidator from "email-validator";
 import PV from "password-validator";
-import User from "../../api/User";
+import User from "@/api/User";
 
 export default {
   name: "Join",

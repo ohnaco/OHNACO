@@ -5,6 +5,7 @@ export default {
   state: {
     // data 가 들어가는 곳
     todoLists: [],
+    todoListsByMonth: [],
     todayCommit: null,
     exitTime:"",
     goingTime:"",
@@ -39,6 +40,9 @@ export default {
     SET_TODO(state, value) {
       state.todoLists = value;
     },
+    SET_TODO_MONTH(state, value) {
+      state.todoListsByMonth = value;
+    },
     CREATE_TODO(state, newTodo) {
       state.todoLists.push(newTodo);
     },
@@ -69,6 +73,21 @@ export default {
         }
       );
     },
+
+    loadByMonth({ commit }, data) {
+      Todo.loadByMonth(
+        data,
+        (res) => {
+          console.log(res.data.list)
+          commit('SET_TODO_MONTH', res.data.list);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+
+
     createTodo({ commit }, payload) {
       Todo.createTodo(
         payload,
@@ -148,6 +167,20 @@ export default {
         (res) => {
           console.log(commit);
           console.log(res);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+
+    moveTodayAdd({ commit }, payload) {
+        Todo.createTodo(
+        payload,
+        (res) => {
+          console.log(commit);
+          console.log(res);
+          alert("이전이 완료되었습니다.");
         },
         (err) => {
           alert(err);
