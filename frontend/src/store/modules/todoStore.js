@@ -174,6 +174,20 @@ export default {
       );
     },
 
+    moveTodayAdd({ commit }, payload) {
+        Todo.createTodo(
+        payload,
+        (res) => {
+          console.log(commit);
+          console.log(res);
+          alert("이전이 완료되었습니다.");
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+
     setTime({ commit }, payload) {
       commit("SET_TIME",payload);
     },

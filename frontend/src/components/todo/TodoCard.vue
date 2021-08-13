@@ -83,7 +83,8 @@
               </v-layout>
 
               <div class="d-flex justify-end">
-                <v-btn icon color="blue">
+                <v-btn 
+                icon color="blue" @click="moveToday">
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
               </div>
@@ -258,6 +259,9 @@ export default {
       this.isEdit = false;
     },
     ...todoHelper.mapActions(["deleteTodo"]),
+    ...todoHelper.mapActions(["moveTodayAdd"]),
+    ...todoHelper.mapActions(["moveTodayDelete"]),
+    ...todoHelper.mapActions(["deleteTodo"]),
     ...todoHelper.mapActions(["stateChange"]),
     ...todoHelper.mapActions(["forceQuit"]),
     ...todoHelper.mapActions(["updateTime"]),
@@ -267,7 +271,6 @@ export default {
     ...todoHelper.mapActions(["setTimeFQ"]),
     ...todoHelper.mapActions(["setGoingTimeFQ"]),
     ...todoHelper.mapActions(["setIdFQ"]),
-    //...todoHelper.mapMutations(["SET_TIME"]),
     start() {
       this.parentTrue();
       this.time =
@@ -312,6 +315,18 @@ export default {
           this.time += 1000;
         }, 1000);
       }
+    },
+    moveToday(){
+      const newTodo= {
+        categoryid: this.item.category.categoryid, 
+        title: this.item.title,
+        goaltime: this.item.goaltime,
+        completetime:"00:00:00",
+        date:this.$moment().format("YYYY-MM-DD"),
+      };
+      this.moveTodayAdd(JSON.stringify(newTodo));
+      //this.moveTodayDelete(this.item.todoid);
+      //JSON.stringify(this.newTodo)
     },
     parentTrue() {
       this.$emit("trueChange");
