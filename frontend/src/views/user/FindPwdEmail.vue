@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import User from "@/api/User";
+
 export default {
   name: "FindPwdEmail",
   data: function () {
@@ -37,6 +39,21 @@ export default {
     goLogin: function () {
       this.$router.push({ name: "Login" });
     },
+    sendAgain: function () {
+      let data = {
+        email: this.$route.params.email
+      };
+      User.requestFindPwdSendEmail(
+        data, 
+        (res) => {
+          console.log(res)
+          alert('이메일이 재전송 되었습니다. 메일함을 다시 확인해주세요.')
+        },
+        (err) => {
+          console.log(err)
+        }
+      )
+    }
   },
 };
 </script>
