@@ -73,7 +73,7 @@ export default {
       Todo.createTodo(
         payload,
         (res) => {
-          alert(res.data.status === "success" ? "create success" : "create fail");
+          if (res.data.status === "fail") alert("create fail");
           commit("CREATE_TODO", res.data.todo);
         },
         (err) => {
@@ -85,7 +85,7 @@ export default {
       Todo.updateTodo(
         payload,
         (res) => {
-          alert(res.data.status === "success" ? "update success" : "update fail");
+          if (res.data.status === "fail") alert("update fail");
           commit("UPDATE_TODO", res.data.todo);
         },
         (err) => {
@@ -109,7 +109,7 @@ export default {
       Todo.deleteTodo(
         payload,
         (res) => {
-          alert(res.data.status === "success" ? "delete success" : "delete fail");
+          if (res.data.status === "fail") alert("delete fail");
           commit("DELETE_TODO", payload);
         },
         (err) => {
