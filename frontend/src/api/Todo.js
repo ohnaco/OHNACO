@@ -1,7 +1,6 @@
 import http from "@/util/http-common.js";
 
 const loadTodoList = (data, callback, errorCallback) => {
-
   http
     .get("/todo/item", {
       params: {
@@ -68,20 +67,19 @@ const loadByMonth = (data, callback, errorCallback) => {
 
 const getCommitHistory = (callback, errorCallback) => {
   http
-  .get("/todo/commit")
-  .then((res) => {
-    callback(res);
-  })
-  .catch((err) => {
-    errorCallback(err);
-  });
+    .get("/todo/commit")
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
 };
 
 const stateChange = (data, callback, errorCallback) => {
   console.log(data);
   http
-    .put("/todo/statechange",  { todoid : data }
-    )
+    .put("/todo/statechange", { todoid: data })
     .then((res) => {
       callback(res);
     })
@@ -92,8 +90,7 @@ const stateChange = (data, callback, errorCallback) => {
 
 const forceQuit = (data, callback, errorCallback) => {
   http
-    .put("/todo/forcequit",  { todoid : data[0] , completetime : data[1]}
-    )
+    .put("/todo/forcequit", { todoid: data[0], completetime: data[1] })
     .then((res) => {
       callback(res);
     })
@@ -105,8 +102,7 @@ const forceQuit = (data, callback, errorCallback) => {
 const updateTime = (data, callback, errorCallback) => {
   console.log(data);
   http
-    .put("/todo/timeupdate",  { todoid : data[0] , completetime : data[1]}
-    )
+    .put("/todo/timeupdate", { todoid: data[0], completetime: data[1] })
     .then((res) => {
       callback(res);
     })

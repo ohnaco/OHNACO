@@ -37,7 +37,7 @@
                     class="mr-1"
                   />{{ item.goaltime }} / {{ completetime }}
                 </div>
-                <div style="height:68px">
+                <div style="height: 68px">
                   <v-btn
                     v-if="this.item.goaltime <= this.item.completetime"
                     class="ml-2 mt-3"
@@ -47,7 +47,13 @@
                   >
                     <img src="@/assets/images/todo-create-ok.svg" />
                   </v-btn>
-                  <v-btn class="ml-2 mt-3" fab icon right v-if="!this.$parent.isAnyOneGoing">
+                  <v-btn
+                    class="ml-2 mt-3"
+                    fab
+                    icon
+                    right
+                    v-if="!this.$parent.isAnyOneGoing"
+                  >
                     <img
                       src="@/assets/images/start-btn.svg"
                       @click="[(isOngoing = true), start()]"
@@ -230,7 +236,6 @@ export default {
     return {
       isEdit: false,
       isOngoing: false,
-      ispaused: true,
       idDone: false,
       timer: undefined,
       time: 0,
@@ -257,20 +262,34 @@ export default {
     ...todoHelper.mapActions(["forceQuit"]),
     ...todoHelper.mapActions(["updateTime"]),
     ...todoHelper.mapActions(["setTime"]),
-    ...todoHelper.mapMutations(["SET_TIME"]),
+    ...todoHelper.mapActions(["setGoingTime"]),
+    ...todoHelper.mapActions(["setId"]),
+    ...todoHelper.mapActions(["setTimeFQ"]),
+    ...todoHelper.mapActions(["setGoingTimeFQ"]),
+    ...todoHelper.mapActions(["setIdFQ"]),
+    //...todoHelper.mapMutations(["SET_TIME"]),
     start() {
       this.parentTrue();
+      this.time =
+        (this.completetime.substr(0, 2) * 3600 +
+          this.completetime.substr(3, 2) * 60 +
+          this.completetime.substr(6, 2) * 1) *
+        1000;
       this.stateChange(this.item.todoid);
-      this.ispaused = !this.ispaused;
       this.timer = setInterval(() => {
         this.time += 1000;
       }, 1000);
+      this.setTimeFQ(this.$moment());
+      this.setGoingTimeFQ(this.time);
+      this.setIdFQ(this.item.todoid);
     },
     stop() {
+      this.setId("");
+      this.setIdFQ("");
       this.parentFalse();
-      this.completetime=this.formattedElapsedTime;
-      this.forceQuit([this.item.todoid, this.formattedElapsedTime]);
-      this.isOngoing = !this.isOngoing;
+      this.completetime = this.formattedElapsedTime;
+      this.updateTime([this.item.todoid, this.formattedElapsedTime]);
+      this.isOngoing = false;
       clearInterval(this.timer);
     },
     tempusCheck() {
@@ -284,40 +303,30 @@ export default {
       }
     },
     autoStartCheck() {
-      if(this.item.ongoing){
-        console.log("개 씨ㅡ발련아");
-        console.log(this.$moment()-this.exitTime);
-        this.time+=(this.$moment()-this.exitTime);
-        this.isOngoing=true;
+      if (this.item.todoid == this.ongoingId) {
+        this.time += this.goingTime;
+        this.time += this.$moment() - this.exitTime;
+        this.isOngoing = true;
         this.parentTrue();
-        this.ispaused = !this.ispaused;
         this.timer = setInterval(() => {
-        this.time += 1000;
-      }, 1000);
+          this.time += 1000;
+        }, 1000);
       }
     },
-    timeModify(){
-      this.time=((this.completetime.substr(0,2)*3600)+(this.completetime.substr(3,2)*60)+(this.completetime.substr(6,2)*1))*1000;
+    parentTrue() {
+      this.$emit("trueChange");
     },
-    parentTrue(){
-      this.$emit('trueChange');
-    },
-    parentFalse(){
-      this.$emit('falseChange');
-    },
-    unLoadEvent: function (event) {
-      if(this.isOngoing){
-        this.forceQuit([this.item.todoid, this.formattedElapsedTime]);
-      }
-      if (this.canLeaveSite) {
-          return;
-          }
-      event.preventDefault();
-      event.returnValue = '';
+    parentFalse() {
+      this.$emit("falseChange");
     },
   },
   computed: {
     ...todoHelper.mapState(["exitTime"]),
+    ...todoHelper.mapState(["goingTime"]),
+    ...todoHelper.mapState(["ongoingId"]),
+    ...todoHelper.mapState(["exitTimeFQ"]),
+    ...todoHelper.mapState(["goingTimeFQ"]),
+    ...todoHelper.mapState(["ongoingIdFQ"]),
     formattedElapsedTime() {
       const date = new Date(null);
       date.setSeconds(this.time / 1000);
@@ -326,24 +335,24 @@ export default {
     },
   },
   created() {
-    this.tempusCheck();
     this.completetime = this.item.completetime;
-    this.timeModify();
-    //this.autoStartCheck();
+    this.tempusCheck();
   },
-  mounted(){
-    window.addEventListener('beforeunload', this.unLoadEvent);
+  mounted() {
+    window.addEventListener("beforeunload", this.unLoadEvent);
     this.autoStartCheck();
   },
-  // beforeUnmount() {
-  //   window.removeEventListener('beforeunload', this.unLoadEvent);
-  // },
-  destroyed(){
-    if(this.isOngoing){
+  beforeUnmount() {
+    window.removeEventListener("beforeunload", this.unLoadEvent);
+  },
+  beforeDestroy() {
+    if (this.isOngoing) {
+      this.setId(this.item.todoid);
+      this.setGoingTime(this.time);
       this.setTime(this.$moment());
-    this.updateTime([this.item.todoid, this.formattedElapsedTime]);
+      this.updateTime([this.item.todoid, this.formattedElapsedTime]);
     }
-  }
+  },
 };
 </script>
 
