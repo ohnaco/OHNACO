@@ -53,7 +53,6 @@ export default {
       email: "",
       error: {
         email: false,
-        emailCheck: false,
       },
       isSubmit: false,
     };
@@ -87,8 +86,13 @@ export default {
           data, 
           (res) => {
             console.log(res)
-            this.isSubmit = true
-            this.$router.push({ name : "FindPwdEmail", params: { email: this.email }})
+            if (res.data.status == true) {
+              this.isSubmit = true
+              this.$router.push({ name : "FindPwdEmail", params: { email: this.email }})
+            } else {
+              this.isSubmit = false
+              alert(res.data.message)
+            }
           },
           (err) => {
             this.isSubmit = true
