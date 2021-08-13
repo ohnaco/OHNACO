@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <!-- 비밀번호 변경 폼 -->
     <div class="change-pwd-form">
       <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
@@ -140,8 +140,9 @@ export default {
 
 <style scoped>
 .change-pwd-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .change-pwd-name {
   width: 120px;
