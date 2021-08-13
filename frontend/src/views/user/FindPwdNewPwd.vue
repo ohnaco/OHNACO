@@ -8,21 +8,34 @@
         <div class="change-pwd-text">새로운 비밀번호를 입력해주세요.</div>
         <!-- 비번 -->
         <input
-          type="password"
-          id="pwd"
+          :type="passwordType"
           class="pwd"
-          placeholder="새로운 비밀번호"
+          placeholder="비밀번호"
           v-model="password"
+          v-bind:class="{
+            error: error.password,
+            complete: !error.password,
+          }"
         />
+        <div class="error-message" v-if="error.password">
+          {{ error.password }}
+        </div>
         <!-- 비번 확인 -->
-        <input
-          type="password"
-          id="pwd"
-          class="pwd"
-          placeholder="새로운 비밀번호 확인"
-          v-model="password"
-          @keyup.enter="doChangePwd"
-        />
+        <div class="input_label">
+          <input
+            :type="passwordConfirmType"
+            class="pwd-check"
+            placeholder="비밀번호 확인"
+            v-model="passwordConfirm"
+            v-bind:class="{
+              error: error.passwordConfirm,
+              complete: !error.passwordConfirm,
+            }"
+          />
+          <div class="error-message" v-if="error.passwordConfirm">
+            {{ error.passwordConfirm }}
+          </div>
+        </div>
         <!-- 로그인 버튼 -->
         <button class="mt-1" @click="doChangePwd">
           <img src="@/assets/images/find-pwd-btn.svg" alt="change-pwd" />
@@ -33,17 +46,89 @@
 </template>
 
 <script>
+import PV from "password-validator";
+import User from "@/api/User";
+
 export default {
   name: "FindPwdNewPwd",
   data: function () {
     return {
-      newpassword: '',
-      newpasswordComfirm: '',
+      email: this.$route.query.email,
+      code: this.$route.query.code,
+      password: '',
+      passwordConfirm: '',
+      passwordSchema: new PV(),
+      error: {
+        password: false,
+        passwordConfirm: false,
+      },
+      isSubmit: false,
+      passwordType: "password",
+      passwordConfirmType: "password",
     };
   },
+  created() {
+    this.passwordSchema
+      .is()
+      .min(8)
+      .is()
+      .max(12)
+      .has()
+      .digits()
+      .has()
+      .letters()
+      .has()
+      .not()
+      .spaces();
+  },
+  watch: {
+    password: function () {
+      this.checkForm();
+    },
+    passwordConfirm: function () {
+      this.checkForm();
+    },
+  },
   methods: {
+    checkForm: function () {
+      if (
+        this.password.length >= 0 &&
+        !this.passwordSchema.validate(this.password)
+      )
+        this.error.password = "영문,숫자 포함 8~12자리를 입력해주세요.";
+      else this.error.password = false;
+
+      if (this.password != this.passwordConfirm)
+        this.error.passwordConfirm = "비밀번호가 다릅니다";
+      else this.error.passwordConfirm = false;
+
+      let isSubmit = true;
+      Object.values(this.error).map((v) => {
+        if (v) isSubmit = false;
+      });
+      this.isSubmit = isSubmit;
+    },
     doChangePwd: function () {
-      this.$router.push({ name: "FindPwdSuccess" });
+      if (this.isSubmit) {
+        let data = {
+          email: this.$route.query.email,
+          code: this.$route.query.code,
+          password: this.password,
+        };
+        this.isSubmit = false
+        User.requestFindPwd(
+          data, 
+          (res) => {
+            console.log(res)
+            this.isSubmit = true
+            this.$router.push({ name: "FindPwdSuccess" });
+          },
+          (err) => {
+            this.isSubmit = true
+            console.log(err)
+          }
+        )
+      }
     },
   },
 };
@@ -96,10 +181,30 @@ export default {
   border: solid 1px #607d8b;
   background-color: #ffffff;
 }
+.pwd-check {
+  width: 230px;
+  height: 30px;
+  margin: 10px 0 10px 0px;
+  padding: 10.6px 16.6px 9.9px 17.2px;
+  border-radius: 5px;
+  border: solid 1px #607d8b;
+  background-color: #ffffff;
+}
 input::placeholder {
   font-family: GmarketSansTTF;
   font-size: 13px;
   font-weight: 300;
   color: #c6c8c9;
+}
+.v-application .error {
+  background-color: #ffffff !important;
+  border: solid 1px crimson;
+}
+.error-message {
+  font-family: GmarketSansTTF;
+  font-size: 10px;
+  color: crimson;
+  display: flex;
+  justify-content: center;
 }
 </style>

@@ -11,9 +11,14 @@
         <input
           type="text"
           class="email"
-          placeholder="이메일"
+          placeholder="이메일 주소"
           v-model="email"
+          v-bind:class="{
+            error: error.email,
+            complete: !error.email && email.length != 0,
+          }"
         />
+        <div class="error-message" v-if="error.email">{{ error.email }}</div>
         <!-- 페이지 전환 버튼 -->
         <div class="page-btn">
           <!-- 이전 : 로그인 페이지 -->
@@ -37,21 +42,61 @@
 </template>
 
 <script>
+import * as EmailValidator from "email-validator";
+import User from "@/api/User";
+
 
 export default {
   name: "FindPwd",
   data: function () {
     return {
-      email: '',
+      email: "",
+      error: {
+        email: false,
+        emailCheck: false,
+      },
+      isSubmit: false,
     };
+  },
+  watch: {
+    email: function () {
+      this.checkForm();
+    },
   },
   methods: {
     goLogin: function () {
       this.$router.push({ name: "Login" });
     },
+    checkForm: function () {
+      if (this.email.length >= 0 && !EmailValidator.validate(this.email))
+        this.error.email = "이메일 형식이 아닙니다.";
+      else this.error.email = false;
+
+      let isSubmit = true;
+      Object.values(this.error).map((v) => {
+        if (v) isSubmit = false;
+      });
+      this.isSubmit = isSubmit;
+    },
     goFindPwd: function () {
-      this.$router.push({ name : "FindPwdEmail", params: { email: this.email }})
-    }
+      if (this.isSubmit) {
+        let data = {
+          email: this.email
+        };
+        User.requestFindPwdSendEmail(
+          data, 
+          (res) => {
+            console.log(res)
+            this.isSubmit = true
+            this.$router.push({ name : "FindPwdEmail", params: { email: this.email }})
+          },
+          (err) => {
+            this.isSubmit = true
+            console.log(err)
+          }
+        )
+      }
+    },
   },
 };
 </script>
@@ -112,6 +157,17 @@ input::placeholder {
   font-size: 15px;
   font-weight: 300;
   color: #c6c8c9;
+}
+.v-application .error {
+  background-color: #ffffff !important;
+  border: solid 1px crimson;
+}
+.error-message {
+  font-family: GmarketSansTTF;
+  font-size: 10px;
+  color: crimson;
+  display: flex;
+  justify-content: center;
 }
 .page-btn {
   margin: 5px;
