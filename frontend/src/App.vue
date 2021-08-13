@@ -3,7 +3,6 @@
     <v-main>
       <router-view />
     </v-main>
-    <button @click="this.unLoadEvent">zz</button>
   </v-app>
 </template>
 
