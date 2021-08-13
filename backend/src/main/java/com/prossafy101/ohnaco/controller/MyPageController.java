@@ -208,4 +208,19 @@ public class MyPageController {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @DeleteMapping("deleteuser")
+    public Object deleteUser(HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+        try {
+            userService.deleteUser(userid);
+            result.put("status", "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("status", "fail");
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
