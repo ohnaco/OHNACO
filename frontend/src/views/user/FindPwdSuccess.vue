@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="success-form">
       <!-- 로고 -->
       <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
@@ -29,8 +29,9 @@ export default {
 
 <style scoped>
 .success-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .change-pwd-success-text1 {
   font-family: Gmarket Sans TTF;

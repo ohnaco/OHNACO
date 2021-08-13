@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="join-form">
       <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
       <div class="join-name">회원가입</div>
@@ -43,10 +43,10 @@
 </template>
 
 <script>
-import User from "../../api/User";
+import User from "@/api/User";
 
 export default {
-  name: "Join",
+  name: "JoinEmail",
   data: function () {
     return {
       email: this.$route.params.email,
@@ -101,8 +101,9 @@ export default {
 
 <style scoped>
 .join-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .join-name {
   width: 109px;

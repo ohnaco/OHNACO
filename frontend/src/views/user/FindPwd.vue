@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <div class="findpwd-form">
       <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
       <div class="findpwd-name">비밀번호 찾기</div>
@@ -107,8 +107,9 @@ export default {
 
 <style scoped>
 .findpwd-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .findpwd-name {
   width: 120px;
