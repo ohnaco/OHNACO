@@ -146,7 +146,7 @@ public class TechService {
                 for (int i = 0; i < entries.size(); i++) {
 
                     SyndEntry entry = (SyndEntry) entries.get(i);
-                    if(blog.getBlogname().equals("coopang"))
+                    if(blog.getBlogname().equals("coupang"))
                        if(!entry.getCategories().get(0).getName().equals("tech-notes"))
                            continue;
                     Article article = Article.builder()
