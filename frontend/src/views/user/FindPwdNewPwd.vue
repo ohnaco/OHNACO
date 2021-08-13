@@ -36,7 +36,7 @@
             {{ error.passwordConfirm }}
           </div>
         </div>
-        <!-- 로그인 버튼 -->
+        <!-- 비밀번호 변경 완료 버튼 -->
         <button class="mt-1" @click="doChangePwd">
           <img src="@/assets/images/find-pwd-btn.svg" alt="change-pwd" />
         </button>
@@ -119,9 +119,13 @@ export default {
         User.requestFindPwd(
           data, 
           (res) => {
-            console.log(res)
-            this.isSubmit = true
-            this.$router.push({ name: "FindPwdSuccess" });
+            if (res.data.status == 'success') {
+              this.$router.push({ name: "FindPwdSuccess" });
+              this.isSubmit = true
+            } else {
+              this.isSubmit = false
+              alert('페이지가 만료되었습니다.')
+            }
           },
           (err) => {
             this.isSubmit = true
