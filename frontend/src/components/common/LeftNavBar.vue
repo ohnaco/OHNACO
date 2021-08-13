@@ -15,8 +15,7 @@
           <v-col align="center"
             ><router-link to="/mypage"
               ><div class="text-h6" v-text="user.nickname"></div
-            ></router-link>
-            <v-icon medium color="white" class="ml-2">mdi-bell</v-icon></v-col
+            ></router-link></v-col
           >
         </v-row>
       </v-container>

@@ -51,7 +51,7 @@ public class StatisticsController {
             result.put("myTime", statisticsService.getMyTimeForDays(userid, startDate, endDate));
 
         } else {
-            cal.add(Calendar.DATE, -1);
+            cal.add(Calendar.DATE, 0);
             String endDate = df.format(cal.getTime());
             cal.add(Calendar.DATE, -30);
             String startDate = df.format(cal.getTime());
