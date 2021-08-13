@@ -143,7 +143,7 @@ public class UserService {
             );
             sb.append("<a href='https://i5a101.p.ssafy.io/findpwdnewpwd?email=" +
                     toEmail +
-                    "&token=" +
+                    "&code=" +
                     tempUserDto.getToken() +
                     "' target='_blank'>이메일 인증 확인</a>"
             );
@@ -289,5 +289,9 @@ public class UserService {
     //패스워드 체크
     public boolean checkPassword(String password, User user) {
         return passwordEncoder.matches(password, user.getPassword());
+    }
+
+    public void deleteUser(String userid) {
+        userRepository.deleteByUserid(userid);
     }
 }
