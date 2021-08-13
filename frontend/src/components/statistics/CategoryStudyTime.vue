@@ -2,7 +2,7 @@
   <!-- 카테고리별 공부시간 -->
   <div>
     <div class="ms-5 mt-5 mb-15"><b>카테고리별 공부시간</b></div>
-    <div id="chart" class="d-flex justify-content-center">
+    <div id="chart">
       <apexchart
         type="pie"
         width="350"
@@ -27,15 +27,15 @@ export default {
   data: function () {
     return {
       series: [
-        this.categoryTime[0].completetime,
-        this.categoryTime[2].completetime,
-        this.categoryTime[3].completetime,
-        this.categoryTime[4].completetime,
-        this.categoryTime[1].completetime,
+        // this.categoryTime[0].completetime,
+        // this.categoryTime[2].completetime,
+        // this.categoryTime[3].completetime,
+        // this.categoryTime[4].completetime,
+        // this.categoryTime[1].completetime,
       ],
       chartOptions: {
         chart: {
-          id: 'example',
+          id: 'chart',
           width: 350,
           type: "pie",
         },
@@ -73,6 +73,17 @@ export default {
       this.series = newSeries
     }
   },
+  // computed: {
+  //   newseries()  {
+  //     return [
+  //       this.categoryTime[0].completetime,
+  //       this.categoryTime[2].completetime,
+  //       this.categoryTime[3].completetime,
+  //       this.categoryTime[4].completetime,
+  //       this.categoryTime[1].completetime,
+  //     ]
+  //   }
+  // },
   // methods: {
   //   categorydata: function () {
   //     const series = [
@@ -85,12 +96,15 @@ export default {
   //     return this.series = series
   //   }
   // },
-  // created() {
+  // mounted() {
   //   this.categorydata(this.series)
   // }
 };
 </script>
 
 <style scoped>
-
+#chart {
+  display: flex;
+  justify-content: center;
+}
 </style>

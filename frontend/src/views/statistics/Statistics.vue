@@ -35,82 +35,80 @@
         <v-flex class="d-flex">
           <v-row wrap>
             <!-- 총 공부시간 -->
-            <v-col lg="6" md="6" sm="10" xs="10">
+            <v-col lg="6" md="6" sm="12" cols="12">
               <v-card
                 height="80"
                 class="pa-3"
               >
-              <total-study-time 
+              <TotalStudyTime
               :option="this.option"
               :totalTime="statsInfo.totalTime"
-              ></total-study-time>
+              />
               </v-card>
             </v-col>
             <!-- 랭킹 -->
-            <v-col lg="6" md="6" sm="10" xs="10">
+            <v-col lg="6" md="6" sm="12" cols="12">
               <!-- <v-card height="80" class="pa-3">
                 <total-ranking></total-ranking>
               </v-card> -->
             </v-col>
             <!-- 목표시간 공부시간 -->
-            <v-col lg="4" md="6" sm="10" xs="10">
+            <v-col lg="4" md="6" sm="12" cols="12">
               <v-card
                 height="600"
                 class="pa-3"
               >
-              <goal-vs-real 
+              <GoalVsReal 
               :categoryTime="statsInfo.categoryTime"
-              ></goal-vs-real>
+              />
               </v-card>
             </v-col>
             <!-- 지난 2일 공부시간 -->
-            <v-col lg="4" md="6" sm="10" xs="10">
+            <v-col lg="4" md="6" sm="12" cols="12">
               <v-card
                 height="600"
                 class="pa-3"
               >
-              <compare-myself 
+              <CompareMyself 
               :todayTime="statsInfo.todayTime"
               :yesterdayTime="statsInfo.yesterdayTime"
-              ></compare-myself>
+              />
               </v-card>
             </v-col>
             <!-- 전체 유저별 카테고리 공부시간 -->
-            <v-col lg="4" md="6" sm="10" xs="10">
+            <v-col lg="4" md="6" sm="12" cols="12">
               <v-card
                 height="600"
                 class="pa-3"
               >
-              <compare-other-by-category 
+              <CompareOtherByCategory
               :categoryTime="statsInfo.categoryTime"
               :positionTime="statsInfo.positionTime"
               :entireCategoryTime="statsInfo.entireCategoryTime"
-              ></compare-other-by-category>
+              />
               </v-card>
             </v-col>
             <!-- 카테고리별 공부시간 -->
-            <v-col lg="4" md="6" sm="10" xs="10">
+            <v-col lg="4" md="6" sm="10" cols="10">
               <v-card
                 height="420"
                 class="pa-3"
               >
-              <category-study-time 
+              <CategoryStudyTime
               :categoryTime="statsInfo.categoryTime"
-              ></category-study-time>
+              />
               </v-card>
             </v-col>
             <!-- 주간, 요일별 공부시간 -->
-            <v-col lg="8" md="12" sm="10" xs="10">
+            <v-col lg="8" md="12" sm="10" cols="10">
               <v-card
                 height="420"
                 class="pa-3"
               >
-              <compare-other 
+              <CompareOther
               :option="this.option"
-              :myTime="statsInfo.myTime"
-              :entireMemberTime="statsInfo.entireMemberTime"
-              :positionMemberTime="statsInfo.positionMemberTime"
-              ></compare-other>
+              :statsInfo="statsInfo"
+              />
               </v-card>
             </v-col>
           </v-row>
