@@ -3,6 +3,7 @@ package com.prossafy101.ohnaco.config;
 import com.fasterxml.jackson.core.SerializableString;
 import com.fasterxml.jackson.core.io.CharacterEscapes;
 import com.fasterxml.jackson.core.io.SerializedString;
+import org.apache.commons.text.StringEscapeUtils;
 import org.apache.commons.text.translate.AggregateTranslator;
 import org.apache.commons.text.translate.CharSequenceTranslator;
 import org.apache.commons.text.translate.EntityArrays;
@@ -53,6 +54,15 @@ public class HTMLCharacterEscapes extends CharacterEscapes {
 
     @Override
     public SerializableString getEscapeSequence(int ch) {
-        return new SerializedString(translator.translate(Character.toString((char) ch)));
+        SerializedString serializedString = null;
+        char charAt = (char) ch; //emoji jackson parse 오류에 따른 예외 처리
+        if (Character.isHighSurrogate(charAt) || Character.isLowSurrogate(charAt)) {
+            StringBuilder sb = new StringBuilder(); sb.append("\\u");
+            sb.append(String.format("%04x",ch));
+            serializedString = new SerializedString(sb.toString());
+        } else {
+            serializedString = new SerializedString(StringEscapeUtils.escapeHtml4(Character.toString(charAt)));
+        }
+        return serializedString;
     }
 }

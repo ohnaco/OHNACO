@@ -77,11 +77,52 @@ const getCommitHistory = (callback, errorCallback) => {
   });
 };
 
+const stateChange = (data, callback, errorCallback) => {
+  console.log(data);
+  http
+    .put("/todo/statechange",  { todoid : data }
+    )
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const forceQuit = (data, callback, errorCallback) => {
+  http
+    .put("/todo/forcequit",  { todoid : data[0] , completetime : data[1]}
+    )
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const updateTime = (data, callback, errorCallback) => {
+  console.log(data);
+  http
+    .put("/todo/timeupdate",  { todoid : data[0] , completetime : data[1]}
+    )
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 export default {
   loadTodoList,
   createTodo,
   updateTodo,
   deleteTodo,
   loadByMonth,
-  getCommitHistory
+  getCommitHistory,
+  stateChange,
+  forceQuit,
+  updateTime,
 };

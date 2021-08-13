@@ -6,9 +6,15 @@ export default {
     // data 가 들어가는 곳
     todoLists: [],
     todayCommit: null,
+    exitTime:"",
   },
   mutations: {
     // 여기서 data 를 업데이트
+
+    SET_TIME(state, value) {
+      console.log(value);
+      state.exitTime = value;
+    },
     SET_TODO(state, value) {
       state.todoLists = value;
     },
@@ -66,6 +72,18 @@ export default {
         }
       );
     },
+    updateTime({ commit }, payload) {
+      Todo.updateTime(
+        payload,
+        (res) => {
+          console.log(commit);
+          console.log(res);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
     deleteTodo({ commit }, payload) {
       Todo.deleteTodo(
         payload,
@@ -88,6 +106,36 @@ export default {
           alert(err);
         }
       );
+    },
+
+    stateChange({ commit }, payload) {
+      Todo.stateChange(
+        payload,
+        (res) => {
+          console.log(commit);
+          console.log(res);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+
+    forceQuit({ commit }, payload) {
+      Todo.forceQuit(
+        payload,
+        (res) => {
+          console.log(commit);
+          console.log(res);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+
+    setTime({ commit }, payload) {
+      commit("SET_TIME",payload);
     },
   },
   getters: {},
