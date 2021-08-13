@@ -11,7 +11,8 @@
           <h2 v-text="date"></h2>
           <daily-commit v-if="isDateToday" />
         </div>
-        <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" />
+        <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" @trueChange="tChange()" 
+        @falseChange="fChange()"/>
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
         <button @click="toggleCreate" v-if="!isCreateTodo">
           <img src="@/assets/images/todo-add-btn.svg" />
@@ -58,6 +59,7 @@ export default {
       date: this.$moment().format("YYYY-MM-DD"),
       isDateToday: null,
       isAddOnGoing: false,
+      isAnyOneGoing:false,
     };
   },
   components: {
@@ -94,6 +96,12 @@ export default {
     isToday(date) {
       const today = this.$moment().format("YYYY-MM-DD");
       return date === today;
+    },
+    tChange(){
+      this.isAnyOneGoing=true;
+    },
+    fChange(){
+      this.isAnyOneGoing=false;
     },
   },
   watch: {
