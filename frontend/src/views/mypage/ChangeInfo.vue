@@ -5,8 +5,21 @@
     <div class="update-profile-form mt-15">
       <div class="update-profile-name">정보 수정</div>
       <div class="update-profile-box">
-        <div>
-          <img src="@/assets/images/profile-img.svg" alt="ohnaco-logo" />
+        <!-- 사진 미리보기 및 변경 -->
+        <div class="profile_circle">
+          <label for="profile" class="imagebtn">
+            <img src="@/assets/images/profile-btn.svg" alt="sample_profile">
+          </label>
+          <input
+            type="file"
+            id="profile"
+            @change="previewImage"
+            accept="image/*"
+            style="display:none"
+          />
+          <div v-if="image.length > 0">
+            <img class="preview" :src="image" />
+          </div>
         </div>
         <!-- 닉네임 -->
         <input
@@ -100,6 +113,7 @@ export default {
       nickname: '',
       githubid: '',
       position:'',
+      image: '',
       error: {
         nickname: false,
         nicknameCheck: false,
@@ -151,6 +165,16 @@ export default {
         }
       )
     },
+    previewImage: function(event) {
+      var input = event.target;
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+        reader.onload = (e) => {
+          this.image = e.target.result;
+        };
+        reader.readAsDataURL(input.files[0]);
+      }
+    },
     nicknameCheck: function () {
       let data = {
         nickname: this.nickname,
@@ -178,6 +202,7 @@ export default {
           nickname: this.nickname,
           githubid: this.githubid,
           position: this.position,
+          
         };
         this.isSubmit = false;
         MyPage.updateMyInfo(
@@ -194,6 +219,9 @@ export default {
           }
         );
       }
+    },
+    deleteUser: function (res) {
+      console.log(res)
     },
   },
 };
@@ -230,6 +258,34 @@ export default {
   border-radius: 10px;
   border: solid 1px #607d8b;
   background-color: rgba(255, 255, 255, 0);
+}
+.profile_circle {
+  position: relative;
+  width: 169px;
+  height: 169px;
+  border-radius: 50%;
+  background: #eceff1;
+  border: 1px solid #eceff1;
+  display: inline-block;
+}
+.imagebtn {
+  position: absolute;
+  left: 75%;
+  top: 85%;
+  z-index: 2;
+  cursor: pointer;
+}
+.preview {
+  position: absolute;
+  width: 169px;
+  height: 169px;
+  border-radius: 50%;
+  background: #eceff1;
+  border: 1px solid #eceff1;
+}
+.profile_circle input[type="file"] {
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
 }
 .nickname {
   width: 230px;
