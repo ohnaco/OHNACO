@@ -89,7 +89,9 @@ new Vue({
   vuetify,
   firebase,
   beforeCreate() {
-    this.$store.dispatch("userStore/getUserInfo");
+    if (localStorage.getItem("jwt-access-token") !== null) {
+      this.$store.dispatch("userStore/getUserInfo");
+    }
   },
   render: (h) => h(App),
 }).$mount("#app");
