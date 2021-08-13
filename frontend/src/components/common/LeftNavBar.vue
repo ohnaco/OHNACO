@@ -13,9 +13,10 @@
         </v-row>
         <v-row>
           <v-col align="center"
-            ><div class="text-h6">
-              {{ user.nickname }}<v-icon medium color="white" class="ml-2">mdi-bell</v-icon>
-            </div></v-col
+            ><router-link to="/mypage"
+              ><div class="text-h6" v-text="user.nickname"></div
+            ></router-link>
+            <v-icon medium color="white" class="ml-2">mdi-bell</v-icon></v-col
           >
         </v-row>
       </v-container>
