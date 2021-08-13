@@ -90,6 +90,7 @@ export default {
         categoryid: "",
         title: "",
         goaltime: "",
+        completetime:"",
       },
     };
   },
@@ -107,6 +108,7 @@ export default {
   created() {
     this.newTodo.userid = this.user.userid;
     this.newTodo.date = this.date;
+    this.newTodo.completetime="00:00:00";
 
     if (this.editMode) {
       this.newTodo.categoryid = this.editTodo.categoryid;
