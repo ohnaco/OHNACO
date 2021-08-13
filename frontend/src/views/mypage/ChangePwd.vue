@@ -180,8 +180,9 @@ export default {
 
 <style scoped>
 .update-pwd-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .update-pwd-name {
   width: 120px;
