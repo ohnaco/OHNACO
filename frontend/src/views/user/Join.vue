@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container">
     <!-- 회원가입 폼 -->
     <div class="join-form">
       <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
@@ -52,9 +52,12 @@
           </div>
         </div>
         <!-- 페이지 전환 버튼 -->
-        <div class="page-btn" @click="goMain">
+        <div class="page-btn">
           <!-- 이전페이지 버튼 -->
-          <button class="mr-15">
+          <button 
+            class="mr-15"
+            @click="goLogin"
+          >
             <img src="@/assets/images/back-btn.svg" alt="back" />
           </button>
           <!-- 다음페이지 버튼 : 회원가입 이메일 인증 -->
@@ -214,22 +217,15 @@ export default {
 
 <style scoped>
 .join-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .join-name {
-  width: 109px;
-  height: 27px;
-  flex-grow: 0;
-  margin: 0 178px 10px 177px;
+  margin: 0 1px 10px 1px;
   font-family: GmarketSansTTF;
   font-size: 18px;
   font-weight: bold;
-  font-stretch: normal;
-  font-style: normal;
-  line-height: normal;
-  letter-spacing: normal;
-  text-align: center;
   color: #607d8b;
 }
 .join-box {
@@ -237,7 +233,6 @@ export default {
   flex-direction: column;
   align-items: center;
   width: 300px;
-  margin: 10px 0 0;
   padding: 32px 0px 19px;
   border-radius: 10px;
   border: solid 1px #607d8b;

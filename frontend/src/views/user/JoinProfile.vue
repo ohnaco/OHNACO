@@ -1,6 +1,5 @@
-l
 <template>
-  <div>
+  <div class="container">
     <!-- 회원가입 프로필 등록 폼 -->
     <div class="join-form">
       <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
@@ -10,20 +9,6 @@ l
         <div>
           <img src="@/assets/images/profile-img.svg" alt="ohnaco-logo" />
         </div>
-        <!-- <div class="profile-circle">
-          <label for="profile" class="imagebtn">
-            <img src="@/assets/images/profile-btn.svg" alt="sample_profile">
-          </label>
-          <input
-            type="file"
-            id="profile"
-            @change="previewImage"
-            accept="image/*"
-          />
-          <div v-if="image.length > 0">
-            <img class="preview" :src="image" />
-          </div>
-        </div> -->
         <!-- 닉네임 -->
         <input
           type="text"
@@ -87,7 +72,7 @@ l
 </template>
 
 <script>
-import User from "../../api/User";
+import User from "@/api/User";
 
 export default {
   name: "Join",
@@ -117,16 +102,6 @@ export default {
     goJoinEmail: function () {
       this.$router.push({ name: "JoinEmail" });
     },
-    // previewImage: function(event) {
-    //   var input = event.target;
-    //   if (input.files && input.files[0]) {
-    //     var reader = new FileReader();
-    //     reader.onload = (e) => {
-    //       this.image = e.target.result;
-    //     };
-    //     reader.readAsDataURL(input.files[0]);
-    //   }
-    // },
     checkForm: function () {
       if (this.nickname.length <= 1)
         this.error.nickname = "두글자 이상 닉네임을 입력해주세요";
@@ -187,8 +162,9 @@ export default {
 
 <style scoped>
 .join-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .join-name {
   width: 109px;

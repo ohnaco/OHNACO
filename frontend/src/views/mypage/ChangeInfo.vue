@@ -48,11 +48,19 @@
           <option value="Game">Game</option>
           <option value="etc.">etc.</option>
         </select>
-        <!-- 비밀번호 변경 -->
-        <div class="mr-auto ml-10 mt-2 mb-8">
-          <button @click="gochangePwd">
-            <img src="@/assets/images/change-pwd-btn.svg" alt="change-pwd"/>
-          </button>
+        <div class="d-flex justify-space-between mt-3 mb-8">
+          <!-- 회원탈퇴 -->
+          <div class="mr-13">
+            <button @click="deleteUser">
+              <img src="@/assets/images/delete-user.svg" alt="delete-user"/>
+            </button>
+          </div>
+          <!-- 비밀번호 변경 -->
+          <div class="ml-13">
+            <button @click="gochangePwd">
+              <img src="@/assets/images/change-pwd-btn.svg" alt="change-pwd"/>
+            </button>
+          </div>
         </div>
         <!-- 버튼 -->
         <div class="page-btn">
@@ -193,8 +201,9 @@ export default {
 
 <style scoped>
 .update-profile-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .update-profile-name {
   width: 109px;
