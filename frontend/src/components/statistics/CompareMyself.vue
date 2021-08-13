@@ -36,39 +36,40 @@ export default {
   data: function () {
     return {
       series1: [
-        {
-          name: "1 days ago",
-          data: [
-            this.todayTime[0].completetime,
-            this.todayTime[2].completetime,
-            this.todayTime[3].completetime,
-            this.todayTime[4].completetime,
-            this.todayTime[1].completetime,
-          ],
-        },
-        {
-          name: "2 days ago",
-          data: [
-            this.yesterdayTime[0].completetime,
-            this.yesterdayTime[2].completetime,
-            this.yesterdayTime[3].completetime,
-            this.yesterdayTime[4].completetime,
-            this.yesterdayTime[1].completetime,
-          ],
-        },
+        // {
+        //   name: "1 days ago",
+        //   data: [
+        //     this.todayTime[0].completetime,
+        //     this.todayTime[2].completetime,
+        //     this.todayTime[3].completetime,
+        //     this.todayTime[4].completetime,
+        //     this.todayTime[1].completetime,
+        //   ],
+        // },
+        // {
+        //   name: "2 days ago",
+        //   data: [
+        //     this.yesterdayTime[0].completetime,
+        //     this.yesterdayTime[2].completetime,
+        //     this.yesterdayTime[3].completetime,
+        //     this.yesterdayTime[4].completetime,
+        //     this.yesterdayTime[1].completetime,
+        //   ],
+        // },
       ],
       series2: [
-        {
-          name: "전체 시간",
-          data: [
-            this.todayTime[5].completetime,
-            this.yesterdayTime[5].completetime,
-          ]
-        },
+        // {
+        //   name: "전체 시간",
+        //   data: [
+        //     this.todayTime[5].completetime,
+        //     this.yesterdayTime[5].completetime,
+        //   ]
+        // },
       ],
       chartOptions: {
         chart: {
           offsetY: 20,
+          id: 'chart',
           type: "radar",
           dropShadow: {
             enabled: true,
@@ -104,6 +105,7 @@ export default {
       barOptions: {
         chart: {
           type: 'bar',
+          id: 'chart',
           toolbar: {
             show: false
           },
@@ -154,5 +156,87 @@ export default {
       }
     };
   },
+  watch: {
+    todayTime: function () {
+      const newSeries = [
+        {
+          name: "1 days ago",
+          data: [
+            this.todayTime[0].completetime,
+            this.todayTime[2].completetime,
+            this.todayTime[3].completetime,
+            this.todayTime[4].completetime,
+            this.todayTime[1].completetime,
+          ],
+        },
+        {
+          name: "2 days ago",
+          data: [
+            this.yesterdayTime[0].completetime,
+            this.yesterdayTime[2].completetime,
+            this.yesterdayTime[3].completetime,
+            this.yesterdayTime[4].completetime,
+            this.yesterdayTime[1].completetime,
+          ],
+        },
+      ]
+      this.series1 = newSeries
+    },
+    totaltime: function () {
+      const newseries = [
+        {
+          name: "전체 시간",
+          data: [
+            this.todayTime[5].completetime,
+            this.yesterdayTime[5].completetime,
+          ]
+        },
+      ]
+      this.series2 = newseries
+    }
+  },
+  // methods: {
+  //   yesterday: function () {
+  //     const series1 = [
+  //       {
+  //         name: "1 days ago",
+  //         data: [
+  //           this.todayTime[0].completetime,
+  //           this.todayTime[2].completetime,
+  //           this.todayTime[3].completetime,
+  //           this.todayTime[4].completetime,
+  //           this.todayTime[1].completetime,
+  //         ],
+  //       },
+  //       {
+  //         name: "2 days ago",
+  //         data: [
+  //           this.yesterdayTime[0].completetime,
+  //           this.yesterdayTime[2].completetime,
+  //           this.yesterdayTime[3].completetime,
+  //           this.yesterdayTime[4].completetime,
+  //           this.yesterdayTime[1].completetime,
+  //         ],
+  //       },
+  //     ]
+  //     return this.series1 = series1
+  //   },
+  //   total: function () {
+  //     const series2 = [
+  //       {
+  //         name: "전체 시간",
+  //         data: [
+  //           this.todayTime[5].completetime,
+  //           this.yesterdayTime[5].completetime,
+  //         ]
+  //       },
+  //     ]
+  //     return this.series2 = series2
+  //   }
+  // },
+  // mounted() {
+  //   this.yesterday(this.series1)
+  //   this.total(this.series2)
+  // }
 };
 </script>
