@@ -21,6 +21,9 @@
             <img class="preview" :src="image" />
           </div>
         </div>
+        <button @click="resetProfile">
+          <img src="@/assets/images/reset-profile.svg" alt="">
+        </button>
         <!-- 닉네임 -->
         <input
           type="text"
@@ -185,30 +188,8 @@ export default {
         this.isUpload = true;
       }
     },
-    nicknameCheck: function () {
-      let data = {
-        nickname: this.nickname,
-      };
-      if (this.nickname != this.originnickname) {
-        MyPage.requestMypageNicknameCheck(
-          data, 
-          (res) => {
-            console.log(res);
-            if (res.data.status) {
-              this.error.nicknameCheck = null;
-              this.isCheck = res.data.status;
-            } else 
-              this.error.nicknameCheck = res.data.message;
-              this.isCheck = res.data.status;
-          }),
-          (err) => {
-            console.log(err);
-          };
-      }
-    },
     updateProfile: function () {
       if (this.isSubmit && this.isCheck) {
-        console.log(this.file)
         if(this.isUpload) {
           AWS.config.update({
             region: this.bucketRegion,
@@ -216,7 +197,6 @@ export default {
               IdentityPoolId: this.IdentityPoolId
             })
           });
-
           var s3 = new AWS.S3({
             apiVersion: '2006-03-01',
             params: {
@@ -257,6 +237,30 @@ export default {
           }
         );
       }                                                                                                                                    
+    },
+    resetProfile: function (res) {
+      console.log(res)
+    },
+    nicknameCheck: function () {
+      let data = {
+        nickname: this.nickname,
+      };
+      if (this.nickname != this.originnickname) {
+        MyPage.requestMypageNicknameCheck(
+          data, 
+          (res) => {
+            console.log(res);
+            if (res.data.status) {
+              this.error.nicknameCheck = null;
+              this.isCheck = res.data.status;
+            } else 
+              this.error.nicknameCheck = res.data.message;
+              this.isCheck = res.data.status;
+          }),
+          (err) => {
+            console.log(err);
+          };
+      }
     },
     deleteUser: function (res) {
       AWS.config.update({
@@ -351,7 +355,7 @@ export default {
 .nickname {
   width: 230px;
   height: 30px;
-  margin: 30px 1px 10px 0;
+  margin: 20px 1px 10px 0;
   padding: 10.6px 16.6px 9.9px 17.2px;
   border-radius: 5px;
   border: solid 1px #607d8b;
