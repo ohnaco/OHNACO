@@ -227,7 +227,6 @@ export default {
           s3.upload({
             Key: photoKey,
             Body: this.file,
-            ContentType: 'image/jpeg',
             ACL: 'public-read'
           }, (err, data) => {
             if(err) {
