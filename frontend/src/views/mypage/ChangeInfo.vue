@@ -100,6 +100,7 @@
 <script>
 import MyPage from "@/api/MyPage";
 import TopNavBar from "@/components/common/TopNavBar.vue";
+import AWS from 'aws-sdk';
 
 export default {
   name: "ChangeInfo",
@@ -108,6 +109,10 @@ export default {
   },
   data: function () {
     return {
+      file: null,
+      albumBucketName: process.env.VUE_APP_ALBUMBUCKETNAME,
+      bucketRegion: process.env.VUE_APP_AWS_CONFIG_REGION,
+      IdentityPoolId: process.env.VUE_APP_IDENTITYPOOLID,
       email:'',
       originnickname: '',
       nickname: '',
@@ -120,6 +125,7 @@ export default {
       },
       isSubmit: false,
       isCheck: false,
+      isUpload: false,
     };
   },
   created() {
@@ -159,6 +165,8 @@ export default {
           this.nickname = res.data.info.nickname
           this.githubid = res.data.info.githubid
           this.position = res.data.info.position
+          if(res.data.info.image != null)
+            this.image = res.data.info.image
         },
         (err) => {
           console.log(err)
@@ -168,11 +176,13 @@ export default {
     previewImage: function(event) {
       var input = event.target;
       if (input.files && input.files[0]) {
+        this.file = input.files[0];
         var reader = new FileReader();
         reader.onload = (e) => {
           this.image = e.target.result;
         };
         reader.readAsDataURL(input.files[0]);
+        this.isUpload = true;
       }
     },
     nicknameCheck: function () {
@@ -198,11 +208,40 @@ export default {
     },
     updateProfile: function () {
       if (this.isSubmit && this.isCheck) {
+        console.log(this.file)
+        if(this.isUpload) {
+          AWS.config.update({
+            region: this.bucketRegion,
+            credentials: new AWS.CognitoIdentityCredentials({
+              IdentityPoolId: this.IdentityPoolId
+            })
+          });
+
+          var s3 = new AWS.S3({
+            apiVersion: '2006-03-01',
+            params: {
+              Bucket: this.albumBucketName
+            }
+          });
+          let photoKey = this.nickname + ".jpg";
+          s3.upload({
+            Key: photoKey,
+            Body: this.file,
+            ContentType: 'image/jpeg',
+            ACL: 'public-read'
+          }, (err, data) => {
+            if(err) {
+              console.log(err)
+            } else {
+              console.log(data)
+            }
+          });
+        }
         let data = {
           nickname: this.nickname,
           githubid: this.githubid,
           position: this.position,
-          
+          image: "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" + this.nickname + ".jpg",
         };
         this.isSubmit = false;
         MyPage.updateMyInfo(
@@ -218,9 +257,32 @@ export default {
             this.isSubmit = true;
           }
         );
-      }
+      }                                                                                                                                    
     },
     deleteUser: function (res) {
+      AWS.config.update({
+        region: this.bucketRegion,
+        credentials: new AWS.CognitoIdentityCredentials({
+          IdentityPoolId: this.IdentityPoolId
+        })
+      });
+
+      var s3 = new AWS.S3({
+        apiVersion: '2006-03-01',
+        params: {
+          Bucket: this.albumBucketName
+        }
+      });
+
+      s3.deleteObject({
+        Key: this.nickname+".jpg"
+      }, (err, data) => {
+        if(err) {
+          console.log(err)
+        } else {
+          console.log(data)
+        }
+      });
       console.log(res)
     },
   },
