@@ -244,7 +244,6 @@ public class UserController {
     public Object tempJoin(@RequestParam(required = true) String email) {
         Map<String, Object> result = new HashMap<>();
         String emailCode = userService.randomCode();
-//        System.out.println(userDto.getEmail());
         Optional<TempUserDto> tempUserDto;
         try {
             tempUserDto = userService.tempUserByEmail(email);
@@ -301,6 +300,7 @@ public class UserController {
                         .nickname(userDto.getNickname())
                         .githubid(userDto.getGithubid())
                         .positions(userService.positionsName(userDto.getPosition()))
+                        .image(userDto.getImage())
                         .build());
 
                 userService.tempUserDelete(userDto.getEmail());
@@ -343,7 +343,7 @@ public class UserController {
         try {
             if(userService.isTokenConfirm(findPasswordDto.getEmail(), findPasswordDto.getCode())) {
                 User user = userService.findByEmail(findPasswordDto.getEmail());
-                userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(passwordEncoder.encode(findPasswordDto.getPassword())).nickname(user.getNickname()).positions(user.getPositions()).githubid(user.getGithubid()).build());
+                userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(passwordEncoder.encode(findPasswordDto.getPassword())).nickname(user.getNickname()).positions(user.getPositions()).githubid(user.getGithubid()).image(user.getImage()).build());
                 result.put("status", "success");
             } else result.put("status", "fail");
         } catch (Exception e) {
