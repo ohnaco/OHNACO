@@ -223,4 +223,11 @@ public class MyPageController {
         }
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @GetMapping("defaultprofile")
+    public Object getDefaultProfile() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("image", "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile");
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 }
