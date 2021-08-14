@@ -300,7 +300,7 @@ public class UserController {
                         .nickname(userDto.getNickname())
                         .githubid(userDto.getGithubid())
                         .positions(userService.positionsName(userDto.getPosition()))
-                        .image(userDto.getImage())
+                        .image("https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile")
                         .build());
 
                 userService.tempUserDelete(userDto.getEmail());
