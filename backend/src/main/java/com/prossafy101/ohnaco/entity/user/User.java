@@ -36,14 +36,11 @@ public class User implements UserDetails {
     private String githubid;
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String social;
+    private String image;
 
     @OneToOne
     @JoinColumn(name = "positionid")
     private Positions positions;
-
-    @OneToOne
-    @JoinColumn(name = "imageid")
-    private Image image;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override

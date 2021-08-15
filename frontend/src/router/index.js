@@ -34,11 +34,23 @@ const routes = [
     path: "/",
     name: "Main",
     component: Main,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("jwt-access-token");
+      // 로그인 정보가 있으면 Todo로 이동.
+      if (token !== null) next({ name: "Todo" });
+      else next();
+    },
   },
   {
     path: "/login",
     name: "Login",
     component: Login,
+    beforeEnter: (to, from, next) => {
+      const token = localStorage.getItem("jwt-access-token");
+      // 로그인 정보가 있으면 Todo로 이동.
+      if (token !== null) next({ name: "Todo" });
+      else next();
+    },
   },
   {
     path: "/join",

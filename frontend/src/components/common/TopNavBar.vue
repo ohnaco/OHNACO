@@ -3,7 +3,7 @@
     <!-- Desktop -->
     <v-app-bar dark color="blue-grey base" v-show="$vuetify.breakpoint.mdAndUp">
       <v-toolbar-title>
-        <router-link to="/" class="d-flex align-center"
+        <router-link to="/todo" class="d-flex align-center"
           ><img src="@/assets/images/logo-img.svg" class="mr-1" />
           <img src="@/assets/images/logo-txt.svg"
         /></router-link>
@@ -19,12 +19,12 @@
     <!-- Mobile -->
     <v-app-bar dark color="blue-grey base" v-show="$vuetify.breakpoint.smAndDown">
       <v-toolbar-title
-        ><router-link to="/" class="d-flex align-center"
+        ><router-link to="/todo" class="d-flex align-center"
           ><img src="@/assets/images/logo-img.svg" class="mr-1" />
           <img src="@/assets/images/logo-txt.svg" /></router-link
       ></v-toolbar-title>
       <v-spacer />
-      <v-menu offset-y full-width>
+      <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
           <v-btn dark icon v-bind="attrs" v-on="on"
             ><v-app-bar-nav-icon></v-app-bar-nav-icon
@@ -43,11 +43,32 @@
           </v-list-item>
         </v-list>
       </v-menu>
+      <v-menu offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn dark icon v-bind="attrs" v-on="on"><v-icon>mdi-account</v-icon></v-btn>
+        </template>
+        <v-list class="indigo lighten-3">
+          <v-list-item>
+            <v-list-item-title light
+              ><b>{{ user.nickname }} 님</b></v-list-item-title
+            >
+          </v-list-item>
+          <v-list-item to="/mypage">
+            <v-list-item-title><b>Mypage</b></v-list-item-title>
+          </v-list-item>
+          <v-list-item @click="logout">
+            <v-list-item-title><b>Logout</b></v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
     </v-app-bar>
   </v-layout>
 </template>
 
 <script>
+import { createNamespacedHelpers } from "vuex";
+const userHelper = createNamespacedHelpers("userStore");
+
 export default {
   data() {
     return {
@@ -83,6 +104,12 @@ export default {
         },
       ],
     };
+  },
+  computed: {
+    ...userHelper.mapState(["user"]),
+  },
+  methods: {
+    ...userHelper.mapActions(["logout"]),
   },
 };
 </script>

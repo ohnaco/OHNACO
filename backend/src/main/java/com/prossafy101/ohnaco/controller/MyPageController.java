@@ -178,14 +178,14 @@ public class MyPageController {
     }
 
     @PutMapping("/info")
-    @ApiOperation(value = "내 정보 변경 nickname,githubid,position")
+    @ApiOperation(value = "내 정보 변경 nickname,githubid,position,image")
     public Object changeMyInfo(@RequestBody UserDto userDto, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         User user = userService.findByUserid(userid);
         userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(user.getPassword())
-                .nickname(userDto.getNickname()).githubid(userDto.getGithubid()).positions(userService.positionsName(userDto.getPosition())).build());
+                .nickname(userDto.getNickname()).githubid(userDto.getGithubid()).positions(userService.positionsName(userDto.getPosition())).image(userDto.getImage()).build());
         result.put("status", true);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -200,7 +200,7 @@ public class MyPageController {
         boolean check = userService.checkPassword(map.get("password"), user);
         if(check) {
             userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(passwordEncoder.encode(map.get("newpassword")))
-                    .nickname(user.getNickname()).githubid(user.getGithubid()).positions(user.getPositions()).build());
+                    .nickname(user.getNickname()).githubid(user.getGithubid()).positions(user.getPositions()).image(user.getImage()).build());
             result.put("status", true);
         } else {
             result.put("status", false);
@@ -221,6 +221,13 @@ public class MyPageController {
             e.printStackTrace();
             result.put("status", "fail");
         }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/defaultprofile")
+    public Object getDefaultProfile() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("image", "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
