@@ -25,7 +25,7 @@
                 tile
                 size="80"
               >
-              <img src=""  alt="">
+              <v-img :src="`${scrap.image}`" alt="blog-img"></v-img>
               </v-list-item-avatar>
             </td>
             <td class="pl-0">

@@ -171,6 +171,24 @@ public class DevtalkController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
+    @GetMapping("/listall")
+    @ApiOperation(value = "question 최신순 불러오기")
+    public Object getAllQuestionOrder(HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+        List<Question> questions = questionService.getAllQuestionSort(Sort.by("questiondate").descending());
+        List<QuestionDto> questionDtos = new ArrayList<>();
+        for(Question question : questions) {
+            questionDtos.add(QuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .questioncontent(question.getQuestioncontent()).questiondate(question.getQuestiondate()).user(question.getUser())
+                    .tag(question.getTag()).visit(redisUtil.getData(visitKey+question.getQuestionid()))
+                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid())).build());
+        }
+        result.put("question", questionDtos);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @GetMapping("/load")
     @ApiOperation(value = "question 불러오기")
     public Object getAllQuestionSort(HttpServletRequest req) {

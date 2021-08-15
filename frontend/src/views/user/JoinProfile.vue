@@ -51,10 +51,10 @@
         </select>
         <!-- 버튼 -->
         <div class="page-btn">
-          <!-- 이전 페이지:이메일 인증 페이지 -->
+          <!-- 이전 페이지: 회원가입 페이지 -->
           <button 
             class="mr-15" 
-            @click="goJoinEmail"
+            @click="goJoin"
           >
             <img src="@/assets/images/back-btn.svg" alt="back" />
           </button>
@@ -99,8 +99,8 @@ export default {
     },
   },
   methods: {
-    goJoinEmail: function () {
-      this.$router.push({ name: "JoinEmail" });
+    goJoin: function () {
+      this.$router.push({ name: "Join" });
     },
     checkForm: function () {
       if (this.nickname.length <= 1)
