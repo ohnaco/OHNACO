@@ -9,7 +9,7 @@
       </v-container>
       <v-container>
         <v-row>
-          <v-col align="center"><profile-image></profile-image></v-col>
+          <v-col align="center"><profile-image :user="user"></profile-image></v-col>
         </v-row>
         <v-row>
           <v-col align="center"
