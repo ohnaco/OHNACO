@@ -6,7 +6,7 @@ export default {
   state: {
     // data 가 들어가는 곳
     user: {
-      image: null,
+      image: "",
       githubid: "",
       nickname: "",
       userid: "",
@@ -22,7 +22,7 @@ export default {
     },
     DELETE_USER(state) {
       state.user = {
-        image: null,
+        image: "",
         githubid: "",
         nickname: "",
         userid: "",
