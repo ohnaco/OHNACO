@@ -90,7 +90,7 @@
           <!-- 다음 페이지 : 마이페이지 -->
           <button
             class="ml-15"
-            @click="updateProfile"
+            @click="imageUpload"
           >
             <img src="@/assets/images/next-btn.svg" alt="next" />
           </button>
@@ -168,8 +168,10 @@ export default {
           this.nickname = res.data.info.nickname
           this.githubid = res.data.info.githubid
           this.position = res.data.info.position
-          if(res.data.info.image != null)
+          console.log("test" + res.data.info.image)
+          if(res.data.info.image != null) {
             this.image = res.data.info.image
+          }
         },
         (err) => {
           console.log(err)
@@ -188,7 +190,7 @@ export default {
         this.isUpload = true;
       }
     },
-    updateProfile: function () {
+    imageUpload() {
       if (this.isSubmit && this.isCheck) {
         if(this.isUpload) {
           AWS.config.update({
@@ -204,7 +206,8 @@ export default {
             }
           });
           let photoKey = this.email + ".jpg";
-          if (this.image != "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile") {
+          console.log("3=>" + this.image)
+          if (!this.isDefault) {
             s3.upload({
               Key: photoKey,
               Body: this.file,
@@ -215,45 +218,41 @@ export default {
               } else {
                 console.log(data)
                 this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" + this.email + ".jpg"
+                this.updateProfile()
               }
             });
-          } else {
-            s3.upload(
-              (err, data) => {
-              if(err) {
-                console.log(err)
-              } else {
-                console.log(data)
-                this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile"
-              }
-            }
-            )
           }
+        } else {
+          this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile"
+          this.updateProfile()
         }
-        let data = {
-          nickname: this.nickname,
-          githubid: this.githubid,
-          position: this.position,
-          image: this.image,
-        };
-        this.isSubmit = false;
-        MyPage.updateMyInfo(
-          data,
-          (res) => {
-            console.log(res);
-            this.isSubmit = true;
-            alert("정보 수정이 완료되었습니다.");
-            this.$router.push({ name: "MyPage" });
-          },
-          (err) => {
-            console.log(err);
-            this.isSubmit = true;
-          }
-        );
-      }                                                                                                                                    
+      }
+    },
+    updateProfile: function () {
+      let data = {
+        nickname: this.nickname,
+        githubid: this.githubid,
+        position: this.position,
+        image: this.image,
+      };
+      this.isSubmit = false;
+      MyPage.updateMyInfo(
+        data,
+        (res) => {
+          console.log(res);
+          this.isSubmit = true;
+          alert("정보 수정이 완료되었습니다.");
+          this.$router.push({ name: "MyPage" });
+        },
+        (err) => {
+          console.log(err);
+          this.isSubmit = true;
+        }
+      );
     },
     resetProfile: function () {
       this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile"
+      this.isUpload = false
     },
     nicknameCheck: function () {
       let data = {
