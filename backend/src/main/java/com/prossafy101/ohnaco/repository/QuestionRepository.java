@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -23,6 +24,9 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
     Page<Question> findAllByTag(Tag tag, Pageable pageable);
 
     List<Question> findAll(Sort sort);
+
+    @Query(value = "SELECT * from question where questionid in :questionid order by field(questionid, :questionid)", nativeQuery = true)
+    List<Question> getHotIssue(List<Integer> questionid);
 
     @Transactional
     void deleteByQuestionidAndUser(int questionid, User user);

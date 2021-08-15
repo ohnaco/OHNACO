@@ -220,8 +220,13 @@ public class DevtalkController {
     @ApiOperation(value = "tag/핫이슈 불러오기 => ")
     public Object getTagContain() {
         Map<String, Object> result = new HashMap<>();
-        Pageable page = PageRequest.of(0, 10, Sort.by("views").descending());
-        result.put("issue", questionService.getHotIssue(page).getContent());
+        List<Answer> answers = answerService.getAnswerOrder();
+        List<Integer> questionids = new ArrayList<>();
+        for(Answer answer: answers) {
+            questionids.add(answer.getQuestion().getQuestionid());
+            System.out.println(answer.getQuestion().getQuestionid());
+        }
+        result.put("issue", questionService.getHotIssue(questionids));
         result.put("tag", questionService.getAllTag());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }

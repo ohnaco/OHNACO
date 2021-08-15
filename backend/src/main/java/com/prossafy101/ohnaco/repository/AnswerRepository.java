@@ -22,4 +22,7 @@ public interface AnswerRepository extends JpaRepository<Answer, Integer> {
 
     @Query(value = "SELECT count(*) from answer where questionid = :questionid", nativeQuery = true)
     int answerCount(int questionid);
+
+    @Query(value = "SELECT * from answer group by questionid order by COUNT(questionid) DESC limit 10", nativeQuery = true)
+    List<Answer> answerOrder();
 }

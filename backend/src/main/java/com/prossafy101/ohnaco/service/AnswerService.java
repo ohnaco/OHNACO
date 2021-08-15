@@ -76,4 +76,8 @@ public class AnswerService {
     public int getCountAnswer(int questionid) {
         return answerRepository.answerCount(questionid);
     }
+
+    public List<Answer> getAnswerOrder() {
+        return answerRepository.answerOrder();
+    }
 }

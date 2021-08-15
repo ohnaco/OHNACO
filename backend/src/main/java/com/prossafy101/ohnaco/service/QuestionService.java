@@ -91,12 +91,16 @@ public class QuestionService {
        return tagRepository.findAll();
     }
     //핫이슈 질문 반환
-    public Page<Question> getHotIssue(Pageable pageable) {
-        return questionRepository.findAll(pageable);
-    }
+//    public Page<Question> getHotIssue(Pageable pageable) {
+//        return questionRepository.findAll(pageable);
+//    }
 
     //해당 유저의 질문 가져오기
     public Page<Question> getQuestionByUser(User user, Pageable pageable) {
         return questionRepository.findAllByUser(user, pageable);
+    }
+
+    public List<Question> getHotIssue(List<Integer> questionid) {
+       return questionRepository.getHotIssue(questionid);
     }
 }
