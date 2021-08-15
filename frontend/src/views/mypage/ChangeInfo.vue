@@ -203,24 +203,38 @@ export default {
               Bucket: this.albumBucketName
             }
           });
-          let photoKey = this.nickname + ".jpg";
-          s3.upload({
-            Key: photoKey,
-            Body: this.file,
-            ACL: 'public-read'
-          }, (err, data) => {
-            if(err) {
-              console.log(err)
-            } else {
-              console.log(data)
+          let photoKey = this.email + ".jpg";
+          if (this.image != "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile") {
+            s3.upload({
+              Key: photoKey,
+              Body: this.file,
+              ACL: 'public-read'
+            }, (err, data) => {
+              if(err) {
+                console.log(err)
+              } else {
+                console.log(data)
+                this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" + this.email + ".jpg"
+              }
+            });
+          } else {
+            s3.upload(
+              (err, data) => {
+              if(err) {
+                console.log(err)
+              } else {
+                console.log(data)
+                this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile"
+              }
             }
-          });
+            )
+          }
         }
         let data = {
           nickname: this.nickname,
           githubid: this.githubid,
           position: this.position,
-          image: "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" + this.nickname + ".jpg",
+          image: this.image,
         };
         this.isSubmit = false;
         MyPage.updateMyInfo(
@@ -238,8 +252,8 @@ export default {
         );
       }                                                                                                                                    
     },
-    resetProfile: function (res) {
-      console.log(res)
+    resetProfile: function () {
+      this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile"
     },
     nicknameCheck: function () {
       let data = {
@@ -278,7 +292,7 @@ export default {
       });
 
       s3.deleteObject({
-        Key: this.nickname+".jpg"
+        Key: this.email+".jpg"
       }, (err, data) => {
         if(err) {
           console.log(err)
