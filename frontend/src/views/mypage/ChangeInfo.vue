@@ -128,7 +128,7 @@ export default {
       },
       isSubmit: false,
       isCheck: false,
-      isUpload: false,
+      isUpload: 'nomal',
     };
   },
   created() {
@@ -168,7 +168,6 @@ export default {
           this.nickname = res.data.info.nickname
           this.githubid = res.data.info.githubid
           this.position = res.data.info.position
-          console.log("test" + res.data.info.image)
           if(res.data.info.image != null) {
             this.image = res.data.info.image
           }
@@ -187,12 +186,12 @@ export default {
           this.image = e.target.result;
         };
         reader.readAsDataURL(input.files[0]);
-        this.isUpload = true;
+        this.isUpload = 'upload';
       }
     },
     imageUpload() {
       if (this.isSubmit && this.isCheck) {
-        if(this.isUpload) {
+        if(this.isUpload == 'upload') {
           AWS.config.update({
             region: this.bucketRegion,
             credentials: new AWS.CognitoIdentityCredentials({
@@ -206,24 +205,24 @@ export default {
             }
           });
           let photoKey = this.email + ".jpg";
-          console.log("3=>" + this.albumBucketName)
-          if (!this.isDefault) {
-            s3.upload({
-              Key: photoKey,
-              Body: this.file,
-              ACL: 'public-read'
-            }, (err, data) => {
-              if(err) {
-                console.log(err)
-              } else {
-                console.log(data)
-                this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" + this.email + ".jpg"
-                this.updateProfile()
-              }
-            });
-          }
-        } else {
+
+          s3.upload({
+            Key: photoKey,
+            Body: this.file,
+            ACL: 'public-read'
+          }, (err, data) => {
+            if(err) {
+              console.log(err)
+            } else {
+              console.log(data)
+              this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" + this.email + ".jpg"
+              this.updateProfile()
+            }
+          });
+        } else if(this.isUpload == 'default') {
           this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile"
+          this.updateProfile()
+        } else {
           this.updateProfile()
         }
       }
@@ -252,7 +251,7 @@ export default {
     },
     resetProfile: function () {
       this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile"
-      this.isUpload = false
+      this.isUpload = 'default'
     },
     nicknameCheck: function () {
       let data = {
