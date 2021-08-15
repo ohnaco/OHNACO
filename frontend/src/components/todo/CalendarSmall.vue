@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="m-5">
+  <div id="app">
     <v-app id="inspire">
       <v-row justify="center">
         <v-date-picker full-width v-model="picker" color="#607D8B" v-on="moveTodoDate()">

@@ -72,13 +72,13 @@
       <v-col cols="11" class="p-0">
         <div
           style="height: 22px"
-          class="qCard_title mt-2 mb-2"
+          class="qCard_title mt-2 mb-2 pagelink"
           v-on:click="gotoDetail"
         >
           {{ item.questiontitle }}
         </div>
 
-        <div style="height: 42px" class="qCard_content" v-on:click="gotoDetail">
+        <div style="height: 42px" class="qCard_content pagelink" v-on:click="gotoDetail">
           {{ item.questioncontent }}
         </div>
 
@@ -268,5 +268,11 @@ export default {
   letter-spacing: normal;
   text-align: left;
   color: #607d8b;
+}
+.pagelink{
+  cursor:pointer;
+}
+.pagelink:hover{
+  text-decoration: underline;
 }
 </style>

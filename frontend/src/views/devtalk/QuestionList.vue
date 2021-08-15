@@ -38,7 +38,7 @@
           >
             <div style="float: right; height: 100%">
               <span
-                class="filter_devTalk"
+                class="filter_devTalk pagelink"
                 v-bind:class="{
                   filter_selected: isSortDate && !isSortLike && !isSortComment,
                 }"
@@ -46,7 +46,7 @@
                 >●최신순&nbsp;&nbsp;</span
               >
               <span
-                class="filter_devTalk"
+                class="filter_devTalk pagelink"
                 v-bind:class="{
                   filter_selected: !isSortDate && !isSortLike && isSortComment,
                 }"
@@ -54,7 +54,7 @@
                 >●답변순&nbsp;&nbsp;</span
               >
               <span
-                class="filter_devTalk"
+                class="filter_devTalk pagelink"
                 v-bind:class="{
                   filter_selected: !isSortDate && isSortLike && !isSortComment,
                 }"
@@ -124,7 +124,7 @@
           -->
             <p v-for="issue in hotIssue"
             :key="issue.questionid"
-            class="mb-2"
+            class="mb-2 pagelink"
             style="width:80% ; overflow:hidden ; white-space:nowrap ; text-overflow:ellipsis ;
             font-family:GmarketSansLight ; color : #607d8b"
             @click="gotoDetail(issue.questionid)">{{issue.questiontitle}}<br
@@ -357,6 +357,12 @@ export default {
     pointer-events: none;
     background-color: #fff;
     border-color: #fff;
+}
+.pagelink{
+  cursor:pointer;
+}
+.pagelink:hover{
+  text-decoration: underline;
 }
 
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <div class="modal">
+  <div class="modal" style="display:inline-block !important">
     <div class="overlay" @click="$emit('close-modal')"></div>
     <div class="modal-card">
       <slot />
@@ -29,7 +29,7 @@ export default {
 .modal-card {
   position: relative;
   max-width: 80%;
-  max-height: 100%;
+  max-height: 110%;
   margin: auto;
   padding: 20px;
   background-color: white;
