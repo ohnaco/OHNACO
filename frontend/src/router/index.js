@@ -18,7 +18,11 @@ import Todo from "@/views/todo/TodoHome.vue";
 import Statistics from "@/views/statistics/Statistics.vue";
 import Tech from "@/views/tech/TechNews.vue";
 import Subscribe from "@/views/tech/TechSubscribe.vue";
+
 import DevTalk from "@/views/devtalk/QuestionList.vue";
+import QuestionDetail from "@/views/devtalk/QuestionDetail.vue";
+import AddQuestion from "@/views/devtalk/QuestionAdd.vue";
+import QuestionUpdate from "@/views/devtalk/QuestionAddUpdate.vue";
 
 import MyPage from "@/views/mypage/MyPage.vue";
 import MyAnswers from "@/views/mypage/MyAnswers.vue";
@@ -116,6 +120,23 @@ const routes = [
     path: "/devtalk",
     name: "DevTalk",
     component: DevTalk,
+  },
+  {
+    path: "/questiondetail",
+    name: "QuestionDetail",
+    component: QuestionDetail,
+    props: true,
+  },
+
+  {
+    path: "/addquestion",
+    name: "AddQuestion",
+    component: AddQuestion,
+  },
+  {
+    path: "/questionupdate",
+    name: "QuestionUpdate",
+    component: QuestionUpdate,
   },
   {
     path: "/mypage",

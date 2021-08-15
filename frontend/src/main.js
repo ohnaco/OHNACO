@@ -3,6 +3,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 import vuetify from "./plugins/vuetify";
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import JwPagination from 'jw-vue-pagination';
 
 import vueMoment from "vue-moment";
 import moment from "moment";
@@ -82,6 +86,8 @@ messaging.onMessage((payload) => {
 
 Vue.config.productionTip = false;
 Vue.use(vueMoment, { moment });
+Vue.use(BootstrapVue);
+Vue.component('jw-pagination', JwPagination);
 
 new Vue({
   router,

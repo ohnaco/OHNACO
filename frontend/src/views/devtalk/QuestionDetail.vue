@@ -25,7 +25,11 @@ export default {
   },
   data() {
     return {
+      parentid:"",
     };
+  },
+  created(){
+    this.parentid=this.$route.params.id;
   },
 };
 </script>

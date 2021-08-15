@@ -115,7 +115,7 @@
           elevation="2"
           class="mt-3 mb-3"
           style="font-family: GmarketSansMedium; float: right"
-          @click="onCreateOK()"
+          @click="update()"
           >수정</v-btn
         >
       </b-container>
@@ -138,7 +138,7 @@ export default {
       title: "",
       content: "",
       chips: [],
-      items: ['JAVA', 'Python','Spring','C','Vue.js','React'],
+      items: ['Java', 'Spring','Javascript','MySQL','C++','C', 'Android', 'Ajax'],
     };
   },
   computed: {
@@ -155,17 +155,18 @@ export default {
       this.chips = [...this.chips]
     },
     goBack(){
-      this.$router.push("devtalk"); //뒤로가기구현해야함
+      this.$router.push("devtalk"); 
     },
     update() {
       const newQuestion = {
+        questionid:this.$route.params.origin.questionid,
         questiontitle: this.title,
         questioncontent: this.content,
         tagName: this.chips,
       }
-      console.log(JSON.stringify(newQuestion));
-      this.addQuestion(JSON.stringify(newQuestion));
-      this.goBack();
+      //this.updateQuestion([this.$route.params.origin.questionid,JSON.stringify(newQuestion)]);
+      this.updateQuestion(JSON.stringify(newQuestion));
+      setTimeout(() => {  this.goBack(); }, 500);
     },
   },
   created(){
@@ -200,14 +201,6 @@ export default {
     format("woff");
   font-weight: normal;
   font-style: normal;
-}
-
-.filter_devTalk {
-  font-family: GmarketSansMedium;
-  font-size: 14px;
-  font-weight: lighter;
-  height: 100%;
-  color: #607d8b;
 }
 
 .tag_section {

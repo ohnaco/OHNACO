@@ -43,12 +43,9 @@ const updateQuestion = (data, callback, errorCallback) => {
     console.log(data);
     console.log(typeof data);
   http
-    .put("/devtalk/question", {
-      params: {
-        questionid: data,
-      },
-    })
+    .put("/devtalk/question", data)
     .then((res) => {
+      alert("정상적으로 수정되었습니다.");
       callback(res);
     })
     .catch((err) => {
@@ -83,6 +80,61 @@ const addComment = (data, callback, errorCallback) => {
     });
 };
 
+const deleteComment = (data, callback, errorCallback) => {
+  http
+    .delete("/devtalk/answer", {
+      params: {
+        answerid: data,
+      },
+    })
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const updateComment = (data, callback, errorCallback) => {
+    console.log(data);
+  http
+    .put("/devtalk/answer", data)
+    .then((res) => {
+      alert("정상적으로 수정되었습니다.");
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const questionLike = (data, callback, errorCallback) => {
+  http
+    .post("/devtalk/question/like", {
+        questionid: data,
+    })
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const answerLike = (data, callback, errorCallback) => {
+    console.log(data);
+  http
+    .post("/devtalk/answer/like", {
+        answerid: data,
+    })
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 export default {
   setQuestion,
   addQuestion,
@@ -90,4 +142,8 @@ export default {
   updateQuestion,
   deleteQuestion,
   addComment,
+  deleteComment,
+  questionLike,
+  updateComment,
+  answerLike,
 };

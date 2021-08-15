@@ -139,7 +139,7 @@ export default {
       title: "",
       content: "",
       chips: [],
-      items: ['JAVA', 'Python','Spring','C','Vue.js','React'],
+      items: ['Java', 'Spring','Javascript','MySQL','C++','C', 'Android', 'Ajax'],
     };
   },
   computed: {
@@ -168,7 +168,7 @@ export default {
       this.addQuestion(JSON.stringify(newQuestion));
       setTimeout(() => {
   this.goBack();
-}, 2000);
+}, 500);
     },
   },
 };
@@ -198,13 +198,6 @@ export default {
   font-style: normal;
 }
 
-.filter_devTalk {
-  font-family: GmarketSansMedium;
-  font-size: 14px;
-  font-weight: lighter;
-  height: 100%;
-  color: #607d8b;
-}
 
 .tag_section {
   font-family: GmarketSansMedium;
