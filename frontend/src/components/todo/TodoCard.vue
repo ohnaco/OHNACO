@@ -165,22 +165,22 @@
               <v-layout row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <div>
+                <div style="height:36px">
                   <div
-                    style="font-family: GmarketSansLight; font-size: 22px"
-                    class="pt-3"
+                    style="font-family: GmarketSansLight; font-size: 22px ; float:left"
+                    class="ml-3"
                   >
                     {{ item.title }}
                   </div>
-                </div>
-                <v-col
+                  <div
                   class="text-caption mr-3"
                   v-text="item.todoid"
                   align="right"
                 />
+                </div>
               </v-layout>
 
-              <div class="d-flex justify-end" style="height: 36px"></div>
+              <div class="d-flex justify-end"></div>
               <div style="height: 64px" class="time">
                 {{ formattedElapsedTime }}
               </div>
@@ -379,7 +379,7 @@ export default {
   font-weight: bold;
   font-stretch: normal;
   font-style: normal;
-  line-height: normal;
+  line-height: 64px;
   letter-spacing: normal;
   text-align: center;
   color: #ffffff;
