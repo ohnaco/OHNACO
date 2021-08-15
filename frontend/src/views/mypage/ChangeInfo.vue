@@ -206,7 +206,7 @@ export default {
             }
           });
           let photoKey = this.email + ".jpg";
-          console.log("3=>" + this.image)
+          console.log("3=>" + this.albumBucketName)
           if (!this.isDefault) {
             s3.upload({
               Key: photoKey,
