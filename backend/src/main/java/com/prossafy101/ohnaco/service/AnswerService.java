@@ -72,4 +72,8 @@ public class AnswerService {
     public Page<Answer> getAnswerByUser(User user, Pageable pageable) {
         return answerRepository.findAllByUser(user, pageable);
     }
+
+    public int getCountAnswer(int questionid) {
+        return answerRepository.answerCount(questionid);
+    }
 }

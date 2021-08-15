@@ -183,7 +183,8 @@ public class DevtalkController {
             questionDtos.add(QuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
                     .questioncontent(question.getQuestioncontent()).questiondate(question.getQuestiondate()).user(question.getUser())
                     .tag(question.getTag()).visit(redisUtil.getData(visitKey+question.getQuestionid()))
-                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid())).build());
+                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid()))
+                    .answercount(answerService.getCountAnswer(question.getQuestionid())).build());
         }
         result.put("question", questionDtos);
         return new ResponseEntity<>(result, HttpStatus.OK);

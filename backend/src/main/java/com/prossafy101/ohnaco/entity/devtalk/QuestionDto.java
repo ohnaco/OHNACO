@@ -27,4 +27,5 @@ public class QuestionDto {
     private String visit;
     private User user;
     private List<Tag> tag;
+    private int answercount;
 }
