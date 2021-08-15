@@ -23,7 +23,7 @@
               font-size: 12px;
             "
           >
-            {{ item.likes }}
+            {{ item.answercount }}
           </div>
         </div>
 
@@ -65,7 +65,7 @@
               font-size: 12px;
             "
           >
-            {{ item.views }}
+            {{ item.visit }}
           </div>
         </div>
       </v-col>
@@ -88,6 +88,7 @@
               <a class="tag pt-auto pb-auto pl-2 pr-2 mr-1 ;font-size:8px"
               v-for="tag in item.tag"
               :key="tag.tagname"
+              @click="parentTagSearch(tag.tagname)"
                 >{{tag.tagname}}</a>
             </div>
             <div style="height: 50%; width: 100%" class="qCard_date pt-3">
@@ -126,7 +127,6 @@ export default {
 
   methods: {
     gotoDetail() {
-      //this.$router.push("questiondetail");
       this.$router.push({
         name: "QuestionDetail",
         params:{id:this.item.questionid},
@@ -134,6 +134,9 @@ export default {
     },
     dateModify(){
       this.date+=this.item.questiondate.substr(0,10)+" "+this.item.questiondate.substr(11,8);
+    },
+    parentTagSearch(tagname){
+      this.$emit('tagChange', tagname);
     },
   },
   mounted() {

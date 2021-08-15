@@ -69,10 +69,6 @@ export default {
         answertitle: "",
       }
       this.addComment(com);
-      setTimeout(() => {  this.$router.push({
-        name: "QuestionDetail",
-        params:{id:this.$parent.$route.params.id},
-      }); }, 1000);
     },
   },
 

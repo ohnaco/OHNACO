@@ -10,8 +10,12 @@
         <!--제목끝 -->
 
         <!--따봉수 -->
-        <div style="float: right" class="qd_14_medium pt-1">
-          <img src="@/assets/images/question-like-empty.svg" alt="" />
+        <div style="float: right" class="qd_14_medium pt-1" v-if="!question.question.userLike">
+          <img src="@/assets/images/question-like-empty.svg" alt="" @click="like()" />
+          {{ question.question.like }}
+        </div>
+        <div style="float: right" class="qd_14_medium pt-1" v-if="question.question.userLike">
+          <img src="@/assets/images/question-like.svg" style="width:25px ; height:25px" alt="" @click="unlike()"/>
           {{ question.question.like }}
         </div>
         <!--따봉 끝 -->
@@ -32,10 +36,10 @@
         <!--날짜, 수정, 삭제버튼-->
         <div>
           <div style="float: left" class="qd_date">
-            {{ date }}  조회수{{ question.question.views }}
+            {{ date }}  조회수{{ question.question.visit }}
           </div>
 
-          <div style="float: right" v-if="this.question.question.user.userid==this.user.userId">
+          <div style="float: right" v-if="this.question.question.user.userid==this.user.userid">
             <v-btn
               elevation="2"
               style="
@@ -81,6 +85,7 @@
         <a class="tag pt-auto pb-auto pl-2 pr-2 mr-1 ;font-size:8px"
               v-for="tag in question.question.tag"
               :key="tag.tagname"
+              @click="moveTag(tag.tagname)"
                 >{{tag.tagname}}</a>
       </div>
       <!--해시태그 끝-->
@@ -92,11 +97,11 @@
         >A.</span
       >
       <span style="font-family: GmarketSansMedium; font-size: 22px; color: red"
-        >{{ question.answer.length }}개의 답변이 있습니다.</span
+        >{{ answerList.length }}개의 답변이 있습니다.</span
       >
     </div>
     <div>
-      <QuestionDetailAnswer v-for="comment in question.answer"
+      <QuestionDetailAnswer v-for="comment in answerList"
       :key="comment.answerid"
       :item="comment"></QuestionDetailAnswer>
       <QuestionDetailAddAnswer></QuestionDetailAddAnswer>
@@ -149,6 +154,7 @@
 <script>
 import QuestionDetailAnswer from "@/components/devtalk/QuestionDetailAnswer";
 import QuestionDetailAddAnswer from "@/components/devtalk/QuestionDetailAddAnswer";
+import Dev from "@/api/DevTalk";
 import { createNamespacedHelpers } from "vuex";
 const questionHelper = createNamespacedHelpers("devTalkStore");
 const userHelper = createNamespacedHelpers("userStore");
@@ -166,6 +172,7 @@ export default {
   methods: {
     ...questionHelper.mapActions(["detailQuestion"]),
     ...questionHelper.mapActions(["deleteQuestion"]),
+    ...questionHelper.mapActions(["setAnswer"]),
     goBack() {
       this.$router.push("devtalk");
     },
@@ -180,7 +187,29 @@ export default {
     },
     deleteQuestion2(){
       this.deleteQuestion(this.question.question.questionid);
-      setTimeout(() => {  this.goBack(); }, 1500);
+      setTimeout(() => {  this.goBack(); }, 500);
+    },
+    like(){
+      if(!this.question.question.userlike){
+        Dev.questionLike(this.question.question.questionid);
+        this.question.question.userLike=true;
+        this.question.question.like++;
+      }
+    },
+
+    unlike(){
+      if(this.question.question.userLike){
+        Dev.questionLike(this.question.question.questionid);
+        this.question.question.userLike=false;
+        this.question.question.like--;
+      }
+    },
+    moveTag(tag){
+      console.log(tag);
+      this.$router.push({
+        name: "DevTalk",
+        params:{tag:tag},
+      });
     }
   },
 
@@ -191,13 +220,14 @@ export default {
 
   computed: {
     ...questionHelper.mapState(["question"]),
+    ...questionHelper.mapState(["answerList"]),
     ...userHelper.mapState(["user"]),
     compiledMarkdown: function () {
       return marked(this.question.question.questioncontent, { sanitize: true });
     },
   },
   created(){
-    this.detailQuestion(this.$route.params.id);
+    this.detailQuestion(this.$parent.parentid);
     this.dateModify();
   },
 };
