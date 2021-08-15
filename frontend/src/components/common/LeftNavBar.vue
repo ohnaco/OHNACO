@@ -3,7 +3,9 @@
     <v-navigation-drawer height="100vh" width="100%" class="blue-grey base pt-3 mx-auto" permanent>
       <v-container>
         <v-row justify="center">
-          <router-link to="/"><img src="@/assets/images/logo-img.svg" class="mr-1" /></router-link>
+          <router-link to="/todo"
+            ><img src="@/assets/images/logo-img.svg" class="mr-1"
+          /></router-link>
           <img src="@/assets/images/logo-txt.svg" />
         </v-row>
       </v-container>
@@ -14,9 +16,8 @@
         <v-row>
           <v-col align="center"
             ><router-link to="/mypage"
-              ><div class="text-h6" v-text="user.nickname"></div
-            ></router-link></v-col
-          >
+              ><div class="text-h6" v-text="user.nickname"></div></router-link
+          ></v-col>
         </v-row>
       </v-container>
       <v-container class="mt-15">
