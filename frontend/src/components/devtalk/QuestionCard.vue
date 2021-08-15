@@ -97,7 +97,7 @@
           </div>
           <div style="float: right; width: 110px; height: 100%" class="pt-3">
             <div style="float: left">
-              <img :src="profile_img" style="width: 35px; height: 35px" />
+              <img :src="`${item.user.image}`" style="width: 35px; height: 35px" />
             </div>
             <div style="float: left; width: 70px; height: 30px">
               <div class="profile_name">&nbsp;{{ item.user.nickname }}</div>
