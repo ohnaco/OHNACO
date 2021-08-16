@@ -66,6 +66,8 @@ public class StatisticsService {
             }
         });
         StatisticsCategoryDto entire = new StatisticsCategoryDto("entire", totalcomplete, totalgoal);
+        System.out.println("totalgoal" + totalgoal);
+        System.out.println("entire " + entire.getCompletetime() + " " + entire.getGoaltime());
         list.add(entire);
         return list;
     }
