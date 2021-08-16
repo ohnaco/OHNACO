@@ -7,7 +7,7 @@
       <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown">
         <TopNavBar/>
       </v-col>
-      <v-col cols="10">
+      <v-col cols="10" class="pa-5">
         <!-- 상단 제목 및 버튼 -->
         <v-flex class="d-flex justify-space-between text-h4 mt-5 mb-5 ml-5 mr-5">
           <div class="align-items-center"><b>Statistics</b></div>

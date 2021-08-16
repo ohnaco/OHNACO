@@ -57,9 +57,6 @@ export default {
       };
       this.login(data);
     },
-    githubLogin: function (res) {
-      console.log(res);
-    },
   },
 };
 </script>
