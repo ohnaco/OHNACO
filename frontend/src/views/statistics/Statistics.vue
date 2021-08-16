@@ -75,6 +75,10 @@
                   :todayTime="statsInfo.todayTime"
                   :yesterdayTime="statsInfo.yesterdayTime"
                 />
+                <YesterdayTotal
+                  :todayTime="statsInfo.todayTime"
+                  :yesterdayTime="statsInfo.yesterdayTime"
+                />
                 </v-card>
               </v-col>
               <!-- 전체 유저별 카테고리 공부시간 -->
@@ -129,6 +133,7 @@ import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TotalStudyTime from "@/components/statistics/TotalStudyTime.vue";
 import CategoryStudyTime from "@/components/statistics/CategoryStudyTime.vue";
 import CompareMyself from "@/components/statistics/CompareMyself.vue";
+import YesterdayTotal from "@/components/statistics/YesterdayTotal.vue";
 import CompareOtherByCategory from "@/components/statistics/CompareOtherByCategory.vue";
 import GoalVsReal from "@/components/statistics/GoalVsReal.vue";
 import CompareOther from "@/components/statistics/CompareOther.vue";
@@ -143,6 +148,7 @@ export default {
     TotalStudyTime,
     CategoryStudyTime,
     CompareMyself,
+    YesterdayTotal,
     CompareOtherByCategory,
     GoalVsReal,
     CompareOther,
