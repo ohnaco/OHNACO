@@ -185,11 +185,7 @@
                 </div>
                 <v-btn v-if="false" class="ml-2 mt-3" fab icon right> </v-btn>
                 <v-btn fab icon right>
-                  <img
-                    class="start_btn"
-                    src="@/assets/images/pause.png"
-                    @click="stop"
-                  />
+                  <img class="start_btn" src="@/assets/images/pause.svg" @click="stop" />
                 </v-btn>
               </v-card-actions>
             </div>

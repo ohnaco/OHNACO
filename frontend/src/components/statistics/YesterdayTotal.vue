@@ -6,7 +6,7 @@
         type="bar"
         height="100"
         :options="barOptions"
-        :series="series2"
+        :series="series"
       ></apexchart>
     </div>
   </div>
@@ -26,13 +26,10 @@ export default {
   },
   data: function () {
     return {
-      series2: [
+      series: [
         {
           name: "전체 시간",
-          data: [
-            this.todayTime[5].completetime,
-            this.yesterdayTime[5].completetime,
-          ]
+          data: []
         },
       ],
       barOptions: {
@@ -89,5 +86,13 @@ export default {
       }
     };
   },
+  watch: {
+    todayTime: function () {
+      this.series[0].data[0] = this.todayTime[5].completetime
+    },
+    yesterdayTime: function () {
+      this.series[0].data[1] = this.yesterdayTime[5].completetime
+    },
+  }
 };
 </script>

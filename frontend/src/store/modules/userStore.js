@@ -36,7 +36,7 @@ export default {
         data,
         () => {
           dispatch("getUserInfo");
-          alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
+          alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내서 코딩하세요 :)");
           router.push({ name: "Todo" });
         },
         (err) => {
