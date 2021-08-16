@@ -20,7 +20,7 @@
         <button class="mt-1" @click="doLogin">
           <img src="@/assets/images/login-btn.svg" alt="login" />
         </button>
-        <div>
+        <div class="mt-3">
           <button class="signup-btn" @click="goSignup">회원가입</button>
           <button class="findpwd-btn" @click="goFindpwd">비밀번호 찾기</button>
         </div>

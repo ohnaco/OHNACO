@@ -74,7 +74,7 @@
         <div>
           <div class="join-footer-text">
             이미 계정이 있으신가요?
-            <button class="go-login" @click="goLogin">로그인</button>
+            <button class="go-login ml-1" @click="goLogin">로그인</button>
           </div>
         </div>
       </div>
