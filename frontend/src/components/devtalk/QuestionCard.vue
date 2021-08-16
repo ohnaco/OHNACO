@@ -6,12 +6,12 @@
         class="pt-auto pb-auto pl-2 pr-2 qInfo"
         style="height: 100%"
       >
-        <div style="height:33%">
+        <div style="height: 33%">
           <div style="text-align: center">
             <img
               src="@/assets/images/question-comment.svg"
               style="height: 20px; width: 20px"
-              class="mt-auto mb-auto"
+              class="mt-auto mb-auto img_info"
             />
           </div>
           <div
@@ -27,12 +27,12 @@
           </div>
         </div>
 
-        <div style="height:33%">
+        <div style="height: 33%">
           <div style="text-align: center">
             <img
               src="@/assets/images/question-like.svg"
               style="height: 20px; width: 20px"
-              class="mt-auto mb-auto"
+              class="mt-auto mb-auto img_info"
             />
           </div>
           <div
@@ -48,12 +48,12 @@
           </div>
         </div>
 
-        <div style="height:33%">
+        <div style="height: 33%">
           <div style="text-align: center">
             <img
               src="@/assets/images/question-views.svg"
               style="height: 20px; width: 20px"
-              class="mt-auto mb-auto"
+              class="mt-auto mb-auto img_info"
             />
           </div>
           <div
@@ -69,39 +69,53 @@
           </div>
         </div>
       </v-col>
-      <v-col cols="11" class="p-0">
-        <div
-          style="height: 22px"
-          class="qCard_title mt-2 mb-2 pagelink"
-          v-on:click="gotoDetail"
-        >
+      <v-col cols="11" class="content_card">
+        <div class="qCard_title mt-2 mb-2 pagelink" v-on:click="gotoDetail">
           {{ item.questiontitle }}
         </div>
 
-        <div style="height: 42px" class="qCard_content pagelink" v-on:click="gotoDetail">
+        <div
+          style="height:56px"
+          class="qCard_content pagelink"
+          v-on:click="gotoDetail"
+        >
           {{ item.questioncontent }}
         </div>
 
         <div style="height: 40%">
-          <div style="float: left; min-width: 190px; height: 100%">
-            <div style="height: 50%; width: 100%">
-              <a class="tag pt-auto pb-auto pl-2 pr-2 mr-1 ;font-size:8px"
-              v-for="tag in item.tag"
-              :key="tag.tagname"
-              @click="parentTagSearch(tag.tagname)"
-                >{{tag.tagname}}</a>
+          <div class="tagNdate">
+            <div
+              style="
+                height: 40%;
+                width: 100%;
+                white-space: nowrap;
+                overflow: hidden;
+              "
+            >
+              <a
+                class="tag pt-auto pb-auto pl-2 pr-2 mr-1"
+                v-for="tag in item.tag"
+                :key="tag.tagname"
+                @click="parentTagSearch(tag.tagname)"
+                >{{ tag.tagname }}</a
+              >
             </div>
-            <div style="height: 50%; width: 100%" class="qCard_date pt-3">
-              {{ date}}
+            <div style="height: 40%; width: 100%" class="qCard_date pt-3">
+              {{ date }}
             </div>
           </div>
           <div style="float: right; width: 110px; height: 100%" class="pt-3">
             <div style="float: left">
-              <img :src="`${item.user.image}`" style="width: 35px; height: 35px" />
+              <img
+                :src="`${item.user.image}`"
+                style="width: 35px; height: 35px"
+              />
             </div>
             <div style="float: left; width: 70px; height: 30px">
               <div class="profile_name">&nbsp;{{ item.user.nickname }}</div>
-              <div class="profile_jobs">&nbsp;{{ item.user.positions.positionname }}</div>
+              <div class="profile_jobs">
+                &nbsp;{{ item.user.positions.positionname }}
+              </div>
             </div>
           </div>
         </div>
@@ -114,7 +128,7 @@
 export default {
   data() {
     return {
-      date:"",
+      date: "",
       profile_img: require("@/assets/images/profile-img.svg"),
     };
   },
@@ -129,14 +143,17 @@ export default {
     gotoDetail() {
       this.$router.push({
         name: "QuestionDetail",
-        params:{id:this.item.questionid},
+        params: { id: this.item.questionid },
       });
     },
-    dateModify(){
-      this.date+=this.item.questiondate.substr(0,10)+" "+this.item.questiondate.substr(11,8);
+    dateModify() {
+      this.date +=
+        this.item.questiondate.substr(0, 10) +
+        " " +
+        this.item.questiondate.substr(11, 8);
     },
-    parentTagSearch(tagname){
-      this.$emit('tagChange', tagname);
+    parentTagSearch(tagname) {
+      this.$emit("tagChange", tagname);
     },
   },
   mounted() {
@@ -193,6 +210,7 @@ export default {
 }
 
 .qCard_title {
+  width:95%;
   font-family: "GmarketSansMedium";
   font-size: 18px;
   font-weight: 500;
@@ -201,10 +219,15 @@ export default {
   line-height: normal;
   letter-spacing: normal;
   text-align: left;
+  overflow: hidden;
+  white-space:nowrap;
+  text-overflow: ellipsis;
+  display: -webkit-box;
   color: #607d8b;
 }
 
 .qCard_content {
+  width:95%;
   font-family: "GmarketSansLight";
   font-size: 14px;
   font-weight: 500;
@@ -245,7 +268,11 @@ export default {
   text-decoration: none;
   border-radius: 16px;
 }
-
+.tagNdate {
+  float: left;
+  min-width: 190px;
+  height: 100%;
+}
 .profile_name {
   font-family: "GmarketSansMedium";
   font-size: 14px;
@@ -269,10 +296,45 @@ export default {
   text-align: left;
   color: #607d8b;
 }
-.pagelink{
-  cursor:pointer;
+.pagelink {
+  cursor: pointer;
 }
-.pagelink:hover{
+.pagelink:hover {
   text-decoration: underline;
+}
+.content_card{
+    padding: 0px;
+  }
+@media (max-width: 768px) {
+  .qCard_title {
+    font-size: 14px;
+  }
+
+  .qCard_content {
+    height: 40px !important;
+    font-size: 10px;
+  }
+  .tagNdate {
+    float: left;
+    min-width: 150px;
+    height: 100%;
+  }.content_card{
+    padding-left: 10px;
+  }
+  .img_info{
+    width:15px !important;
+    height:15px !important;
+  }
+  .qCard {
+    height: 140px;
+}
+.pagination {
+    font-size:10px !important;
+}
+}
+@media (max-width: 425px) {
+  .tag {
+    display: none;
+  }
 }
 </style>

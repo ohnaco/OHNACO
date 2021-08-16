@@ -24,6 +24,9 @@ export default {
     SET_ALL_BLOG_LIST(state, list) {
       state.blogList = list;
     },
+    SET_SUBSCRIBE_BLOG_LIST(state, list) {
+      state.blogList = list;
+    },
     SUBSCRIBE_BLOG(state, blogid) {
       const index = state.blogList.findIndex((blog) => blog.blogid === blogid);
       state.blogList[index].issubscribe = true;
@@ -76,6 +79,17 @@ export default {
         (res) => {
           const blog = res.data.list;
           commit("SET_ALL_BLOG_LIST", blog);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+    setSubscribeBlogList({ commit }) {
+      Tech.loadSubscribeBlogList(
+        (res) => {
+          const blog = res.data.list;
+          commit("SET_SUBSCRIBE_BLOG_LIST", blog);
         },
         (err) => {
           alert(err);

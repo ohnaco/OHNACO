@@ -27,48 +27,7 @@ export default {
   },
   data: function () {
     return {
-      series: [
-      //   {
-      //   name: 'CS',
-      //   data: [
-      //     this.entireCategoryTime['0'].time,
-      //     this.positionTime['0'].time,
-      //     this.categoryTime['0'].completetime,
-      //   ]
-      // }, 
-      // {
-      //   name: '알고리즘',
-      //   data: [
-      //     this.entireCategoryTime['2'].time,
-      //     this.positionTime['2'].time,
-      //     this.categoryTime['2'].completetime,
-      //   ]
-      // }, 
-      // {
-      //   name: '자격증',
-      //   data: [
-      //     this.entireCategoryTime['3'].time,
-      //     this.positionTime['3'].time,
-      //     this.categoryTime['3'].completetime,
-      //   ]
-      // }, 
-      // {
-      //   name: '프레임워크',
-      //   data: [
-      //     this.entireCategoryTime['4'].time,
-      //     this.positionTime['4'].time,
-      //     this.categoryTime['4'].completetime,
-      //   ]
-      // }, 
-      // {
-      //   name: '기타',
-      //   data: [
-      //     this.entireCategoryTime['1'].time,
-      //     this.positionTime['1'].time,
-      //     this.categoryTime['1'].completetime,
-      //   ]
-      // }
-      ],
+      series: [],
       chartOptions: {
         chart: {
           type: 'bar',
@@ -159,53 +118,5 @@ export default {
       this.series = newSeries
     }
   },
-  // methods: {
-  //   comparecategory: function () {
-  //     const series = [{
-  //       name: 'CS',
-  //       data: [
-  //         this.entireCategoryTime[0].time,
-  //         this.positionTime['0'].time,
-  //         this.categoryTime['0'].completetime,
-  //       ]
-  //     }, 
-  //     {
-  //       name: '알고리즘',
-  //       data: [
-  //         this.entireCategoryTime['2'].time,
-  //         this.positionTime['2'].time,
-  //         this.categoryTime['2'].completetime,
-  //       ]
-  //     }, 
-  //     {
-  //       name: '자격증',
-  //       data: [
-  //         this.entireCategoryTime['3'].time,
-  //         this.positionTime['3'].time,
-  //         this.categoryTime['3'].completetime,
-  //       ]
-  //     }, 
-  //     {
-  //       name: '프레임워크',
-  //       data: [
-  //         this.entireCategoryTime['4'].time,
-  //         this.positionTime['4'].time,
-  //         this.categoryTime['4'].completetime,
-  //       ]
-  //     }, 
-  //     {
-  //       name: '기타',
-  //       data: [
-  //         this.entireCategoryTime['1'].time,
-  //         this.positionTime['1'].time,
-  //         this.categoryTime['1'].completetime,
-  //       ]
-  //     }]
-  //     return this.series = series
-  //   }
-  // },
-  // mounted() {
-  //   this.comparecategory(this.series)
-  // }
 };
 </script>

@@ -3,9 +3,8 @@
     <!-- Desktop -->
     <v-app-bar dark color="blue-grey base" v-show="$vuetify.breakpoint.mdAndUp">
       <v-toolbar-title>
-        <router-link to="/todo" class="d-flex align-center"
-          ><img src="@/assets/images/logo-img.svg" class="mr-1" />
-          <img src="@/assets/images/logo-txt.svg"
+        <router-link to="/todo" class="d-flex align-center">
+          <img src="@/assets/images/top-nav-logo.svg"
         /></router-link>
       </v-toolbar-title>
       <v-spacer />
@@ -20,8 +19,7 @@
     <v-app-bar dark color="blue-grey base" v-show="$vuetify.breakpoint.smAndDown">
       <v-toolbar-title
         ><router-link to="/todo" class="d-flex align-center"
-          ><img src="@/assets/images/logo-img.svg" class="mr-1" />
-          <img src="@/assets/images/logo-txt.svg" /></router-link
+          ><img src="@/assets/images/top-nav-logo.svg" /></router-link
       ></v-toolbar-title>
       <v-spacer />
       <v-menu offset-y>
