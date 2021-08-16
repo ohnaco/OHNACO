@@ -46,8 +46,9 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from "vuex";
-const techHelper = createNamespacedHelpers("techStore");
+// import { createNamespacedHelpers } from "vuex";
+// const techHelper = createNamespacedHelpers("techStore");
+import Tech from "@/api/Tech";
 
 export default {
   props: {
@@ -61,7 +62,20 @@ export default {
     };
   },
   methods: {
-    ...techHelper.mapActions(["scrapTech"]),
+    // ...techHelper.mapActions(["scrapTech"]),
+    scrapTech(id) {
+      Tech.scrapTech(
+        id,
+        (res) => {
+          if (res.data.status) {
+            this.item.scrap = !this.item.scrap;
+          } else alert("scrap fail");
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
     diffTime(time) {
       const moment = require("moment");
       const today = moment();

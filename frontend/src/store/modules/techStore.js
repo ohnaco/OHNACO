@@ -6,8 +6,6 @@ export default {
     // data 가 들어가는 곳
     techList: [],
     blogList: [],
-    pageno: 0,
-    keyword: "",
   },
   mutations: {
     // 여기서 data 를 업데이트
