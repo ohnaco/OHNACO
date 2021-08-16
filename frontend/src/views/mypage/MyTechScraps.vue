@@ -12,13 +12,21 @@
         <button @click="goback"><img src="@/assets/images/mypage-back-btn.svg" alt="back-btn"></button>
       </div>
       <v-divider></v-divider>
-      <div class="d-flex mt-3 justify-space-around">
-        <TechCard
+      <v-row>
+        <v-col
           v-for="scrap in myScraps"
           :key="scrap.articleid"
-          :item="scrap"
-        />
-      </div>
+          cols="12"
+          sm="12"
+          md="6"
+          xl="4"
+          class="d-flex justify-center mb-2"
+        >
+          <TechCard
+            :item="scrap"
+          />
+        </v-col>
+      </v-row>
         <infinite-loading @infinite="infiniteHandler" spinner="circles"></infinite-loading>
       <v-divider></v-divider>
     </v-container>
