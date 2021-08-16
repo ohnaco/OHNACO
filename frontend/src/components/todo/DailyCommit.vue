@@ -1,9 +1,10 @@
 <template>
   <div class="d-flex align-center ml-3">
-    <img src="@/assets/images/daily-commit-no.svg" v-if="!todayCommit" />
-    <img src="@/assets/images/daily-commit-ok.svg" v-else />
+    <img src="@/assets/images/daily-commit-no.svg" class="commitImg" v-if="!todayCommit" />
+    <img src="@/assets/images/daily-commit-ok.svg" class="commitImg" v-else />
     <v-btn icon
-      ><img src="@/assets/images/daily-commit-refresh.svg" @click="refreshCommit"
+      ><img src="@/assets/images/daily-commit-refresh.svg" 
+      @click="refreshCommit"
     /></v-btn>
   </div>
 </template>
@@ -24,3 +25,18 @@ export default {
   },
 };
 </script>
+
+<style>
+.commitImg {
+    width: 164px ;
+    height: 35px;
+  }
+
+@media (max-width: 768px) {
+  .commitImg {
+    width: 100px !important;
+    height: 25px !important;
+    margin-right:10px;
+  }
+}
+</style>

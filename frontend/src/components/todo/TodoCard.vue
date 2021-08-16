@@ -37,29 +37,22 @@
                     class="mr-1"
                   />{{ item.goaltime }} / {{ completetime }}
                 </div>
-                <div style="height: 68px">
-                  <v-btn
-                    v-if="this.item.goaltime <= this.item.completetime"
-                    class="ml-2 mt-3"
-                    fab
-                    icon
-                    right
-                  >
-                    <img src="@/assets/images/todo-create-ok.svg" />
-                  </v-btn>
-                  <v-btn
-                    class="ml-2 mt-3"
-                    fab
-                    icon
-                    right
-                    v-if="!this.$parent.isAnyOneGoing"
-                  >
-                    <img
-                      src="@/assets/images/start-btn.svg"
-                      @click="[(isOngoing = true), start()]"
-                    />
-                  </v-btn>
-                </div>
+                <v-btn
+                  v-if="this.item.goaltime <= this.item.completetime"
+                  class="ml-2 mt-3"
+                  fab
+                  icon
+                  right
+                >
+                  <img src="@/assets/images/todo-create-ok.svg" />
+                </v-btn>
+                <v-btn fab icon right v-if="!this.$parent.isAnyOneGoing">
+                  <img
+                    class="start_btn"
+                    src="@/assets/images/start-btn.svg"
+                    @click="[(isOngoing = true), start()]"
+                  />
+                </v-btn>
               </v-card-actions>
             </div>
           </div>
@@ -83,8 +76,7 @@
               </v-layout>
 
               <div class="d-flex justify-end">
-                <v-btn 
-                icon color="blue" @click="moveToday">
+                <v-btn icon color="blue" @click="moveToday">
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
               </div>
@@ -165,23 +157,23 @@
               <v-layout row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <div style="height:36px">
+                <div style="height: 36px">
                   <div
-                    style="font-family: GmarketSansLight; font-size: 22px ; float:left"
-                    class="ml-3"
+                    style="font-family: GmarketSansLight; float: left"
+                    class="ml-3 ongoing_title"
                   >
                     {{ item.title }}
                   </div>
                   <div
-                  class="text-caption mr-3"
-                  v-text="item.todoid"
-                  align="right"
-                />
+                    class="text-caption mr-3"
+                    v-text="item.todoid"
+                    align="right"
+                  />
                 </div>
               </v-layout>
 
               <div class="d-flex justify-end"></div>
-              <div style="height: 64px" class="time">
+              <div class="time">
                 {{ formattedElapsedTime }}
               </div>
               <v-card-actions class="justify-space-between align-end pt-0">
@@ -191,22 +183,14 @@
                     class="mr-1"
                   />{{ item.goaltime }}
                 </div>
-                <div>
-                  <v-btn
-                    v-if="item.issuccess === false"
-                    class="ml-2 mt-3"
-                    fab
-                    icon
-                    right
-                  >
-                    <img
-                      src="@/assets/images/pause.png"
-                      alt=""
-                      style="width: 58px; height: 58px"
-                      v-on:click="stop"
-                    />
-                  </v-btn>
-                </div>
+                <v-btn v-if="false" class="ml-2 mt-3" fab icon right> </v-btn>
+                <v-btn fab icon right>
+                  <img
+                    class="start_btn"
+                    src="@/assets/images/pause.png"
+                    @click="stop"
+                  />
+                </v-btn>
               </v-card-actions>
             </div>
           </div>
@@ -316,13 +300,13 @@ export default {
         }, 1000);
       }
     },
-    moveToday(){
-      const newTodo= {
-        categoryid: this.item.category.categoryid, 
+    moveToday() {
+      const newTodo = {
+        categoryid: this.item.category.categoryid,
         title: this.item.title,
         goaltime: this.item.goaltime,
-        completetime:"00:00:00",
-        date:this.$moment().format("YYYY-MM-DD"),
+        completetime: "00:00:00",
+        date: this.$moment().format("YYYY-MM-DD"),
       };
       this.moveTodayAdd(JSON.stringify(newTodo));
       //this.moveTodayDelete(this.item.todoid);
@@ -373,6 +357,7 @@ export default {
 
 <style>
 .time {
+  height: 64px;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
   font-family: GmarketSansBold;
   font-size: 3rem;
@@ -400,5 +385,156 @@ export default {
   padding: 5.2px 0px 5.2px 3px;
   float: left;
   object-fit: cover;
+}
+.v-card__subtitle,
+.v-card__text,
+.v-card__title {
+  padding: 12px;
+}
+
+.v-btn--fab.v-size--default {
+  height: 56px;
+  width: 56px;
+}
+
+.start_btn {
+  height: 56px;
+  width: 56px;
+}
+.ongoing_title {
+  font-size: 22px;
+}
+
+.pause_img {
+  width: 56px;
+  height: 56px;
+}
+
+@media (max-width: 768px) {
+  .v-card__subtitle,
+  .v-card__text,
+  .v-card__title {
+    padding-bottom: 6px;
+    padding-top: 0px;
+  }
+  .v-btn--fab.v-size--default {
+    height: 28px;
+    width: 28px;
+  }
+  .start_btn {
+    height: 30px;
+    width: 30px;
+  }
+  .v-btn--icon.v-size--default {
+    height: 18px;
+    width: 18px;
+    margin-right: 12px;
+  }
+  .container,
+  .container-fluid,
+  .container-lg,
+  .container-md,
+  .container-sm,
+  .container-xl,
+  .container-xxl {
+    width: 100%;
+    padding-right: 6px !important;
+    padding-left: 6px !important;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  .col-xl,
+  .col-xl-auto,
+  .col-xl-12,
+  .col-xl-11,
+  .col-xl-10,
+  .col-xl-9,
+  .col-xl-8,
+  .col-xl-7,
+  .col-xl-6,
+  .col-xl-5,
+  .col-xl-4,
+  .col-xl-3,
+  .col-xl-2,
+  .col-xl-1,
+  .col-lg,
+  .col-lg-auto,
+  .col-lg-12,
+  .col-lg-11,
+  .col-lg-10,
+  .col-lg-9,
+  .col-lg-8,
+  .col-lg-7,
+  .col-lg-6,
+  .col-lg-5,
+  .col-lg-4,
+  .col-lg-3,
+  .col-lg-2,
+  .col-lg-1,
+  .col-md,
+  .col-md-auto,
+  .col-md-12,
+  .col-md-11,
+  .col-md-10,
+  .col-md-9,
+  .col-md-8,
+  .col-md-7,
+  .col-md-6,
+  .col-md-5,
+  .col-md-4,
+  .col-md-3,
+  .col-md-2,
+  .col-md-1,
+  .col-sm,
+  .col-sm-auto,
+  .col-sm-12,
+  .col-sm-11,
+  .col-sm-10,
+  .col-sm-9,
+  .col-sm-8,
+  .col-sm-7,
+  .col-sm-6,
+  .col-sm-5,
+  .col-sm-4,
+  .col-sm-3,
+  .col-sm-2,
+  .col-sm-1,
+  .col,
+  .col-auto,
+  .col-12,
+  .col-11,
+  .col-10,
+  .col-9,
+  .col-8,
+  .col-7,
+  .col-6,
+  .col-5,
+  .col-4,
+  .col-3,
+  .col-2,
+  .col-1 {
+    width: 100%;
+    padding: 6px !important;
+  }
+  .v-application .justify-end {
+    justify-content: flex-end !important;
+  }
+  .row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+  }
+
+  .ongoing_title {
+    font-size: 14px;
+  }
+  .time {
+    height: 36px;
+    font-size: 2rem;
+    line-height: 38px;
+  }
+  .pause_img {
+    width: 25px;
+    height: 25px;
+  }
 }
 </style>
