@@ -23,21 +23,25 @@ import "firebase/analytics";
 // Add the Firebase products that you want to use
 import "firebase/messaging";
 
-// 지원하는 브라우저인지 확인 후 진행
-if (firebase.messaging.isSupported()) {
-  const firebaseConfig = {
-    apiKey: "AIzaSyAjoO1hK9KSuV3oEsXBjxf0BdSoFwJO6HY",
-    authDomain: "ohnaco-notification.firebaseapp.com",
-    projectId: "ohnaco-notification",
-    storageBucket: "ohnaco-notification.appspot.com",
-    messagingSenderId: "1097451483774",
-    appId: "1:1097451483774:web:03068b7284ab4b03ea5e2f",
-    measurementId: "G-8HLXHVJ0H7",
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyAjoO1hK9KSuV3oEsXBjxf0BdSoFwJO6HY",
+  authDomain: "ohnaco-notification.firebaseapp.com",
+  projectId: "ohnaco-notification",
+  storageBucket: "ohnaco-notification.appspot.com",
+  messagingSenderId: "1097451483774",
+  appId: "1:1097451483774:web:03068b7284ab4b03ea5e2f",
+  measurementId: "G-8HLXHVJ0H7",
+};
 
+if (!firebase.apps.length) {
   // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
+} else {
+  firebase.app();
+}
 
+// 지원하는 브라우저인지 확인 후 진행
+if (firebase.messaging.isSupported()) {
   // Firebase Messaging 객체 획득
   const messaging = firebase.messaging();
   // 알림 수신을 위한 사용자 권한 요청
