@@ -119,13 +119,20 @@ public class MyPageController {
         String userid = jwtUtil.getUserid(token);
         List<Answer> answers = answerService.getAnswerByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("answerdate").descending())).getContent();
         List<AnswerDto> answerDto = new ArrayList<>();
+        List<QuestionDto> questionDto = new ArrayList<>();
         for(Answer answer : answers) {
             answerDto.add(AnswerDto.builder().answerid(answer.getAnswerid()).answertitle(answer.getAnswertitle())
                     .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).questionid(answer.getQuestion().getQuestionid())
                     .user(answer.getUser()).userLike(redisUtil.getLikeUseridData(likeAnswerKey+answer.getAnswerid(), userid))
                     .like(redisUtil.getLikeCountData(likeAnswerKey+answer.getAnswerid())).build());
+            Question question = questionService.getQuestionByid(answer.getQuestion().getQuestionid());
+            questionDto.add(QuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .questioncontent(question.getQuestioncontent()).questiondate(question.getQuestiondate()).user(question.getUser())
+                    .tag(question.getTag()).visit(redisUtil.getData(visitKey+question.getQuestionid()))
+                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid())).build());
         }
         result.put("answer",answerDto);
+        result.put("question", questionDto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
