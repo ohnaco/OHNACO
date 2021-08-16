@@ -26,13 +26,7 @@ export default {
   },
   data: function () {
     return {
-      series: [
-        // this.categoryTime[0].completetime,
-        // this.categoryTime[2].completetime,
-        // this.categoryTime[3].completetime,
-        // this.categoryTime[4].completetime,
-        // this.categoryTime[1].completetime,
-      ],
+      series: [],
       chartOptions: {
         chart: {
           id: 'chart',
@@ -73,32 +67,6 @@ export default {
       this.series = newSeries
     }
   },
-  // computed: {
-  //   newseries()  {
-  //     return [
-  //       this.categoryTime[0].completetime,
-  //       this.categoryTime[2].completetime,
-  //       this.categoryTime[3].completetime,
-  //       this.categoryTime[4].completetime,
-  //       this.categoryTime[1].completetime,
-  //     ]
-  //   }
-  // },
-  // methods: {
-  //   categorydata: function () {
-  //     const series = [
-  //       this.categoryTime[0].completetime,
-  //       this.categoryTime[2].completetime,
-  //       this.categoryTime[3].completetime,
-  //       this.categoryTime[4].completetime,
-  //       this.categoryTime[1].completetime,
-  //     ]
-  //     return this.series = series
-  //   }
-  // },
-  // mounted() {
-  //   this.categorydata(this.series)
-  // }
 };
 </script>
 

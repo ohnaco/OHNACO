@@ -2,11 +2,11 @@
   <div class="container">
     <div v-if="option=='week'" class="d-flex justify-space-between">
       <div><b>이번주 총 공부시간</b></div>
-      <h2 style="color:crimson"><b>{{ totalTime | timechange }}</b></h2>
+      <div style="color:crimson"><b>{{ totalTime | timechange }}</b></div>
     </div>
     <div v-if="option=='month'" class="d-flex justify-space-between">
       <div><b>이번달 총 공부시간</b></div>
-      <h2 style="color:crimson"><b>{{ totalTime | timechange }}</b></h2>
+      <div style="color:crimson"><b>{{ totalTime | timechange }}</b></div>
     </div>
   </div>
 </template>
