@@ -67,6 +67,10 @@
 - Redis
 - MariaDB
 
+### 아키텍처 
+<img src="/uploads/8e6cf08bd6882e38de84d50df36d3ff5/스크린샷_2021-08-16_오후_2.29.20.png" alt="architecture" width="800"/>
+
+
 <br>
 
 ## 📜 기획
