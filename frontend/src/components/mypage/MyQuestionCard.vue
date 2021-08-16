@@ -62,7 +62,7 @@ export default {
     gotoDetail: function (question) {
       this.$router.push({
         name: "QuestionDetail",
-        params:{ id: question.questionid },
+        query:{ id: question.questionid },
       });
     },
   }
