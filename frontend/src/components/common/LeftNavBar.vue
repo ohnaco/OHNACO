@@ -12,12 +12,12 @@
         ></v-col>
       </v-row>
       <v-row dense class="mt-5">
-        <v-col align="center"><profile-image :user="user"></profile-image></v-col>
+        <v-col align="center"><profile-image :user="mypageInfo"></profile-image></v-col>
       </v-row>
       <v-row dense class="mt-2">
         <v-col align="center"
           ><router-link to="/mypage"
-            ><div class="text-h6">{{ user.nickname }} 님</div></router-link
+            ><div class="text-h6">{{ mypageInfo.info.nickname }} 님</div></router-link
           ></v-col
         >
       </v-row>
@@ -42,6 +42,7 @@
 <script>
 import ProfileImage from "./ProfileImage.vue";
 import { createNamespacedHelpers } from "vuex";
+const mypageHelper = createNamespacedHelpers("mypageStore");
 const userHelper = createNamespacedHelpers("userStore");
 
 export default {
@@ -60,7 +61,7 @@ export default {
     };
   },
   computed: {
-    ...userHelper.mapState(["user"]),
+    ...mypageHelper.mapState(["mypageInfo"]),
   },
   methods: {
     ...userHelper.mapActions(["logout"]),

@@ -42,7 +42,7 @@
           <img src="@/assets/images/todo-add-btn.svg" class="todo_add" />
         </button>
       </v-col>
-      <v-col cols="12" sm="12" md="3">
+      <v-col cols="12" sm="0" md="3" lg="3">
         <!-- 우측달력 -->
         <CalendarSmall
           @modalOn_child="modalOn"
@@ -158,7 +158,7 @@ export default {
   height: 25px;
   display: none;
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .h2,
   h2 {
     font-size: 14px !important;

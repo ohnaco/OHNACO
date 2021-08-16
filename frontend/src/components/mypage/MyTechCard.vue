@@ -20,13 +20,13 @@
             :key="i"
             @click="goBlog(scrap)"
           >
-            <td align="center" class="pr-0">
-              <v-list-item-avatar
-                tile
-                size="80"
-              >
-              <v-img :src="`${scrap.image}`" alt="blog-img"></v-img>
-              </v-list-item-avatar>
+            <td align="center">
+              <v-img 
+                  :src="require(`@/assets/images/${scrap.image}.png`)" 
+                  alt="blog-img"
+                  max-height="120"
+                  max-width="120"
+                ></v-img>
             </td>
             <td class="pl-0">
               <div class="mt-3">

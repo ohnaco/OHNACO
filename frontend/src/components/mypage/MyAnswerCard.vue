@@ -72,7 +72,7 @@ export default {
     gotoDetail: function (answer) {
       this.$router.push({
         name: "QuestionDetail",
-        params:{ id: answer.answerid },
+        query:{ id: answer.answerid },
       });
     },
   }

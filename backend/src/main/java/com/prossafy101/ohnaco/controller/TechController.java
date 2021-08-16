@@ -121,11 +121,12 @@ public class TechController {
         
         Object list = null;
         try {
-            Page<Article> temp = techService.getSubscribeArticles(page, keyword, userid);
+            Page<Article> temp = techService.getSubscribeArticles(page, userid);
             list = temp.map(article -> new ArticleDto(article,
                     redisUtil.getScrapUseridData(scrapKey + userid, article.getArticleid().toString()),
                     techService.isSubscribe(userid, article.getBlogid())));
         } catch (Exception e) {
+            e.printStackTrace();
             list = new HashMap<String, Object>();
             ((HashMap<String, Object>) list).put("content", new ArrayList<>());
             

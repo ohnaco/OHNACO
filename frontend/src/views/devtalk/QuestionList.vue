@@ -307,7 +307,7 @@ export default {
     gotoDetail(qid) {
       this.$router.push({
         name: "QuestionDetail",
-        params: { id: qid },
+        query: { id: qid },
       });
     },
   },

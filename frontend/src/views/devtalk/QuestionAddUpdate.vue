@@ -78,7 +78,9 @@
             src="@/assets/images/qm.svg"
             style="width: 12px; height: 12px; float: left; margin: 2.8px 0; color: #607d8b"
           />
-          &nbsp;markdown 사용방법 링크
+          <a href = "https://gist.github.com/ihoneymon/652be052a0727ad59601" 
+            target = "blank"
+            style="color:#607d8b"> &nbsp;markdown 사용방법 링크 </a>
         </div>
         <v-btn
           elevation="2"
