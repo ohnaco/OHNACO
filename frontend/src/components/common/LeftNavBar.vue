@@ -13,8 +13,9 @@
         <v-row>
           <v-col align="center"
             ><router-link to="/mypage"
-              ><div class="text-h6" v-text="user.nickname"></div></router-link
-          ></v-col>
+              ><div class="text-h6">{{ user.nickname }} 님</div></router-link
+            ></v-col
+          >
         </v-row>
       </v-container>
       <v-container class="mt-15">
