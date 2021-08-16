@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row dense>
       <v-col cols="12">
         <!-- default mode - today -->
         <v-card
@@ -12,11 +12,7 @@
               <v-layout row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <v-col
-                  class="text-caption mr-3"
-                  v-text="item.todoid"
-                  align="right"
-                />
+                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
               </v-layout>
 
               <div class="d-flex justify-end">
@@ -32,10 +28,10 @@
 
               <v-card-actions class="justify-space-between align-end pt-0">
                 <div class="d-flex text-caption align-center ml-2">
-                  <img
-                    src="@/assets/images/todo-card-clock.svg"
-                    class="mr-1"
-                  />{{ item.goaltime }} / {{ completetime }}
+                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{
+                    item.goaltime
+                  }}
+                  / {{ completetime }}
                 </div>
                 <v-btn
                   v-if="this.item.goaltime <= this.item.completetime"
@@ -68,11 +64,7 @@
               <v-layout row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <v-col
-                  class="text-caption mr-3"
-                  v-text="item.todoid"
-                  align="right"
-                />
+                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
               </v-layout>
 
               <div class="d-flex justify-end">
@@ -85,10 +77,10 @@
 
               <v-card-actions class="justify-space-between align-end pt-0">
                 <div class="d-flex text-caption align-center ml-2">
-                  <img
-                    src="@/assets/images/todo-card-clock.svg"
-                    class="mr-1"
-                  />{{ item.goaltime }} / {{ completetime }}
+                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{
+                    item.goaltime
+                  }}
+                  / {{ completetime }}
                 </div>
                 <v-btn
                   v-if="this.item.goaltime > this.item.completetime"
@@ -117,11 +109,7 @@
               <v-layout row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <v-col
-                  class="text-caption mr-3"
-                  v-text="item.todoid"
-                  align="right"
-                />
+                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
               </v-layout>
 
               <div class="d-flex justify-end">
@@ -136,14 +124,11 @@
               <v-card-title class="text-h5 ml-4" v-text="item.title" />
 
               <v-card-actions class="justify-space-between align-end pt-0">
-                <div
-                  class="d-flex text-caption align-center ml-2"
-                  style="height: 76px"
-                >
-                  <img
-                    src="@/assets/images/todo-card-clock.svg"
-                    class="mr-1"
-                  />{{ item.goaltime }} / {{ completetime }}
+                <div class="d-flex text-caption align-center ml-2" style="height: 76px">
+                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{
+                    item.goaltime
+                  }}
+                  / {{ completetime }}
                 </div>
               </v-card-actions>
             </div>
@@ -164,11 +149,7 @@
                   >
                     {{ item.title }}
                   </div>
-                  <div
-                    class="text-caption mr-3"
-                    v-text="item.todoid"
-                    align="right"
-                  />
+                  <div class="text-caption mr-3" v-text="item.todoid" align="right" />
                 </div>
               </v-layout>
 
@@ -178,10 +159,7 @@
               </div>
               <v-card-actions class="justify-space-between align-end pt-0">
                 <div class="d-flex text-caption align-center ml-2">
-                  <img
-                    src="@/assets/images/todo-card-clock.svg"
-                    class="mr-1"
-                  />{{ item.goaltime }}
+                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
                 </div>
                 <v-btn v-if="false" class="ml-2 mt-3" fab icon right> </v-btn>
                 <v-btn fab icon right>
@@ -238,19 +216,21 @@ export default {
     deActivateEditMode() {
       this.isEdit = false;
     },
-    ...todoHelper.mapActions(["deleteTodo"]),
-    ...todoHelper.mapActions(["moveTodayAdd"]),
-    ...todoHelper.mapActions(["moveTodayDelete"]),
-    ...todoHelper.mapActions(["deleteTodo"]),
-    ...todoHelper.mapActions(["stateChange"]),
-    ...todoHelper.mapActions(["forceQuit"]),
-    ...todoHelper.mapActions(["updateTime"]),
-    ...todoHelper.mapActions(["setTime"]),
-    ...todoHelper.mapActions(["setGoingTime"]),
-    ...todoHelper.mapActions(["setId"]),
-    ...todoHelper.mapActions(["setTimeFQ"]),
-    ...todoHelper.mapActions(["setGoingTimeFQ"]),
-    ...todoHelper.mapActions(["setIdFQ"]),
+    ...todoHelper.mapActions([
+      "deleteTodo",
+      "moveTodayAdd",
+      "moveTodayDelete",
+      "deleteTodo",
+      "stateChange",
+      "forceQuit",
+      "updateTime",
+      "setTime",
+      "setGoingTime",
+      "setId",
+      "setTimeFQ",
+      "setGoingTimeFQ",
+      "setIdFQ",
+    ]),
     start() {
       this.parentTrue();
       this.time =
@@ -316,12 +296,14 @@ export default {
     },
   },
   computed: {
-    ...todoHelper.mapState(["exitTime"]),
-    ...todoHelper.mapState(["goingTime"]),
-    ...todoHelper.mapState(["ongoingId"]),
-    ...todoHelper.mapState(["exitTimeFQ"]),
-    ...todoHelper.mapState(["goingTimeFQ"]),
-    ...todoHelper.mapState(["ongoingIdFQ"]),
+    ...todoHelper.mapState([
+      "exitTime",
+      "goingTime",
+      "ongoingId",
+      "exitTimeFQ",
+      "goingTimeFQ",
+      "ongoingIdFQ",
+    ]),
     formattedElapsedTime() {
       const date = new Date(null);
       date.setSeconds(this.time / 1000);
@@ -351,7 +333,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .time {
   height: 64px;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
