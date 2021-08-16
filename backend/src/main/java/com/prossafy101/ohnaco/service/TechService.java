@@ -117,10 +117,10 @@ public class TechService {
         return null;
     }
 
-    public Page<Article> getSubscribeArticles(Pageable pageable, String keyword, String userid)throws Exception  {
+    public Page<Article> getSubscribeArticles(Pageable pageable, String userid)throws Exception  {
 
        try {
-            return articleRepository.findArticles(keyword, keyword, userid, pageable);
+            return articleRepository.findArticles(userid, pageable);
         } catch(Exception e) {
             throw new Exception("");
         }
