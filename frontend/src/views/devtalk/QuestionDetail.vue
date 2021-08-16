@@ -34,7 +34,7 @@ export default {
     };
   },
   created(){
-    this.parentid=this.$route.params.id;
+    this.parentid=this.$route.query.id;
   },
 };
 </script>

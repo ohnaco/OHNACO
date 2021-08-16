@@ -143,7 +143,7 @@ export default {
     gotoDetail() {
       this.$router.push({
         name: "QuestionDetail",
-        params: { id: this.item.questionid },
+        query: { id: this.item.questionid },
       });
     },
     dateModify() {

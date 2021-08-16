@@ -1,7 +1,7 @@
 <template>
   <v-layout>
     <v-row>
-      <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
+      <v-col cols="12" lg="2" v-show="$vuetify.breakpoint.mdAndUp"
         ><left-nav-bar></left-nav-bar
       ></v-col>
       <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"
@@ -10,7 +10,8 @@
       <v-col
         cols="12"
         sm="12"
-        md="7"
+        md="9"
+        lg="7"
         class="d-flex flex-column"
         style="height: 100vh; overflow: scroll"
       >
@@ -53,7 +54,7 @@
           <img src="@/assets/images/todo-add-btn.svg" class="todo_add" />
         </button>
       </v-col>
-      <v-col cols="12" sm="12" md="3">
+      <v-col cols="12" sm="0" md="3" lg="3">
         <!-- 우측달력 -->
         <CalendarSmall
           @modalOn_child="modalOn"
@@ -169,7 +170,7 @@ export default {
   height:25px;
   display:none;
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .h2,
   h2 {
     font-size: 14px !important;
@@ -204,10 +205,6 @@ export default {
   }
   .container {
     padding: 6px;
-  }
-  .col-md-3 {
-    flex: 0 0 auto;
-    width: 40% !important;
   }
   .smallCalendar{
     display: none;
