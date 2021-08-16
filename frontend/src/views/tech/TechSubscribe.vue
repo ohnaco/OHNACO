@@ -66,6 +66,11 @@
         </v-col>
       </v-row>
     </v-col>
+    <v-col>
+      <button class="mr-15" @click="goTech()">
+        <img src="@/assets/images/back-btn.svg" alt="back" />
+      </button>
+    </v-col>
   </v-row>
 </template>
 
@@ -94,6 +99,9 @@ export default {
       "subscribeBlog",
       "unSubscribeBlog",
     ]),
+    goTech() {
+      this.$router.push({ name: "Tech" });
+    },
   },
 };
 </script>
