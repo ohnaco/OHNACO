@@ -61,7 +61,7 @@ export default {
     goDetail: function (answer) {
       this.$router.push({
         name: "QuestionDetail",
-        params:{ id: answer.questionid },
+        query:{ id: answer.questionid },
       });
     },
     infiniteHandler($state) {
