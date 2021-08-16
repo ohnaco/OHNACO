@@ -1,9 +1,15 @@
 <template>
   <v-row>
-    <v-col cols="2">
-      <left-nav-bar></left-nav-bar>
-    </v-col>
-    <v-col cols="10" class="p-2" style="height: 100vh; overflow-y: scroll">
+    <v-col cols="12" lg="2" v-show="$vuetify.breakpoint.mdAndUp"
+        ><left-nav-bar></left-nav-bar
+      ></v-col>
+      <v-col
+        cols="12"
+        v-show="$vuetify.breakpoint.smAndDown"
+        style="padding: 0 !important"
+        ><top-nav-bar></top-nav-bar
+      ></v-col>
+    <v-col cols="12" md="12" lg="10" class="p-2" style="height: 100vh; overflow-y: scroll">
       <b-container class="bv-example-row" style="height: 120px">
         <h1
           style="
@@ -125,6 +131,7 @@
 <script>
 import marked from "marked";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
+import TopNavBar from "@/components/common/TopNavBar.vue";
 import { createNamespacedHelpers } from "vuex";
 const devtalkHelper = createNamespacedHelpers("devTalkStore");
 
@@ -132,6 +139,7 @@ export default {
   name: "App",
   components: {
     LeftNavBar,
+    TopNavBar,
   },
   data() {
     return {
@@ -178,6 +186,7 @@ export default {
   },
 };
 </script>
+
 <style>
 @font-face {
   font-family: "GmarketSansMedium";
@@ -203,6 +212,7 @@ export default {
   font-style: normal;
 }
 
+
 .tag_section {
   font-family: GmarketSansMedium;
   font-size: 16px;
@@ -218,9 +228,49 @@ export default {
 }
 
 .md_exp {
+  display: block;
   font-family: GmarketSansLight;
   font-size: 14px;
   font-weight: lighter;
   color: #607d8b;
+}
+.md_ex {
+  display: block;
+  font-family: GmarketSansLight;
+  font-size: 14px;
+  font-weight: lighter;
+  color: #607d8b;
+}
+.md_exp_small {
+  display: none;
+  font-family: GmarketSansLight;
+  font-size: 10px;
+  font-weight: lighter;
+  color: #607d8b;
+}
+@media (max-width: 767px) {
+.md_exp {
+  display: none;
+  font-family: GmarketSansLight;
+  font-size: 14px;
+  font-weight: lighter;
+  color: #607d8b;
+}
+.md_exp_small {
+  display: block;
+  font-family: GmarketSansLight;
+  font-size: 10px;
+  font-weight: lighter;
+  color: #607d8b;
+}
+.md_ex {
+  font-size: 10px;
+}
+.title_tag {
+  font-size: 12px !important;
+}
+.h1, h1 {
+    font-size: 20px !important;
+}
 }
 </style>

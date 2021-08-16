@@ -1,9 +1,16 @@
 <template>
+<v-layout>
   <v-row>
-    <v-col cols="2">
-      <left-nav-bar></left-nav-bar>
-    </v-col>
-    <v-col cols="10" class="p-2" style="height: 100vh; overflow-y: scroll">
+    <v-col cols="12" lg="2" v-show="$vuetify.breakpoint.mdAndUp"
+        ><left-nav-bar></left-nav-bar
+      ></v-col>
+      <v-col
+        cols="12"
+        v-show="$vuetify.breakpoint.smAndDown"
+        style="padding: 0 !important"
+        ><top-nav-bar></top-nav-bar
+      ></v-col>
+    <v-col cols="12" md="12" lg="10" class="p-2" style="height: 100vh; overflow-y: scroll">
       <b-container class="bv-example-row" style="height: 120px">
         <h1
           style="
@@ -48,6 +55,7 @@
         <b-row class="mb-0">
           <b-col>
             <span class="md_exp">마크다운으로 작성할 수 있습니다.</span>
+            <span class="md_exp_small">마크다운 작성.</span>
             <div>
               <b-form-textarea
                 style="
@@ -63,7 +71,7 @@
             </div>
           </b-col>
           <b-col>
-            <span class="md_exp">미리보기</span>
+            <span class="md_ex">미리보기</span>
             <div
               id="editor"
               style="
@@ -121,10 +129,12 @@
       </b-container>
     </v-col>
   </v-row>
+  </v-layout>
 </template>
 <script>
 import marked from "marked";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
+import TopNavBar from "@/components/common/TopNavBar.vue";
 import { createNamespacedHelpers } from "vuex";
 const userHelper = createNamespacedHelpers("userStore");
 const devtalkHelper = createNamespacedHelpers("devTalkStore");
@@ -133,6 +143,7 @@ export default {
   name: "App",
   components: {
     LeftNavBar,
+    TopNavBar,
   },
   data() {
     return {
@@ -214,9 +225,49 @@ export default {
 }
 
 .md_exp {
+  display: block;
   font-family: GmarketSansLight;
   font-size: 14px;
   font-weight: lighter;
   color: #607d8b;
+}
+.md_ex {
+  display: block;
+  font-family: GmarketSansLight;
+  font-size: 14px;
+  font-weight: lighter;
+  color: #607d8b;
+}
+.md_exp_small {
+  display: none;
+  font-family: GmarketSansLight;
+  font-size: 10px;
+  font-weight: lighter;
+  color: #607d8b;
+}
+@media (max-width: 767px) {
+.md_exp {
+  display: none;
+  font-family: GmarketSansLight;
+  font-size: 14px;
+  font-weight: lighter;
+  color: #607d8b;
+}
+.md_exp_small {
+  display: block;
+  font-family: GmarketSansLight;
+  font-size: 10px;
+  font-weight: lighter;
+  color: #607d8b;
+}
+.md_ex {
+  font-size: 10px;
+}
+.title_tag {
+  font-size: 12px !important;
+}
+.h1, h1 {
+    font-size: 20px !important;
+}
 }
 </style>

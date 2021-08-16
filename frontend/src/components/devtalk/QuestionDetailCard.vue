@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="qd_rectangle">
-      <div class="p-3">
+      <div class="profile">
         <!--제목 -->
         <div style="height: 22px; float: left" class="qCard_title mt-2 mb-2">
           <span style="font-size: 20px">Q.</span>
@@ -11,11 +11,11 @@
 
         <!--따봉수 -->
         <div style="float: right" class="qd_14_medium pt-1" v-if="!question.question.userLike">
-          <img src="@/assets/images/question-like-empty.svg" alt="" @click="like()" />
+          <img src="@/assets/images/question-like-empty.svg" alt="" @click="like()" class="like-img"/>
           {{ question.question.like }}
         </div>
         <div style="float: right" class="qd_14_medium pt-1" v-if="question.question.userLike">
-          <img src="@/assets/images/question-like.svg" style="width:25px ; height:25px" alt="" @click="unlike()"/>
+          <img src="@/assets/images/question-like.svg" style="width:25px ; height:25px" alt="" class="like-img" @click="unlike()"/>
           {{ question.question.like }}
         </div>
         <!--따봉 끝 -->
@@ -97,6 +97,7 @@
         >A.</span
       >
       <span style="font-family: GmarketSansMedium; font-size: 22px; color: red"
+      class="ans_cnt"
         >{{ answerList.length }}개의 답변이 있습니다.</span
       >
     </div>
@@ -235,7 +236,7 @@ export default {
 
 <style>
 .qd_rectangle {
-  width: 95%;
+  width: 100%;
   border-radius: 10px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #607d8b;
@@ -288,7 +289,7 @@ code {
 .tag {
   background-color: #80deea;
   font-family: "GmarketSansLight";
-  font-size: 10px;
+  font-size: 8px;
   height: 80%;
   border: none;
   color: #607d8b;
@@ -301,5 +302,25 @@ code {
 .modal_content {
   font-family: "GmarketSansMedium";
   font-size: 18px;
+}
+.profile{
+    padding: 12px;
+  }
+
+@media (max-width: 768px) {
+  .qCard_title{
+    height: 20px;
+    font-size:12px;
+  }
+  .like-img{
+    width:15px !important;
+    height:15px !important;
+  }
+  .profile{
+    padding: 4px !important;
+  }
+  .ans_cnt{
+    font-size:12px !important;
+  }
 }
 </style>
