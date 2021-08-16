@@ -6,7 +6,7 @@
       <div class="update-profile-name">정보 수정</div>
       <div class="update-profile-box">
         <!-- 사진 미리보기 및 변경 -->
-        <div class="profile_circle">
+        <div class="profile-circle">
           <label for="profile" class="imagebtn">
             <img src="@/assets/images/profile-btn.svg" alt="sample_profile">
           </label>
@@ -64,18 +64,32 @@
           <option value="Game">Game</option>
           <option value="etc.">etc.</option>
         </select>
-        <div class="d-flex justify-space-between mt-3 mb-8">
+        <div class="d-flex justify-space-between mb-8">
           <!-- 회원탈퇴 -->
-          <div class="mr-13">
-            <button @click="deleteUser">
-              <img src="@/assets/images/delete-user.svg" alt="delete-user"/>
-            </button>
+          <div class="mr-8">
+            <v-btn
+              text
+              @click="showDialog"
+            >
+              <img src="@/assets/images/delete-user.svg" alt="back" />
+            </v-btn>
+            <v-dialog
+              max-width="500"
+              v-model="isModal"
+            >
+              <DeleteUserModal
+                @hide="hideDialog"
+                @submit="deleteUserInfo"
+              />
+            </v-dialog>
           </div>
           <!-- 비밀번호 변경 -->
-          <div class="ml-13">
-            <button @click="gochangePwd">
+          <div class="ml-8">
+            <v-btn 
+              text 
+              @click="gochangePwd">
               <img src="@/assets/images/change-pwd-btn.svg" alt="change-pwd"/>
-            </button>
+            </v-btn>
           </div>
         </div>
         <!-- 버튼 -->
@@ -103,12 +117,14 @@
 <script>
 import MyPage from "@/api/MyPage";
 import TopNavBar from "@/components/common/TopNavBar.vue";
+import DeleteUserModal from "@/components/mypage/DeleteUserModal.vue";
 import AWS from 'aws-sdk';
 
 export default {
   name: "ChangeInfo",
   components: {
     TopNavBar,
+    DeleteUserModal,
   },
   data: function () {
     return {
@@ -129,6 +145,7 @@ export default {
       isSubmit: false,
       isCheck: false,
       isUpload: 'nomal',
+      isModal: false,
     };
   },
   created() {
@@ -146,6 +163,12 @@ export default {
     },
     gochangePwd: function () {
       this.$router.push({ name: "ChangePwd" });
+    },
+    showDialog() {
+      this.isModal = true
+    },
+    hideDialog() {
+      this.isModal = false
     },
     checkForm: function () {
       if (this.nickname == this.originnickname)
@@ -189,7 +212,7 @@ export default {
         this.isUpload = 'upload';
       }
     },
-    imageUpload() {
+    imageUpload: function () {
       if (this.isSubmit && this.isCheck) {
         if(this.isUpload == 'upload') {
           AWS.config.update({
@@ -274,7 +297,7 @@ export default {
           };
       }
     },
-    deleteUser: function (res) {
+    deleteImage: function (res) {
       AWS.config.update({
         region: this.bucketRegion,
         credentials: new AWS.CognitoIdentityCredentials({
@@ -290,7 +313,7 @@ export default {
       });
 
       s3.deleteObject({
-        Key: this.email+".jpg"
+        Key: this.email + ".jpg"
       }, (err, data) => {
         if(err) {
           console.log(err)
@@ -300,6 +323,20 @@ export default {
       });
       console.log(res)
     },
+    deleteUserInfo: function () {
+      MyPage.deleteUser(
+        (res) => {
+          console.log(res)
+          this.hideDialog()
+          this.deleteImage()
+          alert('회원 탈퇴가 정상적으로 완료되었습니다.')
+          this.$router.push({ name: 'Main' })
+        },
+        (err) => {
+          console.log(err)
+        }
+      )
+    }
   },
 };
 </script>
@@ -336,7 +373,7 @@ export default {
   border: solid 1px #607d8b;
   background-color: rgba(255, 255, 255, 0);
 }
-.profile_circle {
+.profile-circle {
   position: relative;
   width: 169px;
   height: 169px;
@@ -360,7 +397,7 @@ export default {
   background: #eceff1;
   border: 1px solid #eceff1;
 }
-.profile_circle input[type="file"] {
+.profile-circle input[type="file"] {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
 }
