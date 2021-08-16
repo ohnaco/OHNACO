@@ -331,6 +331,14 @@ export default {
 .pagination {
     font-size:10px !important;
 }
+.col-11 {
+    flex: 0 0 91.6666666667% !important;
+    max-width: 91.6666666667% !important;
+}
+.col-1 {
+    flex: 0 0 auto;
+    width: 8.33333333% !important;
+}
 }
 @media (max-width: 425px) {
   .tag {
