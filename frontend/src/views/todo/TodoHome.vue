@@ -1,34 +1,27 @@
 <template>
   <v-layout>
-    <v-row>
+    <v-row dense>
       <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
         ><left-nav-bar></left-nav-bar
       ></v-col>
-      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"
-        ><top-nav-bar></top-nav-bar
-      ></v-col>
-      <v-col
-        cols="12"
-        sm="12"
-        md="7"
-        class="d-flex flex-column"
-        style="height: 100vh; overflow: scroll"
-      >
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"><top-nav-bar></top-nav-bar></v-col>
+      <v-col cols="12" sm="12" md="7" class="d-flex flex-column">
         <div class="d-flex align-center text-h4 ma-5">
           <img src="@/assets/images/todo-icon.svg" class="mr-2 pencil-img" />
           <div class="text-sm-h6 text-md-h4">To Do List</div>
-          <img  
-          src="@/assets/images/calendar_black.svg"
-          class="mobile_calendar_btn"
-          @click="mobileCalendarOn"/>
+          <img
+            src="@/assets/images/calendar_black.svg"
+            class="mobile_calendar_btn"
+            @click="mobileCalendarOn"
+          />
         </div>
-        
+
         <div class="d-flex flex-row align-center ma-5">
-          <h2 v-text="date"></h2>
+          <h4 v-text="date"></h4>
           <daily-commit v-if="isDateToday" />
         </div>
         <CalendarSmall
-        v-if="isMobileCanlendar"
+          v-if="isMobileCanlendar"
           @modalOn_child="modalOn"
           @todoDate="moveDate"
           style="width: 100%"
@@ -36,19 +29,15 @@
           class="mobileCalendar"
         ></CalendarSmall>
         <div v-if="!isMobileCanlendar">
-        <todo-card
-          v-for="todo in todoLists"
-          :key="todo.todoid"
-          :item="todo"
-          @trueChange="tChange()"
-          @falseChange="fChange()"
-        />
+          <todo-card
+            v-for="todo in todoLists"
+            :key="todo.todoid"
+            :item="todo"
+            @trueChange="tChange()"
+            @falseChange="fChange()"
+          />
         </div>
-        <todo-add
-          @finish-create="toggleCreate"
-          v-if="isCreateTodo"
-          :date="date"
-        />
+        <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
         <button @click="toggleCreate" v-if="!isCreateTodo">
           <img src="@/assets/images/todo-add-btn.svg" class="todo_add" />
         </button>
@@ -140,8 +129,8 @@ export default {
     fChange() {
       this.isAnyOneGoing = false;
     },
-    mobileCalendarOn(){
-      this.isMobileCanlendar=!this.isMobileCanlendar;
+    mobileCalendarOn() {
+      this.isMobileCanlendar = !this.isMobileCanlendar;
     },
   },
   watch: {
@@ -153,7 +142,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .commit {
   width: 164px;
   height: 35px;
@@ -162,12 +151,12 @@ export default {
   width: 63px;
   height: 63px;
 }
-.mobile_calendar_btn{
-  position:absolute ; 
-  right:20px ; 
-  width:25px ; 
-  height:25px;
-  display:none;
+.mobile_calendar_btn {
+  position: absolute;
+  right: 20px;
+  width: 25px;
+  height: 25px;
+  display: none;
 }
 @media (max-width: 768px) {
   .h2,
@@ -184,13 +173,13 @@ export default {
     width: 32px;
     height: 32px;
   }
-  .mobile_calendar_btn{
-  position:absolute ; 
-  right:20px ; 
-  width:25px ; 
-  height:25px;
-  display:block;
-}
+  .mobile_calendar_btn {
+    position: absolute;
+    right: 20px;
+    width: 25px;
+    height: 25px;
+    display: block;
+  }
   .v-application .text-h4 {
     font-size: 1.5rem !important;
     font-weight: 400;
@@ -209,7 +198,7 @@ export default {
     flex: 0 0 auto;
     width: 40% !important;
   }
-  .smallCalendar{
+  .smallCalendar {
     display: none;
   }
 }
