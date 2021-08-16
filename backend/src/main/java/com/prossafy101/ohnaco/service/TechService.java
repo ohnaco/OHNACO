@@ -21,6 +21,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import springfox.documentation.swagger2.mappers.ModelMapper;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -115,9 +117,13 @@ public class TechService {
         return null;
     }
 
-    public Page<Article> getSubscribeArticles(Pageable pageable, String keyword, String userid) {
+    public Page<Article> getSubscribeArticles(Pageable pageable, String keyword, String userid)throws Exception  {
 
-        return articleRepository.findArticles(keyword, keyword, userid, pageable);
+       try {
+            return articleRepository.findArticles(keyword, keyword, userid, pageable);
+        } catch(Exception e) {
+            throw new Exception("");
+        }
 
     }
 

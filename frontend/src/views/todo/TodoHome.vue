@@ -4,7 +4,9 @@
       <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
         ><left-nav-bar></left-nav-bar
       ></v-col>
-      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"><top-nav-bar></top-nav-bar></v-col>
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"
+        ><top-nav-bar></top-nav-bar
+      ></v-col>
       <v-col
         cols="12"
         sm="12"
@@ -13,18 +15,42 @@
         style="height: 100vh; overflow: scroll"
       >
         <div class="d-flex align-center text-h4 ma-5">
-          <img src="@/assets/images/todo-icon.svg" class="mr-2" />
+          <img src="@/assets/images/todo-icon.svg" class="mr-2 pencil-img" />
           <div class="text-sm-h6 text-md-h4">To Do List</div>
+          <img  
+          src="@/assets/images/calendar_black.svg"
+          class="mobile_calendar_btn"
+          @click="mobileCalendarOn"/>
         </div>
+        
         <div class="d-flex flex-row align-center ma-5">
           <h2 v-text="date"></h2>
           <daily-commit v-if="isDateToday" />
         </div>
-        <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" @trueChange="tChange()" 
-        @falseChange="fChange()"/>
-        <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
+        <CalendarSmall
+        v-if="isMobileCanlendar"
+          @modalOn_child="modalOn"
+          @todoDate="moveDate"
+          style="width: 100%"
+          v-model="date"
+          class="mobileCalendar"
+        ></CalendarSmall>
+        <div v-if="!isMobileCanlendar">
+        <todo-card
+          v-for="todo in todoLists"
+          :key="todo.todoid"
+          :item="todo"
+          @trueChange="tChange()"
+          @falseChange="fChange()"
+        />
+        </div>
+        <todo-add
+          @finish-create="toggleCreate"
+          v-if="isCreateTodo"
+          :date="date"
+        />
         <button @click="toggleCreate" v-if="!isCreateTodo">
-          <img src="@/assets/images/todo-add-btn.svg" />
+          <img src="@/assets/images/todo-add-btn.svg" class="todo_add" />
         </button>
       </v-col>
       <v-col cols="12" sm="12" md="3">
@@ -34,6 +60,7 @@
           @todoDate="moveDate"
           style="width: 100%"
           v-model="date"
+          class="smallCalendar"
         ></CalendarSmall>
         <!--우측달력 끝-->
       </v-col>
@@ -67,7 +94,8 @@ export default {
       date: this.$moment().format("YYYY-MM-DD"),
       isDateToday: null,
       isAddOnGoing: false,
-      isAnyOneGoing:false,
+      isAnyOneGoing: false,
+      isMobileCanlendar: false,
     };
   },
   components: {
@@ -106,11 +134,14 @@ export default {
       const today = this.$moment().format("YYYY-MM-DD");
       return date === today;
     },
-    tChange(){
-      this.isAnyOneGoing=true;
+    tChange() {
+      this.isAnyOneGoing = true;
     },
-    fChange(){
-      this.isAnyOneGoing=false;
+    fChange() {
+      this.isAnyOneGoing = false;
+    },
+    mobileCalendarOn(){
+      this.isMobileCanlendar=!this.isMobileCanlendar;
     },
   },
   watch: {
@@ -121,3 +152,65 @@ export default {
   },
 };
 </script>
+
+<style>
+.commit {
+  width: 164px;
+  height: 35px;
+}
+.todo_add {
+  width: 63px;
+  height: 63px;
+}
+.mobile_calendar_btn{
+  position:absolute ; 
+  right:20px ; 
+  width:25px ; 
+  height:25px;
+  display:none;
+}
+@media (max-width: 768px) {
+  .h2,
+  h2 {
+    font-size: 14px !important;
+    margin-bottom: 0px !important;
+  }
+  .pencil-img {
+    width: 25px;
+    height: 25px;
+  }
+  .todo_add {
+    margin-top: 6px;
+    width: 32px;
+    height: 32px;
+  }
+  .mobile_calendar_btn{
+  position:absolute ; 
+  right:20px ; 
+  width:25px ; 
+  height:25px;
+  display:block;
+}
+  .v-application .text-h4 {
+    font-size: 1.5rem !important;
+    font-weight: 400;
+    line-height: 2.5rem;
+    letter-spacing: 0.0073529412em !important;
+    font-family: "GmarketSans" !important;
+  }
+  .v-application .ma-5 {
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+  }
+  .container {
+    padding: 6px;
+  }
+  .col-md-3 {
+    flex: 0 0 auto;
+    width: 40% !important;
+  }
+  .smallCalendar{
+    display: none;
+  }
+}
+</style>

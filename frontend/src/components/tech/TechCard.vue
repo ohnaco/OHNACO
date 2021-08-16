@@ -1,9 +1,12 @@
 <template>
-  <v-card max-width="300" elevation="10" :href="item.link" target="_blank">
-    <v-img
-      src="http://itimg.chosun.com/sitedata/image/202105/06/2021050601877_0.png"
-      height="150px"
-    >
+  <v-card
+    max-width="300"
+    :href="item.link"
+    target="_blank"
+    elevation="5"
+    :class="{ subscribe: item.subscribe, all: !item.subscribe }"
+  >
+    <v-img contain :src="require(`@/assets/images/${item.image}.png`)" height="150px">
       <v-btn
         v-if="item.scrap"
         icon
@@ -68,3 +71,15 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.subscribe {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 8px 8px 4px rgb(#ff8a65, 0.4) !important;
+}
+
+.all {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 8px 8px 4px rgb(#7b61ff, 0.4) !important;
+}
+</style>

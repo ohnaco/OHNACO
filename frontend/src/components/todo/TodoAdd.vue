@@ -137,3 +137,32 @@ export default {
   },
 };
 </script>
+
+
+<style>
+
+
+
+@media (max-width: 768px) {
+  .v-input {
+    font-size: 6px !important;
+}
+.v-select__selections {
+    align-items: center;
+    display: flex;
+    flex: 1 1;
+    flex-wrap: wrap;
+    line-height: 18px;
+    max-width: 100%;
+    min-width: 20px;
+}
+.v-text-field--outlined.v-input--dense .v-label--active {
+    display: none;
+}
+.v-select.v-text-field:not(.v-text-field--single-line) input {
+    margin-top: 0;
+    display: none;
+}
+}
+
+</style>

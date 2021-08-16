@@ -4,34 +4,46 @@
       ><left-nav-bar></left-nav-bar
     ></v-col>
     <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"><top-nav-bar></top-nav-bar></v-col>
-    <v-col cols="12" sm="12" md="10" class="justify-space-between">
-      <v-row dense class="ma-2 justify-space-between align-center">
-        <v-col cols="12" sm="12" md="4" order="last">
-          <v-btn-toggle v-model="type" borderless group>
-            <v-btn @click="setSubscribeTechList(param)">
+    <v-col cols="12" sm="12" md="10" class="justify-space-around">
+      <v-col cols="12" sm="12" md="12"><p class="text-h4 font-weight-bold mb-0">Tech</p></v-col>
+      <v-row dense class="ma-2 justify-end align-center">
+        <v-col cols="12" sm="12" md="5" align="end">
+          <v-btn-toggle v-model="type" dense borderless group>
+            <v-btn @click="setSubscribeTechList(param)" value="subscribe">
               <v-icon left color="#ff8a65"> mdi-checkbox-blank-circle </v-icon>
-              <span>Subscribe</span>
+              <span style="color: #ff8a65" class="font-weight-bold">Subscribe</span>
             </v-btn>
 
-            <v-btn @click="setAllTechList(param)">
+            <v-btn @click="setAllTechList(param)" value="all">
               <v-icon left color="#7b61ff"> mdi-checkbox-blank-circle </v-icon>
-              <span>All</span>
+              <span style="color: #7b61ff" class="font-weight-bold">All</span>
             </v-btn>
+            <v-btn text color="cyan base" to="/tech/subscribe"
+              ><v-icon left color="cyan"> mdi-cog </v-icon
+              ><span class="font-weight-bold">구독 설정</span></v-btn
+            >
           </v-btn-toggle>
         </v-col>
-
-        <v-col cols="12" sm="12" md="4" order="first">
-          <v-text-field
-            v-model="param.keyword"
-            label="검색어를 입력하세요."
-            append-icon="mdi-magnify"
-          ></v-text-field>
-        </v-col>
       </v-row>
+
+      <!-- Tech Card -->
       <v-row dense>
-        <v-col v-for="(tech, index) in techList" :key="index" cols="12" sm="4">
+        <v-col
+          v-for="(tech, index) in techList"
+          :key="index"
+          cols="12"
+          sm="12"
+          md="6"
+          xl="4"
+          class="d-flex justify-center mb-2"
+        >
           <tech-card :item="tech"
         /></v-col>
+        <infinite-loading
+          :identifier="infiniteId"
+          @infinite="infiniteHandler"
+          spinner="circles"
+        ></infinite-loading>
       </v-row>
     </v-col>
   </v-row>
@@ -41,15 +53,19 @@
 import TechCard from "@/components/tech/TechCard.vue";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TopNavBar from "@/components/common/TopNavBar.vue";
+import InfiniteLoading from "vue-infinite-loading";
 
-import { createNamespacedHelpers } from "vuex";
-const techHelper = createNamespacedHelpers("techStore");
+import Tech from "@/api/Tech";
+
+// import { createNamespacedHelpers } from "vuex";
+// const techHelper = createNamespacedHelpers("techStore");
 
 export default {
   components: {
     TechCard,
     LeftNavBar,
     TopNavBar,
+    InfiniteLoading,
   },
   data() {
     return {
@@ -57,26 +73,60 @@ export default {
         pageno: 1,
         keyword: "",
       },
+      techList: [],
       type: "",
+      infiniteId: +new Date(),
     };
   },
-  created() {
-    this.setAllTechList(this.param);
-  },
-  computed: {
-    ...techHelper.mapState(["techList"]),
+  watch: {
+    type: function () {
+      this.param.pageno = 1;
+      this.techList = [];
+      this.infiniteId += 1;
+    },
   },
   methods: {
-    ...techHelper.mapActions(["setAllTechList", "setSubscribeTechList"]),
+    infiniteHandler($state) {
+      if (this.type === "all") {
+        Tech.loadAllTechList(
+          this.param,
+          ({ data }) => {
+            setTimeout(() => {
+              console.log(data.list.content);
+              if (data.list.content.length) {
+                this.param.pageno += 1;
+                this.techList.push(...data.list.content);
+                $state.loaded();
+              } else {
+                $state.complete();
+              }
+            }, 1000);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      } else {
+        Tech.loadSubscribeTechList(
+          this.param,
+          ({ data }) => {
+            setTimeout(() => {
+              console.log(data.list.content);
+              if (data.list.content.length) {
+                this.param.pageno += 1;
+                this.techList.push(...data.list.content);
+                $state.loaded();
+              } else {
+                $state.complete();
+              }
+            }, 1000);
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+      }
+    },
   },
 };
 </script>
-
-<style>
-.subscribe-yes {
-  color: #ff8a65;
-}
-.subscribe-no {
-  color: #7b61ff;
-}
-</style>

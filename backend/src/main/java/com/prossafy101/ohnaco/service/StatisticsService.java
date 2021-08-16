@@ -41,14 +41,12 @@ public class StatisticsService {
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
         map.put("userid", userid);
         boolean[] isCategory = new boolean[5];
-        long total = 0;
+        long totalcomplete = 0;
+        long totalgoal = 0;
         List<StatisticsCategoryDto> list = statisticsRepository.getCategoryTime(map);
         for(StatisticsCategoryDto dto : list) {
-            if(dto.getCompletetime() != null) {
-                total += dto.getCompletetime();
-            } else {
-                dto.setCompletetime(0L);
-            }
+            totalcomplete += dto.getCompletetime();
+            totalgoal += dto.getGoaltime();
             for(int i = 0 ; i < 5;  i++) {
                 if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
@@ -67,7 +65,9 @@ public class StatisticsService {
                 return o1.getCategoryname().compareTo(o2.getCategoryname());
             }
         });
-        StatisticsCategoryDto entire = new StatisticsCategoryDto("entire", total, 0L);
+        StatisticsCategoryDto entire = new StatisticsCategoryDto("entire", totalcomplete, totalgoal);
+        System.out.println("totalgoal" + totalgoal);
+        System.out.println("entire " + entire.getCompletetime() + " " + entire.getGoaltime());
         list.add(entire);
         return list;
     }
@@ -84,9 +84,6 @@ public class StatisticsService {
             for(int i = 0 ; i < 5;  i++) {
                 if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
-                    if(dto.getTime() == null) {
-                        dto.setTime(0L);
-                    }
                 }
             }
         }
@@ -115,9 +112,6 @@ public class StatisticsService {
             for(int i = 0 ; i < 5;  i++) {
                 if(dto.getCategoryname().equals(category[i])) {
                     isCategory[i] = true;
-                    if(dto.getTime() == null) {
-                        dto.setTime(0L);
-                    }
                 }
             }
         }
@@ -313,5 +307,4 @@ public class StatisticsService {
         }
         return list;
     }
-
 }
