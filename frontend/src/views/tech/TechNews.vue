@@ -72,6 +72,7 @@ export default {
         pageno: 1,
         keyword: "",
       },
+      techList: [],
       type: "all",
       infiniteId: +new Date(),
     };
