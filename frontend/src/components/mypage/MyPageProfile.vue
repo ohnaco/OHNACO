@@ -2,15 +2,15 @@
   <v-card color="#607D8B">
     <TopNavBar/> 
     <v-container class="pa-3">
-      <v-list-item class="ml-8 mr-8 flex-wrap justify-content-center">
+      <v-list-item nowrap class="ml-8 mr-8 flex-wrap justify-content-center">
         <!-- 프로필 사진 -->
-        <v-col cols="12" md="3">
-          <v-list-item-avatar size="200" class="m-5">
+        <v-col cols="12" lg="3">
+          <v-list-item-avatar size="200" class="m-0">
             <v-img :src="`${info.image}`" alt="profile-img"></v-img>
           </v-list-item-avatar>
         </v-col>
         <!-- 이름 설정 버튼 -->
-        <v-col cols="12" md="9">
+        <v-col cols="12" lg="9">
           <v-list-item-content class="pa-3 white--text">
             <v-list-item-title class="text-h4">
               <v-card-actions>
