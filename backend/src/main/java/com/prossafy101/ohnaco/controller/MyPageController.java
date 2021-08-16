@@ -215,6 +215,7 @@ public class MyPageController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         try {
+            redisUtil.deleteData(userService.findByUserid(userid).getEmail());
             userService.deleteUser(userid);
             result.put("status", "success");
         } catch (Exception e) {
