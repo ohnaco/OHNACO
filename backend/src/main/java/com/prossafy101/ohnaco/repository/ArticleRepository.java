@@ -17,7 +17,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     Page<Article> findAllByTitleOrContentContaining(String title, String content,Pageable pageable);
 
-    @Query(value = "select a.* from `article` a, `subscribe` s where a.blogid in (select c.blogid from `subscribe` c where c.userid=:userid) ", nativeQuery = true)
+    @Query(value = "select a.* from `article` a where a.blogid in (select c.blogid from `subscribe` c where c.userid=:userid) ", nativeQuery = true)
     Page<Article> findArticles(@Param("userid")String userid, Pageable pageable);
 
     Article findArticleByLink(String link);
