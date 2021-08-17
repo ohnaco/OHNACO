@@ -21,7 +21,8 @@
       <v-row dense class="mt-2">
         <v-col align="center"
           ><router-link to="/mypage"
-            ><div class="text-h6 text-decoration-underline">{{ mypageInfo.info.nickname }}</div></router-link
+            ><div class="text-h5 mypage">{{ mypageInfo.info ? mypageInfo.info.nickname:'' }}님</div>
+            </router-link
           ></v-col
         >
       </v-row>
@@ -80,5 +81,16 @@ export default {
 
 a {
   text-decoration: none;
+}
+a:hover, .mypage:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);  
+}
+a, .mypage {
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 </style>
