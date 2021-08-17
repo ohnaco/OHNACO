@@ -115,27 +115,35 @@ sudo vi /etc/nginx/sites-enabled/default
 ```
 2. 에디터에서 아래 내용 그대로 작성
 ```
-root /'프로젝트 디렉토리'/S05P13A101/frontend/dist;
-
-index index.html;
-
-server_name i5a101.p.ssafy.io;
-
-location / {
-        try_files $uri $uri/ /index.html;
+upstream backend {
+  server localhost:8197;
+  server localhost:8196;
 }
+server {
+    root /'프로젝트 디렉토리'/S05P13A101/frontend/dist;
 
-### backend reverse proxy ###
-location /api {
-        proxy_pass https://backend;
-        proxy_http_version 1.1;
-        proxy_set_header Connection "";
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-        proxy_set_header X-Forwarded-Host $host;
-        proxy_set_header X-forwarded-Port $server_port;
+    index index.html;
+
+    server_name i5a101.p.ssafy.io;
+
+    location / {
+            try_files $uri $uri/ /index.html;
+    }
+
+    ### backend reverse proxy ###
+    location /api {
+            proxy_pass https://backend;
+            proxy_http_version 1.1;
+            proxy_set_header Connection "";
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header X-Forwarded-Host $host;
+            proxy_set_header X-forwarded-Port $server_port;
+    }
+    
+    ...
 }
 ``````
 
