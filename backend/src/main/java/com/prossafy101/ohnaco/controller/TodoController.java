@@ -268,4 +268,11 @@ public class TodoController {
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
     }
+
+    @GetMapping("/testcommitupdateall")
+    public void updateCommit(HttpServletRequest req) {
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+        todoService.testCommitUpdate(userid);
+    }
 }
