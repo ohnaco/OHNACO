@@ -38,7 +38,7 @@
                 style="height: 100%; width: 300px; float: right; height: 100%"
                 class="pl-3 pt-0 pb-0"
               >
-                <div style="float: right; height: 100%">
+                <div style="float: right; height: 100%" class="mb-3">
                   <span
                     class="filter_devTalk pagelink"
                     v-bind:class="{
@@ -385,6 +385,9 @@ export default {
   .hotissue_section {
     display: none;
   }
+  .v-btn:not(.v-btn--round).v-size--default {
+    height: 100% !important;
+}
 }
 @media (min-width: 768px) {
   .col-md-9 {

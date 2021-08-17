@@ -108,7 +108,7 @@
       <QuestionDetailAnswer v-for="comment in answerList"
       :key="comment.answerid"
       :item="comment"
-      style="margin-bottom:32px"></QuestionDetailAnswer>
+      class="comment_margin"></QuestionDetailAnswer>
       <QuestionDetailAddAnswer></QuestionDetailAddAnswer>
     </div>
     <img src="@/assets/images/goback.svg" @click="goBack" />
@@ -239,6 +239,9 @@ export default {
 </script>
 
 <style>
+.comment_margin{
+  margin-bottom: 32px;
+}
 .qd_rectangle {
   width: 100%;
   border-radius: 10px;
@@ -317,17 +320,32 @@ code {
     padding: 12px;
   }
   .ans_count{
-    margin-top: 32px;
-    margin-bottom: 32px;
+    margin-top: 24px;
+    margin-bottom: 24px;
   }
-
+@media (max-width: 425px) {
+  .comment_margin{
+  margin-bottom: 8px;
+}
+  .ans_count{
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+}
 @media (max-width: 768px) {
+  .comment_margin{
+  margin-bottom: 12px;
+}
+  .ans_count{
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
   .qCard_title{
     height: 20px;
     font-size:12px;
   }
   .profile{
-    padding: 4px !important;
+    padding: 8px !important;
   }
   .ans_cnt{
     font-size:12px !important;

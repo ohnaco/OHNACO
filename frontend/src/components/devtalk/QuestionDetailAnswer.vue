@@ -1,6 +1,6 @@
 <template>
   <div class="qd_rectangle">
-    <div class="p-3 pt-0">
+    <div class="answer_profile pt-0">
       <!--간략 프로필 -->
       <div style=" width:110px ; height:35px float:left" class="mb-3 mt-3">
         <div style="float: left">
@@ -43,6 +43,7 @@
         >
           <v-btn
             elevation="2"
+            class="mod-btn"
             style="
               height: 25px;
               background-color: #ffc21f;
@@ -56,6 +57,7 @@
           >
           <v-btn
             elevation="2"
+            class="mod-btn"
             style="
               height: 25px;
               background-color: #e23131;
@@ -111,14 +113,14 @@
         <div style="width:100%" class="p-0">
           <v-btn
             elevation="2"
-            class="mt-3 mb-3 "
+            class="mt-3 mb-3 mod-btn"
             style="font-family: GmarketSansMedium; float: right"
             @click="modify"
             >수정</v-btn
           >
           <v-btn
             elevation="2"
-            class="mt-3 mb-3 mr-3"
+            class="mt-3 mb-3 mr-3 mod-btn"
             style="font-family: GmarketSansMedium; float: right"
             @click="modifyCancle"
             >취소</v-btn
@@ -212,10 +214,25 @@ export default {
 </script>
 
 <style>
+.answer_profile{
+  padding:12px;
+}
 .ad_rectangle {
   border-radius: 10px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #607d8b;
   background-color: #ffffff;
+}
+@media (max-width: 768px){
+.answer_profile {
+    padding: 8px !important;
+}
+.mod-btn{
+  font-size:12px !important;
+  height:20px !important;
+}
+.v-btn:not(.v-btn--round).v-size--default {
+    height: 36px;
+}
 }
 </style>

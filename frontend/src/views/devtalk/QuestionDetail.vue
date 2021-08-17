@@ -79,15 +79,24 @@ export default {
   background-color: rgba(196, 196, 196, 0.692);
 }
 .detail_qCard{
-  padding-left: 48px;
-  padding-right: 48px;
-  padding-top : 48px;
+  padding-left: 36px;
+  padding-right: 36px;
+  padding-top : 36px;
 }
+
+@media (max-width: 425px){
+  .detail_qCard{
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+  padding-top : 4px !important;
+}
+}
+
 @media (max-width: 768px){
   .detail_qCard{
-  padding-left: 24px;
-  padding-right: 24px;
-  padding-top : 36px;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top : 18px;
 }
 }
 

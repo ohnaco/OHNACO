@@ -35,7 +35,7 @@
       <div style="width: 100%" class="p-0">
         <v-btn
           elevation="2"
-          class="mt-3 mb-3 mr-3"
+          class="mt-3 mb-3 mr-3 mod-btn"
           style="font-family: GmarketSansMedium; float: right"
           @click="newComment"
           >등록</v-btn
@@ -83,5 +83,14 @@ export default {
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #607d8b;
   background-color: #ffffff;
+}
+@media (max-width: 768px){
+.mod-btn{
+  font-size:12px !important;
+  height:20px !important;
+}
+.v-btn:not(.v-btn--round).v-size--default {
+    height: 36px;
+}
 }
 </style>
