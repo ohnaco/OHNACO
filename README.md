@@ -49,23 +49,13 @@
 
 ## 🛠 기술 스택
 
-### Frontend
-- Vue(2.6.14)
-- Vuex(3.6.2)
-- Vuetify(2.4.0)
-- Bootstrap(5.0.2)
-- Bootstrap-vue(2.21.2)
-- HTML
-- SCSS
-- CSS
+### Frontend : <img src="https://img.shields.io/badge/Vue.js-2.6.14-4FC08D?style=flat-square&logo=Vue.js&logoColor=black"/> <img src="https://img.shields.io/badge/Vuetify-2.4.0-4FC08D?style=flat-square&logo=Vuetify&logoColor=blue"/> <img src="https://img.shields.io/badge/Vuex-3.6.2-4FC08D?style=flat-square&logo=Vue.js&logoColor=black"/> <img src="https://img.shields.io/badge/HTML-269539?style=flat-square&logo=HTML5&logoColor=white"/> <img src="https://img.shields.io/badge/SCSS-1572B6?style=flat-square&logo=SCSS&logoColor=white"/> <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=CSS3&logoColor=white"/> <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=black"/> <img src="https://img.shields.io/badge/Bootstrap-339AF0?style=flat-square&logo=Bootstrap&logoColor=white"/> <img src="https://img.shields.io/badge/BootstrapVue-339AF0?style=flat-square"/>
 
-### Backend
-- Java 8
-- Spring Boot(2.5.3)
-- JPA
-- MyBatis
-- Redis
-- MariaDB
+### Backend : <img src="https://img.shields.io/badge/Java-8-007396?style=flat-square&logo=Java&logoColor=white"/> <img src="https://img.shields.io/badge/Spring-2.5.3-6DB33F?style=flat-square&logo=Spring&logoColor=white"/> <img src="https://img.shields.io/badge/MariaDB-10.3.31-4479A1?style=flat-square&logo=MariaDB&logoColor=white"/> <img src="https://img.shields.io/badge/Redis-5.0.7-764ABC?style=flat-square&logo=Redis&logoColor=white"/> <img src="https://img.shields.io/badge/JPA-6DB33F?style=flat-square&logo=SpringBoot&logoColor=white"/> <img src="https://img.shields.io/badge/MyBatis-764ABC?style=flat-square&logoColor=white"/> 
+
+### Tool : <img src="https://img.shields.io/badge/Docker-2496ED?style=flat-square&logo=Docker&logoColor=white"/> <img src="https://img.shields.io/badge/GitLab-FCA121?style=flat-square&logo=GitLab&logoColor=black"/> <img src="https://img.shields.io/badge/NGINX-269539?style=flat-square&logo=NGINX&logoColor=black"/> <img src="https://img.shields.io/badge/Jira-0052CC?style=flat-square&logo=Jira&logoColor=white"/> <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=Firebase&logoColor=white"/>  <img src="https://img.shields.io/badge/Amazon S3-569A31?style=flat-square&logo=Amazon S3&logoColor=white"/> 
+
+
 
 ### 아키텍처 
 <img src="/uploads/8e6cf08bd6882e38de84d50df36d3ff5/스크린샷_2021-08-16_오후_2.29.20.png" alt="architecture" width="800"/>
@@ -109,11 +99,19 @@ docker run --name redis -p 6379:6379 -d redis redis-server \
 ```
 
 ### nginx Setting 
-1. vi 에디터 실행
+1. nginx 설치 
+```
+# nginx 설치 
+sudo apt-get install nginx 
+
+# 잘 설치되었나 확인 
+sudo service nginx status  
+```
+2. vi 에디터 실행
 ```
 sudo vi /etc/nginx/sites-enabled/default
 ```
-2. 에디터에서 아래 내용 그대로 작성
+3. 에디터에서 아래 내용 그대로 작성
 ```
 upstream backend {
   server localhost:8197;
@@ -157,6 +155,22 @@ sudo nginx -t
 sudo service nginx restart
 ```
 
+### SSL Setting 
+```
+# 저장소 추가
+sudo add-apt-repository ppa:certbot/certbot
+
+# apt-get 업데이트
+sudo apt-get update 
+
+# certbot 설치
+sudo apt-get install python-certbot-nginx
+
+# 인증서 설치 
+sudo certbot --nginx -d '지정할 도메인'
+
+# 이메일 등록 / 약관 동의 / http redirect 설정 (2번 선택)
+```
 
 ### frontend 
 
