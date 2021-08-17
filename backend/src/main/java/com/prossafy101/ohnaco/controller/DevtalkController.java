@@ -46,7 +46,8 @@ public class DevtalkController {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        questionService.save(questionDto, userService.findByUserid(userid));
+        Question question = questionService.save(questionDto, userService.findByUserid(userid));
+        redisUtil.setInitalVisitData(visitKey+question.getQuestionid());
         result.put("status", "success");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
