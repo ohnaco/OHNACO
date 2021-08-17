@@ -5,15 +5,15 @@
         <!-- default mode - today -->
         <v-card
           color="blue-grey lighten-5 rounded-xl"
-          v-if="!isEdit && !isOngoing && tempus == 'today'"
+          v-if="!isEdit && !isOngoing && (tempus == 'today' || tempus == 'future')"
         >
           <div>
             <div>
-              <v-layout row>
+              <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
                 <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
-              </v-layout>
+              </v-row>
 
               <div class="d-flex justify-end">
                 <v-btn icon @click="activateEditMode">
@@ -27,11 +27,19 @@
               <v-card-title class="text-h5 ml-4" v-text="item.title" />
 
               <v-card-actions class="justify-space-between align-end pt-0">
-                <div class="d-flex text-caption align-center ml-2">
-                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{
-                    item.goaltime
-                  }}
-                  / {{ completetime }}
+                <div
+                  class="d-flex text-caption align-center font-weight-bold ml-2"
+                  :class="{ 'future-target-time': tempus == 'future' }"
+                >
+                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
+                  /
+                  <span
+                    :class="{
+                      'success-text': this.item.goaltime <= this.item.completetime,
+                      'fail-text': this.item.goaltime > this.item.completetime,
+                    }"
+                    >&nbsp;{{ completetime }}</span
+                  >
                 </div>
                 <v-btn
                   v-if="this.item.goaltime <= this.item.completetime"
@@ -42,7 +50,7 @@
                 >
                   <img src="@/assets/images/todo-create-ok.svg" />
                 </v-btn>
-                <v-btn fab icon right v-if="!this.$parent.isAnyOneGoing">
+                <v-btn fab icon right v-if="!this.$parent.isAnyOneGoing && tempus == 'today'">
                   <img
                     class="start_btn"
                     src="@/assets/images/start-btn.svg"
@@ -61,11 +69,11 @@
         >
           <div>
             <div>
-              <v-layout row>
+              <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
                 <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
-              </v-layout>
+              </v-row>
 
               <div class="d-flex justify-end">
                 <v-btn icon color="blue" @click="moveToday">
@@ -76,11 +84,16 @@
               <v-card-title class="text-h5 ml-4" v-text="item.title" />
 
               <v-card-actions class="justify-space-between align-end pt-0">
-                <div class="d-flex text-caption align-center ml-2">
-                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{
-                    item.goaltime
-                  }}
-                  / {{ completetime }}
+                <div class="d-flex text-caption align-center ml-2 font-weight-bold">
+                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
+                  /
+                  <span
+                    :class="{
+                      'success-text': this.item.goaltime <= this.item.completetime,
+                      'fail-text': this.item.goaltime > this.item.completetime,
+                    }"
+                    >&nbsp;{{ completetime }}</span
+                  >
                 </div>
                 <v-btn
                   v-if="this.item.goaltime > this.item.completetime"
@@ -99,47 +112,11 @@
           </div>
         </v-card>
 
-        <!-- default mode future-->
-        <v-card
-          color="blue-grey lighten-5 rounded-xl"
-          v-if="!isEdit && !isOngoing && tempus == 'future'"
-        >
-          <div>
-            <div>
-              <v-layout row>
-                <!-- 카테고리 명 -->
-                <todo-card-category :todoCategory="item.category" />
-                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
-              </v-layout>
-
-              <div class="d-flex justify-end">
-                <v-btn icon @click="activateEditMode">
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                <v-btn icon color="pink" @click="deleteTodo(item.todoid)">
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-              </div>
-
-              <v-card-title class="text-h5 ml-4" v-text="item.title" />
-
-              <v-card-actions class="justify-space-between align-end pt-0">
-                <div class="d-flex text-caption align-center ml-2" style="height: 76px">
-                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{
-                    item.goaltime
-                  }}
-                  / {{ completetime }}
-                </div>
-              </v-card-actions>
-            </div>
-          </div>
-        </v-card>
-
         <!--ongoing mode -->
         <v-card color="cyan lighten-3 rounded-xl" v-if="!isEdit && isOngoing">
           <div>
             <div>
-              <v-layout row>
+              <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
                 <div style="height: 36px">
@@ -151,7 +128,7 @@
                   </div>
                   <div class="text-caption mr-3" v-text="item.todoid" align="right" />
                 </div>
-              </v-layout>
+              </v-row>
 
               <div class="d-flex justify-end"></div>
               <div class="time">
@@ -386,6 +363,18 @@ export default {
 .pause_img {
   width: 56px;
   height: 56px;
+}
+
+.future-target-time {
+  margin-top: 30px;
+}
+
+.success-text {
+  color: #4caf50;
+}
+
+.fail-text {
+  color: #e53935;
 }
 
 @media (max-width: 768px) {
