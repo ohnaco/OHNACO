@@ -46,13 +46,12 @@
                   class="mobile-btn-size mb-0"
                   src="@/assets/images/todo-create-ok.svg"
                 />
-                <v-btn fab icon right v-if="!this.$parent.isAnyOneGoing && tempus == 'today'">
-                  <img
-                    class="mobile-btn-size"
-                    src="@/assets/images/start-btn.svg"
-                    @click="[(isOngoing = true), start()]"
-                  />
-                </v-btn>
+                <img
+                  v-if="!this.$parent.isAnyOneGoing && tempus == 'today'"
+                  class="mobile-btn-size mb-0"
+                  src="@/assets/images/start-btn.svg"
+                  @click="[(isOngoing = true), start()]"
+                />
               </v-card-actions>
             </div>
           </div>
@@ -407,6 +406,9 @@ export default {
     width: 35px;
     height: 35px;
     margin-bottom: 5px;
+  }
+  .future-target-time {
+    margin-top: 20px;
   }
 }
 </style>
