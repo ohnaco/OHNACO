@@ -4,7 +4,9 @@
       <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
         ><left-nav-bar></left-nav-bar
       ></v-col>
-      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"><top-nav-bar></top-nav-bar></v-col>
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
+        ><top-nav-bar></top-nav-bar
+      ></v-col>
       <v-col cols="12" sm="12" md="7" class="d-flex flex-column">
         <div class="d-flex align-center text-h4 ma-5">
           <img src="@/assets/images/todo-icon.svg" class="mr-2 pencil-img" />
