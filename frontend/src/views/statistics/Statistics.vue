@@ -14,11 +14,13 @@
           <!-- 주간 월간 버튼 -->
           <div class="align-items-center">
             <v-btn-toggle 
+              v-model="option"
               borderless
               tile
               background-color="#EFEFEF"
             >
               <v-btn 
+                value="week"
                 text
                 @click="week"
                 color="#607D8B"
@@ -28,6 +30,7 @@
               </v-avatar>
               </v-btn>
               <v-btn 
+                value="month"
                 text
                 @click="month"
                 color="#607D8B"
@@ -41,18 +44,20 @@
         </v-flex>
         <v-flex>
           <v-row wrap class="pb-5">
-            <v-col lg="6" md="6" sm="12" cols="12">
-              <!-- 총 공부시간 -->
-              <v-card
-                height="80"
-                class="pa-3"
-              >
-              <TotalStudyTime
-                :option="this.option"
-                :totalTime="statsInfo.totalTime"
-              />
-              </v-card>
-            </v-col>
+            <v-row>
+              <v-col lg="6" md="6" sm="12" cols="12">
+                <!-- 총 공부시간 -->
+                <v-card
+                  height="80"
+                  class="pa-3"
+                >
+                <TotalStudyTime
+                  :option="this.option"
+                  :totalTime="statsInfo.totalTime"
+                />
+                </v-card>
+              </v-col>
+            </v-row>
             <v-row>
               <!-- 목표시간 공부시간 -->
               <v-col lg="4" md="6" sm="12" cols="12">
