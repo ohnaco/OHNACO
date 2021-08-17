@@ -19,7 +19,7 @@
                 <v-btn icon @click="activateEditMode">
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn icon color="pink" @click="deleteTodo(item.todoid)">
+                <v-btn icon color="red" @click="showDialog">
                   <v-icon>mdi-close</v-icon>
                 </v-btn>
               </div>
@@ -139,18 +139,23 @@
         </div>
       </v-col>
     </v-row>
+    <v-dialog max-width="500" v-model="isModal">
+      <delete-todo-modal @hide="hideDialog" @submit="deleteTodo(item.todoid)" />
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import TodoAdd from "./TodoAdd.vue";
 import TodoCardCategory from "./TodoCardCategory.vue";
+import DeleteTodoModal from "./DeleteTodoModal.vue";
 import { createNamespacedHelpers } from "vuex";
 const todoHelper = createNamespacedHelpers("todoStore");
 
 export default {
   data() {
     return {
+      isModal: false,
       isEdit: false,
       isOngoing: false,
       idDone: false,
@@ -160,7 +165,7 @@ export default {
       completetime: "",
     };
   },
-  components: { TodoCardCategory, TodoAdd },
+  components: { TodoCardCategory, TodoAdd, DeleteTodoModal },
   name: "TodoCard",
   props: {
     item: {
@@ -168,6 +173,12 @@ export default {
     },
   },
   methods: {
+    showDialog() {
+      this.isModal = true;
+    },
+    hideDialog() {
+      this.isModal = false;
+    },
     activateEditMode() {
       this.isEdit = true;
     },
