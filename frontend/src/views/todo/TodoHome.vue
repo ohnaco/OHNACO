@@ -9,8 +9,7 @@
       ></v-col>
       <v-col cols="12" sm="12" md="7" class="d-flex flex-column">
         <div class="d-flex align-center text-h4 ma-5">
-          <img src="@/assets/images/todo-icon.svg" class="mr-2 pencil-img" />
-          <div class="text-sm-h6 text-md-h4">To Do List</div>
+          <div class="text-md-h4 font-weight-bold">To Do List</div>
           <img
             src="@/assets/images/calendar_black.svg"
             class="mobile_calendar_btn"
@@ -209,15 +208,15 @@ export default {
   .col-md-7 {
     flex: 0 0 auto;
     width: 58.33333333%;
-    margin-left : 8.333333%;
-}
+    margin-left: 8.333333%;
+  }
 }
 
 @media (min-width: 950px) {
   .col-md-7 {
     flex: 0 0 auto;
     width: 58.33333333%;
-    margin-left : 0%;
-}
+    margin-left: 0%;
+  }
 }
 </style>
