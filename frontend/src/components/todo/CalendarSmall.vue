@@ -48,7 +48,13 @@ export default {
     padding-bottom: 8px;
     margin-bottom: -8px;
 }
-
+.v-picker__title {
+    color: #fff;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    padding: 16px;
+    display:none;
+}
 @media (max-width: 768px) {
   .moveLargeCalendar{
     display: none;
