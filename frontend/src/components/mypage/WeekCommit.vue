@@ -9,16 +9,9 @@
           max-height="25"
           ></v-img>
       </v-avatar>
-      <v-list-item-title>{{ githubid }}</v-list-item-title>
+      <v-list-item-title>{{ info? info.githubid: '' }}</v-list-item-title>
     </v-list-item>
     <div class="progress d-flex" style="height: 36px; background: transparent">
-      <!-- <div class="progress-bar" 
-      role="progressbar" 
-      style="width: 100%"
-      v-for="(day, i) in commit"
-      :key="i"
-      :class=" day | countCommit" 
-      ></div> -->
       <div class="progress-bar" :class=" commit.day7 | countCommit" role="progressbar" style="width: 17%"></div>
       <div class="progress-bar" :class=" commit.day6 | countCommit" role="progressbar" style="width: 17%"></div>
       <div class="progress-bar" :class=" commit.day5 | countCommit" role="progressbar" style="width: 17%"></div>
@@ -37,8 +30,8 @@ export default {
     commit: {
       type: Object
     },
-    githubid: {
-      type: String
+    info: {
+      type: Object
     }
   },
   filters: {

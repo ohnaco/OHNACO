@@ -284,7 +284,6 @@ export default {
         MyPage.requestMypageNicknameCheck(
           data, 
           (res) => {
-            console.log(res);
             if (res.data.status) {
               this.error.nicknameCheck = null;
               this.isCheck = res.data.status;
