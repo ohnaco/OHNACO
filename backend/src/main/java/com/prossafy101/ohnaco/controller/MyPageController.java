@@ -103,7 +103,17 @@ public class MyPageController {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        result.put("question", questionService.getQuestionByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("questiondate").descending())).getContent());
+
+        List<Question> questions = questionService.getQuestionByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("questiondate").descending())).getContent();
+        List<QuestionDto> questionDtos = new ArrayList<>();
+        for(Question question : questions) {
+            questionDtos.add(QuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .questioncontent(question.getQuestioncontent()).questiondate(question.getQuestiondate()).user(question.getUser())
+                    .tag(question.getTag()).visit(redisUtil.getData(visitKey+question.getQuestionid()))
+                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid()))
+                    .answercount(answerService.getCountAnswer(question.getQuestionid())).build());
+        }
+        result.put("question", questionDtos);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
