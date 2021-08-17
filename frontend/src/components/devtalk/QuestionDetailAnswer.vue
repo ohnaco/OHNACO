@@ -4,7 +4,10 @@
       <!--간략 프로필 -->
       <div style=" width:110px ; height:35px float:left" class="mb-3 mt-3">
         <div style="float: left">
-          <img :src="profile_img" style="width: 35px; height: 35px" />
+          <img
+                :src="`${item.user.image}`"
+                style="width: 35px; height: 35px"
+              />
         </div>
         <div style="float: left; width: 70px; height: 30px">
           <div class="profile_name">&nbsp;{{ item.user.nickname }}</div>

@@ -1,13 +1,10 @@
 <template>
   <v-layout>
-    <v-row>
-      <v-col cols="12" md="2" class="side_bar"
+    <v-row dense>
+      <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
         ><left-nav-bar></left-nav-bar
       ></v-col>
-      <v-col
-        cols="12"
-        style="padding: 0 !important"
-        class="top_bar"
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
         ><top-nav-bar></top-nav-bar
       ></v-col>
       <v-col cols="12" sm="12" md="10" class="d-flex p2">
@@ -402,12 +399,19 @@ export default {
     display: none;
   }
 }
-@media (max-width: 768px) {
-  .side_bar{
-  display: none;
+@media (min-width: 768px) {
+  .col-md-9 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+    margin-left : 8.333333%;
 }
-.top_bar{
-  display: block;
+}
+
+@media (min-width: 950px) {
+  .col-md-9 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+    margin-left : 0%;
 }
 }
 </style>

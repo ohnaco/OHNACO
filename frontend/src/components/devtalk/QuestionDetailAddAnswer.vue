@@ -63,7 +63,6 @@ export default {
       const com = {
         questionid: this.$parent.$route.query.id,
         answercontent: this.content,
-        answertitle: "",
       };
       this.content="";
       this.addComment(com);

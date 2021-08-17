@@ -26,7 +26,7 @@
                 <v-list-item-content>
                   <v-list-item-title class="mt-3 mb-5">
                     <img src="@/assets/images/question-mark.svg" style="width: 11px" alt="question">
-                    <b class="ml-1">{{ answer.answertitle }}</b>
+                    <b class="ml-1">{{ answer.questiontitle }}</b>
                   </v-list-item-title>
                   <v-list-item-subtitle class="mb-2">
                     <img src="@/assets/images/answer-mark.svg" style="width: 11px" alt="answer">
@@ -72,7 +72,7 @@ export default {
     gotoDetail: function (answer) {
       this.$router.push({
         name: "QuestionDetail",
-        query:{ id: answer.answerid },
+        query:{ id: answer.questionid },
       });
     },
   }
