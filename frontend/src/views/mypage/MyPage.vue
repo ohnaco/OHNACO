@@ -6,8 +6,8 @@
         :commit="mypageInfo.commit"
       />
     </div>
-    <div class="container d-flex">
-      <v-col cols="6">
+    <div class="container d-flex flex-wrap">
+      <v-col md="6" cols="12">
         <MyQuestionCard
           :questions="mypageInfo.question"
           :questionCount="mypageInfo.questionCount"
@@ -17,7 +17,7 @@
           :answerCount="mypageInfo.answerCount"
         />
       </v-col>
-      <v-col cols="6">
+      <v-col md="6" cols="12">
         <MyTechCard
           :scraps="mypageInfo.scrap"
           :scrapCount="mypageInfo.scrapCount"

@@ -6,8 +6,6 @@ export default {
     // data 가 들어가는 곳
     techList: [],
     blogList: [],
-    pageno: 0,
-    keyword: "",
   },
   mutations: {
     // 여기서 data 를 업데이트
@@ -22,6 +20,9 @@ export default {
       state.techList[index].scrap = !state.techList[index].scrap;
     },
     SET_ALL_BLOG_LIST(state, list) {
+      state.blogList = list;
+    },
+    SET_SUBSCRIBE_BLOG_LIST(state, list) {
       state.blogList = list;
     },
     SUBSCRIBE_BLOG(state, blogid) {
@@ -76,6 +77,17 @@ export default {
         (res) => {
           const blog = res.data.list;
           commit("SET_ALL_BLOG_LIST", blog);
+        },
+        (err) => {
+          alert(err);
+        }
+      );
+    },
+    setSubscribeBlogList({ commit }) {
+      Tech.loadSubscribeBlogList(
+        (res) => {
+          const blog = res.data.list;
+          commit("SET_SUBSCRIBE_BLOG_LIST", blog);
         },
         (err) => {
           alert(err);

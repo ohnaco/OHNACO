@@ -88,6 +88,28 @@ const requestSignupNicknameCheck = (data, callback, errorCallback) => {
     });
 };
 
+const requestFindPwdSendEmail = (data, callback, errorCallback) => {
+  http
+    .post("/user/findpwd", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const requestFindPwd = (data, callback, errorCallback) => {
+  http
+    .put("/user/findpwd", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 export default {
   requestLogin,
   requestUserInfo,
@@ -97,4 +119,6 @@ export default {
   requestSignupProfile,
   requestSignupIdCheck,
   requestSignupNicknameCheck,
+  requestFindPwdSendEmail,
+  requestFindPwd,
 };

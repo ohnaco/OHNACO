@@ -27,80 +27,11 @@ export default {
   },
   data: function () {
     return {
-      series: [{
-        name: '실제시간',
-        data: [
-          {
-          x: '전체',
-          y: this.categoryTime[5].completetime,
-          goals: [
-            {
-              name: '목표시간',
-              value: this.categoryTime[5].goaltime,
-              strokeWidth: 5,
-              strokeColor: '#C6C8C9'
-            }
-          ]},
-          {
-          x: this.categoryTime[0].categoryname,
-          y: this.categoryTime[0].completetime,
-          goals: [
-            {
-              name: '목표시간',
-              value: this.categoryTime[0].goaltime,
-              strokeWidth: 5,
-              strokeColor: '#C6C8C9'
-            }
-          ]},
-          {
-          x: this.categoryTime[2].categoryname,
-          y: this.categoryTime[2].completetime,
-          goals: [
-            {
-              name: '목표시간',
-              value: this.categoryTime[2].goaltime,
-              strokeWidth: 5,
-              strokeColor: '#C6C8C9'
-            }
-          ]},
-          {
-          x: this.categoryTime[3].categoryname,
-          y: this.categoryTime[3].completetime,
-          goals: [
-            {
-              name: '목표시간',
-              value: this.categoryTime[3].goaltime,
-              strokeWidth: 5,
-              strokeColor: '#C6C8C9'
-            }
-          ]},
-          {
-          x: this.categoryTime[4].categoryname,
-          y: this.categoryTime[4].completetime,
-          goals: [
-            {
-              name: '목표시간',
-              value: this.categoryTime[4].goaltime,
-              strokeWidth: 5,
-              strokeColor: '#C6C8C9'
-            }
-          ]},
-          {
-          x: this.categoryTime[1].categoryname,
-          y: this.categoryTime[1].completetime,
-          goals: [
-            {
-              name: '목표시간',
-              value: this.categoryTime[1].goaltime,
-              strokeWidth: 5,
-              strokeColor: '#C6C8C9'
-            }
-          ]},
-        ]
-      }],
+      series: [],
       chartOptions: {
         chart: {
           type: 'bar',
+          id: 'chart',
           offsetY: 20,
           toolbar: {
             show: false

@@ -1,5 +1,6 @@
 package com.prossafy101.ohnaco.entity.devtalk;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.prossafy101.ohnaco.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +19,11 @@ public class QuestionDto {
     private String questiontitle;
     private String questioncontent;
     private LocalDateTime questiondate;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int views;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String[] tagName;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int likes;
 
     private boolean userLike;
@@ -27,4 +31,5 @@ public class QuestionDto {
     private String visit;
     private User user;
     private List<Tag> tag;
+    private int answercount;
 }

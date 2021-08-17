@@ -1,12 +1,79 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12">
-        <v-card color="blue-grey lighten-5 rounded-xl">
+  <div>
+    <!-- edit mode -->
+    <v-container v-if="!editMode">
+      <v-row dense>
+        <v-col cols="12" class="pt-0">
+          <v-card color="blue-grey lighten-5 rounded-xl pa-2">
+            <div>
+              <v-form ref="form">
+                <div>
+                  <v-col cols="4" class="pb-0">
+                    <!-- 카테고리 select box -->
+                    <v-select
+                      v-model="newTodo.categoryid"
+                      :items="categoryItems"
+                      label="분류"
+                      color="cyan"
+                      dense
+                      outlined
+                      hide-details
+                    ></v-select>
+                  </v-col>
+                </div>
+                <div>
+                  <v-col cols="12" class="pt-0 pb-0">
+                    <v-text-field
+                      v-model="newTodo.title"
+                      color="cyan"
+                      label="할 일을 입력해주세요."
+                      counter
+                      maxlength="50"
+                      full-width
+                      single-line
+                    >
+                    </v-text-field>
+                  </v-col>
+                </div>
+                <v-row dense>
+                  <v-col md="9">
+                    <vue-timepicker
+                      format="HH:mm:ss"
+                      v-model="newTodo.goaltime"
+                      :minute-interval="5"
+                      :second-interval="10"
+                      manual-input
+                      close-on-complete
+                      class="ml-3"
+                    >
+                      <template v-slot:icon>
+                        <img src="@/assets/images/todo-card-clock.svg" />
+                      </template>
+                    </vue-timepicker>
+                  </v-col>
+                  <v-col class="d-flex justify-end">
+                    <v-btn icon x-large class="mr-2" @click="finishCreate"
+                      ><img src="@/assets/images/todo-create-no.svg"
+                    /></v-btn>
+                    <v-btn icon x-large class="mr-2" @click="onCreateOK"
+                      ><img src="@/assets/images/todo-create-ok.svg"
+                    /></v-btn>
+                  </v-col>
+                </v-row>
+              </v-form>
+            </div>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+    <!-- create mode -->
+    <v-row v-else>
+      <v-col cols="12" class="pt-0">
+        <v-card color="blue-grey lighten-5 rounded-xl pa-2">
           <div>
             <v-form ref="form">
               <div>
-                <v-col cols="3" class="pb-0">
+                <v-col cols="4" class="pb-0">
                   <!-- 카테고리 select box -->
                   <v-select
                     v-model="newTodo.categoryid"
@@ -20,7 +87,7 @@
                 </v-col>
               </div>
               <div>
-                <v-col cols="12" class="pt-0">
+                <v-col cols="12" class="pt-0 pb-0">
                   <v-text-field
                     v-model="newTodo.title"
                     color="cyan"
@@ -33,7 +100,7 @@
                   </v-text-field>
                 </v-col>
               </div>
-              <v-row>
+              <v-row dense>
                 <v-col md="9">
                   <vue-timepicker
                     format="HH:mm:ss"
@@ -63,7 +130,7 @@
         </v-card>
       </v-col>
     </v-row>
-  </v-container>
+  </div>
 </template>
 
 <script>
@@ -90,6 +157,7 @@ export default {
         categoryid: "",
         title: "",
         goaltime: "",
+        completetime: "",
       },
     };
   },
@@ -107,9 +175,10 @@ export default {
   created() {
     this.newTodo.userid = this.user.userid;
     this.newTodo.date = this.date;
+    this.newTodo.completetime = "00:00:00";
 
     if (this.editMode) {
-      this.newTodo.categoryid = this.editTodo.categoryid;
+      this.newTodo.categoryid = this.editTodo.category.categoryid;
       this.newTodo.title = this.editTodo.title;
       this.newTodo.goaltime = this.editTodo.goaltime;
       this.newTodo.date = this.editTodo.date;
@@ -135,3 +204,27 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+@media (max-width: 768px) {
+  .v-input {
+    font-size: 6px !important;
+  }
+  .v-select__selections {
+    align-items: center;
+    display: flex;
+    flex: 1 1;
+    flex-wrap: wrap;
+    line-height: 18px;
+    max-width: 100%;
+    min-width: 20px;
+  }
+  .v-text-field--outlined.v-input--dense .v-label--active {
+    display: none;
+  }
+  .v-select.v-text-field:not(.v-text-field--single-line) input {
+    margin-top: 0;
+    display: none;
+  }
+}
+</style>

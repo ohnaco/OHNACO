@@ -7,6 +7,7 @@ export default {
   },
   mutations: {
     GET_STATS: function (state, statsInfo) {
+      console.log(statsInfo)
       state.statsInfo = statsInfo;
     },
   },
@@ -15,7 +16,6 @@ export default {
       Statistics.requestStatistics(
         data,
         (res) => {
-          console.log(res)
           commit('GET_STATS', res.data)
         },
         (err) => {

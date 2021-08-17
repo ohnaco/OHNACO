@@ -1,131 +1,145 @@
 <template>
   <v-layout style="background: #EFEFEF">
-    <v-row style="background: #EFEFEF">
-      <v-col cols="2"><left-nav-bar></left-nav-bar></v-col>
-      <v-col cols="10" class="pa-10">
+    <v-row style="background: #EFEFEF" class="justify-content-center">
+      <v-col cols="12" lg="2" v-show="$vuetify.breakpoint.mdAndUp">
+        <LeftNavBar/>
+      </v-col>
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important">
+        <TopNavBar/>
+      </v-col>
+      <v-col cols="10" class="pa-5">
         <!-- 상단 제목 및 버튼 -->
-        <v-flex class="d-flex justify-space-between text-h4 mt-10 mb-5">
-          <b>Statistics</b>
+          <div class="mb-3">
+            <h1
+              style="
+                font-family: 'GmarketSansMedium';
+                font-size: 30px;
+                color: #607d8b;
+              "
+            >
+              Statistics
+            </h1>
+          </div>
           <!-- 주간 월간 버튼 -->
-          <div>
+          <div class="d-flex justify-content-end">
             <v-btn-toggle 
-            borderless
-            tile
-            background-color="#EFEFEF"
+              v-model="option"
+              mandatory
+              borderless
+              group
+              background-color="#EFEFEF"
             >
               <v-btn 
-                text
+                value="week"
                 @click="week"
-                color="#607D8B">
-              <v-avatar>
+                color="#607D8B"
+                class="pa-1">
                 <img src="@/assets/images/week-btn.svg" alt="week-btn" />
-              </v-avatar>
-            </v-btn>
+              </v-btn>
               <v-btn 
-                text
+                value="month"
                 @click="month"
-                color="#607D8B">
-              <v-avatar>
+                color="#607D8B"
+                class="pa-1">
                 <img src="@/assets/images/month-btn.svg" alt="week-btn" />
-              </v-avatar>
               </v-btn>
             </v-btn-toggle>
           </div>
-        </v-flex>
-        <v-flex class="d-flex">
-          <v-row wrap>
-            <!-- 총 공부시간 -->
-            <v-col lg="6" md="6" sm="10" xs="10">
-              <v-card
-                height="80"
-                class="pa-3"
-              >
-              <total-study-time 
-              :option="this.option"
-              :totalTime="statsInfo.totalTime"
-              ></total-study-time>
-              </v-card>
-            </v-col>
-            <!-- 랭킹 -->
-            <v-col lg="6" md="6" sm="10" xs="10">
-              <!-- <v-card height="80" class="pa-3">
-                <total-ranking></total-ranking>
-              </v-card> -->
-            </v-col>
-            <!-- 목표시간 공부시간 -->
-            <v-col lg="4" md="6" sm="10" xs="10">
-              <v-card
-                height="600"
-                class="pa-3"
-              >
-              <goal-vs-real 
-              :categoryTime="statsInfo.categoryTime"
-              ></goal-vs-real>
-              </v-card>
-            </v-col>
-            <!-- 지난 2일 공부시간 -->
-            <v-col lg="4" md="6" sm="10" xs="10">
-              <v-card
-                height="600"
-                class="pa-3"
-              >
-              <compare-myself 
-              :todayTime="statsInfo.todayTime"
-              :yesterdayTime="statsInfo.yesterdayTime"
-              ></compare-myself>
-              </v-card>
-            </v-col>
-            <!-- 전체 유저별 카테고리 공부시간 -->
-            <v-col lg="4" md="6" sm="10" xs="10">
-              <v-card
-                height="600"
-                class="pa-3"
-              >
-              <compare-other-by-category 
-              :categoryTime="statsInfo.categoryTime"
-              :positionTime="statsInfo.positionTime"
-              :entireCategoryTime="statsInfo.entireCategoryTime"
-              ></compare-other-by-category>
-              </v-card>
-            </v-col>
-            <!-- 카테고리별 공부시간 -->
-            <v-col lg="4" md="6" sm="10" xs="10">
-              <v-card
-                height="420"
-                class="pa-3"
-              >
-              <category-study-time 
-              :categoryTime="statsInfo.categoryTime"
-              ></category-study-time>
-              </v-card>
-            </v-col>
-            <!-- 주간, 요일별 공부시간 -->
-            <v-col lg="8" md="12" sm="10" xs="10">
-              <v-card
-                height="420"
-                class="pa-3"
-              >
-              <compare-other 
-              :option="this.option"
-              :myTime="statsInfo.myTime"
-              :entireMemberTime="statsInfo.entireMemberTime"
-              :positionMemberTime="statsInfo.positionMemberTime"
-              ></compare-other>
-              </v-card>
-            </v-col>
+          <v-row wrap class="pb-5 justify-content-center">
+            <v-row>
+              <v-col lg="6" md="6" sm="12" cols="12">
+                <!-- 총 공부시간 -->
+                <v-card
+                  height="80"
+                  class="pa-3"
+                >
+                <TotalStudyTime
+                  :option="this.option"
+                  :totalTime="statsInfo.totalTime"
+                />
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <!-- 목표시간 공부시간 -->
+              <v-col lg="4" md="6" sm="12" cols="12">
+                <v-card
+                  height="600"
+                  class="pa-3"
+                >
+                <GoalVsReal 
+                  :categoryTime="statsInfo.categoryTime"
+                />
+                </v-card>
+              </v-col>
+              <!-- 지난 2일 공부시간 -->
+              <v-col lg="4" md="6" sm="12" cols="12">
+                <v-card
+                  height="600"
+                  class="pa-3"
+                >
+                <CompareMyself 
+                  :todayTime="statsInfo.todayTime"
+                  :yesterdayTime="statsInfo.yesterdayTime"
+                />
+                <YesterdayTotal
+                  :todayTime="statsInfo.todayTime"
+                  :yesterdayTime="statsInfo.yesterdayTime"
+                />
+                </v-card>
+              </v-col>
+              <!-- 전체 유저별 카테고리 공부시간 -->
+              <v-col lg="4" md="6" sm="12" cols="12">
+                <v-card
+                  height="600"
+                  class="pa-3"
+                >
+                <CompareOtherByCategory
+                  :categoryTime="statsInfo.categoryTime"
+                  :positionTime="statsInfo.positionTime"
+                  :entireCategoryTime="statsInfo.entireCategoryTime"
+                />
+                </v-card>
+              </v-col>
+            </v-row>
+            <v-row>
+              <!-- 카테고리별 공부시간 -->
+              <v-col lg="4" md="6" sm="12" cols="12">
+                <v-card
+                  height="420"
+                  class="pa-3"
+                >
+                <CategoryStudyTime
+                  :categoryTime="statsInfo.categoryTime"
+                />
+                </v-card>
+              </v-col>
+              <!-- 주간, 요일별 공부시간 -->
+              <v-col lg="8" md="6" sm="12" cols="12">
+                <v-card
+                  height="420"
+                  class="pa-3"
+                >
+                <CompareOther
+                  :option="this.option"
+                  :statsInfo="statsInfo"
+                />
+                </v-card>
+              </v-col>
+            </v-row>
           </v-row>
-        </v-flex>
       </v-col>
     </v-row>
   </v-layout>
 </template>
 
 <script>
+import TopNavBar from "@/components/common/TopNavBar.vue";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TotalStudyTime from "@/components/statistics/TotalStudyTime.vue";
-// import TotalRanking from "@/components/statistics/TotalRanking.vue";
 import CategoryStudyTime from "@/components/statistics/CategoryStudyTime.vue";
 import CompareMyself from "@/components/statistics/CompareMyself.vue";
+import YesterdayTotal from "@/components/statistics/YesterdayTotal.vue";
 import CompareOtherByCategory from "@/components/statistics/CompareOtherByCategory.vue";
 import GoalVsReal from "@/components/statistics/GoalVsReal.vue";
 import CompareOther from "@/components/statistics/CompareOther.vue";
@@ -135,11 +149,12 @@ const statisticsHelper = createNamespacedHelpers('statisticsStore');
 
 export default {
   components: {
+    TopNavBar,
     LeftNavBar,
     TotalStudyTime,
-    // TotalRanking,
     CategoryStudyTime,
     CompareMyself,
+    YesterdayTotal,
     CompareOtherByCategory,
     GoalVsReal,
     CompareOther,

@@ -23,18 +23,18 @@ public class AnswerService {
     @Autowired
     private QuestionRepository questionRepository;
 
-    @Autowired
-    private NotificationService notificationService;
+//    @Autowired
+//    private NotificationService notificationService;
 
     public Answer createAnswer(AnswerDto dto, User user) {
-        try {
-            notificationService.answerNofify(questionRepository.findById(dto.getQuestionid()).get().getUser().getUserid());
-        } catch( Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            notificationService.answerNofify(questionRepository.findById(dto.getQuestionid()).get().getUser().getUserid());
+//        } catch( Exception e) {
+//            e.printStackTrace();
+//        }
 
-        return answerRepository.save(Answer.builder().answertitle(dto.getAnswertitle()).answercontent(dto.getAnswercontent())
-        .answerdate(LocalDateTime.now()).likes(dto.getLikes()).question(questionRepository.findByQuestionid(dto.getQuestionid())).user(user).build());
+        return answerRepository.save(Answer.builder().answercontent(dto.getAnswercontent())
+                .answerdate(LocalDateTime.now()).likes(dto.getLikes()).question(questionRepository.findByQuestionid(dto.getQuestionid())).user(user).build());
     }
 
 
@@ -46,18 +46,18 @@ public class AnswerService {
             throw new Exception("userid");
         }
 
-        return answerRepository.save(Answer.builder().answertitle(dto.getAnswertitle())
-        .answerdate(answer.getAnswerdate())
-        .answercontent(dto.getAnswercontent())
-        .answerid(answer.getAnswerid())
-        .likes(answer.getLikes())
-        .user(answer.getUser())
-        .question(answer.getQuestion())
-        .build());
+        return answerRepository.save(Answer.builder()
+                .answerdate(answer.getAnswerdate())
+                .answercontent(dto.getAnswercontent())
+                .answerid(answer.getAnswerid())
+                .likes(answer.getLikes())
+                .user(answer.getUser())
+                .question(answer.getQuestion())
+                .build());
     }
 
     public List<Answer> getAnswers(int questionid) {
-       return answerRepository.findAllByQuestion(questionRepository.findByQuestionid(questionid));
+        return answerRepository.findAllByQuestion(questionRepository.findByQuestionid(questionid));
     }
 
     public void deleteAnswer(int answerid, User user) throws Exception {
@@ -65,11 +65,17 @@ public class AnswerService {
             throw new Exception("userid와 작성자가 일치하지 않습니다.");
 
         answerRepository.deleteAnswerByAnsweridAndUser(answerid, user);
-
-
     }
 
     public Page<Answer> getAnswerByUser(User user, Pageable pageable) {
         return answerRepository.findAllByUser(user, pageable);
+    }
+
+    public int getCountAnswer(int questionid) {
+        return answerRepository.answerCount(questionid);
+    }
+
+    public List<Answer> getAnswerOrder() {
+        return answerRepository.answerOrder();
     }
 }

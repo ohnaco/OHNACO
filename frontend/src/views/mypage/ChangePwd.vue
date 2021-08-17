@@ -59,14 +59,14 @@
             class="mr-15" 
             @click="goupdateInfo"
           >
-            <img src="@/assets/images/back-btn.svg" alt="back" />
+            <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음 페이지 : 마이페이지 -->
           <button
             class="ml-15"
             @click="updatePwd"
           >
-            <img src="@/assets/images/next-btn.svg" alt="next" />
+            <img src="@/assets/images/complete-btn.svg" alt="next" />
           </button>
         </div>
       </div>
@@ -159,13 +159,16 @@ export default {
           data,
           (res) => {
             console.log(res);
-            this.isSubmit = true;
-            alert("비밀번호가 변경되었습니다.");
-            this.$router.push({ name: "MyPage" });
+            if (res.data.status == false) {
+              alert('비밀번호를 다시 확인해주세요.')
+            } else {
+              this.isSubmit = true;
+              alert("비밀번호가 변경되었습니다.");
+              this.$router.push({ name: "MyPage" });
+            }
           },
           (err) => {
             this.isSubmit = true;
-            alert("현재 비밀번호를 다시 확인해주세요.")
             console.log(err);
           }
         );
@@ -177,8 +180,9 @@ export default {
 
 <style scoped>
 .update-pwd-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .update-pwd-name {
   width: 120px;

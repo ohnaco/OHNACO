@@ -6,7 +6,7 @@ export default {
   state: {
     // data 가 들어가는 곳
     user: {
-      image: null,
+      image: "",
       githubid: "",
       nickname: "",
       userid: "",
@@ -22,7 +22,7 @@ export default {
     },
     DELETE_USER(state) {
       state.user = {
-        image: null,
+        image: "",
         githubid: "",
         nickname: "",
         userid: "",
@@ -36,7 +36,6 @@ export default {
         data,
         () => {
           dispatch("getUserInfo");
-          alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
           router.push({ name: "Todo" });
         },
         (err) => {

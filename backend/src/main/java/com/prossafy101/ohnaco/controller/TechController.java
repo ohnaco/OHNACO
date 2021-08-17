@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
@@ -117,10 +118,19 @@ public class TechController {
         String userid = jwtUtil.getUserid(token);
 
         Pageable page = PageRequest.of(pageno-1, 10, Sort.by("publisheddate").descending());
-        Page<Article> temp = techService.getSubscribeArticles(page, keyword, userid);
-        Page<ArticleDto> list = temp.map(article -> new ArticleDto(article,
-                redisUtil.getScrapUseridData(scrapKey + userid, article.getArticleid().toString()),
-                techService.isSubscribe(userid, article.getBlogid())));
+        
+        Object list = null;
+        try {
+            Page<Article> temp = techService.getSubscribeArticles(page, userid);
+            list = temp.map(article -> new ArticleDto(article,
+                    redisUtil.getScrapUseridData(scrapKey + userid, article.getArticleid().toString()),
+                    techService.isSubscribe(userid, article.getBlogid())));
+        } catch (Exception e) {
+            e.printStackTrace();
+            list = new HashMap<String, Object>();
+            ((HashMap<String, Object>) list).put("content", new ArrayList<>());
+            
+        }
         result.put("list", list);
 
         return new ResponseEntity<>(result, HttpStatus.OK);

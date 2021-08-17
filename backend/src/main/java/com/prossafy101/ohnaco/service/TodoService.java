@@ -155,7 +155,7 @@ public class TodoService {
         }
         commitDto.setUpdatedate(date);
         commitDto.setDay1(gitHubAPI.isCommit(githubid, date));
-        commitDto.setTimeToLive(2);
+        commitDto.setTimeToLive(48);
         commitSave(commitDto);
     }
 
@@ -165,6 +165,7 @@ public class TodoService {
         List<User> users = userRepository.findAll();
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
+        cal.add(Calendar.HOUR, -13);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         for(User user: users) {
             if(user.getGithubid() != null) {
@@ -186,5 +187,32 @@ public class TodoService {
             todo.setCompletetime(completetime);
         }
         todoRepository.save(todo);
+    }
+
+    //commit기록 업데이트 해서 redis에 저장
+    public void testCommitUpdate(String userid) {
+        User user = userRepository.findByUserid(userid);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        CommitDto commitDto = new CommitDto();
+        commitDto.setUserid(userid);
+        cal.add(Calendar.HOUR, -13);
+        commitDto.setUpdatedate(df.format(cal.getTime()));
+        commitDto.setDay1(gitHubAPI.isCommit(user.getGithubid(), df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay2(gitHubAPI.isCommit(user.getGithubid(), df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay3(gitHubAPI.isCommit(user.getGithubid(), df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay4(gitHubAPI.isCommit(user.getGithubid(), df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay5(gitHubAPI.isCommit(user.getGithubid(), df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay6(gitHubAPI.isCommit(user.getGithubid(), df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay7(gitHubAPI.isCommit(user.getGithubid(), df.format(cal.getTime())));
+        commitDto.setTimeToLive(48);
+        commitSave(commitDto);
     }
 }

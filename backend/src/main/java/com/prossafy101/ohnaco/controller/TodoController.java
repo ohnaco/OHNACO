@@ -208,6 +208,7 @@ public class TodoController {
         } else {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
+            cal.add(Calendar.HOUR, -13);
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 todoService.commitUpdate(userid, user.getGithubid(), df.format(cal.getTime()));
@@ -266,5 +267,12 @@ public class TodoController {
             result.put("status", e.getMessage());
         }
         return new ResponseEntity<>(result , HttpStatus.OK);
+    }
+
+    @GetMapping("/testcommitupdateall")
+    public void updateCommit(HttpServletRequest req) {
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+        todoService.testCommitUpdate(userid);
     }
 }

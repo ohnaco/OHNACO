@@ -1,5 +1,6 @@
 package com.prossafy101.ohnaco.entity.devtalk;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.prossafy101.ohnaco.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,10 +16,10 @@ import java.time.LocalDateTime;
 public class AnswerDto {
     private int answerid;
 
-    private String answertitle;
     private String answercontent;
     private int questionid;
     private LocalDateTime answerdate;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private int likes;
 
     private boolean userLike;

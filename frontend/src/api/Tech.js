@@ -48,6 +48,17 @@ const loadAllBlogList = (callback, errorCallback) => {
     });
 };
 
+const loadSubscribeBlogList = (callback, errorCallback) => {
+  http
+    .get("/tech/blog/subscribe")
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 const subscribeBlog = (data, callback, errorCallback) => {
   http
     .post("/tech/blog/subscribe", data)
@@ -75,6 +86,7 @@ export default {
   loadSubscribeTechList,
   scrapTech,
   loadAllBlogList,
+  loadSubscribeBlogList,
   subscribeBlog,
   unSubscribeBlog,
 };

@@ -1,10 +1,10 @@
 <template>
   <div class="d-flex align-center ml-3">
-    <img src="@/assets/images/daily-commit-no.svg" v-if="!todayCommit" />
-    <img src="@/assets/images/daily-commit-ok.svg" v-else />
-    <v-btn icon><img
-      src="@/assets/images/daily-commit-refresh.svg"
-      @click="onRefresh"
+    <img src="@/assets/images/daily-commit-no.svg" class="commitImg" v-if="!todayCommit" />
+    <img src="@/assets/images/daily-commit-ok.svg" class="commitImg" v-else />
+    <v-btn icon
+      ><img src="@/assets/images/daily-commit-refresh.svg" 
+      @click="refreshCommit"
     /></v-btn>
   </div>
 </template>
@@ -14,22 +14,29 @@ import { createNamespacedHelpers } from "vuex";
 const todoHelper = createNamespacedHelpers("todoStore");
 
 export default {
-  data() {
-    return {
-      todayCommit: null,
-    };
+  beforeMount() {
+    this.refreshCommit();
   },
-  created() {
-    this.onRefresh();
+  computed: {
+    ...todoHelper.mapState(["todayCommit"]),
   },
   methods: {
     ...todoHelper.mapActions(["refreshCommit"]),
-    ...todoHelper.mapGetters(["getDay1Commit"]),
-    onRefresh() {
-        this.refreshCommit();
-        if (this.getDay1Commit() !== "0") this.todayCommit = true;
-        else this.todayCommit = false;
-    }
   },
 };
 </script>
+
+<style>
+.commitImg {
+    width: 164px ;
+    height: 35px;
+  }
+
+@media (max-width: 768px) {
+  .commitImg {
+    width: 100px !important;
+    height: 25px !important;
+    margin-right:10px;
+  }
+}
+</style>

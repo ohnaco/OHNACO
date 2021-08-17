@@ -21,6 +21,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import springfox.documentation.swagger2.mappers.ModelMapper;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -115,9 +117,13 @@ public class TechService {
         return null;
     }
 
-    public Page<Article> getSubscribeArticles(Pageable pageable, String keyword, String userid) {
+    public Page<Article> getSubscribeArticles(Pageable pageable, String userid)throws Exception  {
 
-        return articleRepository.findArticles(keyword, keyword, userid, pageable);
+       try {
+            return articleRepository.findArticles(userid, pageable);
+        } catch(Exception e) {
+            throw new Exception("");
+        }
 
     }
 
@@ -144,11 +150,16 @@ public class TechService {
 
                 List entries = feed.getEntries();
                 for (int i = 0; i < entries.size(); i++) {
+
                     SyndEntry entry = (SyndEntry) entries.get(i);
+                    if(blog.getBlogname().equals("coupang"))
+                       if(!entry.getCategories().get(0).getName().equals("tech-notes"))
+                           continue;
                     Article article = Article.builder()
                             .blogid(blog.getBlogid())
+                            .image(blog.getBlogname())
                             .title(entry.getTitle())
-                            .content(StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue().substring(0, 150)))
+                            .content(entry.getDescription()==null? StringEscapeUtils.unescapeHtml4(entry.getContents().get(0).getValue().substring(0, 150)).replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""):StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue().substring(0, 150)).replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""))
                             .link(entry.getLink())
                             .publisheddate(entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
                             .build();
@@ -157,7 +168,7 @@ public class TechService {
                         articleRepository.save(article);
 
                     System.out.println(entry.getAuthor());
-                    System.out.println(StringEscapeUtils.unescapeHtml3(entry.getDescription().getValue().substring(0, 150)));
+                    System.out.println(entry.getDescription()==null? StringEscapeUtils.unescapeHtml4(entry.getContents().get(0).getValue().substring(0, 150)):StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue().substring(0, 150)).replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""));
                     System.out.println(entry.getLink());
                     System.out.println(entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
 

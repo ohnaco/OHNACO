@@ -55,6 +55,17 @@ const requestMyInfo = (callback, errorCallback) => {
     });
 };
 
+const deleteUser = (callback, errorCallback) => {
+  http
+    .delete("/mypage/deleteuser")
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
 const updateMyInfo = (data, callback, errorCallback) => {
   http
     .put("/mypage/info?body=", data)
@@ -96,6 +107,7 @@ export default {
   requestMyAnswers,
   requestMyScraps,
   requestMyInfo,
+  deleteUser,
   updateMyInfo,
   requestMypageNicknameCheck,
   updateMyPwd,

@@ -1,7 +1,6 @@
 package com.prossafy101.ohnaco.controller;
 
-import com.prossafy101.ohnaco.entity.devtalk.Answer;
-import com.prossafy101.ohnaco.entity.devtalk.Question;
+import com.prossafy101.ohnaco.entity.devtalk.*;
 import com.prossafy101.ohnaco.entity.tech.Article;
 import com.prossafy101.ohnaco.entity.tech.ArticleDto;
 import com.prossafy101.ohnaco.entity.user.User;
@@ -41,6 +40,10 @@ public class MyPageController {
     @Autowired
     private TechService techService;
 
+    String visitKey = "devtalk:question:visit:";
+    String likeQuestionKey = "devtalk:question:like:";
+    String likeAnswerKey = "devtalk:answer:like:";
+
     @GetMapping("/list")
     @ApiOperation(value = "내 정보, 질문, 답변, 스크랩트 정보 가져오기 (최신 5개씩)")
     public Object getMyInfoList(HttpServletRequest req) {
@@ -55,11 +58,29 @@ public class MyPageController {
             todoService.commitUpdate(userid, user.getGithubid(), LocalDate.now().toString());
             result.put("commit", todoService.getCommit(userid));
         }
+
         Page<Question> questions = questionService.getQuestionByUser(user, PageRequest.of(0, 5, Sort.by("questiondate").descending()));
+        List<Question> questionList = questions.getContent();
+        List<QuestionDto> questionDtos = new ArrayList<>();
+        for(Question question : questionList) {
+            questionDtos.add(QuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .questioncontent(question.getQuestioncontent()).questiondate(question.getQuestiondate()).user(question.getUser())
+                    .tag(question.getTag()).visit(redisUtil.getData(visitKey+question.getQuestionid()))
+                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid())).build());
+        }
+
         Page<Answer> answers = answerService.getAnswerByUser(user, PageRequest.of(0, 5, Sort.by("answerdate").descending()));
-        result.put("question", questions.getContent());
+        List<Answer> answerList = answers.getContent();
+        List<AnswerQuestionDto> answerDto = new ArrayList<>();
+        for(Answer answer : answerList) {
+            Question question = questionService.getQuestionByid(answer.getQuestion().getQuestionid());
+            answerDto.add(AnswerQuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).build());
+        }
+
+        result.put("question", questionDtos);
         result.put("questionCount", questions.getTotalElements());
-        result.put("answer",answers.getContent());
+        result.put("answer",answerDto);
         result.put("answerCount", answers.getTotalElements());
         List<String> scraps = redisUtil.getScrapData("tech:scrap:" + userid, 0, 4);
         List<Long> articleids = new ArrayList<>();
@@ -82,7 +103,17 @@ public class MyPageController {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        result.put("question", questionService.getQuestionByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("questiondate").descending())).getContent());
+
+        List<Question> questions = questionService.getQuestionByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("questiondate").descending())).getContent();
+        List<QuestionDto> questionDtos = new ArrayList<>();
+        for(Question question : questions) {
+            questionDtos.add(QuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .questioncontent(question.getQuestioncontent()).questiondate(question.getQuestiondate()).user(question.getUser())
+                    .tag(question.getTag()).visit(redisUtil.getData(visitKey+question.getQuestionid()))
+                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid()))
+                    .answercount(answerService.getCountAnswer(question.getQuestionid())).build());
+        }
+        result.put("question", questionDtos);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -92,7 +123,14 @@ public class MyPageController {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        result.put("answer",answerService.getAnswerByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("answerdate").descending())).getContent());
+        List<Answer> answers = answerService.getAnswerByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("answerdate").descending())).getContent();
+        List<AnswerQuestionDto> answerDto = new ArrayList<>();
+        for(Answer answer : answers) {
+            Question question = questionService.getQuestionByid(answer.getQuestion().getQuestionid());
+            answerDto.add(AnswerQuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).build());
+        }
+        result.put("answer",answerDto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -145,14 +183,14 @@ public class MyPageController {
     }
 
     @PutMapping("/info")
-    @ApiOperation(value = "내 정보 변경 nickname,githubid,position")
+    @ApiOperation(value = "내 정보 변경 nickname,githubid,position,image")
     public Object changeMyInfo(@RequestBody UserDto userDto, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         User user = userService.findByUserid(userid);
         userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(user.getPassword())
-                .nickname(userDto.getNickname()).githubid(userDto.getGithubid()).positions(userService.positionsName(userDto.getPosition())).build());
+                .nickname(userDto.getNickname()).githubid(userDto.getGithubid()).positions(userService.positionsName(userDto.getPosition())).image(userDto.getImage()).build());
         result.put("status", true);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -167,12 +205,35 @@ public class MyPageController {
         boolean check = userService.checkPassword(map.get("password"), user);
         if(check) {
             userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(passwordEncoder.encode(map.get("newpassword")))
-                    .nickname(user.getNickname()).githubid(user.getGithubid()).positions(user.getPositions()).build());
+                    .nickname(user.getNickname()).githubid(user.getGithubid()).positions(user.getPositions()).image(user.getImage()).build());
             result.put("status", true);
         } else {
             result.put("status", false);
         }
 
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @DeleteMapping("/deleteuser")
+    public Object deleteUser(HttpServletRequest req) {
+        Map<String, Object> result = new HashMap<>();
+        String token = req.getHeader("Authorization").substring(7);
+        String userid = jwtUtil.getUserid(token);
+        try {
+            redisUtil.deleteData(userService.findByUserid(userid).getEmail());
+            userService.deleteUser(userid);
+            result.put("status", "success");
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.put("status", "fail");
+        }
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
+    @GetMapping("/defaultprofile")
+    public Object getDefaultProfile() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("image", "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

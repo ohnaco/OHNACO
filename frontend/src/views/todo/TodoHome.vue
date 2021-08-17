@@ -1,31 +1,60 @@
 <template>
   <v-layout>
-    <v-row>
-      <v-col cols="2"><left-nav-bar></left-nav-bar></v-col>
-      <v-col cols="7" class="d-flex flex-column" style="height: 100vh; overflow: scroll">
-        <div class="d-flex align-center text-h4 ma-5">
-          <img src="@/assets/images/todo-icon.svg" class="mr-2" />
-          <b>To Do List</b>
+    <v-row dense>
+      <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
+        ><left-nav-bar></left-nav-bar
+      ></v-col>
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
+        ><top-nav-bar></top-nav-bar
+      ></v-col>
+      <v-col cols="12" sm="12" md="7" class="d-flex flex-column">
+        <div class="d-flex align-center text-h4 ml-5 mt-3" style="display:flex ; justify-content: space-between;">
+          <h1 class="font-weight-bold blue-grey--text" style="font-size: 30px">To Do</h1>
+          <img
+            src="@/assets/images/calendar_black.svg"
+            class="mobile_calendar_btn"
+            @click="mobileCalendarOn"
+          />
+          <img src="@/assets/images/calendar_black.svg"
+          class="mobile_calendar_large_btn" 
+          @click="modalOn"
+          >
         </div>
-        <div class="d-flex flex-row align-center ma-5">
-          <h2 v-text="date"></h2>
+
+        <div class="d-flex flex-row align-center ml-5 mt-3">
+          <span class="text-h6 font-weight-bold" v-text="date"></span>
           <daily-commit v-if="isDateToday" />
         </div>
-        <todo-card v-for="todo in todoLists" :key="todo.todoid" :item="todo" />
+        <CalendarSmall
+          v-if="isMobileCanlendar"
+          @modalOn_child="modalOn"
+          @todoDate="moveDate"
+          style="width: 100%"
+          v-model="date"
+          class="mobileCalendar"
+        ></CalendarSmall>
+        <div v-if="!isMobileCanlendar">
+          <todo-card
+            v-for="todo in todoLists"
+            :key="todo.todoid"
+            :item="todo"
+            @trueChange="tChange()"
+            @falseChange="fChange()"
+          />
+        </div>
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
         <button @click="toggleCreate" v-if="!isCreateTodo">
-          <img src="@/assets/images/todo-add-btn.svg" />
+          <img src="@/assets/images/todo-add-btn.svg" class="todo_add" />
         </button>
       </v-col>
-      <v-col cols="3">
+      <v-col cols="12" sm="0" md="3" lg="3">
         <!-- 우측달력 -->
-        <p></p>
-        <p></p>
         <CalendarSmall
           @modalOn_child="modalOn"
           @todoDate="moveDate"
           style="width: 100%"
           v-model="date"
+          class="smallCalendar"
         ></CalendarSmall>
         <!--우측달력 끝-->
       </v-col>
@@ -40,6 +69,7 @@
 
 <script>
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
+import TopNavBar from "@/components/common/TopNavBar.vue";
 import TodoAdd from "@/components/todo/TodoAdd.vue";
 import TodoCard from "@/components/todo/TodoCard.vue";
 import CalendarSmall from "@/components/todo/CalendarSmall.vue";
@@ -58,10 +88,13 @@ export default {
       date: this.$moment().format("YYYY-MM-DD"),
       isDateToday: null,
       isAddOnGoing: false,
+      isAnyOneGoing: false,
+      isMobileCanlendar: false,
     };
   },
   components: {
     LeftNavBar,
+    TopNavBar,
     TodoCard,
     TodoAdd,
     DailyCommit,
@@ -95,6 +128,15 @@ export default {
       const today = this.$moment().format("YYYY-MM-DD");
       return date === today;
     },
+    tChange() {
+      this.isAnyOneGoing = true;
+    },
+    fChange() {
+      this.isAnyOneGoing = false;
+    },
+    mobileCalendarOn() {
+      this.isMobileCanlendar = !this.isMobileCanlendar;
+    },
   },
   watch: {
     date: function () {
@@ -104,3 +146,89 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.commit {
+  width: 164px;
+  height: 35px;
+}
+.todo_add {
+  width: 63px;
+  height: 63px;
+}
+.mobile_calendar_btn {
+  position: absolute;
+  right: 20px;
+  width: 25px;
+  height: 25px;
+  display: none;
+}
+.mobile_calendar_large_btn {
+  width: 40px;
+  height: 40px;
+  margin-right:20px;
+}
+@media (max-width: 767px) {
+  .h2,
+  h2 {
+    font-size: 14px !important;
+    margin-bottom: 0px !important;
+  }
+  .pencil-img {
+    width: 25px;
+    height: 25px;
+  }
+  .todo_add {
+    margin-top: 6px;
+    width: 32px;
+    height: 32px;
+  }
+  .mobile_calendar_btn {
+    position: absolute;
+    right: 20px;
+    width: 25px;
+    height: 25px;
+    display: block;
+  }
+  .v-application .text-h4 {
+    font-size: 1.5rem !important;
+    font-weight: 400;
+    line-height: 2.5rem;
+    letter-spacing: 0.0073529412em !important;
+    font-family: "GmarketSans" !important;
+  }
+  .v-application .ma-5 {
+    margin-bottom: 5px !important;
+    margin-top: 5px !important;
+  }
+  .container {
+    padding: 6px;
+  }
+  .col-md-3 {
+    flex: 0 0 auto;
+    width: 40% !important;
+  }
+  .smallCalendar {
+    display: none;
+  }
+  .mobile_calendar_large_btn {
+  display: none;
+}
+}
+
+@media (min-width: 768px) {
+  .col-md-7 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+    margin-left: 8.333333%;
+  }
+}
+
+@media (min-width: 950px) {
+  .col-md-7 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+    margin-left: 0%;
+  }
+}
+</style>

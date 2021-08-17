@@ -10,14 +10,6 @@
         :series="series1"
       ></apexchart>
     </div>
-    <div id="chart">
-      <apexchart
-        type="bar"
-        height="100"
-        :options="barOptions"
-        :series="series2"
-      ></apexchart>
-    </div>
   </div>
 </template>
 
@@ -35,40 +27,11 @@ export default {
   },
   data: function () {
     return {
-      series1: [
-        {
-          name: "1 days ago",
-          data: [
-            this.todayTime[0].completetime,
-            this.todayTime[2].completetime,
-            this.todayTime[3].completetime,
-            this.todayTime[4].completetime,
-            this.todayTime[1].completetime,
-          ],
-        },
-        {
-          name: "2 days ago",
-          data: [
-            this.yesterdayTime[0].completetime,
-            this.yesterdayTime[2].completetime,
-            this.yesterdayTime[3].completetime,
-            this.yesterdayTime[4].completetime,
-            this.yesterdayTime[1].completetime,
-          ],
-        },
-      ],
-      series2: [
-        {
-          name: "전체 시간",
-          data: [
-            this.todayTime[5].completetime,
-            this.yesterdayTime[5].completetime,
-          ]
-        },
-      ],
+      series1: [],
       chartOptions: {
         chart: {
           offsetY: 20,
+          id: 'chart',
           type: "radar",
           dropShadow: {
             enabled: true,
@@ -101,58 +64,34 @@ export default {
           }
         }
       },
-      barOptions: {
-        chart: {
-          type: 'bar',
-          toolbar: {
-            show: false
-          },
-        },
-        plotOptions: {
-          bar: {
-            barHeight: '100%',
-            distributed: true,
-            horizontal: true,
-            dataLabels: {
-              show: false
-            },
-          }
-        },
-        colors: ['#FF8A65', '#607D8B'],
-        dataLabels: {
-          enabled: true,
-          style: {
-            colors: ['#fff']
-          },
-          formatter: function (val) {
-            const hour = Math.floor(val / 3600)
-            const minute = Math.floor((val % 3600) / 60)
-            return hour + "시간 " + minute + '분 '
-          },
-        },
-        xaxis: {
-          categories: ['1 days ago', '2 days ago'],
-          labels: {
-            show: false
-          }
-        },
-        legend: {
-          show: false
-        },
-        grid: {
-          show: false,
-        },
-        tooltip: {
-          y: {
-            formatter: function (val) {
-              const hour = Math.floor(val / 3600)
-              const minute = Math.floor((val % 3600) / 60)
-              return hour + "시간 " + minute + '분 '
-            }
-          }
-        }
-      }
     };
+  },
+  watch: {
+    todayTime: function () {
+      const newSeries = [
+        {
+          name: "1 days ago",
+          data: [
+            this.todayTime[0].completetime,
+            this.todayTime[2].completetime,
+            this.todayTime[3].completetime,
+            this.todayTime[4].completetime,
+            this.todayTime[1].completetime,
+          ],
+        },
+        {
+          name: "2 days ago",
+          data: [
+            this.yesterdayTime[0].completetime,
+            this.yesterdayTime[2].completetime,
+            this.yesterdayTime[3].completetime,
+            this.yesterdayTime[4].completetime,
+            this.yesterdayTime[1].completetime,
+          ],
+        },
+      ]
+      this.series1 = newSeries
+    },
   },
 };
 </script>

@@ -27,49 +27,11 @@ export default {
   },
   data: function () {
     return {
-      series: [{
-        name: 'CS',
-        data: [
-          this.entireCategoryTime[0].time,
-          this.positionTime[0].time,
-          this.categoryTime[0].completetime,
-        ]
-      }, 
-      {
-        name: '알고리즘',
-        data: [
-          this.entireCategoryTime[2].time,
-          this.positionTime[2].time,
-          this.categoryTime[2].completetime,
-        ]
-      }, 
-      {
-        name: '자격증',
-        data: [
-          this.entireCategoryTime[3].time,
-          this.positionTime[3].time,
-          this.categoryTime[3].completetime,
-        ]
-      }, 
-      {
-        name: '프레임워크',
-        data: [
-          this.entireCategoryTime[4].time,
-          this.positionTime[4].time,
-          this.categoryTime[4].completetime,
-        ]
-      }, 
-      {
-        name: '기타',
-        data: [
-          this.entireCategoryTime[1].time,
-          this.positionTime[1].time,
-          this.categoryTime[1].completetime,
-        ]
-      }],
+      series: [],
       chartOptions: {
         chart: {
           type: 'bar',
+          id: 'chart',
           height: 350,
           stacked: true,
           toolbar: {
@@ -82,14 +44,7 @@ export default {
           },
         },
         dataLabels: {
-          enabled: true,
-          style: {
-            colors: ['#fff']
-          },
-          formatter: function (val) {
-            const hour = Math.floor(val / 3600)
-            return hour + '시간'
-          }
+          enabled: false,
         },
         xaxis: {
           type: 'text',
@@ -123,41 +78,41 @@ export default {
       const newSeries = [{
         name: 'CS',
         data: [
-          this.entireCategoryTime[0].time,
-          this.positionTime[0].time,
-          this.categoryTime[0].completetime,
+          this.entireCategoryTime['0'].time,
+          this.positionTime['0'].time,
+          this.categoryTime['0'].completetime,
         ]
       }, 
       {
         name: '알고리즘',
         data: [
-          this.entireCategoryTime[2].time,
-          this.positionTime[2].time,
-          this.categoryTime[2].completetime,
+          this.entireCategoryTime['2'].time,
+          this.positionTime['2'].time,
+          this.categoryTime['2'].completetime,
         ]
       }, 
       {
         name: '자격증',
         data: [
-          this.entireCategoryTime[3].time,
-          this.positionTime[3].time,
-          this.categoryTime[3].completetime,
+          this.entireCategoryTime['3'].time,
+          this.positionTime['3'].time,
+          this.categoryTime['3'].completetime,
         ]
       }, 
       {
         name: '프레임워크',
         data: [
-          this.entireCategoryTime[4].time,
-          this.positionTime[4].time,
-          this.categoryTime[4].completetime,
+          this.entireCategoryTime['4'].time,
+          this.positionTime['4'].time,
+          this.categoryTime['4'].completetime,
         ]
       }, 
       {
         name: '기타',
         data: [
-          this.entireCategoryTime[1].time,
-          this.positionTime[1].time,
-          this.categoryTime[1].completetime,
+          this.entireCategoryTime['1'].time,
+          this.positionTime['1'].time,
+          this.categoryTime['1'].completetime,
         ]
       }]
       this.series = newSeries

@@ -6,9 +6,27 @@
         :commit="mypageInfo.commit"
       />
     </div>
-    <v-container class="mt-5" style="width: 70%">
-      내 스크랩 ({{ mypageInfo.scrapCount }})
+    <v-container style="width: 70%">
+      <div class="mt-10 mb-3 d-flex justify-space-between">
+        내 스크랩 ({{ mypageInfo.scrapCount }})
+        <button @click="goback"><img src="@/assets/images/mypage-back-btn.svg" alt="back-btn"></button>
+      </div>
       <v-divider></v-divider>
+      <v-row>
+        <v-col
+          v-for="scrap in myScraps"
+          :key="scrap.articleid"
+          cols="12"
+          sm="12"
+          md="6"
+          xl="4"
+          class="d-flex justify-center mb-2"
+        >
+          <TechCard
+            :item="scrap"
+          />
+        </v-col>
+      </v-row>
         <infinite-loading @infinite="infiniteHandler" spinner="circles"></infinite-loading>
       <v-divider></v-divider>
     </v-container>
@@ -17,6 +35,7 @@
 
 <script>
 import MyPageProfile from "@/components/mypage/MyPageProfile.vue";
+import TechCard from "@/components/tech/TechCard.vue";
 
 import InfiniteLoading from 'vue-infinite-loading';
 import MyPage from "@/api/MyPage";
@@ -28,11 +47,12 @@ export default {
   name: 'MyPage',
   components: {
     MyPageProfile,
+    TechCard,
     InfiniteLoading,
   },
   data: function () {
     return {
-      pagenum: 1,
+      pageno: 1,
       myScraps: []
     }
   },
@@ -44,14 +64,18 @@ export default {
   },
   methods: {
     ...mypageHelper.mapActions(['getMyPage']),
+    goback: function () {
+      this.$router.push({ name: 'MyPage' })
+    },
     infiniteHandler($state) {
       MyPage.requestMyScraps(
-        this.pagenum,
-        (res) => {
+        this.pageno,
+        ({data}) => {
           setTimeout(() => {
-            if (res.data.length) {
-              this.pagenum += 1;
-              this.myScraps = this.myScraps.concat(res.data)
+            console.log(data.scrap)
+            if (data.scrap.length) {
+              this.pageno += 1;
+              this.myScraps.push(...data.scrap)
               $state.loaded();
             } else {
               $state.complete();

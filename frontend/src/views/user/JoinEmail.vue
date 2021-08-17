@@ -1,13 +1,19 @@
 <template>
-  <div>
+  <div class="container">
     <div class="join-form">
       <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
       <div class="join-name">회원가입</div>
       <div class="join-box">
         <div class="check-email-text">
-          {{ this.$route.params.email }}
-          <br />
-          인증번호를 입력해주세요.
+          <div>
+          '{{ this.$route.params.email }}'
+          </div>
+          <div>
+          인증번호를 입력해주세요. 
+          </div>
+          <div>
+          최대 5분 소요됩니다.
+          </div>
         </div>
         <!-- 인증번호 -->
         <input
@@ -43,10 +49,10 @@
 </template>
 
 <script>
-import User from "../../api/User";
+import User from "@/api/User";
 
 export default {
-  name: "Join",
+  name: "JoinEmail",
   data: function () {
     return {
       email: this.$route.params.email,
@@ -58,7 +64,6 @@ export default {
       this.$router.push({ name: "Join" });
     },
     goJoinProfile: function () {
-      // this.$router.push({ name: "JoinProfile", params: {email : this.$route.params.email} })
       let { email, token } = this;
       let data = {
         email,
@@ -68,11 +73,15 @@ export default {
         data,
         (res) => {
           console.log(res);
-          alert("인증되었습니다.");
-          this.$router.push({
-            name: "JoinProfile",
-            params: { email: this.$route.params.email },
-          });
+          if (res.data.status) {
+            this.$router.push({
+              name: "JoinProfile",
+              params: { email: this.$route.params.email },
+            });
+            alert("인증되었습니다.");
+          } else {
+            alert('인증코드가 일치하지 않습니다.')
+          }
         },
         (err) => {
           console.log(err);
@@ -101,8 +110,9 @@ export default {
 
 <style scoped>
 .join-form {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .join-name {
   width: 109px;
@@ -133,12 +143,12 @@ export default {
 .check-email-text {
   position: relative;
   display: flex;
-  justify-content: center;
-  height: 26px;
+  align-items: center;
+  flex-direction: column;
   font-family: Gmarket Sans TTF;
   font-style: normal;
   font-weight: 300;
-  font-size: 13px;
+  font-size: 11px;
   color: #000000;
 }
 .certify-num {

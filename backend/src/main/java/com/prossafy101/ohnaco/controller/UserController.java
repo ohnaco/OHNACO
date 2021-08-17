@@ -1,9 +1,6 @@
 package com.prossafy101.ohnaco.controller;
 
-import com.prossafy101.ohnaco.entity.user.SignInDto;
-import com.prossafy101.ohnaco.entity.user.TempUserDto;
-import com.prossafy101.ohnaco.entity.user.User;
-import com.prossafy101.ohnaco.entity.user.UserDto;
+import com.prossafy101.ohnaco.entity.user.*;
 import com.prossafy101.ohnaco.repository.StatisticsRepository;
 import com.prossafy101.ohnaco.service.JwtUtil;
 import com.prossafy101.ohnaco.service.RedisUtil;
@@ -22,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
 import reactor.netty.http.server.HttpServerRequest;
 
 import javax.mail.MessagingException;
@@ -246,7 +244,6 @@ public class UserController {
     public Object tempJoin(@RequestParam(required = true) String email) {
         Map<String, Object> result = new HashMap<>();
         String emailCode = userService.randomCode();
-//        System.out.println(userDto.getEmail());
         Optional<TempUserDto> tempUserDto;
         try {
             tempUserDto = userService.tempUserByEmail(email);
@@ -303,6 +300,7 @@ public class UserController {
                         .nickname(userDto.getNickname())
                         .githubid(userDto.getGithubid())
                         .positions(userService.positionsName(userDto.getPosition()))
+                        .image("https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile")
                         .build());
 
                 userService.tempUserDelete(userDto.getEmail());
@@ -338,31 +336,20 @@ public class UserController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping("/findpwd")
-    @ApiOperation(value = "비밀번호찾기인증")
-    public Object findPwdConfirm(@RequestParam String email, @RequestParam String token) {
+    @PutMapping("/findpwd")
+    @ApiOperation(value = "변경된 비밀번호 저장 => email, newpwd")
+    public Object changeNewPwd(@RequestBody FindPasswordDto findPasswordDto) {
         Map<String, Object> result = new HashMap<>();
         try {
-            if(userService.isTokenConfirm(email, token)) {
-                result.put("status", true);
-                result.put("message", "인증 성공");
-            } else {
-                result.put("status", false);
-                result.put("message", "인증 실패");
-            }
+            if(userService.isTokenConfirm(findPasswordDto.getEmail(), findPasswordDto.getCode())) {
+                User user = userService.findByEmail(findPasswordDto.getEmail());
+                userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(passwordEncoder.encode(findPasswordDto.getPassword())).nickname(user.getNickname()).positions(user.getPositions()).githubid(user.getGithubid()).image(user.getImage()).build());
+                result.put("status", "success");
+            } else result.put("status", "fail");
         } catch (Exception e) {
-            result.put("status", false);
-            result.put("message", e.getMessage());
+            result.put("status", "error");
+            e.printStackTrace();
         }
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
-
-    @PostMapping("/findpwd/newpwd")
-    @ApiOperation(value = "변경된 비밀번호 저장 => email, newpwd")
-    public Object changeNewPwd(@RequestBody UserDto userDto) {
-        Map<String, Object> result = new HashMap<>();
-        User user = userService.findByEmail(userDto.getEmail());
-        userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(passwordEncoder.encode(userDto.getPassword())).nickname(user.getNickname()).positions(user.getPositions()).githubid(user.getGithubid()).build());
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }

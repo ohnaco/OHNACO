@@ -12,22 +12,27 @@
         <v-img src="@/assets/images/mypage-all-btn.svg" alt="show-all"></v-img>
       </v-btn>
     </v-card-actions>
-  <v-simple-table class="elevation-2">
-    <template v-slot:default>
-      <tbody>
-        <tr
-          v-for="(question, i) in questions"
-          :key="i"
-        >
-          <td>
-            <img src="@/assets/images/question-mark.svg" style="width: 11px" alt="question">
-            {{ question.questiontitle }}</td>
-          <td align="right">{{ question.questiondate | datetime }}</td>
-          <v-divider></v-divider>
-        </tr>
-      </tbody>
-    </template>
-  </v-simple-table>
+    <!-- 질문 5개 모아보기 -->
+    <v-simple-table class="elevation-2">
+      <template v-slot:default>
+        <tbody>
+          <tr
+            v-for="(question, i) in questions"
+            :key="i"
+            @click="gotoDetail(question)"
+          >
+            <td>
+              <div class="mt-3 mb-2">
+                <img src="@/assets/images/question-mark.svg" style="width: 11px" alt="question">
+                <b class="ml-1">{{ question.questiontitle }}</b>
+              </div>
+            </td>
+            <td align="right">{{ question.questiondate | datetime }}</td>
+            <v-divider></v-divider>
+          </tr>
+        </tbody>
+      </template>
+    </v-simple-table>
   </v-container>
 </template>
 
@@ -53,6 +58,12 @@ export default {
   methods: {
     goMyQuestions: function () {
       this.$router.push({ name: "MyQuestions" });
+    },
+    gotoDetail: function (question) {
+      this.$router.push({
+        name: "QuestionDetail",
+        query:{ id: question.questionid },
+      });
     },
   }
 }

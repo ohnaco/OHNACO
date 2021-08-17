@@ -11,7 +11,7 @@
       </v-avatar>
       <v-list-item-title>{{ githubid }}</v-list-item-title>
     </v-list-item>
-    <div class="progress" style="height: 36px; background: transparent">
+    <div class="progress d-flex" style="height: 36px; background: transparent">
       <!-- <div class="progress-bar" 
       role="progressbar" 
       style="width: 100%"
