@@ -1,49 +1,51 @@
 <template>
   <v-layout style="background: #EFEFEF">
     <v-row style="background: #EFEFEF" class="justify-content-center">
-      <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
-        ><LeftNavBar/>
+      <v-col cols="12" lg="2" v-show="$vuetify.breakpoint.mdAndUp">
+        <LeftNavBar/>
       </v-col>
-      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown">
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important">
         <TopNavBar/>
       </v-col>
       <v-col cols="10" class="pa-5">
         <!-- 상단 제목 및 버튼 -->
-        <v-flex class="d-flex justify-space-between text-h4 mt-5 mb-5 ml-5 mr-5">
-          <div class="align-items-center"><b>Statistics</b></div>
+          <div class="mb-3">
+            <h1
+              style="
+                font-family: 'GmarketSansMedium';
+                font-size: 30px;
+                color: #607d8b;
+              "
+            >
+              Statistics
+            </h1>
+          </div>
           <!-- 주간 월간 버튼 -->
-          <div class="align-items-center">
+          <div class="d-flex justify-content-end">
             <v-btn-toggle 
               v-model="option"
+              mandatory
               borderless
-              tile
+              group
               background-color="#EFEFEF"
             >
               <v-btn 
                 value="week"
-                text
                 @click="week"
                 color="#607D8B"
                 class="pa-1">
-              <v-avatar>
                 <img src="@/assets/images/week-btn.svg" alt="week-btn" />
-              </v-avatar>
               </v-btn>
               <v-btn 
                 value="month"
-                text
                 @click="month"
                 color="#607D8B"
                 class="pa-1">
-              <v-avatar>
                 <img src="@/assets/images/month-btn.svg" alt="week-btn" />
-              </v-avatar>
               </v-btn>
             </v-btn-toggle>
           </div>
-        </v-flex>
-        <v-flex>
-          <v-row wrap class="pb-5">
+          <v-row wrap class="pb-5 justify-content-center">
             <v-row>
               <v-col lg="6" md="6" sm="12" cols="12">
                 <!-- 총 공부시간 -->
@@ -126,7 +128,6 @@
               </v-col>
             </v-row>
           </v-row>
-        </v-flex>
       </v-col>
     </v-row>
   </v-layout>
