@@ -104,7 +104,7 @@
               {{ date }}
             </div>
           </div>
-          <div style="float: right; width: 110px; height: 100%" class="pt-3">
+          <div class="pt-3 profile_box">
             <div style="float: left">
               <img
                 :src="`${item.user.image}`"
@@ -271,6 +271,11 @@ export default {
   min-width: 190px;
   height: 100%;
 }
+.profile_box{
+  float: right; 
+  width: 130px; 
+  height: 100%;
+}
 .profile_name {
   font-family: "GmarketSansMedium";
   font-size: 14px;
@@ -304,17 +309,25 @@ export default {
     padding: 0px;
   }
 @media (max-width: 768px) {
+  .profile_box{ 
+  width: 110px;
+}
   .qCard_title {
     font-size: 14px;
   }
-
+  .profile_name {
+  font-size: 10px;
+}
+.profile_jobs {
+  font-size: 9px;
+}
   .qCard_content {
     height: 40px !important;
     font-size: 10px;
   }
   .tagNdate {
     float: left;
-    min-width: 150px;
+    min-width: 110px;
     height: 100%;
   }.content_card{
     padding-left: 10px;
