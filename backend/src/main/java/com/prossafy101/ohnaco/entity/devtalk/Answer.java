@@ -20,7 +20,6 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int answerid;
 
-    private String answertitle;
     private String answercontent;
     private LocalDateTime answerdate;
 

@@ -1,9 +1,6 @@
 package com.prossafy101.ohnaco.controller;
 
-import com.prossafy101.ohnaco.entity.devtalk.Answer;
-import com.prossafy101.ohnaco.entity.devtalk.AnswerDto;
-import com.prossafy101.ohnaco.entity.devtalk.Question;
-import com.prossafy101.ohnaco.entity.devtalk.QuestionDto;
+import com.prossafy101.ohnaco.entity.devtalk.*;
 import com.prossafy101.ohnaco.entity.tech.Article;
 import com.prossafy101.ohnaco.entity.tech.ArticleDto;
 import com.prossafy101.ohnaco.entity.user.User;
@@ -74,12 +71,11 @@ public class MyPageController {
 
         Page<Answer> answers = answerService.getAnswerByUser(user, PageRequest.of(0, 5, Sort.by("answerdate").descending()));
         List<Answer> answerList = answers.getContent();
-        List<AnswerDto> answerDto = new ArrayList<>();
+        List<AnswerQuestionDto> answerDto = new ArrayList<>();
         for(Answer answer : answerList) {
-            answerDto.add(AnswerDto.builder().answerid(answer.getAnswerid()).answertitle(answer.getAnswertitle())
-                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate())
-                    .user(answer.getUser()).userLike(redisUtil.getLikeUseridData(likeAnswerKey+answer.getAnswerid(), userid))
-                    .like(redisUtil.getLikeCountData(likeAnswerKey+answer.getAnswerid())).build());
+            Question question = questionService.getQuestionByid(answer.getQuestion().getQuestionid());
+            answerDto.add(AnswerQuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).build());
         }
 
         result.put("question", questionDtos);
@@ -118,21 +114,13 @@ public class MyPageController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         List<Answer> answers = answerService.getAnswerByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("answerdate").descending())).getContent();
-        List<AnswerDto> answerDto = new ArrayList<>();
-        List<QuestionDto> questionDto = new ArrayList<>();
+        List<AnswerQuestionDto> answerDto = new ArrayList<>();
         for(Answer answer : answers) {
-            answerDto.add(AnswerDto.builder().answerid(answer.getAnswerid()).answertitle(answer.getAnswertitle())
-                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).questionid(answer.getQuestion().getQuestionid())
-                    .user(answer.getUser()).userLike(redisUtil.getLikeUseridData(likeAnswerKey+answer.getAnswerid(), userid))
-                    .like(redisUtil.getLikeCountData(likeAnswerKey+answer.getAnswerid())).build());
             Question question = questionService.getQuestionByid(answer.getQuestion().getQuestionid());
-            questionDto.add(QuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
-                    .questioncontent(question.getQuestioncontent()).questiondate(question.getQuestiondate()).user(question.getUser())
-                    .tag(question.getTag()).visit(redisUtil.getData(visitKey+question.getQuestionid()))
-                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid())).build());
+            answerDto.add(AnswerQuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).build());
         }
         result.put("answer",answerDto);
-        result.put("question", questionDto);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
