@@ -7,12 +7,12 @@ export default {
     todoLists: [],
     todoListsByMonth: [],
     todayCommit: null,
-    exitTime:"",
-    goingTime:"",
-    ongoingId:"",
-    ongoingIdFQ:"",
-    goingTimeFG:"",
-    exitTimeFQ:"",
+    exitTime: "",
+    goingTime: "",
+    ongoingId: "",
+    ongoingIdFQ: "",
+    goingTimeFG: "",
+    exitTimeFQ: "",
   },
   mutations: {
     // 여기서 data 를 업데이트
@@ -78,15 +78,14 @@ export default {
       Todo.loadByMonth(
         data,
         (res) => {
-          console.log(res.data.list)
-          commit('SET_TODO_MONTH', res.data.list);
+          console.log(res.data.list);
+          commit("SET_TODO_MONTH", res.data.list);
         },
         (err) => {
           alert(err);
         }
       );
     },
-
 
     createTodo({ commit }, payload) {
       Todo.createTodo(
@@ -143,7 +142,7 @@ export default {
           commit("SET_TODAY_COMMIT", day1 > 0 ? true : false);
         },
         (err) => {
-          alert(err);
+          console.log(err);
         }
       );
     },
@@ -175,7 +174,7 @@ export default {
     },
 
     moveTodayAdd({ commit }, payload) {
-        Todo.createTodo(
+      Todo.createTodo(
         payload,
         (res) => {
           console.log(commit);
@@ -189,23 +188,23 @@ export default {
     },
 
     setTime({ commit }, payload) {
-      commit("SET_TIME",payload);
+      commit("SET_TIME", payload);
     },
     setGoingTime({ commit }, payload) {
-      commit("SET_GOINGTIME",payload);
+      commit("SET_GOINGTIME", payload);
     },
     setId({ commit }, payload) {
-      commit("SET_ID",payload);
+      commit("SET_ID", payload);
     },
 
     setTimeFQ({ commit }, payload) {
-      commit("SET_TIMEFQ",payload);
+      commit("SET_TIMEFQ", payload);
     },
     setGoingTimeFQ({ commit }, payload) {
-      commit("SET_GOINGTIMEFQ",payload);
+      commit("SET_GOINGTIMEFQ", payload);
     },
     setIdFQ({ commit }, payload) {
-      commit("SET_IDFQ",payload);
+      commit("SET_IDFQ", payload);
     },
   },
   getters: {},
