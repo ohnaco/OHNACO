@@ -88,6 +88,65 @@
 
 <br>
 
+## 💻 설정 및 실행 
+
+- 먼저 git repository를 clone해서 받아온다. 
+```
+git clone https://lab.ssafy.com/s05-webmobile2-sub3/S05P13A101.git
+```
+
+### Database Setting
+```
+sudo apt update && sudo apt-get -y upgrade
+sudo apt-get install -y mariadb-server
+mysql -u root -p
+```
+
+### Redis Setting 
+```
+docker run --name redis -p 6379:6379 -d redis redis-server \
+--appendonly yes --requirepass "Redis 패스워드" 
+```
+
+### nginx Setting 
+```
+# sudo vi /etc/nginx/sites-enabled/default
+
+-------------------------------------------------------
+
+root /'프로젝트 디렉토리'/S05P13A101/frontend/dist;
+
+index index.html;
+
+server_name i5a101.p.ssafy.io;
+
+location / {
+        try_files $uri $uri/ /index.html;
+}
+
+### backend reverse proxy ###
+location /api {
+        proxy_pass https://backend;
+        proxy_http_version 1.1;
+        proxy_set_header Connection "";
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-forwarded-Port $server_port;
+}
+
+-------------------------------------------------------
+
+# 설정 변경 후 syntax 검사 
+sudo nginx -t
+
+# 설정 변경 후 nginx 재시작 필수 
+sudo service nginx restart
+```
+
+
 ## ⚙ 개발 규칙
 
 ### Git Commit Message 규약
