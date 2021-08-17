@@ -9,7 +9,7 @@ export default {
   name: "ProfileImage",
   props: {
     user: {
-      type: Object,
+      type: [Array, Object],
     },
   },
 };
