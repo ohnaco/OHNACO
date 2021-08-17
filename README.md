@@ -109,11 +109,19 @@ docker run --name redis -p 6379:6379 -d redis redis-server \
 ```
 
 ### nginx Setting 
-1. vi 에디터 실행
+1. nginx 설치 
+```
+# nginx 설치 
+sudo apt-get install nginx 
+
+# 잘 설치되었나 확인 
+sudo service nginx status  
+```
+2. vi 에디터 실행
 ```
 sudo vi /etc/nginx/sites-enabled/default
 ```
-2. 에디터에서 아래 내용 그대로 작성
+3. 에디터에서 아래 내용 그대로 작성
 ```
 upstream backend {
   server localhost:8197;
@@ -157,6 +165,22 @@ sudo nginx -t
 sudo service nginx restart
 ```
 
+### SSL Setting 
+```
+# 저장소 추가
+sudo add-apt-repository ppa:certbot/certbot
+
+# apt-get 업데이트
+sudo apt-get update 
+
+# certbot 설치
+sudo apt-get install python-certbot-nginx
+
+# 인증서 설치 
+sudo certbot --nginx -d '지정할 도메인'
+
+# 이메일 등록 / 약관 동의 / http redirect 설정 (2번 선택)
+```
 
 ### frontend 
 
