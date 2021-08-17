@@ -119,23 +119,16 @@
               <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <div style="height: 36px">
-                  <div
-                    style="font-family: GmarketSansLight; float: left"
-                    class="ml-3 ongoing_title"
-                  >
-                    {{ item.title }}
-                  </div>
-                  <div class="text-caption mr-3" v-text="item.todoid" align="right" />
-                </div>
+                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
               </v-row>
 
-              <div class="d-flex justify-end"></div>
+              <v-col cols="12" class="text-h6 text-center pa-1" v-text="item.title"></v-col>
+
               <div class="time">
                 {{ formattedElapsedTime }}
               </div>
               <v-card-actions class="justify-space-between align-end pt-0">
-                <div class="d-flex text-caption align-center ml-2">
+                <div class="d-flex text-caption align-center ml-2 font-weight-bold">
                   <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
                 </div>
                 <v-btn v-if="false" class="ml-2 mt-3" fab icon right> </v-btn>
