@@ -59,7 +59,6 @@ export default {
       this.$router.push({ name: 'MyPage' })
     },
     goDetail: function (question) {
-      console.log(question.questionid);
       this.$router.push({
         name: "QuestionDetail",
         query:{ id: question.questionid },
