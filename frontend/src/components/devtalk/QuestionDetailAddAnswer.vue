@@ -64,7 +64,7 @@ export default {
     ...devtalkHelper.mapActions(["addComment"]),
     newComment(){
       const com = {
-        questionid: this.$parent.$route.params.id,
+        questionid: this.$parent.$route.query.id,
         answercontent: this.content,
         answertitle: "",
       }
