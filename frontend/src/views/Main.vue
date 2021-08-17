@@ -1,7 +1,4 @@
 <template>
-<<<<<<< Updated upstream
-  <button @click="goLogin">로그인</button>
-=======
     <div id="page-top">
         <!-- Navigation-->
         <MainNav/>
@@ -101,7 +98,6 @@
         </footer>
   </div>
 
->>>>>>> Stashed changes
 </template>
 
 <script>
