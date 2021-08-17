@@ -2,7 +2,7 @@
   <div class="container">
     <!-- 회원가입 폼 -->
     <div class="join-form">
-      <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
+      <img @click="goMain" src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
       <div class="join-name">회원가입</div>
       <div class="join-box">
         <!-- 이메일 -->
@@ -135,7 +135,7 @@ export default {
   },
   methods: {
     goMain: function () {
-      this.$router.push({ name: "" });
+      this.$router.push({ name: "Main" });
     },
     goLogin: function () {
       this.$router.push({ name: "Login" });

@@ -2,7 +2,7 @@
   <div class="container">
     <!-- 로그인 폼 -->
     <div class="login-form">
-      <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
+      <img @click="goMain" src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
       <div class="login-name">로그인</div>
       <div class="login-box">
         <!-- 이메일 -->
@@ -43,6 +43,9 @@ export default {
   },
   methods: {
     ...userHelper.mapActions(["login"]),
+    goMain: function () {
+      this.$router.push({ name: "Main" });
+    },
     goSignup: function () {
       this.$router.push({ name: "Join" });
     },
