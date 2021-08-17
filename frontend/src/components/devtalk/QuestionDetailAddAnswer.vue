@@ -32,18 +32,15 @@
         v-html="compiledMarkdown"
         style="width: 100%; word-break: break-all"
       ></div>
-      <v-btn
-        elevation="2"
-        class="m-3"
-        style="
-          position: absolute;
-          right: 0px;
-          bottom: 0px;
-          font-family: GmarketSansMedium;
-        "
-        @click="newComment"
-        >등록</v-btn
-      >
+      <div style="width: 100%" class="p-0">
+        <v-btn
+          elevation="2"
+          class="mt-3 mb-3 mr-3"
+          style="font-family: GmarketSansMedium; float: right"
+          @click="newComment"
+          >등록</v-btn
+        >
+      </div>
     </div>
     <!-- 미리보기 끝-->
   </div>
@@ -62,12 +59,13 @@ export default {
   },
   methods: {
     ...devtalkHelper.mapActions(["addComment"]),
-    newComment(){
+    newComment() {
       const com = {
-        questionid: this.$parent.$route.params.id,
+        questionid: this.$parent.$route.query.id,
         answercontent: this.content,
         answertitle: "",
-      }
+      };
+      this.content="";
       this.addComment(com);
     },
   },
@@ -82,7 +80,6 @@ export default {
 
 <style>
 .ad_rectangle {
-  width: 95%;
   border-radius: 10px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #607d8b;

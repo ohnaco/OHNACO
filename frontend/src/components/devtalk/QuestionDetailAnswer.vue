@@ -1,5 +1,5 @@
 <template>
-  <div class="qd_rectangle mb-3">
+  <div class="qd_rectangle">
     <div class="p-3 pt-0">
       <!--간략 프로필 -->
       <div style=" width:110px ; height:35px float:left" class="mb-3 mt-3">
@@ -210,7 +210,6 @@ export default {
 
 <style>
 .ad_rectangle {
-  width: 95%;
   border-radius: 10px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #607d8b;

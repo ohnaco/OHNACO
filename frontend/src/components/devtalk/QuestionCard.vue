@@ -210,7 +210,6 @@ export default {
 }
 
 .qCard_title {
-  width:95%;
   font-family: "GmarketSansMedium";
   font-size: 18px;
   font-weight: 500;
@@ -227,7 +226,6 @@ export default {
 }
 
 .qCard_content {
-  width:95%;
   font-family: "GmarketSansLight";
   font-size: 14px;
   font-weight: 500;

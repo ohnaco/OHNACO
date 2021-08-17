@@ -10,7 +10,7 @@
     <v-col cols="12" md="12" lg="10" class="d-flex flex-column p2 scroll type1"
       style="overflow: auto; height: 100vh"
     >
-      <QuestionDetailCard></QuestionDetailCard>
+      <QuestionDetailCard class="detail_qCard"></QuestionDetailCard>
     </v-col>
   </v-row>
   </v-layout>
@@ -78,7 +78,17 @@ export default {
 .type1::-webkit-scrollbar-track {
   background-color: rgba(196, 196, 196, 0.692);
 }
-@media (min-width: 768px){
+.detail_qCard{
+  padding-left: 48px;
+  padding-right: 48px;
+  padding-top : 48px;
+}
+@media (max-width: 768px){
+  .detail_qCard{
+  padding-left: 24px;
+  padding-right: 24px;
+  padding-top : 36px;
+}
 }
 
 </style>

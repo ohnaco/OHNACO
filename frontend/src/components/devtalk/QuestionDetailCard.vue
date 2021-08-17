@@ -22,7 +22,7 @@
 
         <div style="clear: both; height: 0; overflow: hidden"></div>
         <!--간략 프로필 -->
-        <div style="width: 110px; height: 35px" class="mb-3 mt-3">
+        <div class="detail_profile">
           <div style="float: left">
             <img :src="profile_img" style="width: 35px; height: 35px" />
           </div>
@@ -92,7 +92,7 @@
     </div>
 
     <!-- 답변 시작-->
-    <div class="mt-4 mb-4">
+    <div class="ans_count">
       <span style="font-family: GmarketSansBold; font-size: 22px; color: red"
         >A.</span
       >
@@ -104,7 +104,8 @@
     <div>
       <QuestionDetailAnswer v-for="comment in answerList"
       :key="comment.answerid"
-      :item="comment"></QuestionDetailAnswer>
+      :item="comment"
+      style="margin-bottom:32px"></QuestionDetailAnswer>
       <QuestionDetailAddAnswer></QuestionDetailAddAnswer>
     </div>
     <img src="@/assets/images/goback.svg" @click="goBack" />
@@ -261,6 +262,12 @@ export default {
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: #333;
 }
+.detail_profile{
+  width: 110px;
+  height: 35px;
+  margin-bottom: 12px;
+  margin-top: 12px;
+}
 
 textarea,
 #editor div {
@@ -306,15 +313,15 @@ code {
 .profile{
     padding: 12px;
   }
+  .ans_count{
+    margin-top: 32px;
+    margin-bottom: 32px;
+  }
 
 @media (max-width: 768px) {
   .qCard_title{
     height: 20px;
     font-size:12px;
-  }
-  .like-img{
-    width:15px !important;
-    height:15px !important;
   }
   .profile{
     padding: 4px !important;
@@ -322,5 +329,11 @@ code {
   .ans_cnt{
     font-size:12px !important;
   }
+  .detail_profile{
+  width: 110px;
+  height: 35px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
 }
 </style>

@@ -1,16 +1,16 @@
 <template>
   <v-layout>
     <v-row>
-      <v-col cols="12" lg="2" v-show="$vuetify.breakpoint.mdAndUp"
+      <v-col cols="12" md="2" class="side_bar"
         ><left-nav-bar></left-nav-bar
       ></v-col>
       <v-col
         cols="12"
-        v-show="$vuetify.breakpoint.smAndDown"
         style="padding: 0 !important"
+        class="top_bar"
         ><top-nav-bar></top-nav-bar
       ></v-col>
-      <v-col cols="12" md="12" lg="10" class="d-flex p2">
+      <v-col cols="12" sm="12" md="10" class="d-flex p2">
         <v-col cols="12" sm="12" md="9" class="d-flex flex-column p2">
           <b-container class="bv-example-row" style="height: 120px">
             <div class="mb-3">
@@ -107,7 +107,7 @@
             </div>
           </b-container>
         </v-col>
-        <v-col cols="12" sm="0" md="3" class="hotissue_section">
+        <v-col cols="12"  md="3" sm="0" class="hotissue_section">
           <!-- 핫이슈, 인기게시물-->
           <div style="height: 120px"></div>
 
@@ -167,7 +167,8 @@ export default {
     LeftNavBar,
     TopNavBar,
   },
-  computed: {},
+  computed: {
+    },
   data() {
     return {
       isSortDate: true,
@@ -390,9 +391,23 @@ export default {
     background-color: #C1D5DF !important;
     border-color: #C1D5DF !important;
 }
+.side_bar{
+  display: block;
+}
+.top_bar{
+  display: none;
+}
 @media (max-width: 767px) {
   .hotissue_section {
     display: none;
   }
+}
+@media (max-width: 768px) {
+  .side_bar{
+  display: none;
+}
+.top_bar{
+  display: block;
+}
 }
 </style>
