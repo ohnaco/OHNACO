@@ -3,8 +3,7 @@
     <img src="@/assets/images/daily-commit-no.svg" class="commitImg" v-if="!todayCommit" />
     <img src="@/assets/images/daily-commit-ok.svg" class="commitImg" v-else />
     <v-btn icon
-      ><img src="@/assets/images/daily-commit-refresh.svg" 
-      @click="refreshCommit"
+      ><img src="@/assets/images/daily-commit-refresh.svg" @click="refreshCommit"
     /></v-btn>
   </div>
 </template>
@@ -28,15 +27,14 @@ export default {
 
 <style>
 .commitImg {
-    width: 164px ;
-    height: 35px;
-  }
+  width: 164px;
+  height: 35px;
+}
 
 @media (max-width: 768px) {
   .commitImg {
-    width: 100px !important;
-    height: 25px !important;
-    margin-right:10px;
+    width: 120px !important;
+    height: 30px !important;
   }
 }
 </style>
