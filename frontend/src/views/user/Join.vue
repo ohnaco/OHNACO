@@ -172,7 +172,6 @@ export default {
         User.requestSignupIdCheck(
           data,
           (res) => {
-            console.log(res);
             this.isCheck = res.data.status;
             this.error.emailCheck = res.data.message;
             if (this.isCheck) {

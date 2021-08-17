@@ -120,7 +120,6 @@ export default {
       };
       if (this.nickname) {
         User.requestSignupNicknameCheck(data, (res) => {
-          console.log(res);
           if (res.data.status) {
             this.error.nicknameCheck = null;
             this.isCheck = res.data.status;
