@@ -1,67 +1,136 @@
 <template>
-  <v-row dense>
-    <v-col cols="12" class="pt-0">
-      <v-card color="blue-grey lighten-5 rounded-xl pa-2">
-        <div>
-          <v-form ref="form">
+  <div>
+    <!-- edit mode -->
+    <v-container v-if="!editMode">
+      <v-row dense>
+        <v-col cols="12" class="pt-0">
+          <v-card color="blue-grey lighten-5 rounded-xl pa-2">
             <div>
-              <v-col cols="3" class="pb-0">
-                <!-- 카테고리 select box -->
-                <v-select
-                  v-model="newTodo.categoryid"
-                  :items="categoryItems"
-                  label="분류"
-                  color="cyan"
-                  dense
-                  outlined
-                  hide-details
-                ></v-select>
-              </v-col>
+              <v-form ref="form">
+                <div>
+                  <v-col cols="4" class="pb-0">
+                    <!-- 카테고리 select box -->
+                    <v-select
+                      v-model="newTodo.categoryid"
+                      :items="categoryItems"
+                      label="분류"
+                      color="cyan"
+                      dense
+                      outlined
+                      hide-details
+                    ></v-select>
+                  </v-col>
+                </div>
+                <div>
+                  <v-col cols="12" class="pt-0 pb-0">
+                    <v-text-field
+                      v-model="newTodo.title"
+                      color="cyan"
+                      label="할 일을 입력해주세요."
+                      counter
+                      maxlength="50"
+                      full-width
+                      single-line
+                    >
+                    </v-text-field>
+                  </v-col>
+                </div>
+                <v-row dense>
+                  <v-col md="9">
+                    <vue-timepicker
+                      format="HH:mm:ss"
+                      v-model="newTodo.goaltime"
+                      :minute-interval="5"
+                      :second-interval="10"
+                      manual-input
+                      close-on-complete
+                      class="ml-3"
+                    >
+                      <template v-slot:icon>
+                        <img src="@/assets/images/todo-card-clock.svg" />
+                      </template>
+                    </vue-timepicker>
+                  </v-col>
+                  <v-col class="d-flex justify-end">
+                    <v-btn icon x-large class="mr-2" @click="finishCreate"
+                      ><img src="@/assets/images/todo-create-no.svg"
+                    /></v-btn>
+                    <v-btn icon x-large class="mr-2" @click="onCreateOK"
+                      ><img src="@/assets/images/todo-create-ok.svg"
+                    /></v-btn>
+                  </v-col>
+                </v-row>
+              </v-form>
             </div>
-            <div>
-              <v-col cols="12" class="pt-0 pb-0">
-                <v-text-field
-                  v-model="newTodo.title"
-                  color="cyan"
-                  label="할 일을 입력해주세요."
-                  counter
-                  maxlength="50"
-                  full-width
-                  single-line
-                >
-                </v-text-field>
-              </v-col>
-            </div>
-            <v-row dense>
-              <v-col md="9">
-                <vue-timepicker
-                  format="HH:mm:ss"
-                  v-model="newTodo.goaltime"
-                  :minute-interval="5"
-                  :second-interval="10"
-                  manual-input
-                  close-on-complete
-                  class="ml-3"
-                >
-                  <template v-slot:icon>
-                    <img src="@/assets/images/todo-card-clock.svg" />
-                  </template>
-                </vue-timepicker>
-              </v-col>
-              <v-col class="d-flex justify-end">
-                <v-btn icon x-large class="mr-2" @click="finishCreate"
-                  ><img src="@/assets/images/todo-create-no.svg"
-                /></v-btn>
-                <v-btn icon x-large class="mr-2" @click="onCreateOK"
-                  ><img src="@/assets/images/todo-create-ok.svg"
-                /></v-btn>
-              </v-col>
-            </v-row>
-          </v-form>
-        </div>
-      </v-card>
-    </v-col>
-  </v-row>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+    <!-- create mode -->
+    <v-row v-else>
+      <v-col cols="12" class="pt-0">
+        <v-card color="blue-grey lighten-5 rounded-xl pa-2">
+          <div>
+            <v-form ref="form">
+              <div>
+                <v-col cols="4" class="pb-0">
+                  <!-- 카테고리 select box -->
+                  <v-select
+                    v-model="newTodo.categoryid"
+                    :items="categoryItems"
+                    label="분류"
+                    color="cyan"
+                    dense
+                    outlined
+                    hide-details
+                  ></v-select>
+                </v-col>
+              </div>
+              <div>
+                <v-col cols="12" class="pt-0 pb-0">
+                  <v-text-field
+                    v-model="newTodo.title"
+                    color="cyan"
+                    label="할 일을 입력해주세요."
+                    counter
+                    maxlength="50"
+                    full-width
+                    single-line
+                  >
+                  </v-text-field>
+                </v-col>
+              </div>
+              <v-row dense>
+                <v-col md="9">
+                  <vue-timepicker
+                    format="HH:mm:ss"
+                    v-model="newTodo.goaltime"
+                    :minute-interval="5"
+                    :second-interval="10"
+                    manual-input
+                    close-on-complete
+                    class="ml-3"
+                  >
+                    <template v-slot:icon>
+                      <img src="@/assets/images/todo-card-clock.svg" />
+                    </template>
+                  </vue-timepicker>
+                </v-col>
+                <v-col class="d-flex justify-end">
+                  <v-btn icon x-large class="mr-2" @click="finishCreate"
+                    ><img src="@/assets/images/todo-create-no.svg"
+                  /></v-btn>
+                  <v-btn icon x-large class="mr-2" @click="onCreateOK"
+                    ><img src="@/assets/images/todo-create-ok.svg"
+                  /></v-btn>
+                </v-col>
+              </v-row>
+            </v-form>
+          </div>
+        </v-card>
+      </v-col>
+    </v-row>
+  </div>
 </template>
 
 <script>
