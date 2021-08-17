@@ -109,11 +109,12 @@ docker run --name redis -p 6379:6379 -d redis redis-server \
 ```
 
 ### nginx Setting 
+1. vi 에디터 실행
 ```
-# sudo vi /etc/nginx/sites-enabled/default
-
--------------------------------------------------------
-
+sudo vi /etc/nginx/sites-enabled/default
+```
+2. 에디터에서 아래 내용 그대로 작성
+```
 root /'프로젝트 디렉토리'/S05P13A101/frontend/dist;
 
 index index.html;
@@ -136,16 +137,56 @@ location /api {
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-forwarded-Port $server_port;
 }
+``````
 
--------------------------------------------------------
-
-# 설정 변경 후 syntax 검사 
+3. 설정 변경 후 syntax 검사 
+```
 sudo nginx -t
+```
 
-# 설정 변경 후 nginx 재시작 필수 
+4. 설정 변경 후 nginx 재시작 필수 
+```
 sudo service nginx restart
 ```
 
+
+### frontend 
+
+- frontend 폴더로 이동하여 아래의 명령어로 node package를 설치한다. 
+```
+npm install 
+```
+
+- 아래의 명령어로 빌드한다. 
+```
+npm run build
+```
+
+
+### backend 
+
+- 아래의 명령어로 빌드하여 jar파일을 생성한다. 
+```
+mvn package
+```
+
+- 아래의 명령어를 통해 2개의 포트로 서버를 실행시킨다. 
+```
+nohup java -jar target/*.jar —server.port=8197 &
+nohup java -jar target/*.jar —server.port=8196 &
+```
+
+- 최신 버전 반영 시
+```
+# 실행중인 서버 끄기 
+sudo kill -9 `pgrep java`
+
+# git pull 하고 
+
+mvn package
+nohup java -jar target/*.jar —server.port=8197 &
+nohup java -jar target/*.jar —server.port=8196 &
+```
 
 ## ⚙ 개발 규칙
 
