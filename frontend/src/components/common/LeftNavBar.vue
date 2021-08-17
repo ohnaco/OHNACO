@@ -12,12 +12,16 @@
         ></v-col>
       </v-row>
       <v-row dense class="mt-5">
-        <v-col align="center"><profile-image :user="mypageInfo"></profile-image></v-col>
+        <v-col align="center">
+          <router-link to="/mypage">
+            <profile-image :user="mypageInfo"></profile-image>
+          </router-link>
+        </v-col>
       </v-row>
       <v-row dense class="mt-2">
         <v-col align="center"
           ><router-link to="/mypage"
-            ><div class="text-h6">{{ mypageInfo.info.nickname }} 님</div></router-link
+            ><div class="text-h6 text-decoration-underline">{{ mypageInfo.info.nickname }}</div></router-link
           ></v-col
         >
       </v-row>
