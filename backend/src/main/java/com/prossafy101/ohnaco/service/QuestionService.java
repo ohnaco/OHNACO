@@ -24,20 +24,20 @@ public class QuestionService {
     private TagRepository tagRepository;
 
     // 질문 저장,수정정
-   public void save(QuestionDto questionDto, User user) {
+    public Question save(QuestionDto questionDto, User user) {
         List<Tag> tagList = new ArrayList<>();
         String[] tagNames = questionDto.getTagName();
         for(String tagName : tagNames) {
             tagList.add(tagRepository.findByTagname(tagName));
         }
-       if(questionDto.getQuestiondate() == null) {
-           questionRepository.save(Question.builder().questiontitle(questionDto.getQuestiontitle())
-                   .questioncontent(questionDto.getQuestioncontent()).questiondate(LocalDateTime.now()).views(0).likes(0).user(user).tag(tagList).build());
-       } else {
-           questionRepository.save(Question.builder().questionid(questionDto.getQuestionid()).questiontitle(questionDto.getQuestiontitle())
-                   .questioncontent(questionDto.getQuestioncontent()).questiondate(questionDto.getQuestiondate())
-                   .views(questionDto.getViews()).likes(questionDto.getLikes()).user(user).tag(tagList).build());
-       }
+        if(questionDto.getQuestiondate() == null) {
+            return questionRepository.save(Question.builder().questiontitle(questionDto.getQuestiontitle())
+                    .questioncontent(questionDto.getQuestioncontent()).questiondate(LocalDateTime.now()).views(0).likes(0).user(user).tag(tagList).build());
+        } else {
+            return questionRepository.save(Question.builder().questionid(questionDto.getQuestionid()).questiontitle(questionDto.getQuestiontitle())
+                    .questioncontent(questionDto.getQuestioncontent()).questiondate(questionDto.getQuestiondate())
+                    .views(questionDto.getViews()).likes(questionDto.getLikes()).user(user).tag(tagList).build());
+        }
 
     }
 

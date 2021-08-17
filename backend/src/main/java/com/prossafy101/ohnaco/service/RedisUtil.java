@@ -57,6 +57,11 @@ public class RedisUtil {
         vop.increment(key, 1);
     }
 
+    public void setInitalVisitData(String key) {
+        ValueOperations<String, String> vop = redisTemplate.opsForValue();
+        vop.increment(key, 0);
+    }
+
     public boolean getLikeUseridData(String key, String userid) {
         SetOperations<String, String> vop = redisTemplate.opsForSet();
         return vop.isMember(key, userid);
