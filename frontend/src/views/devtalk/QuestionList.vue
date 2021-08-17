@@ -11,15 +11,12 @@
         <v-col cols="12" sm="12" md="9" class="d-flex flex-column p2">
           <b-container class="bv-example-row" style="height: 120px">
             <div class="mb-3">
-              <h1
-                style="
-                  font-family: 'GmarketSansMedium';
-                  font-size: 30px;
-                  color: #607d8b;
-                "
+              <p
+                class="text-h4 font-weight-bold mb-0 blue-grey--text"
+                :class="{ 'text-h5': $vuetify.breakpoint.xs }"
               >
                 Dev Talk
-              </h1>
+              </p>
             </div>
             <div style="width: 100%; height: 30px">
               <div style="float: left; height: 100%" class="p-0">
@@ -45,8 +42,7 @@
                   <span
                     class="filter_devTalk pagelink"
                     v-bind:class="{
-                      filter_selected:
-                        isSortDate && !isSortLike && !isSortComment,
+                      filter_selected: isSortDate && !isSortLike && !isSortComment,
                     }"
                     @click="sortDate()"
                     >●최신순&nbsp;&nbsp;</span
@@ -54,8 +50,7 @@
                   <span
                     class="filter_devTalk pagelink"
                     v-bind:class="{
-                      filter_selected:
-                        !isSortDate && !isSortLike && isSortComment,
+                      filter_selected: !isSortDate && !isSortLike && isSortComment,
                     }"
                     @click="sortComment()"
                     >●답변순&nbsp;&nbsp;</span
@@ -63,8 +58,7 @@
                   <span
                     class="filter_devTalk pagelink"
                     v-bind:class="{
-                      filter_selected:
-                        !isSortDate && isSortLike && !isSortComment,
+                      filter_selected: !isSortDate && isSortLike && !isSortComment,
                     }"
                     @click="sortLike()"
                     >●좋아요순&nbsp;&nbsp;</span
@@ -92,10 +86,7 @@
               :item="q"
               @tagChange="searchTag"
             />
-            <div
-              class="card-footer pb-0 pt-3"
-              style="text-align: center; background-color: white"
-            >
+            <div class="card-footer pb-0 pt-3" style="text-align: center; background-color: white">
               <jw-pagination
                 :items="question"
                 @changePage="onChangePage"
@@ -104,7 +95,7 @@
             </div>
           </b-container>
         </v-col>
-        <v-col cols="12"  md="3" sm="0" class="hotissue_section">
+        <v-col cols="12" md="3" sm="0" class="hotissue_section">
           <!-- 핫이슈, 인기게시물-->
           <div style="height: 120px"></div>
 
@@ -164,8 +155,7 @@ export default {
     LeftNavBar,
     TopNavBar,
   },
-  computed: {
-    },
+  computed: {},
   data() {
     return {
       isSortDate: true,
@@ -174,16 +164,7 @@ export default {
       question: [],
       hotIssue: [],
       searchText: "",
-      tags: [
-        "Java",
-        "Spring",
-        "Javascript",
-        "MySQL",
-        "C++",
-        "C",
-        "Android",
-        "Ajax",
-      ],
+      tags: ["Java", "Spring", "Javascript", "MySQL", "C++", "C", "Android", "Ajax"],
       pageOfItems: [],
     };
   },
@@ -385,13 +366,13 @@ export default {
   text-decoration: underline;
 }
 .page-item.active .page-link {
-    background-color: #C1D5DF !important;
-    border-color: #C1D5DF !important;
+  background-color: #c1d5df !important;
+  border-color: #c1d5df !important;
 }
-.side_bar{
+.side_bar {
   display: block;
 }
-.top_bar{
+.top_bar {
   display: none;
 }
 @media (max-width: 767px) {
@@ -403,15 +384,15 @@ export default {
   .col-md-9 {
     flex: 0 0 auto;
     width: 58.33333333%;
-    margin-left : 8.333333%;
-}
+    margin-left: 8.333333%;
+  }
 }
 
 @media (min-width: 950px) {
   .col-md-9 {
     flex: 0 0 auto;
     width: 58.33333333%;
-    margin-left : 0%;
-}
+    margin-left: 0%;
+  }
 }
 </style>

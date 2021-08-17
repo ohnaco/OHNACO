@@ -7,7 +7,12 @@
       ><top-nav-bar></top-nav-bar
     ></v-col>
     <v-col cols="12" sm="12" md="10">
-      <v-col class="text-h4 font-weight-bold blue-grey--text" cols="12">구독 설정</v-col>
+      <v-col
+        class="text-h4 font-weight-bold blue-grey--text"
+        :class="{ 'text-h5': $vuetify.breakpoint.xs }"
+        cols="12"
+        >구독 설정</v-col
+      >
       <v-col cols="12" class="d-flex justify-end pt-0 pb-0">
         <v-btn text dark color="cyan lighten-1" @click="setSubscribeBlogList()">
           <v-icon left color="cyan"> mdi-checkbox-blank-circle </v-icon><b>내 구독 목록</b></v-btn

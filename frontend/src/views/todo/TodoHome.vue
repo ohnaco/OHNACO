@@ -8,21 +8,34 @@
         ><top-nav-bar></top-nav-bar
       ></v-col>
       <v-col cols="12" sm="12" md="7" class="d-flex flex-column">
-        <div class="d-flex align-center text-h4 ml-5 mt-3" style="display:flex ; justify-content: space-between;">
-          <h1 class="font-weight-bold blue-grey--text" style="font-size: 30px">To Do</h1>
+        <div
+          class="d-flex align-center text-h4 ml-5 mt-3"
+          style="display: flex; justify-content: space-between"
+        >
+          <p
+            class="text-h4 font-weight-bold blue-grey--text"
+            :class="{ 'text-h5': $vuetify.breakpoint.xs }"
+          >
+            To Do
+          </p>
           <img
             src="@/assets/images/calendar_black.svg"
             class="mobile_calendar_btn"
             @click="mobileCalendarOn"
           />
-          <img src="@/assets/images/calendar_black.svg"
-          class="mobile_calendar_large_btn" 
-          @click="modalOn"
-          >
+          <img
+            src="@/assets/images/calendar_black.svg"
+            class="mobile_calendar_large_btn"
+            @click="modalOn"
+          />
         </div>
 
         <div class="d-flex flex-row align-center ml-5 mt-3">
-          <span class="text-h6 font-weight-bold" v-text="date"></span>
+          <span
+            class="text-h6 font-weight-bold"
+            :class="{ 'text-body-1': $vuetify.breakpoint.xs }"
+            v-text="date"
+          ></span>
           <daily-commit v-if="isDateToday" />
         </div>
         <CalendarSmall
@@ -166,7 +179,7 @@ export default {
 .mobile_calendar_large_btn {
   width: 40px;
   height: 40px;
-  margin-right:20px;
+  margin-right: 20px;
 }
 @media (max-width: 767px) {
   .h2,
@@ -212,8 +225,8 @@ export default {
     display: none;
   }
   .mobile_calendar_large_btn {
-  display: none;
-}
+    display: none;
+  }
 }
 
 @media (min-width: 768px) {
