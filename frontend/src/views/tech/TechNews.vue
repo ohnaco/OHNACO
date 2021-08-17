@@ -1,14 +1,19 @@
 <template>
-  <v-row dense class="justify-center">
+  <v-row class="justify-center">
     <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
       ><left-nav-bar></left-nav-bar
     ></v-col>
     <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
       ><top-nav-bar></top-nav-bar
     ></v-col>
-    <v-col cols="12" sm="12" md="10" class="justify-space-around">
+    <v-col cols="12" sm="12" md="10">
       <v-col cols="12" sm="12" md="12"
-        ><p class="text-h4 font-weight-bold mb-0 blue-grey--text">Tech</p></v-col
+        ><p
+          class="text-h4 font-weight-bold mb-0 blue-grey--text"
+          :class="{ 'text-h5': $vuetify.breakpoint.xs }"
+        >
+          Tech
+        </p></v-col
       >
       <v-row dense class="ma-2 justify-end align-center">
         <v-col cols="12" sm="12" md="5" align="end">

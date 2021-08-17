@@ -1,84 +1,53 @@
 <template>
-  <v-layout style="background: #EFEFEF">
-    <v-row style="background: #EFEFEF" class="justify-content-center">
+  <v-layout style="background: #efefef">
+    <v-row style="background: #efefef" class="justify-content-center">
       <v-col cols="12" lg="2" v-show="$vuetify.breakpoint.mdAndUp">
-        <LeftNavBar/>
+        <LeftNavBar />
       </v-col>
       <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important">
-        <TopNavBar/>
+        <TopNavBar />
       </v-col>
       <v-col cols="10" class="pa-5">
         <!-- 상단 제목 및 버튼 -->
-          <div class="mb-3">
-            <h1
-              style="
-                font-family: 'GmarketSansMedium';
-                font-size: 30px;
-                color: #607d8b;
-              "
-            >
-              Statistics
-            </h1>
-          </div>
-          <!-- 주간 월간 버튼 -->
-          <div class="d-flex justify-content-end">
-            <v-btn-toggle 
-              v-model="option"
-              mandatory
-              borderless
-              group
-              background-color="#EFEFEF"
-            >
-              <v-btn 
-                value="week"
-                @click="week"
-                color="#607D8B"
-                class="pa-1">
-                <img src="@/assets/images/week-btn.svg" alt="week-btn" />
-              </v-btn>
-              <v-btn 
-                value="month"
-                @click="month"
-                color="#607D8B"
-                class="pa-1">
-                <img src="@/assets/images/month-btn.svg" alt="week-btn" />
-              </v-btn>
-            </v-btn-toggle>
-          </div>
-          <v-row wrap class="pb-5 justify-content-center">
-            <v-row>
-              <v-col lg="6" md="6" sm="12" cols="12">
-                <!-- 총 공부시간 -->
-                <v-card
-                  height="80"
-                  class="pa-3"
-                >
-                <TotalStudyTime
-                  :option="this.option"
-                  :totalTime="statsInfo.totalTime"
-                />
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row>
-              <!-- 목표시간 공부시간 -->
-              <v-col lg="4" md="6" sm="12" cols="12">
-                <v-card
-                  height="600"
-                  class="pa-3"
-                >
-                <GoalVsReal 
-                  :categoryTime="statsInfo.categoryTime"
-                />
-                </v-card>
-              </v-col>
-              <!-- 지난 2일 공부시간 -->
-              <v-col lg="4" md="6" sm="12" cols="12">
-                <v-card
-                  height="600"
-                  class="pa-3"
-                >
-                <CompareMyself 
+        <div class="mb-3">
+          <p
+            class="text-h4 font-weight-bold mb-0 blue-grey--text"
+            :class="{ 'text-h5': $vuetify.breakpoint.xs }"
+          >
+            Statistics
+          </p>
+        </div>
+        <!-- 주간 월간 버튼 -->
+        <div class="d-flex justify-content-end">
+          <v-btn-toggle v-model="option" mandatory borderless group background-color="#EFEFEF">
+            <v-btn value="week" @click="week" color="#607D8B" class="pa-1">
+              <img src="@/assets/images/week-btn.svg" alt="week-btn" />
+            </v-btn>
+            <v-btn value="month" @click="month" color="#607D8B" class="pa-1">
+              <img src="@/assets/images/month-btn.svg" alt="week-btn" />
+            </v-btn>
+          </v-btn-toggle>
+        </div>
+        <v-row wrap class="pb-5 justify-content-center">
+          <v-row>
+            <v-col lg="6" md="6" sm="12" cols="12">
+              <!-- 총 공부시간 -->
+              <v-card height="80" class="pa-3">
+                <TotalStudyTime :option="this.option" :totalTime="statsInfo.totalTime" />
+              </v-card>
+            </v-col>
+          </v-row>
+          <v-row>
+            <!-- 목표시간 공부시간 -->
+            <v-col lg="4" md="6" sm="12" cols="12">
+              <v-card height="600" class="pa-3">
+                <GoalVsReal :categoryTime="statsInfo.categoryTime" />
+              </v-card>
+            </v-col>
+            <!-- 지난 2일 공부시간 -->
+            <v-col lg="4" md="6" sm="12" cols="12">
+              <v-card height="600" class="pa-3">
+                <CompareMyself
                   :todayTime="statsInfo.todayTime"
                   :yesterdayTime="statsInfo.yesterdayTime"
                 />
@@ -86,48 +55,34 @@
                   :todayTime="statsInfo.todayTime"
                   :yesterdayTime="statsInfo.yesterdayTime"
                 />
-                </v-card>
-              </v-col>
-              <!-- 전체 유저별 카테고리 공부시간 -->
-              <v-col lg="4" md="6" sm="12" cols="12">
-                <v-card
-                  height="600"
-                  class="pa-3"
-                >
+              </v-card>
+            </v-col>
+            <!-- 전체 유저별 카테고리 공부시간 -->
+            <v-col lg="4" md="6" sm="12" cols="12">
+              <v-card height="600" class="pa-3">
                 <CompareOtherByCategory
                   :categoryTime="statsInfo.categoryTime"
                   :positionTime="statsInfo.positionTime"
                   :entireCategoryTime="statsInfo.entireCategoryTime"
                 />
-                </v-card>
-              </v-col>
-            </v-row>
-            <v-row>
-              <!-- 카테고리별 공부시간 -->
-              <v-col lg="4" md="6" sm="12" cols="12">
-                <v-card
-                  height="420"
-                  class="pa-3"
-                >
-                <CategoryStudyTime
-                  :categoryTime="statsInfo.categoryTime"
-                />
-                </v-card>
-              </v-col>
-              <!-- 주간, 요일별 공부시간 -->
-              <v-col lg="8" md="6" sm="12" cols="12">
-                <v-card
-                  height="420"
-                  class="pa-3"
-                >
-                <CompareOther
-                  :option="this.option"
-                  :statsInfo="statsInfo"
-                />
-                </v-card>
-              </v-col>
-            </v-row>
+              </v-card>
+            </v-col>
           </v-row>
+          <v-row>
+            <!-- 카테고리별 공부시간 -->
+            <v-col lg="4" md="6" sm="12" cols="12">
+              <v-card height="420" class="pa-3">
+                <CategoryStudyTime :categoryTime="statsInfo.categoryTime" />
+              </v-card>
+            </v-col>
+            <!-- 주간, 요일별 공부시간 -->
+            <v-col lg="8" md="6" sm="12" cols="12">
+              <v-card height="420" class="pa-3">
+                <CompareOther :option="this.option" :statsInfo="statsInfo" />
+              </v-card>
+            </v-col>
+          </v-row>
+        </v-row>
       </v-col>
     </v-row>
   </v-layout>
@@ -143,9 +98,8 @@ import YesterdayTotal from "@/components/statistics/YesterdayTotal.vue";
 import CompareOtherByCategory from "@/components/statistics/CompareOtherByCategory.vue";
 import GoalVsReal from "@/components/statistics/GoalVsReal.vue";
 import CompareOther from "@/components/statistics/CompareOther.vue";
-import { createNamespacedHelpers } from 'vuex';
-const statisticsHelper = createNamespacedHelpers('statisticsStore');
-
+import { createNamespacedHelpers } from "vuex";
+const statisticsHelper = createNamespacedHelpers("statisticsStore");
 
 export default {
   components: {
@@ -161,28 +115,28 @@ export default {
   },
   data: function () {
     return {
-      option: 'week'
-    }
+      option: "week",
+    };
   },
   computed: {
-    ...statisticsHelper.mapState(['statsInfo']),
+    ...statisticsHelper.mapState(["statsInfo"]),
   },
   mounted() {
-    this.getStats(this.option)
+    this.getStats(this.option);
   },
   methods: {
-    ...statisticsHelper.mapActions(['getStats']),
+    ...statisticsHelper.mapActions(["getStats"]),
     week: function () {
-      this.option = 'week'
+      this.option = "week";
     },
     month: function () {
-      this.option = 'month'
-    }
+      this.option = "month";
+    },
   },
   watch: {
     option: function () {
-      this.getStats(this.option)
-    }
-  }
+      this.getStats(this.option);
+    },
+  },
 };
 </script>
