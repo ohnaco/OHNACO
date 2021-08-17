@@ -1,10 +1,7 @@
 package com.prossafy101.ohnaco.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.ListOperations;
-import org.springframework.data.redis.core.SetOperations;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
+import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
 import java.time.Duration;
@@ -15,6 +12,20 @@ public class RedisUtil {
 
     @Autowired
     private StringRedisTemplate redisTemplate;
+
+    @Autowired
+    private RedisTemplate<String, Object> redisTemplate2;
+
+    public void setObject(String key, Object object, long expireDay) {
+        ValueOperations<String, Object> vop = redisTemplate2.opsForValue();
+        Duration expire = Duration.ofDays(expireDay);
+        vop.set(key, object, expire);
+    }
+
+    public Object getObject(String key) {
+        ValueOperations<String, Object> vop = redisTemplate2.opsForValue();
+        return vop.get(key);
+    }
 
     public String getData(String key) {
         ValueOperations<String, String> vop = redisTemplate.opsForValue();
