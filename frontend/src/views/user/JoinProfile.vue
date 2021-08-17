@@ -103,8 +103,8 @@ export default {
       this.$router.push({ name: "Join" });
     },
     checkForm: function () {
-      if (this.nickname.length <= 1)
-        this.error.nickname = "두글자 이상 닉네임을 입력해주세요";
+      if (this.nickname.length <= 1 || this.nickname.length >= 9)
+        this.error.nickname = "2자리 이상 8자리 이하 닉네임을 입력해주세요.";
       else this.error.nickname = false;
 
       let isSubmit = true;
