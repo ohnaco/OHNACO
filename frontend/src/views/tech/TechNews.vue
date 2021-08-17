@@ -17,7 +17,7 @@
       >
       <v-row dense class="ma-2 justify-end align-center">
         <v-col cols="12" sm="12" md="5" align="end">
-          <v-btn-toggle v-model="type" dense borderless group>
+          <v-btn-toggle v-model="type" dense borderless mandatory group>
             <v-btn value="all">
               <v-icon left color="#7b61ff"> mdi-checkbox-blank-circle </v-icon>
               <span style="color: #7b61ff" class="font-weight-bold">All</span>

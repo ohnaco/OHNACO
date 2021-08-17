@@ -375,6 +375,12 @@ export default {
 .top_bar {
   display: none;
 }
+.previous{
+  display: none !important;
+}
+.next{
+  display: none !important;
+}
 @media (max-width: 767px) {
   .hotissue_section {
     display: none;

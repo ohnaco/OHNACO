@@ -54,9 +54,11 @@
                   <v-col class="d-flex justify-end">
                     <v-btn icon x-large class="mr-2" @click="finishCreate"
                       ><img src="@/assets/images/todo-create-no.svg"
+                      class="mobile-btn-size"
                     /></v-btn>
                     <v-btn icon x-large class="mr-2" @click="onCreateOK"
                       ><img src="@/assets/images/todo-create-ok.svg"
+                      class="mobile-btn-size"
                     /></v-btn>
                   </v-col>
                 </v-row>
@@ -205,20 +207,48 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
+@media (max-width: 576px) {
+  .container{
+    padding-right: 6px !important;
+    padding-left: 6px !important;
+}
+  .row {
+    margin-right: 0px !important;
+    margin-left: 0px !important;
+}
+}
 @media (max-width: 768px) {
-  .v-input {
-    font-size: 6px !important;
+  .v-text-field--outlined.v-input--dense .v-label {
+    font-size:12px !important;
+    height: 20px !important;
+    line-height: 20px !important;
+}
+.v-select.v-input--dense .v-select__selection--comma {
+    font-size:12px !important;
+}
+.mobile-btn-size {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 5px;
   }
-  .v-select__selections {
-    align-items: center;
-    display: flex;
-    flex: 1 1;
-    flex-wrap: wrap;
-    line-height: 18px;
+.v-text-field input {
+    flex: 1 1 auto;
+    line-height: 32px !important;
+    padding: 0px !important;
     max-width: 100%;
-    min-width: 20px;
-  }
+    min-width: 0px;
+    width: 100%;
+    font-size: 1.5rem;
+}
+.v-input .v-label {
+    height: 32px !important;
+    line-height: 32px !important;
+    letter-spacing: normal;
+}
+.theme--light.v-label {
+    font-size:1.5rem !important;
+}
   .v-text-field--outlined.v-input--dense .v-label--active {
     display: none;
   }
