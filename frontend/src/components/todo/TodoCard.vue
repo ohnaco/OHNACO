@@ -41,18 +41,14 @@
                     >&nbsp;{{ completetime }}</span
                   >
                 </div>
-                <v-btn
+                <img
                   v-if="this.item.goaltime <= this.item.completetime"
-                  class="ml-2 mt-3"
-                  fab
-                  icon
-                  right
-                >
-                  <img src="@/assets/images/todo-create-ok.svg" />
-                </v-btn>
+                  class="mobile-btn-size mb-0"
+                  src="@/assets/images/todo-create-ok.svg"
+                />
                 <v-btn fab icon right v-if="!this.$parent.isAnyOneGoing && tempus == 'today'">
                   <img
-                    class="start_btn"
+                    class="mobile-btn-size"
                     src="@/assets/images/start-btn.svg"
                     @click="[(isOngoing = true), start()]"
                   />
@@ -62,7 +58,7 @@
           </div>
         </v-card>
 
-        <!-- default mode -past-->
+        <!-- default mode - past-->
         <v-card
           color="blue-grey lighten-5 rounded-xl"
           v-if="!isEdit && !isOngoing && tempus == 'past'"
@@ -81,7 +77,7 @@
                 </v-btn>
               </div>
 
-              <v-card-title class="text-h5 ml-4" v-text="item.title" />
+              <v-card-title class="text-xs-h6 text-lg-h5 ml-4" v-text="item.title" />
 
               <v-card-actions class="justify-space-between align-end pt-0">
                 <div class="d-flex text-caption align-center ml-2 font-weight-bold">
@@ -95,18 +91,12 @@
                     >&nbsp;{{ completetime }}</span
                   >
                 </div>
-                <v-btn
+                <img
                   v-if="this.item.goaltime > this.item.completetime"
-                  class="ml-2 mt-3"
-                  fab
-                  icon
-                  right
-                >
-                  <img src="@/assets/images/todo-create-no.svg" />
-                </v-btn>
-                <v-btn v-else class="ml-2 mt-3" fab icon right>
-                  <img src="@/assets/images/todo-create-ok.svg" />
-                </v-btn>
+                  class="mobile-btn-size mb-0"
+                  src="@/assets/images/todo-create-no.svg"
+                />
+                <img v-else class="mobile-btn-size mb-0" src="@/assets/images/todo-create-ok.svg" />
               </v-card-actions>
             </div>
           </div>
@@ -131,9 +121,8 @@
                 <div class="d-flex text-caption align-center ml-2 font-weight-bold">
                   <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
                 </div>
-                <v-btn v-if="false" class="ml-2 mt-3" fab icon right> </v-btn>
                 <v-btn fab icon right>
-                  <img class="start_btn" src="@/assets/images/pause.svg" @click="stop" />
+                  <img class="mobile-btn-size" src="@/assets/images/pause.svg" @click="stop" />
                 </v-btn>
               </v-card-actions>
             </div>
@@ -381,10 +370,6 @@ export default {
     height: 28px;
     width: 28px;
   }
-  .start_btn {
-    height: 30px;
-    width: 30px;
-  }
   .v-btn--icon.v-size--default {
     height: 18px;
     width: 18px;
@@ -410,7 +395,6 @@ export default {
     margin-right: 0px !important;
     margin-left: 0px !important;
   }
-
   .ongoing_title {
     font-size: 14px;
   }
@@ -419,9 +403,10 @@ export default {
     font-size: 2rem;
     line-height: 38px;
   }
-  .pause_img {
-    width: 25px;
-    height: 25px;
+  .mobile-btn-size {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 5px;
   }
 }
 </style>

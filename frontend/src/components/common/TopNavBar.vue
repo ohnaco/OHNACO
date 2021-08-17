@@ -103,11 +103,14 @@ export default {
       ],
     };
   },
+  created() {
+    this.getUserInfo();
+  },
   computed: {
     ...userHelper.mapState(["user"]),
   },
   methods: {
-    ...userHelper.mapActions(["logout"]),
+    ...userHelper.mapActions(["getUserInfo", "logout"]),
   },
 };
 </script>

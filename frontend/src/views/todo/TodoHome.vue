@@ -180,8 +180,8 @@ export default {
   }
   .todo_add {
     margin-top: 6px;
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
   }
   .mobile_calendar_btn {
     position: absolute;

@@ -44,7 +44,7 @@ export default {
     padding: 6px;
   }
   .category-underline {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 </style>
