@@ -26,7 +26,7 @@
             class="mr-15" 
             @click="goLogin"
           >
-            <img src="@/assets/images/back-btn.svg" alt="back" />
+            <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음 : 메일 전송 확인 페이지 -->
           <button 

@@ -59,14 +59,14 @@
             class="mr-15" 
             @click="goupdateInfo"
           >
-            <img src="@/assets/images/back-btn.svg" alt="back" />
+            <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음 페이지 : 마이페이지 -->
           <button
             class="ml-15"
             @click="updatePwd"
           >
-            <img src="@/assets/images/next-btn.svg" alt="next" />
+            <img src="@/assets/images/complete-btn.svg" alt="next" />
           </button>
         </div>
       </div>

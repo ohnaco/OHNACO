@@ -1,6 +1,6 @@
 <template>
-  <v-avatar :tile="false" :size="150" color="grey lighten-4">
-    <img :src="`${user.info.image}`" alt="avatar" />
+  <v-avatar :tile="false" :size="150" color="blue-grey">
+    <img :src="`${user.image}`" alt="avatar" />
   </v-avatar>
 </template>
 
@@ -9,7 +9,7 @@ export default {
   name: "ProfileImage",
   props: {
     user: {
-      type: Object,
+      type: [Array, Object],
     },
   },
 };

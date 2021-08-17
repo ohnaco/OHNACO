@@ -17,7 +17,7 @@
       </p>
       <div class="findpwd-footer-text">
         이메일을 받지 못하셨나요?
-        <button class="send-email-again" @click="sendAgain">재전송</button>
+        <button class="send-email-again ml-1" @click="sendAgain">재전송</button>
       </div>
       <!-- 로그인 버튼 -->
       <button class="mt-1" @click="goLogin"><img src="@/assets/images/login-btn.svg" alt="success" /></button>
