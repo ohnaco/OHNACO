@@ -12,11 +12,10 @@
         <button @click="goback"><img src="@/assets/images/mypage-back-btn.svg" alt="back-btn"></button>
       </div>
       <v-divider></v-divider>
-      <QuestionCard
-        v-for="answer in myAnswers"
-        :key="answer.answerid"
+      <AnswerCard
+        v-for="(answer, i) in myAnswers"
+        :key="i"
         :item="answer"
-        @click="goDetail(answer)"
       />
         <infinite-loading @infinite="infiniteHandler" spinner="circles"></infinite-loading>
       <v-divider></v-divider>
@@ -26,7 +25,7 @@
 
 <script>
 import MyPageProfile from "@/components/mypage/MyPageProfile.vue";
-import QuestionCard from "@/components/devtalk/QuestionCard.vue";
+import AnswerCard from "@/components/mypage/AnswerCard.vue";
 
 import InfiniteLoading from 'vue-infinite-loading';
 import MyPage from "@/api/MyPage";
@@ -38,7 +37,7 @@ export default {
   name: 'MyPage',
   components: {
     MyPageProfile,
-    QuestionCard,
+    AnswerCard,
     InfiniteLoading,
   },
   data: function () {
@@ -58,12 +57,12 @@ export default {
     goback: function () {
       this.$router.push({ name: 'MyPage' })
     },
-    goDetail: function (answer) {
-      this.$router.push({
-        name: "QuestionDetail",
-        query:{ id: answer.questionid },
-      });
-    },
+    // goDetail: function (answer) {
+    //   this.$router.push({
+    //     name: "QuestionDetail",
+    //     query:{ id: answer.questionid },
+    //   });
+    // },
     infiniteHandler($state) {
       MyPage.requestMyAnswers(
         this.pageno,

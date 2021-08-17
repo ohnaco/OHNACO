@@ -8,9 +8,8 @@
         ><top-nav-bar></top-nav-bar
       ></v-col>
       <v-col cols="12" sm="12" md="7" class="d-flex flex-column">
-        <div class="d-flex align-center text-h4 ma-5">
-          <img src="@/assets/images/todo-icon.svg" class="mr-2 pencil-img" />
-          <div class="text-sm-h6 text-md-h4">To Do List</div>
+        <div class="d-flex align-center text-h4 ml-5 mt-3">
+          <h1 class="font-weight-bold blue-grey--text" style="font-size: 30px">To Do</h1>
           <img
             src="@/assets/images/calendar_black.svg"
             class="mobile_calendar_btn"
@@ -18,8 +17,8 @@
           />
         </div>
 
-        <div class="d-flex flex-row align-center ma-5">
-          <h4 v-text="date"></h4>
+        <div class="d-flex flex-row align-center ml-5 mt-3">
+          <span class="text-h6 font-weight-bold" v-text="date"></span>
           <daily-commit v-if="isDateToday" />
         </div>
         <CalendarSmall
@@ -209,15 +208,15 @@ export default {
   .col-md-7 {
     flex: 0 0 auto;
     width: 58.33333333%;
-    margin-left : 8.333333%;
-}
+    margin-left: 8.333333%;
+  }
 }
 
 @media (min-width: 950px) {
   .col-md-7 {
     flex: 0 0 auto;
     width: 58.33333333%;
-    margin-left : 0%;
-}
+    margin-left: 0%;
+  }
 }
 </style>
