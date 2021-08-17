@@ -109,7 +109,7 @@ export default {
     this.newTodo.completetime = "00:00:00";
 
     if (this.editMode) {
-      this.newTodo.categoryid = this.editTodo.categoryid;
+      this.newTodo.categoryid = this.editTodo.category.categoryid;
       this.newTodo.title = this.editTodo.title;
       this.newTodo.goaltime = this.editTodo.goaltime;
       this.newTodo.date = this.editTodo.date;
