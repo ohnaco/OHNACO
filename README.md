@@ -80,7 +80,7 @@
 
 ### 기능 구조 
 
-<img src="/uploads/0629834b40885cdac3da2082613948cb/dtd.png" alt="dfd" width="700"/>
+<img src="/uploads/8d1f06b828350f1a8e06def2f9ee24e7/dtd2.png" alt="dfd" width="700"/>
 
 ### ERD
 
