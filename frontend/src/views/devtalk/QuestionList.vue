@@ -386,6 +386,10 @@ export default {
 .pagelink:hover {
   text-decoration: underline;
 }
+.page-item.active .page-link {
+    background-color: #C1D5DF !important;
+    border-color: #C1D5DF !important;
+}
 @media (max-width: 767px) {
   .hotissue_section {
     display: none;

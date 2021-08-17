@@ -155,7 +155,7 @@ public class TodoService {
         }
         commitDto.setUpdatedate(date);
         commitDto.setDay1(gitHubAPI.isCommit(githubid, date));
-        commitDto.setTimeToLive(2);
+        commitDto.setTimeToLive(48);
         commitSave(commitDto);
     }
 
@@ -165,6 +165,7 @@ public class TodoService {
         List<User> users = userRepository.findAll();
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
+        cal.add(Calendar.HOUR, -13);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
         for(User user: users) {
             if(user.getGithubid() != null) {
