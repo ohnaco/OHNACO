@@ -1,6 +1,5 @@
 package com.prossafy101.ohnaco.entity.devtalk;
 
-import com.prossafy101.ohnaco.entity.user.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,15 +11,9 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnswerDto {
-    private int answerid;
-
-    private String answercontent;
+public class AnswerQuestionDto {
     private int questionid;
+    private String questiontitle;
+    private String answercontent;
     private LocalDateTime answerdate;
-    private int likes;
-
-    private boolean userLike;
-    private long like;
-    private User user;
 }
