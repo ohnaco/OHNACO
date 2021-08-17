@@ -1,64 +1,106 @@
 <template>
   <div>
-    <v-list-item color="#607D8B" class="pa-0 mt-5">
+    <v-list-item
+      color="#607D8B"
+      class="pa-0 mt-5"
+      :href="`https://github.com/${info.githubid}`"
+      target="_blank"
+    >
       <v-avatar>
         <v-img
-          src="@/assets/images/github-btn.svg" 
+          src="@/assets/images/github-btn.svg"
           alt="github-logo"
           max-width="25"
           max-height="25"
-          ></v-img>
+        ></v-img>
       </v-avatar>
-      <v-list-item-title>{{ info? info.githubid: '' }}</v-list-item-title>
+      <v-list-item-title>{{ info ? info.githubid : "" }}</v-list-item-title>
     </v-list-item>
     <div class="progress d-flex" style="height: 36px; background: transparent">
-      <div class="progress-bar" :class=" commit.day7 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day6 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day5 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day4 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day3 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day2 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day1 | countCommit" role="progressbar" style="width: 17%"></div>
+      <div
+        class="progress-bar"
+        :class="commit.day7 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day6 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day5 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day4 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day3 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day2 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day1 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'WeekCommit',
+  name: "WeekCommit",
   props: {
     commit: {
-      type: Object
+      type: Object,
     },
     info: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   filters: {
     countCommit: function (value) {
-      if (value > 3)
-        return 'color-' + 3
-      else return 'color-' + value
-    }
-  }
-}
+      if (value > 3) return "color-" + 3;
+      else return "color-" + value;
+    },
+  },
+};
 </script>
 
 <style scoped>
 .color-0 {
-  background-color: #C6C8C9;
-  border: solid 1px #607D8B;
+  background-color: #c6c8c9;
+  border: solid 1px #607d8b;
 }
 .color-1 {
-  background-color: #8AE99F;
-  border: solid 1px #607D8B;
+  background-color: #8ae99f;
+  border: solid 1px #607d8b;
 }
 .color-2 {
-  background-color: #3ECF5E;
-  border: solid 1px #607D8B;
+  background-color: #3ecf5e;
+  border: solid 1px #607d8b;
 }
 .color-3 {
-  background-color: #4C964B;
-  border: solid 1px #607D8B;
+  background-color: #4c964b;
+  border: solid 1px #607d8b;
+}
+.theme--light.v-list-item:hover::before {
+  opacity: none;
 }
 </style>
