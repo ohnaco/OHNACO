@@ -1,6 +1,6 @@
 <template>
   <div>
-    <TopNavBar/> 
+    <TopNavBar />
     <!-- 회원정보 수정 폼 -->
     <div class="update-profile-form mt-15">
       <div class="update-profile-name">정보 수정</div>
@@ -8,7 +8,7 @@
         <!-- 사진 미리보기 및 변경 -->
         <div class="profile-circle">
           <label for="profile" class="imagebtn">
-            <img src="@/assets/images/profile-btn.svg" alt="sample_profile">
+            <img src="@/assets/images/profile-btn.svg" alt="sample_profile" />
           </label>
           <b-form-input
             type="file"
@@ -16,14 +16,14 @@
             id="profile"
             @change="previewImage"
             accept="image/*"
-            style="display:none"
+            style="display: none"
           ></b-form-input>
           <div v-if="image.length > 0">
             <img class="preview" :src="image" />
           </div>
         </div>
         <button @click="resetProfile">
-          <img src="@/assets/images/reset-profile.svg" alt="">
+          <img src="@/assets/images/reset-profile.svg" alt="" />
         </button>
         <!-- 닉네임 -->
         <b-form-input
@@ -70,45 +70,28 @@
         <div class="d-flex justify-space-between mb-8">
           <!-- 회원탈퇴 -->
           <div class="mr-8">
-            <v-btn
-              text
-              @click="showDialog"
-            >
+            <v-btn text @click="showDialog">
               <img src="@/assets/images/delete-user.svg" alt="back" />
             </v-btn>
-            <v-dialog
-              max-width="500"
-              v-model="isModal"
-            >
-              <DeleteUserModal
-                @hide="hideDialog"
-                @submit="deleteUserInfo"
-              />
+            <v-dialog max-width="500" v-model="isModal">
+              <DeleteUserModal @hide="hideDialog" @submit="deleteUserInfo" />
             </v-dialog>
           </div>
           <!-- 비밀번호 변경 -->
           <div class="ml-8">
-            <v-btn 
-              text 
-              @click="gochangePwd">
-              <img src="@/assets/images/change-pwd-btn.svg" alt="change-pwd"/>
+            <v-btn text @click="gochangePwd">
+              <img src="@/assets/images/change-pwd-btn.svg" alt="change-pwd" />
             </v-btn>
           </div>
         </div>
         <!-- 버튼 -->
         <div class="page-btn">
           <!-- 이전 페이지: 마이페이지 -->
-          <button 
-            class="mr-15" 
-            @click="goMypage"
-          >
+          <button class="mr-15" @click="goMypage">
             <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음 페이지 : 마이페이지 -->
-          <button
-            class="ml-15"
-            @click="imageUpload"
-          >
+          <button class="ml-15" @click="imageUpload">
             <img src="@/assets/images/complete-btn.svg" alt="next" />
           </button>
         </div>
@@ -121,7 +104,7 @@
 import MyPage from "@/api/MyPage";
 import TopNavBar from "@/components/common/TopNavBar.vue";
 import DeleteUserModal from "@/components/mypage/DeleteUserModal.vue";
-import AWS from 'aws-sdk';
+import AWS from "aws-sdk";
 
 export default {
   name: "ChangeInfo",
@@ -135,24 +118,24 @@ export default {
       albumBucketName: process.env.VUE_APP_ALBUMBUCKETNAME,
       bucketRegion: process.env.VUE_APP_AWS_CONFIG_REGION,
       IdentityPoolId: process.env.VUE_APP_IDENTITYPOOLID,
-      email:'',
-      originnickname: '',
-      nickname: '',
-      githubid: '',
-      position:'',
-      image: '',
+      email: "",
+      originnickname: "",
+      nickname: "",
+      githubid: "",
+      position: "",
+      image: "",
       error: {
         nickname: false,
         nicknameCheck: false,
       },
       isSubmit: false,
       isCheck: false,
-      isUpload: 'nomal',
+      isUpload: "nomal",
       isModal: false,
     };
   },
   created() {
-    this.getInfo()
+    this.getInfo();
   },
   watch: {
     nickname: function () {
@@ -167,41 +150,39 @@ export default {
       this.$router.push({ name: "ChangePwd" });
     },
     showDialog() {
-      this.isModal = true
+      this.isModal = true;
     },
     hideDialog() {
-      this.isModal = false
+      this.isModal = false;
     },
     checkForm: function () {
-      if (this.nickname == this.originnickname)
-        this.isCheck = true;
-      else 
-        if (this.nickname.length <= 1 || this.nickname.length >= 9)
-          this.error.nickname = "2자리 이상 8자리 이하 닉네임을 입력해주세요."
-        else this.error.nickname = false;
-        let isSubmit = true;
-        Object.values(this.error).map((v) => {
-          if (v) isSubmit = false;
-        });
-        this.isSubmit = isSubmit;
+      if (this.nickname == this.originnickname) this.isCheck = true;
+      else if (this.nickname.length <= 1 || this.nickname.length >= 9)
+        this.error.nickname = "2자리 이상 8자리 이하 닉네임을 입력해주세요.";
+      else this.error.nickname = false;
+      let isSubmit = true;
+      Object.values(this.error).map((v) => {
+        if (v) isSubmit = false;
+      });
+      this.isSubmit = isSubmit;
     },
     getInfo: function () {
       MyPage.requestMyInfo(
         (res) => {
-          console.log(res)
-          this.email = res.data.info.email
-          this.originnickname = res.data.info.nickname
-          this.nickname = res.data.info.nickname
-          this.githubid = res.data.info.githubid
-          this.position = res.data.info.position
-          this.image = res.data.info.image
+          console.log(res);
+          this.email = res.data.info.email;
+          this.originnickname = res.data.info.nickname;
+          this.nickname = res.data.info.nickname;
+          this.githubid = res.data.info.githubid;
+          this.position = res.data.info.position;
+          this.image = res.data.info.image;
         },
         (err) => {
-          console.log(err)
+          console.log(err);
         }
-      )
+      );
     },
-    previewImage: function(event) {
+    previewImage: function (event) {
       var input = event.target;
       if (input.files && input.files[0]) {
         this.file = input.files[0];
@@ -210,44 +191,52 @@ export default {
           this.image = e.target.result;
         };
         reader.readAsDataURL(input.files[0]);
-        this.isUpload = 'upload';
+        this.isUpload = "upload";
       }
     },
     imageUpload: function () {
       if (this.isSubmit && this.isCheck) {
-        if(this.isUpload == 'upload') {
+        if (this.isUpload == "upload") {
           AWS.config.update({
             region: this.bucketRegion,
             credentials: new AWS.CognitoIdentityCredentials({
-              IdentityPoolId: this.IdentityPoolId
-            })
+              IdentityPoolId: this.IdentityPoolId,
+            }),
           });
           var s3 = new AWS.S3({
-            apiVersion: '2006-03-01',
+            apiVersion: "2006-03-01",
             params: {
-              Bucket: this.albumBucketName
-            }
+              Bucket: this.albumBucketName,
+            },
           });
           let photoKey = this.email + ".jpg";
 
-          s3.upload({
-            Key: photoKey,
-            Body: this.file,
-            ACL: 'public-read'
-          }, (err, data) => {
-            if(err) {
-              console.log(err)
-            } else {
-              console.log(data)
-              this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" + this.email + ".jpg?test="+Math.random().toString(36).substring(2, 11);
-              this.updateProfile()
+          s3.upload(
+            {
+              Key: photoKey,
+              Body: this.file,
+              ACL: "public-read",
+            },
+            (err, data) => {
+              if (err) {
+                console.log(err);
+              } else {
+                console.log(data);
+                this.image =
+                  "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" +
+                  this.email +
+                  ".jpg?test=" +
+                  Math.random().toString(36).substring(2, 11);
+                this.updateProfile();
+              }
             }
-          });
-        } else if(this.isUpload == 'default') {
-          this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile"
-          this.updateProfile()
+          );
+        } else if (this.isUpload == "default") {
+          this.image =
+            "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile";
+          this.updateProfile();
         } else {
-          this.updateProfile()
+          this.updateProfile();
         }
       }
     },
@@ -274,24 +263,22 @@ export default {
       );
     },
     resetProfile: function () {
-      this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile"
-      this.isUpload = 'default'
+      this.image =
+        "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile";
+      this.isUpload = "default";
     },
     nicknameCheck: function () {
       let data = {
         nickname: this.nickname,
       };
       if (this.nickname != this.originnickname) {
-        MyPage.requestMypageNicknameCheck(
-          data, 
-          (res) => {
-            if (res.data.status) {
-              this.error.nicknameCheck = null;
-              this.isCheck = res.data.status;
-            } else 
-              this.error.nicknameCheck = res.data.message;
-              this.isCheck = res.data.status;
-          }),
+        MyPage.requestMypageNicknameCheck(data, (res) => {
+          if (res.data.status) {
+            this.error.nicknameCheck = null;
+            this.isCheck = res.data.status;
+          } else this.error.nicknameCheck = res.data.message;
+          this.isCheck = res.data.status;
+        }),
           (err) => {
             console.log(err);
           };
@@ -301,43 +288,46 @@ export default {
       AWS.config.update({
         region: this.bucketRegion,
         credentials: new AWS.CognitoIdentityCredentials({
-          IdentityPoolId: this.IdentityPoolId
-        })
+          IdentityPoolId: this.IdentityPoolId,
+        }),
       });
 
       var s3 = new AWS.S3({
-        apiVersion: '2006-03-01',
+        apiVersion: "2006-03-01",
         params: {
-          Bucket: this.albumBucketName
-        }
+          Bucket: this.albumBucketName,
+        },
       });
 
-      s3.deleteObject({
-        Key: this.email + ".jpg"
-      }, (err, data) => {
-        if(err) {
-          console.log(err)
-        } else {
-          console.log(data)
+      s3.deleteObject(
+        {
+          Key: this.email + ".jpg",
+        },
+        (err, data) => {
+          if (err) {
+            console.log(err);
+          } else {
+            console.log(data);
+          }
         }
-      });
-      console.log(res)
+      );
+      console.log(res);
     },
     deleteUserInfo: function () {
       MyPage.deleteUser(
         (res) => {
-          console.log(res)
-          this.hideDialog()
-          this.deleteImage()
-          localStorage.removeItem('jwt-access-token')
-          alert('회원 탈퇴가 정상적으로 완료되었습니다.')
-          this.$router.push({ name: 'Main' })
+          console.log(res);
+          this.hideDialog();
+          this.deleteImage();
+          localStorage.removeItem("jwt-access-token");
+          alert("회원 탈퇴가 정상적으로 완료되었습니다.");
+          this.$router.push({ name: "Main" });
         },
         (err) => {
-          console.log(err)
+          console.log(err);
         }
-      )
-    }
+      );
+    },
   },
 };
 </script>

@@ -11,7 +11,9 @@
         오나코의 모든 서비스를 이용하실 수 있습니다.
       </p>
       <!-- 로그인 버튼 -->
-      <button class="mt-1" @click="goLogin"><img src="@/assets/images/login-btn.svg" alt="success" /></button>
+      <button class="mt-1" @click="goLogin">
+        <img src="@/assets/images/login-btn.svg" alt="success" />
+      </button>
     </div>
   </div>
 </template>

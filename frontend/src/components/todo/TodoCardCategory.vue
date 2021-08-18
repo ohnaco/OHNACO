@@ -1,7 +1,10 @@
 <!-- Todo Card 왼쪽 상단에 표시되는 Category 부분 -->
 <template>
   <v-col class="d-inline-flex ml-3">
-    <p class="category-underline pr-2 pl-2 mb-0" :class="todoCategory.categoryid">
+    <p
+      class="category-underline pr-2 pl-2 mb-0"
+      :class="todoCategory.categoryid"
+    >
       {{ todoCategory.categoryname }}
     </p>
   </v-col>

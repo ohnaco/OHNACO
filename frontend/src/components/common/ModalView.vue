@@ -1,5 +1,5 @@
 <template>
-  <div class="modal" style="display:inline-block !important">
+  <div class="modal" style="display: inline-block !important">
     <div class="overlay" @click="$emit('close-modal')"></div>
     <div class="modal-card">
       <slot />
@@ -7,8 +7,7 @@
   </div>
 </template>
 <script>
-export default {
-};
+export default {};
 </script>
 <style>
 /* Modal */

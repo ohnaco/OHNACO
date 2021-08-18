@@ -39,36 +39,39 @@
             </div>
 
             <div
-              style="height: 30px; width: 300px; float: right"
+              style="height: 30px; width: 320px; float: right"
               class="pl-3 pt-0 pb-0"
             >
               <div style="float: right; height: 30px" class="mb-3">
                 <span
+                  style="color: #7b61ff"
                   class="filter_devTalk pagelink"
-                  v-bind:class="{
+                  :class="{
                     filter_selected:
                       isSortDate && !isSortLike && !isSortComment,
                   }"
                   @click="sortDate()"
-                  >●최신순&nbsp;&nbsp;</span
+                  >● 최신순&nbsp;&nbsp;</span
                 >
                 <span
+                  style="color: #ff8a65"
                   class="filter_devTalk pagelink"
-                  v-bind:class="{
+                  :class="{
                     filter_selected:
                       !isSortDate && !isSortLike && isSortComment,
                   }"
                   @click="sortComment()"
-                  >●답변순&nbsp;&nbsp;</span
+                  >● 답변순&nbsp;&nbsp;</span
                 >
                 <span
+                  style="color: #00bcd4"
                   class="filter_devTalk pagelink"
-                  v-bind:class="{
+                  :class="{
                     filter_selected:
                       !isSortDate && isSortLike && !isSortComment,
                   }"
                   @click="sortLike()"
-                  >●좋아요순&nbsp;&nbsp;</span
+                  >● 좋아요순&nbsp;&nbsp;</span
                 >
                 <v-btn
                   elevation="2"
@@ -401,8 +404,8 @@ export default {
   .hotissue_section {
     display: none;
   }
-  .filter_devTalk{
-    font-size:12px;
+  .filter_devTalk {
+    font-size: 12px;
   }
 }
 @media (min-width: 768px) {

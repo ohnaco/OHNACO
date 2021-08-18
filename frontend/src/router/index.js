@@ -31,7 +31,7 @@ import MyTechScraps from "@/views/mypage/MyTechScraps.vue";
 import ChangeInfo from "@/views/mypage/ChangeInfo.vue";
 import ChangePwd from "@/views/mypage/ChangePwd.vue";
 
-import PageNotFound from '@/views/error/PageNotFound.vue'
+import PageNotFound from "@/views/error/PageNotFound.vue";
 
 Vue.use(VueRouter);
 
@@ -171,9 +171,9 @@ const routes = [
     component: ChangePwd,
   },
   {
-    path: '*',
+    path: "*",
     name: "PageNotFound",
-    component : PageNotFound,
+    component: PageNotFound,
   },
 ];
 

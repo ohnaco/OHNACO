@@ -31,14 +31,14 @@ export default {
       chartOptions: {
         chart: {
           offsetY: 20,
-          id: 'chart',
+          id: "chart",
           type: "radar",
           dropShadow: {
             enabled: true,
             blur: 1,
           },
           toolbar: {
-            show: false
+            show: false,
           },
         },
         stroke: {
@@ -48,21 +48,21 @@ export default {
           categories: ["CS", "알고리즘", "자격증", "프레임워크", "기타"],
         },
         yaxis: {
-          show: false
+          show: false,
         },
         colors: ["#FF8A65", "#90A4AE"],
         legend: {
-          show: false
+          show: false,
         },
         tooltip: {
           y: {
             formatter: function (val) {
-              const hour = Math.floor(val / 3600)
-              const minute = Math.floor((val % 3600) / 60)
-              return hour + "시간 " + minute + '분 '
-            }
-          }
-        }
+              const hour = Math.floor(val / 3600);
+              const minute = Math.floor((val % 3600) / 60);
+              return hour + "시간 " + minute + "분 ";
+            },
+          },
+        },
       },
     };
   },
@@ -89,8 +89,8 @@ export default {
             this.yesterdayTime[1].completetime,
           ],
         },
-      ]
-      this.series = newSeries
+      ];
+      this.series = newSeries;
     },
   },
 };

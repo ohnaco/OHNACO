@@ -57,14 +57,18 @@
                       class="mr-2"
                       @click="finishCreate"
                       :class="{ 'v-size--x-large': !$vuetify.breakpoint.xs }"
-                      ><img src="@/assets/images/todo-create-no.svg" class="mobile-btn-size"
+                      ><img
+                        src="@/assets/images/todo-create-no.svg"
+                        class="mobile-btn-size"
                     /></v-btn>
                     <v-btn
                       icon
                       class="mr-2"
                       @click="onCreateOK"
                       :class="{ 'v-size--x-large': !$vuetify.breakpoint.xs }"
-                      ><img src="@/assets/images/todo-create-ok.svg" class="mobile-btn-size"
+                      ><img
+                        src="@/assets/images/todo-create-ok.svg"
+                        class="mobile-btn-size"
                     /></v-btn>
                   </v-col>
                 </v-row>
@@ -130,7 +134,9 @@
                     class="mr-2"
                     @click="finishCreate"
                     :class="{ 'v-size--x-large': !$vuetify.breakpoint.xs }"
-                    ><img src="@/assets/images/todo-create-no.svg" class="mobile-btn-size"
+                    ><img
+                      src="@/assets/images/todo-create-no.svg"
+                      class="mobile-btn-size"
                   /></v-btn>
 
                   <v-btn
@@ -138,7 +144,9 @@
                     class="mr-2"
                     @click="onCreateOK"
                     :class="{ 'v-size--x-large': !$vuetify.breakpoint.xs }"
-                    ><img src="@/assets/images/todo-create-ok.svg" class="mobile-btn-size"
+                    ><img
+                      src="@/assets/images/todo-create-ok.svg"
+                      class="mobile-btn-size"
                   /></v-btn>
                 </v-col>
               </v-row>

@@ -3,7 +3,7 @@ import Statistics from "@/api/Statistics";
 export default {
   namespaced: true,
   state: {
-      statsInfo: []
+    statsInfo: [],
   },
   mutations: {
     GET_STATS: function (state, statsInfo) {
@@ -11,19 +11,17 @@ export default {
     },
   },
   actions: {
-    getStats: function ({ commit }, data ) {
+    getStats: function ({ commit }, data) {
       Statistics.requestStatistics(
         data,
         (res) => {
-          commit('GET_STATS', res.data)
+          commit("GET_STATS", res.data);
         },
         (err) => {
-          console.log(err)
+          console.log(err);
         }
-      )
-    }
+      );
+    },
   },
-  getters: {
-
-  }
+  getters: {},
 };

@@ -1,23 +1,21 @@
 <template>
   <div>
     <div>
-      <MyPageProfile
-        :info="mypageInfo.info"
-        :commit="mypageInfo.commit"
-      />
+      <MyPageProfile :info="mypageInfo.info" :commit="mypageInfo.commit" />
     </div>
     <v-container style="width: 80%; height: 100%">
       <div class="mt-10 mb-3 d-flex justify-space-between">
         내 답변 ({{ mypageInfo.answerCount }})
-        <button @click="goback"><img src="@/assets/images/mypage-back-btn.svg" alt="back-btn"></button>
+        <button @click="goback">
+          <img src="@/assets/images/mypage-back-btn.svg" alt="back-btn" />
+        </button>
       </div>
       <v-divider></v-divider>
-      <AnswerCard
-        v-for="(answer, i) in myAnswers"
-        :key="i"
-        :item="answer"
-      />
-        <infinite-loading @infinite="infiniteHandler" spinner="circles"></infinite-loading>
+      <AnswerCard v-for="(answer, i) in myAnswers" :key="i" :item="answer" />
+      <infinite-loading
+        @infinite="infiniteHandler"
+        spinner="circles"
+      ></infinite-loading>
       <v-divider></v-divider>
     </v-container>
   </div>
@@ -34,7 +32,7 @@ import { createNamespacedHelpers } from "vuex";
 const mypageHelper = createNamespacedHelpers("mypageStore");
 
 export default {
-  name: 'MyPage',
+  name: "MyPage",
   components: {
     MyPageProfile,
     AnswerCard,
@@ -44,10 +42,10 @@ export default {
     return {
       pageno: 1,
       myAnswers: [],
-    }
+    };
   },
   created() {
-    this.getMyPage()
+    this.getMyPage();
   },
   computed: {
     ...mypageHelper.mapState(["mypageInfo"]),
@@ -55,21 +53,21 @@ export default {
   methods: {
     ...mypageHelper.mapActions(["getMyPage"]),
     goback: function () {
-      this.$router.push({ name: "MyPage" })
+      this.$router.push({ name: "MyPage" });
     },
     infiniteHandler($state) {
       MyPage.requestMyAnswers(
         this.pageno,
-        ({data}) => {
+        ({ data }) => {
           setTimeout(() => {
             if (data.answer.length) {
               this.pageno += 1;
-              this.myAnswers.push(...data.answer)
+              this.myAnswers.push(...data.answer);
               $state.loaded();
             } else {
               $state.complete();
             }
-          },1000)
+          }, 1000);
         },
         (err) => {
           console.log(err);

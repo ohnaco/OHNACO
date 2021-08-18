@@ -57,8 +57,8 @@ export default {
     return {
       email: this.$route.query.email,
       code: this.$route.query.code,
-      password: '',
-      passwordConfirm: '',
+      password: "",
+      passwordConfirm: "",
       passwordSchema: new PV(),
       error: {
         password: false,
@@ -117,23 +117,23 @@ export default {
           code: this.$route.query.code,
           password: this.password,
         };
-        this.isSubmit = false
+        this.isSubmit = false;
         User.requestFindPwd(
-          data, 
+          data,
           (res) => {
-            if (res.data.status == 'success') {
+            if (res.data.status == "success") {
               this.$router.push({ name: "FindPwdSuccess" });
-              this.isSubmit = true
+              this.isSubmit = true;
             } else {
-              this.isSubmit = false
-              alert('페이지가 만료되었습니다.')
+              this.isSubmit = false;
+              alert("페이지가 만료되었습니다.");
             }
           },
           (err) => {
-            this.isSubmit = true
-            console.log(err)
+            this.isSubmit = true;
+            console.log(err);
           }
-        )
+        );
       }
     },
   },

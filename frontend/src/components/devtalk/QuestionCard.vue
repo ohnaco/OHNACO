@@ -75,7 +75,7 @@
         </div>
 
         <div
-          style="height:56px"
+          style="height: 56px"
           class="qCard_content pagelink"
           v-on:click="gotoDetail"
         >
@@ -218,7 +218,7 @@ export default {
   letter-spacing: normal;
   text-align: left;
   overflow: hidden;
-  white-space:nowrap;
+  white-space: nowrap;
   text-overflow: ellipsis;
   display: -webkit-box;
   color: #607d8b;
@@ -270,9 +270,9 @@ export default {
   min-width: 190px;
   height: 100%;
 }
-.profile_box{
-  float: right; 
-  width: 130px; 
+.profile_box {
+  float: right;
+  width: 130px;
   height: 100%;
 }
 .profile_name {
@@ -304,24 +304,24 @@ export default {
 .pagelink:hover {
   text-decoration: underline;
 }
-.content_card{
-  padding-top:0px;
-    padding-right: calc(var(--bs-gutter-x)*0.5);
-    padding-left: calc(var(--bs-gutter-x)*0.5);
-  }
-@media (max-width: 768px) {
-  .profile_box{ 
-  width: 110px;
+.content_card {
+  padding-top: 0px;
+  padding-right: calc(var(--bs-gutter-x) * 0.5);
+  padding-left: calc(var(--bs-gutter-x) * 0.5);
 }
+@media (max-width: 768px) {
+  .profile_box {
+    width: 110px;
+  }
   .qCard_title {
     font-size: 14px;
   }
   .profile_name {
-  font-size: 10px;
-}
-.profile_jobs {
-  font-size: 9px;
-}
+    font-size: 10px;
+  }
+  .profile_jobs {
+    font-size: 9px;
+  }
   .qCard_content {
     height: 40px !important;
     font-size: 10px;
@@ -330,27 +330,28 @@ export default {
     float: left;
     min-width: 110px;
     height: 100%;
-  }.content_card{
+  }
+  .content_card {
     padding-left: 10px;
   }
-  .img_info{
-    width:15px !important;
-    height:15px !important;
+  .img_info {
+    width: 15px !important;
+    height: 15px !important;
   }
   .qCard {
     height: 140px;
-}
-.pagination {
-    font-size:10px !important;
-}
-.col-11 {
+  }
+  .pagination {
+    font-size: 10px !important;
+  }
+  .col-11 {
     flex: 0 0 91.6666666667% !important;
     max-width: 91.6666666667% !important;
-}
-.col-1 {
+  }
+  .col-1 {
     flex: 0 0 auto;
     width: 8.33333333% !important;
-}
+  }
 }
 @media (max-width: 425px) {
   .tag {

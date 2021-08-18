@@ -1,18 +1,22 @@
 <template>
-<v-layout>
-  <v-row>
-    <v-col cols="12" md="0" lg="2" v-show="$vuetify.breakpoint.mdAndUp"
+  <v-layout>
+    <v-row>
+      <v-col cols="12" md="0" lg="2" v-show="$vuetify.breakpoint.mdAndUp"
         ><left-nav-bar></left-nav-bar
       ></v-col>
       <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"
         ><top-nav-bar></top-nav-bar
       ></v-col>
-    <v-col cols="12" md="12" lg="10" class="d-flex flex-column p2 scroll type1"
-      style="overflow: auto; height: 100vh"
-    >
-      <QuestionDetailCard class="detail_qCard"></QuestionDetailCard>
-    </v-col>
-  </v-row>
+      <v-col
+        cols="12"
+        md="12"
+        lg="10"
+        class="d-flex flex-column p2 scroll type1"
+        style="overflow: auto; height: 100vh"
+      >
+        <QuestionDetailCard class="detail_qCard"></QuestionDetailCard>
+      </v-col>
+    </v-row>
   </v-layout>
 </template>
 
@@ -30,11 +34,11 @@ export default {
   },
   data() {
     return {
-      parentid:"",
+      parentid: "",
     };
   },
-  created(){
-    this.parentid=this.$route.query.id;
+  created() {
+    this.parentid = this.$route.query.id;
   },
 };
 </script>
@@ -78,26 +82,25 @@ export default {
 .type1::-webkit-scrollbar-track {
   background-color: rgba(196, 196, 196, 0.692);
 }
-.detail_qCard{
+.detail_qCard {
   padding-left: 36px;
   padding-right: 36px;
-  padding-top : 36px;
+  padding-top: 36px;
 }
 
-@media (max-width: 425px){
-  .detail_qCard{
-  padding-left: 8px !important;
-  padding-right: 8px !important;
-  padding-top : 4px !important;
-}
-}
-
-@media (max-width: 768px){
-  .detail_qCard{
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top : 18px;
-}
+@media (max-width: 425px) {
+  .detail_qCard {
+    padding-left: 8px !important;
+    padding-right: 8px !important;
+    padding-top: 4px !important;
+  }
 }
 
+@media (max-width: 768px) {
+  .detail_qCard {
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 18px;
+  }
+}
 </style>

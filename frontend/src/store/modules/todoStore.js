@@ -47,14 +47,18 @@ export default {
       state.todoLists.push(newTodo);
     },
     UPDATE_TODO(state, editTodo) {
-      const index = state.todoLists.findIndex((todo) => todo.todoid === editTodo.todoid);
+      const index = state.todoLists.findIndex(
+        (todo) => todo.todoid === editTodo.todoid
+      );
 
       if (index !== -1) {
         state.todoLists.splice(index, 1, editTodo);
       }
     },
     DELETE_TODO(state, todoid) {
-      state.todoLists = state.todoLists.filter((todo) => todo.todoid !== todoid);
+      state.todoLists = state.todoLists.filter(
+        (todo) => todo.todoid !== todoid
+      );
     },
     SET_TODAY_COMMIT(state, flag) {
       state.todayCommit = flag;

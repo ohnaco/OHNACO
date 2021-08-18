@@ -50,12 +50,12 @@
 import marked from "marked";
 import { createNamespacedHelpers } from "vuex";
 import hljs from "highlight.js";
-import 'highlight.js/styles/atom-one-dark.css';
+import "highlight.js/styles/atom-one-dark.css";
 const devtalkHelper = createNamespacedHelpers("devTalkStore");
 
 marked.setOptions({
   renderer: new marked.Renderer(),
-  highlight: function(code) {
+  highlight: function (code) {
     return hljs.highlightAuto(code).value;
   },
   pedantic: false,
@@ -65,9 +65,8 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: false,
-  xhtml: false
-  }
-);
+  xhtml: false,
+});
 
 export default {
   data() {
@@ -82,7 +81,7 @@ export default {
         questionid: this.$parent.$route.query.id,
         answercontent: this.content,
       };
-      this.content="";
+      this.content = "";
       this.addComment(com);
     },
   },
@@ -102,13 +101,13 @@ export default {
   border: solid 1px #607d8b;
   background-color: #ffffff;
 }
-@media (max-width: 768px){
-.mod-btn{
-  font-size:12px !important;
-  height:20px !important;
-}
-.v-btn:not(.v-btn--round).v-size--default {
+@media (max-width: 768px) {
+  .mod-btn {
+    font-size: 12px !important;
+    height: 20px !important;
+  }
+  .v-btn:not(.v-btn--round).v-size--default {
     height: 36px;
-}
+  }
 }
 </style>

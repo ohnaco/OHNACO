@@ -54,17 +54,11 @@
         <!-- 버튼 -->
         <div class="page-btn">
           <!-- 이전 페이지: 회원가입 페이지 -->
-          <button 
-            class="mr-15" 
-            @click="goJoin"
-          >
+          <button class="mr-15" @click="goJoin">
             <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음 페이지 : 회원가입 완료 페이지 -->
-          <button
-            class="ml-15"
-            @click="joinFinish"
-          >
+          <button class="ml-15" @click="joinFinish">
             <img src="@/assets/images/complete-btn.svg" alt="next" />
           </button>
         </div>
