@@ -55,7 +55,6 @@ public class MyPageController {
         if(user.getGithubid() == null) {
             result.put("commit", null);
         } else {
-            todoService.commitUpdate(userid, user.getGithubid(), LocalDate.now().toString());
             result.put("commit", todoService.getCommit(userid));
         }
 

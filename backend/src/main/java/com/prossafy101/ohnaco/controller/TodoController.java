@@ -208,7 +208,7 @@ public class TodoController {
         } else {
             Calendar cal = Calendar.getInstance();
             cal.setTime(new Date());
-            cal.add(Calendar.HOUR, -13);
+            cal.add(Calendar.HOUR, -9);
             DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 todoService.commitUpdate(userid, user.getGithubid(), df.format(cal.getTime()));
