@@ -62,6 +62,7 @@
         </div>
         <!-- Todo 추가 컴포넌트 -->
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
+        </b-container>
         <!-- Todo 추가 버튼 -->
         <div class="mx-auto">
           <img
@@ -72,7 +73,6 @@
             v-if="!isCreateTodo"
           />
         </div>
-        </b-container>
       </v-col>
       <v-col cols="12" sm="0" md="3" lg="3">
         <!-- 우측달력 -->
