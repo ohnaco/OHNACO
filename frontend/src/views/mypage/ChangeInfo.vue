@@ -36,8 +36,7 @@
           v-model="nickname"
           v-bind:class="{
             error: error.nickname && error.nicknameCheck,
-            complete:
-              !error.nickname && nickname.length !== 0 && error.nicknameCheck,
+            complete: !error.nickname && nickname.length !== 0 && error.nicknameCheck,
           }"
         ></b-form-input>
         <div class="error-message" v-if="error.nickname">
@@ -168,7 +167,7 @@ export default {
     },
     getInfo: function () {
       MyPage.requestMyInfo(
-        () => {
+        (res) => {
           this.email = res.data.info.email;
           this.originnickname = res.data.info.nickname;
           this.nickname = res.data.info.nickname;
@@ -231,8 +230,7 @@ export default {
             }
           );
         } else if (this.isUpload == "default") {
-          this.image =
-            "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile";
+          this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile";
           this.updateProfile();
         } else {
           this.updateProfile();
@@ -262,8 +260,7 @@ export default {
       );
     },
     resetProfile: function () {
-      this.image =
-        "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile";
+      this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/defaultProfile";
       this.isUpload = "default";
     },
     nicknameCheck: function () {
