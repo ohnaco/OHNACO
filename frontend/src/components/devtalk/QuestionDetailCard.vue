@@ -11,11 +11,11 @@
 
         <!--따봉수 -->
         <div style="float: right" class="qd_14_medium pt-1" v-if="!question.question.userLike">
-          <img src="@/assets/images/question-like-empty.svg" alt="" @click="like()" class="like-img"/>
+          <img src="@/assets/images/question-like-empty.svg" alt="" @click="like()" style="cursor: pointer;"/>
           {{ question.question.like }}
         </div>
         <div style="float: right" class="qd_14_medium pt-1" v-if="question.question.userLike">
-          <img src="@/assets/images/question-like.svg" style="width:25px ; height:25px" alt="" class="like-img" @click="unlike()"/>
+          <img src="@/assets/images/question-like.svg" style="width:25px ; height:25px; cursor: pointer;" alt="" @click="unlike()"/>
           {{ question.question.like }}
         </div>
         <!--따봉 끝 -->
@@ -38,7 +38,7 @@
         <!--날짜, 수정, 삭제버튼-->
         <div>
           <div style="float: left" class="qd_date">
-            {{ date }}  조회수{{ question.question.visit }}
+            {{ date }}  조회수 {{ question.question.visit }}
           </div>
 
           <div style="float: right" v-if="this.question.question.user.userid==this.user.userid">
@@ -83,7 +83,7 @@
     <!-- 답변 시작-->
     <div class="ans_count">
       <span style="font-family: GmarketSansBold; font-size: 22px; color: red"
-        >A.</span
+        >A. </span
       >
       <span style="font-family: GmarketSansMedium; font-size: 22px; color: red"
       class="ans_cnt"
@@ -271,9 +271,9 @@ code {
   background-color: #80deea;
   font-family: "GmarketSansLight";
   font-size: 8px;
-  height: 80%;
+  height: 100%;
   border: none;
-  color: #607d8b;
+  color: white;
   text-align: center;
   padding: 3px 7px;
   margin: 0 7px 0 0;

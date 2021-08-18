@@ -18,13 +18,13 @@
       <!--간략 프로필 끝-->
       <!--따봉수 -->
       <div v-if="!item.userLike" style="float: right" class="qd_14_medium pt-1">
-        <img src="@/assets/images/question-like-empty.svg" alt=""
+        <img src="@/assets/images/question-like-empty.svg" alt="" style="cursor: pointer;"
         @click="like()" />
         {{ item.like }}
       </div>
 
       <div v-if="item.userLike" style="float: right" class="qd_14_medium pt-1">
-        <img src="@/assets/images/question-like.svg" alt="" style="width:25px ; height:25px"
+        <img src="@/assets/images/question-like.svg" alt="" style="width:25px; height:25px; cursor: pointer;"
         @click="unlike()"/>
         {{ item.like }}
       </div>
