@@ -45,7 +45,9 @@
       </v-card-text>
 
       <v-card-actions class="justify-end">
-        <v-btn text color="teal accent-4" @click.prevent @click="reveal = true"> 더 보기 </v-btn>
+        <v-btn text color="teal accent-4" @click.prevent @click="reveal = true">
+          더 보기
+        </v-btn>
       </v-card-actions>
 
       <div>
@@ -60,7 +62,12 @@
               <p v-html="item.content"></p>
             </v-card-text>
             <v-card-actions class="pt-0 justify-end">
-              <v-btn text color="teal accent-4" @click.prevent @click="reveal = false">
+              <v-btn
+                text
+                color="teal accent-4"
+                @click.prevent
+                @click="reveal = false"
+              >
                 Close
               </v-btn>
             </v-card-actions>

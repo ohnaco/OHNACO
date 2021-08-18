@@ -18,14 +18,22 @@
       <!--간략 프로필 끝-->
       <!--따봉수 -->
       <div v-if="!item.userLike" style="float: right" class="qd_14_medium pt-1">
-        <img src="@/assets/images/question-like-empty.svg" alt="" style="cursor: pointer;"
-        @click="like()" />
+        <img
+          src="@/assets/images/question-like-empty.svg"
+          alt=""
+          style="cursor: pointer"
+          @click="like()"
+        />
         {{ item.like }}
       </div>
 
       <div v-if="item.userLike" style="float: right" class="qd_14_medium pt-1">
-        <img src="@/assets/images/question-like.svg" alt="" style="width:25px; height:25px; cursor: pointer;"
-        @click="unlike()"/>
+        <img
+          src="@/assets/images/question-like.svg"
+          alt=""
+          style="width: 25px; height: 25px; cursor: pointer"
+          @click="unlike()"
+        />
         {{ item.like }}
       </div>
       <!--따봉 끝 -->
@@ -40,18 +48,10 @@
           style="float: right"
           v-if="this.item.user.userid == this.$parent.user.userid"
         >
-          <a
-            class="modNdel"
-              style="color : #607d8b;"
-            @click="modifyMode()"
+          <a class="modNdel" style="color: #607d8b" @click="modifyMode()"
             >수정</a
           >
-          <a
-           class="modNdel"
-              style="color : #607d8b;"
-            @click="showDialog"
-            >삭제</a
-          >
+          <a class="modNdel" style="color: #607d8b" @click="showDialog">삭제</a>
         </div>
       </div>
       <!--날짜, 수정, 삭제버튼끝-->
@@ -94,7 +94,7 @@
           v-html="compiledMarkdown_modify"
           style="width: 100%; word-break: break-all"
         ></div>
-        <div style="width:100%" class="p-0">
+        <div style="width: 100%" class="p-0">
           <v-btn
             elevation="2"
             class="mt-3 mb-3 mod-btn"
@@ -115,7 +115,11 @@
     <!-- 수정모드-->
     <!--삭제 모달-->
     <v-dialog max-width="500" v-model="isModal">
-      <delete-modal @hide="hideDialog" @submit="deleteQuestion2()" :msg="'Answer'" />
+      <delete-modal
+        @hide="hideDialog"
+        @submit="deleteQuestion2()"
+        :msg="'Answer'"
+      />
     </v-dialog>
     <!--삭제 모달 끝-->
   </div>
@@ -127,12 +131,12 @@ import DeleteModal from "@/components/common/DeleteModal.vue";
 import { createNamespacedHelpers } from "vuex";
 import Dev from "@/api/DevTalk";
 import hljs from "highlight.js";
-import 'highlight.js/styles/atom-one-dark.css';
+import "highlight.js/styles/atom-one-dark.css";
 const devtalkHelper = createNamespacedHelpers("devTalkStore");
 
 marked.setOptions({
   renderer: new marked.Renderer(),
-  highlight: function(code) {
+  highlight: function (code) {
     return hljs.highlightAuto(code).value;
   },
   pedantic: false,
@@ -142,9 +146,8 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: false,
-  xhtml: false
-  }
-);
+  xhtml: false,
+});
 
 export default {
   data() {
@@ -188,30 +191,29 @@ export default {
     },
     modify() {
       const newQuestion = {
-        answerid:this.item.answerid,
+        answerid: this.item.answerid,
         answertitle: this.item.answertitle,
         answercontent: this.modifyContent,
-      }
+      };
       this.updateComment(JSON.stringify(newQuestion));
       this.isEdit = false;
     },
 
-    like(){
-      if(!this.item.userLike){
+    like() {
+      if (!this.item.userLike) {
         Dev.answerLike(this.item.answerid);
-        this.item.userLike=true;
+        this.item.userLike = true;
         this.item.like++;
       }
     },
 
-    unlike(){
-      if(this.item.userLike){
+    unlike() {
+      if (this.item.userLike) {
         Dev.answerLike(this.item.answerid);
-        this.item.userLike=false;
+        this.item.userLike = false;
         this.item.like--;
       }
     },
-
   },
 
   computed: {
@@ -227,22 +229,22 @@ export default {
   },
 
   components: {
-    DeleteModal
-  }
+    DeleteModal,
+  },
 };
 </script>
 
 <style>
-.modNdel{
-font-family: GmarketSansMedium;
-                font-size: 14px;
-                color : #607d8b;
-                margin: 0 7px 0 0;
-                text-decoration:none;
-                cursor:pointer;
+.modNdel {
+  font-family: GmarketSansMedium;
+  font-size: 14px;
+  color: #607d8b;
+  margin: 0 7px 0 0;
+  text-decoration: none;
+  cursor: pointer;
 }
-.answer_profile{
-  padding:12px;
+.answer_profile {
+  padding: 12px;
 }
 .ad_rectangle {
   border-radius: 10px;
@@ -250,19 +252,19 @@ font-family: GmarketSansMedium;
   border: solid 1px #607d8b;
   background-color: #ffffff;
 }
-@media (max-width: 768px){
-  .modNdel{
-                font-size: 12px;
-}
-.answer_profile {
+@media (max-width: 768px) {
+  .modNdel {
+    font-size: 12px;
+  }
+  .answer_profile {
     padding: 8px !important;
-}
-.mod-btn{
-  font-size:12px !important;
-  height:20px !important;
-}
-.v-btn:not(.v-btn--round).v-size--default {
+  }
+  .mod-btn {
+    font-size: 12px !important;
+    height: 20px !important;
+  }
+  .v-btn:not(.v-btn--round).v-size--default {
     height: 36px;
-}
+  }
 }
 </style>

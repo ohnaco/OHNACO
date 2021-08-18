@@ -1,19 +1,25 @@
 <template>
-    <v-layout>
+  <v-layout>
     <v-app-bar dark color="blue-grey base" v-show="$vuetify.breakpoint.mdAndUp">
       <v-toolbar-title>
-        <img src="@/assets/images/simple-logo.svg"/>
+        <img src="@/assets/images/simple-logo.svg" />
       </v-toolbar-title>
-      <v-spacer/>
+      <v-spacer />
       <v-toolbar-items>
-        <v-btn text to="/login" style="background-color: #607D8B">로그인</v-btn>
-        <v-btn text to="/join" style="background-color: #607D8B">회원가입</v-btn>
+        <v-btn text to="/login" style="background-color: #607d8b">로그인</v-btn>
+        <v-btn text to="/join" style="background-color: #607d8b"
+          >회원가입</v-btn
+        >
       </v-toolbar-items>
     </v-app-bar>
 
-    <v-app-bar dark color="blue-grey base" v-show="$vuetify.breakpoint.smAndDown">
+    <v-app-bar
+      dark
+      color="blue-grey base"
+      v-show="$vuetify.breakpoint.smAndDown"
+    >
       <v-toolbar-title>
-        <img src="@/assets/images/simple-logo.svg"/>
+        <img src="@/assets/images/simple-logo.svg" />
       </v-toolbar-title>
       <v-spacer />
       <v-menu offset-y>
@@ -29,8 +35,8 @@
               :key="index"
               :to="item.to"
             >
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
+            </v-list-item>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -43,14 +49,12 @@ export default {
   data: function () {
     return {
       items: [
-        {title: '로그인', to: '/login'},
-        {title: '회원가입', to: '/join'},
-      ]
-    }
-  }
-}
+        { title: "로그인", to: "/login" },
+        { title: "회원가입", to: "/join" },
+      ],
+    };
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

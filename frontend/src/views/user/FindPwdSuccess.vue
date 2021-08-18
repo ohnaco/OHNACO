@@ -11,7 +11,9 @@
         새로운 비밀번호로 다시 로그인 해주세요.
       </p>
       <!-- 로그인 버튼 -->
-      <button class="mt-1" @click="goLogin"><img src="@/assets/images/login-btn.svg" alt="success" /></button>
+      <button class="mt-1" @click="goLogin">
+        <img src="@/assets/images/login-btn.svg" alt="success" />
+      </button>
     </div>
   </div>
 </template>

@@ -3,7 +3,10 @@
     <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
       ><left-nav-bar></left-nav-bar
     ></v-col>
-    <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
+    <v-col
+      cols="12"
+      v-show="$vuetify.breakpoint.smAndDown"
+      style="padding: 0 !important"
       ><top-nav-bar></top-nav-bar
     ></v-col>
     <v-col cols="12" sm="12" md="10">
@@ -18,11 +21,26 @@
           <img src="@/assets/images/back-btn.svg" alt="back" />
         </button>
         <v-btn-toggle v-model="type" dense borderless mandatory group>
-          <v-btn value="my" text dark color="cyan lighten-1" @click="setSubscribeBlogList()" class="ml-auto">
-            <v-icon left color="cyan"> mdi-checkbox-blank-circle </v-icon><b>내 구독 목록</b></v-btn
+          <v-btn
+            value="my"
+            text
+            dark
+            color="cyan lighten-1"
+            @click="setSubscribeBlogList()"
+            class="ml-auto"
           >
-          <v-btn value="all" text dark color="blue-grey" @click="setAllBlogList()">
-            <v-icon left color="blue-grey"> mdi-checkbox-blank-circle </v-icon><b>전체 목록</b></v-btn
+            <v-icon left color="cyan"> mdi-checkbox-blank-circle </v-icon
+            ><b>내 구독 목록</b></v-btn
+          >
+          <v-btn
+            value="all"
+            text
+            dark
+            color="blue-grey"
+            @click="setAllBlogList()"
+          >
+            <v-icon left color="blue-grey"> mdi-checkbox-blank-circle </v-icon
+            ><b>전체 목록</b></v-btn
           >
         </v-btn-toggle>
       </v-col>
@@ -38,7 +56,10 @@
           <div class="d-flex flex-no-wrap justify-space-between">
             <!-- 이미지 -->
             <v-avatar class="ma-3" size="100" tile>
-              <v-img contain :src="require(`@/assets/images/${item.blogname}.png`)"></v-img>
+              <v-img
+                contain
+                :src="require(`@/assets/images/${item.blogname}.png`)"
+              ></v-img>
             </v-avatar>
             <!-- 이름 -->
             <v-card-title
@@ -48,7 +69,9 @@
             ></v-card-title>
             <!-- 구독 버튼 -->
             <v-card-actions class="d-flex flex-column justify-center mr-1">
-              <span :class="{ 'text-subtitle-2': $vuetify.breakpoint.xs }">구독</span>
+              <span :class="{ 'text-subtitle-2': $vuetify.breakpoint.xs }"
+                >구독</span
+              >
               <v-btn
                 v-if="item.issubscribe"
                 fab
@@ -92,7 +115,7 @@ export default {
   data() {
     return {
       type: "all",
-    }
+    };
   },
   components: {
     LeftNavBar,

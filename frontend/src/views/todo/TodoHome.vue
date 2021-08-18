@@ -4,7 +4,10 @@
       <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
         ><left-nav-bar></left-nav-bar
       ></v-col>
-      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
+      <v-col
+        cols="12"
+        v-show="$vuetify.breakpoint.smAndDown"
+        style="padding: 0 !important"
         ><top-nav-bar></top-nav-bar
       ></v-col>
       <v-col cols="12" sm="12" md="7" class="d-flex flex-column m-unite">
@@ -61,7 +64,11 @@
           />
         </div>
         <!-- Todo 추가 컴포넌트 -->
-        <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
+        <todo-add
+          @finish-create="toggleCreate"
+          v-if="isCreateTodo"
+          :date="date"
+        />
         <!-- Todo 추가 버튼 -->
         <div class="mx-auto" v-if="!isPast">
           <img
@@ -170,7 +177,7 @@ export default {
       const today = this.$moment().format("YYYY-MM-DD");
       if (date < today) {
         this.isPast = true;
-      } else  {
+      } else {
         this.isPast = false;
       }
     },

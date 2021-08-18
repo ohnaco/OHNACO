@@ -64,7 +64,7 @@
                   >● 답변순&nbsp;&nbsp;</span
                 >
                 <span
-                  style="color: #00BCD4"
+                  style="color: #00bcd4"
                   class="filter_devTalk pagelink"
                   :class="{
                     filter_selected:
@@ -404,8 +404,8 @@ export default {
   .hotissue_section {
     display: none;
   }
-  .filter_devTalk{
-    font-size:12px;
+  .filter_devTalk {
+    font-size: 12px;
   }
 }
 @media (min-width: 768px) {

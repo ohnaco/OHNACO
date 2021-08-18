@@ -64,7 +64,9 @@ if (firebase.messaging.isSupported()) {
         // Send the token to your server and update the UI if necessary
       } else {
         // Show permission request UI
-        console.log("No registration token available. Request permission to generate one.");
+        console.log(
+          "No registration token available. Request permission to generate one."
+        );
       }
     })
     .catch((err) => {

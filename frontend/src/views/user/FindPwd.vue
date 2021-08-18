@@ -23,17 +23,11 @@
         <!-- 페이지 전환 버튼 -->
         <div class="page-btn">
           <!-- 이전 : 로그인 페이지 -->
-          <button 
-            class="mr-15" 
-            @click="goLogin"
-          >
+          <button class="mr-15" @click="goLogin">
             <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음 : 메일 전송 확인 페이지 -->
-          <button 
-            class="ms-15" 
-            @click="goFindPwd"
-          >
+          <button class="ms-15" @click="goFindPwd">
             <img src="@/assets/images/next-btn.svg" alt="next" />
           </button>
         </div>
@@ -45,7 +39,6 @@
 <script>
 import * as EmailValidator from "email-validator";
 import User from "@/api/User";
-
 
 export default {
   name: "FindPwd",
@@ -81,25 +74,28 @@ export default {
     goFindPwd: function () {
       if (this.isSubmit) {
         let data = {
-          email: this.email
+          email: this.email,
         };
         User.requestFindPwdSendEmail(
-          data, 
+          data,
           (res) => {
-            console.log(res)
+            console.log(res);
             if (res.data.status == true) {
-              this.isSubmit = true
-              this.$router.push({ name : "FindPwdEmail", params: { email: this.email }})
+              this.isSubmit = true;
+              this.$router.push({
+                name: "FindPwdEmail",
+                params: { email: this.email },
+              });
             } else {
-              this.isSubmit = false
-              alert(res.data.message)
+              this.isSubmit = false;
+              alert(res.data.message);
             }
           },
           (err) => {
-            this.isSubmit = true
-            console.log(err)
+            this.isSubmit = true;
+            console.log(err);
           }
-        )
+        );
       }
     },
   },
