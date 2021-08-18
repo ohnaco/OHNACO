@@ -33,8 +33,7 @@
               <div class="mt-3">
                 <b>{{ scrap.title }}</b>
               </div>
-              <div class="mt-5">
-                {{ scrap.content | cutcontent }}
+              <div class="mt-5" v-html="cutcontent(scrap.content)">
               </div>
               <div class="tech-date mt-2 mb-2">
                 {{ scrap.publisheddate | datetime }}
@@ -66,9 +65,6 @@ export default {
       if (value)
         return moment(String(value)).format('YYYY.MM.DD')
     },
-    cutcontent: function (value) {
-      return value.substr(0, 50) + '...'
-    }
   },
   methods: {
     goMyScraps: function () {
@@ -76,6 +72,9 @@ export default {
     },
     goBlog: function (scrap) {
       window.open(scrap.link)
+    },
+    cutcontent: function (value) {
+      return value.substr(0, 50) + '...'
     }
   },
 }
