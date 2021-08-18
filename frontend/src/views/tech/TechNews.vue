@@ -100,7 +100,6 @@ export default {
           this.param,
           ({ data }) => {
             setTimeout(() => {
-              console.log(data.list.content);
               if (data.list.content.length) {
                 this.param.pageno += 1;
                 this.techList.push(...data.list.content);
@@ -119,7 +118,6 @@ export default {
           this.param,
           ({ data }) => {
             setTimeout(() => {
-              console.log(data.list.content);
               if (data.list.content.length) {
                 this.param.pageno += 1;
                 this.techList.push(...data.list.content);
