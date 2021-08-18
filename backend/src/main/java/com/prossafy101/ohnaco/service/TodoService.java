@@ -153,6 +153,7 @@ public class TodoService {
                 commitDto.setDay2(commitDto.getDay1());
             }
         }
+        System.out.println("commit update : "+date));
         commitDto.setUpdatedate(date);
         commitDto.setDay1(gitHubAPI.isCommit(githubid, date));
         commitDto.setTimeToLive(48);
@@ -167,6 +168,7 @@ public class TodoService {
         cal.setTime(new Date());
         cal.add(Calendar.HOUR, -13);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("corn time : "+df.format(cal.getTime()));
         for(User user: users) {
             if(user.getGithubid() != null) {
                 commitUpdate(user.getUserid(), user.getGithubid(),df.format(cal.getTime()));
