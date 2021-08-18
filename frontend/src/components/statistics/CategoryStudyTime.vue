@@ -29,7 +29,7 @@ export default {
       series: [],
       chartOptions: {
         chart: {
-          id: 'chart',
+          id: "chart",
           width: 350,
           type: "pie",
         },
@@ -39,19 +39,19 @@ export default {
         legend: {
           horizontalAlign: "center",
           position: "bottom",
-          fontSize: '9px',
+          fontSize: "9px",
         },
         labels: ["CS", "알고리즘", "자격증", "프레임워크", "기타"],
         colors: ["#607D8B", "#80DEEA", "#000000", "#C3C3C3", "#848484"],
         tooltip: {
           y: {
             formatter: function (val) {
-              const hour = Math.floor(val / 3600)
-              const minute = Math.floor((val % 3600) / 60)
-              return hour + "시간 " + minute + '분 '
-            }
-          }
-        }
+              const hour = Math.floor(val / 3600);
+              const minute = Math.floor((val % 3600) / 60);
+              return hour + "시간 " + minute + "분 ";
+            },
+          },
+        },
       },
     };
   },
@@ -63,9 +63,9 @@ export default {
         this.categoryTime[3].completetime,
         this.categoryTime[4].completetime,
         this.categoryTime[1].completetime,
-      ]
-      this.series = newSeries
-    }
+      ];
+      this.series = newSeries;
+    },
   },
 };
 </script>

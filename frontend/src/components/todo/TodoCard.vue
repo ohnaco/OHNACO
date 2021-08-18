@@ -5,14 +5,20 @@
         <!-- default mode - today -->
         <v-card
           color="blue-grey lighten-5 rounded-xl"
-          v-if="!isEdit && !isOngoing && (tempus == 'today' || tempus == 'future')"
+          v-if="
+            !isEdit && !isOngoing && (tempus == 'today' || tempus == 'future')
+          "
         >
           <div>
             <div>
               <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
+                <v-col
+                  class="text-caption mr-3"
+                  v-text="item.todoid"
+                  align="right"
+                />
               </v-row>
 
               <div class="d-flex justify-end">
@@ -34,10 +40,14 @@
                 <div
                   class="d-flex text-caption align-center font-weight-bold ml-2"
                   :class="{
-                    'future-target-time': tempus == 'future' || this.$parent.isAnyOneGoing,
+                    'future-target-time':
+                      tempus == 'future' || this.$parent.isAnyOneGoing,
                   }"
                 >
-                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
+                  <img
+                    src="@/assets/images/todo-card-clock.svg"
+                    class="mr-1"
+                  />{{ item.goaltime }}
                   /
                   <span class="cyan--text">&nbsp;{{ completetime }}</span>
                 </div>
@@ -69,15 +79,29 @@
               <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
+                <v-col
+                  class="text-caption mr-3"
+                  v-text="item.todoid"
+                  align="right"
+                />
               </v-row>
-
               <div class="d-flex justify-end">
-                <v-btn icon color="blue" @click="moveToday" class="mr-5">
-                  <v-icon>mdi-plus</v-icon>
-                </v-btn>
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      icon
+                      color="blue"
+                      @click="moveToday"
+                      class="mr-5"
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      <v-icon>mdi-plus</v-icon>
+                    </v-btn>
+                  </template>
+                  <span>과거의 To Do를 오늘 날짜에 추가</span>
+                </v-tooltip>
               </div>
-
               <v-card-title
                 class="text-h5 ml-4"
                 :class="{ 'text-h6': $vuetify.breakpoint.xs }"
@@ -85,8 +109,13 @@
               />
 
               <v-card-actions class="justify-space-between align-end pt-0">
-                <div class="d-flex text-caption align-center ml-2 font-weight-bold">
-                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
+                <div
+                  class="d-flex text-caption align-center ml-2 font-weight-bold"
+                >
+                  <img
+                    src="@/assets/images/todo-card-clock.svg"
+                    class="mr-1"
+                  />{{ item.goaltime }}
                   /
                   <span class="cyan--text">&nbsp;{{ completetime }}</span>
                 </div>
@@ -95,7 +124,11 @@
                   class="mobile-btn-size"
                   src="@/assets/images/todo-create-no.svg"
                 />
-                <img v-else class="mobile-btn-size" src="@/assets/images/todo-create-ok.svg" />
+                <img
+                  v-else
+                  class="mobile-btn-size"
+                  src="@/assets/images/todo-create-ok.svg"
+                />
               </v-card-actions>
             </div>
           </div>
@@ -108,17 +141,30 @@
               <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
+                <v-col
+                  class="text-caption mr-3"
+                  v-text="item.todoid"
+                  align="right"
+                />
               </v-row>
 
-              <v-col cols="12" class="text-h6 text-center pa-1" v-text="item.title"></v-col>
+              <v-col
+                cols="12"
+                class="text-h6 text-center pa-1"
+                v-text="item.title"
+              ></v-col>
 
               <div class="time">
                 {{ formattedElapsedTime }}
               </div>
               <v-card-actions class="justify-space-between align-end pt-0">
-                <div class="d-flex text-caption align-center ml-2 font-weight-bold">
-                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
+                <div
+                  class="d-flex text-caption align-center ml-2 font-weight-bold"
+                >
+                  <img
+                    src="@/assets/images/todo-card-clock.svg"
+                    class="mr-1"
+                  />{{ item.goaltime }}
                 </div>
                 <v-btn fab icon right>
                   <img

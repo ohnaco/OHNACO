@@ -16,7 +16,9 @@ export default {
       state.techList = list;
     },
     SCRAP_TOGGLE_BLOG(state, articleid) {
-      const index = state.techList.findIndex((tech) => tech.articleid === articleid);
+      const index = state.techList.findIndex(
+        (tech) => tech.articleid === articleid
+      );
       state.techList[index].scrap = !state.techList[index].scrap;
     },
     SET_ALL_BLOG_LIST(state, list) {

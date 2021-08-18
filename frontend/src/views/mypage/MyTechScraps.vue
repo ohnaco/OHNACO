@@ -24,7 +24,10 @@
           <TechCard :item="scrap" />
         </v-col>
       </v-row>
-      <infinite-loading @infinite="infiniteHandler" spinner="circles"></infinite-loading>
+      <infinite-loading
+        @infinite="infiniteHandler"
+        spinner="circles"
+      ></infinite-loading>
       <v-divider></v-divider>
     </v-container>
   </div>

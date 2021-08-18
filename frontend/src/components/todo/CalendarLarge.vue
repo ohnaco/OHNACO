@@ -84,7 +84,7 @@ const todoHelper = createNamespacedHelpers("todoStore");
 export default {
   data: () => ({
     focus: "",
-    Mdata:{},
+    Mdata: {},
     type: "month",
     typeToLabel: {
       month: "Month",
@@ -110,7 +110,7 @@ export default {
     ...todoHelper.mapState(["todoListsByMonth"]),
   },
   created() {
-    this.focus=this.$moment().format("YYYY-MM-DD");
+    this.focus = this.$moment().format("YYYY-MM-DD");
   },
 
   mounted() {
@@ -157,7 +157,7 @@ export default {
           },
         })
         .then((response) => {
-          this.Mdata=response.data.list;
+          this.Mdata = response.data.list;
         })
         .catch((error) => {
           alert(error);
@@ -189,7 +189,7 @@ export default {
           },
         })
         .then((response) => {
-          this.Mdata=response.data.list;
+          this.Mdata = response.data.list;
         })
         .catch((error) => {
           alert(error);

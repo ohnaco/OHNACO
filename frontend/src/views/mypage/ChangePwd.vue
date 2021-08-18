@@ -1,12 +1,15 @@
 <template>
   <div>
-    <TopNavBar/> 
+    <TopNavBar />
     <!-- 비밀번호 변경 폼 -->
     <div class="update-pwd-form mt-15">
       <div class="update-pwd-name">비밀번호 변경</div>
       <div class="update-pwd-box">
         <div class="mb-10">
-          <img src="@/assets/images/change-pwd-message.svg" alt="change-pwd-message">
+          <img
+            src="@/assets/images/change-pwd-message.svg"
+            alt="change-pwd-message"
+          />
         </div>
         <!-- 현재비번 -->
         <b-form-input
@@ -48,7 +51,8 @@
             v-model="newpasswordConfirm"
             v-bind:class="{
               error: error.newpasswordConfirm,
-              complete: !error.newpasswordConfirm && newpasswordConfirm.length !== 0,
+              complete:
+                !error.newpasswordConfirm && newpasswordConfirm.length !== 0,
             }"
           ></b-form-input>
           <div class="error-message" v-if="error.newpasswordConfirm">
@@ -58,17 +62,11 @@
         <!-- 버튼 -->
         <div class="page-btn">
           <!-- 이전 페이지: 마이페이지 -->
-          <button 
-            class="mr-15" 
-            @click="goupdateInfo"
-          >
+          <button class="mr-15" @click="goupdateInfo">
             <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음 페이지 : 마이페이지 -->
-          <button
-            class="ml-15"
-            @click="updatePwd"
-          >
+          <button class="ml-15" @click="updatePwd">
             <img src="@/assets/images/complete-btn.svg" alt="next" />
           </button>
         </div>
@@ -85,7 +83,7 @@ import PV from "password-validator";
 export default {
   name: "ChagePwd",
   components: {
-    TopNavBar
+    TopNavBar,
   },
   data: function () {
     return {
@@ -133,8 +131,10 @@ export default {
         this.error.password = "현재 비밀번호와 새로운 비밀번호가 일치합니다.";
       else this.error.password = false;
 
-      if (this.newpassword.length >= 0 &&
-        !this.passwordSchema.validate(this.newpassword))
+      if (
+        this.newpassword.length >= 0 &&
+        !this.passwordSchema.validate(this.newpassword)
+      )
         this.error.newpassword = "영문,숫자 포함 8~12자리를 입력해주세요.";
       else this.error.newpassword = false;
 
@@ -160,7 +160,7 @@ export default {
           (res) => {
             console.log(res);
             if (res.data.status == false) {
-              alert('비밀번호를 다시 확인해주세요.')
+              alert("비밀번호를 다시 확인해주세요.");
             } else {
               this.isSubmit = true;
               alert("비밀번호가 변경되었습니다.");

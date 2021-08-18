@@ -58,7 +58,7 @@ export default {
     logout({ commit }) {
       localStorage.removeItem("jwt-access-token");
       commit("DELETE_USER");
-      router.push({ name: "Login" });
+      router.push({ name: "Main" });
     },
   },
   getters: {

@@ -32,7 +32,9 @@ export default {
     },
     formattedElapsedTime() {
       const date = new Date(null);
-      date.setSeconds((this.goingTimeFQ + (this.$moment() - this.exitTimeFQ)) / 1000);
+      date.setSeconds(
+        (this.goingTimeFQ + (this.$moment() - this.exitTimeFQ)) / 1000
+      );
       const utc = date.toUTCString();
       return utc.substr(utc.indexOf(":") - 2, 8);
     },
@@ -49,12 +51,12 @@ export default {
 };
 </script>
 <style>
-.col-12 {
-    padding:24px;
+.m-unite {
+  padding: 24px !important;
 }
 @media (min-width: 768px) {
-  .col-12 {
-    padding:36px;
-}
+  .m-unite {
+    padding: 36px !important;
+  }
 }
 </style>

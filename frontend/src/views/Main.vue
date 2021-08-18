@@ -131,20 +131,23 @@
                     </div>
                 </div>
             </div>
-        </section>
-        <!-- Footer-->
-        <footer class="py-5 bg-black">
-            <div class="container px-5"><p class="m-0 text-center text-white small">SSAFY 5TH A101</p></div>
-        </footer>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer-->
+    <footer class="py-5 bg-black">
+      <div class="container px-5">
+        <p class="m-0 text-center text-white small">SSAFY 5TH A101</p>
+      </div>
+    </footer>
   </div>
-
 </template>
 
 <script>
 import MainNav from "@/components/main/MainNav.vue";
 import Tech from "@/components/main/Tech.vue";
 import Devtalk from "@/components/main/Devtalk.vue";
-
 
 export default {
   name: "Main",
@@ -157,5 +160,5 @@ export default {
 </script>
 
 <style scoped>
-  @import url('./main.css');
+@import url("./main.css");
 </style>

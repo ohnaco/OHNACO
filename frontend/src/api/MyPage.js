@@ -79,9 +79,7 @@ const updateMyInfo = (data, callback, errorCallback) => {
 
 const requestMypageNicknameCheck = (data, callback, errorCallback) => {
   http
-    .get(
-      "/mypage/namecheck?nickname=" + data.nickname
-    )
+    .get("/mypage/namecheck?nickname=" + data.nickname)
     .then((res) => {
       callback(res);
     })

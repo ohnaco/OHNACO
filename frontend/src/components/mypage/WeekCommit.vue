@@ -3,7 +3,7 @@
     <v-list-item
       color="#607D8B"
       class="pa-0 mt-5"
-      :href="`https://github.com/${ info.githubid }`"
+      :href="`https://github.com/${info.githubid}`"
       target="_blank"
     >
       <v-avatar>
@@ -14,15 +14,53 @@
           max-height="25"
         ></v-img>
       </v-avatar>
-    <v-list-item-title>{{ info.githubid ? info.githubid : '' }}</v-list-item-title>    </v-list-item>
+      <v-list-item-title>{{
+        info.githubid ? info.githubid : ""
+      }}</v-list-item-title>
+    </v-list-item>
     <div class="progress d-flex" style="height: 36px; background: transparent">
-      <div class="progress-bar" :class=" commit.day7 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day6 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day5 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day4 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day3 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day2 | countCommit" role="progressbar" style="width: 17%"></div>
-      <div class="progress-bar" :class=" commit.day1 | countCommit" role="progressbar" style="width: 17%"></div>
+      <div
+        class="progress-bar"
+        :class="commit.day7 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day6 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day5 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day4 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day3 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day2 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
+      <div
+        class="progress-bar"
+        :class="commit.day1 | countCommit"
+        role="progressbar"
+        style="width: 17%"
+      ></div>
     </div>
   </div>
 </template>
@@ -40,8 +78,7 @@ export default {
   },
   filters: {
     countCommit: function (value) {
-      if (value > 3) 
-        return "color-" + 3;
+      if (value > 3) return "color-" + 3;
       else return "color-" + value;
     },
   },
