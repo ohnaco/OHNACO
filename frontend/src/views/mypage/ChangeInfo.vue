@@ -149,7 +149,6 @@ export default {
     };
   },
   created() {
-    this.component = this;
     this.getInfo()
   },
   watch: {
@@ -186,14 +185,13 @@ export default {
     getInfo: function () {
       MyPage.requestMyInfo(
         (res) => {
+          console.log(res)
           this.email = res.data.info.email
           this.originnickname = res.data.info.nickname
           this.nickname = res.data.info.nickname
           this.githubid = res.data.info.githubid
           this.position = res.data.info.position
-          if(res.data.info.image != null) {
-            this.image = res.data.info.image
-          }
+          this.image = res.data.info.image
         },
         (err) => {
           console.log(err)
