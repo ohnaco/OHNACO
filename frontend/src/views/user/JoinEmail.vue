@@ -18,6 +18,7 @@
         <!-- 인증번호 -->
         <b-form-input
           type="text"
+          :state="null"
           class="certify-num"
           placeholder="인증코드"
           v-model="token"

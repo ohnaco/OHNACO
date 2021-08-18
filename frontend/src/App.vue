@@ -48,3 +48,13 @@ export default {
   },
 };
 </script>
+<style>
+.m-unite {
+    padding:24px !important;
+}
+@media (min-width: 768px) {
+.m-unite {
+    padding:36px !important;
+}
+}
+</style>

@@ -6,15 +6,12 @@
     <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
       ><top-nav-bar></top-nav-bar
     ></v-col>
-    <v-col cols="12" sm="12" md="10">
-      <b-container class="bv-example-row"><p
+    <v-col cols="12" sm="12" md="10" class="m-unite"><p
           class="text-h4 font-weight-bold mb-0 blue-grey--text"
           :class="{ 'text-h5': $vuetify.breakpoint.xs }"
         >
           Tech
-        </p></b-container
-      >
-      <b-container class="pt-0">
+        </p>
       <v-row dense class="ma-2 justify-end align-center">
         <v-col cols="12" sm="12" md="5" align="end">
           <v-btn-toggle v-model="type" dense borderless mandatory group>
@@ -55,7 +52,6 @@
           spinner="circles"
         ></infinite-loading>
       </v-row>
-      </b-container>
     </v-col>
   </v-row>
 </template>

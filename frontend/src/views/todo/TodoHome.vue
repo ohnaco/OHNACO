@@ -7,8 +7,7 @@
       <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
         ><top-nav-bar></top-nav-bar
       ></v-col>
-      <v-col cols="12" sm="12" md="7" class="d-flex flex-column todo-main">
-        <b-container class="bv-example-row">
+      <v-col cols="12" sm="12" md="7" class="d-flex flex-column m-unite">
         <div
           class="d-flex align-center text-h4"
           style="display: flex; justify-content: space-between"
@@ -19,29 +18,31 @@
           >
             To Do
           </p>
-          <img
-            src="@/assets/images/calendar_black.svg"
-            class="mobile_calendar_btn"
-            @click="mobileCalendarOn"
-          />
-          <img
-            src="@/assets/images/calendar_black.svg"
-            class="mobile_calendar_large_btn"
-            @click="modalOn"
-          />
         </div>
-
-        <div class="d-flex flex-row align-center ml-5 mt-3">
+        <div class="d-flex justify-space-between ml-5 mt-3">
           <!-- 날짜 -->
-          <span
-            class="text-h6 font-weight-bold"
-            :class="{ 'text-body-1': $vuetify.breakpoint.xs }"
-            v-text="date"
-          ></span>
-          <!-- 데일리 커밋 -->
-          <daily-commit v-if="isDateToday && this.user.githubid !== ''" />
+          <div class="d-flex align-items-center">
+            <span
+              class="text-h6 font-weight-bold"
+              :class="{ 'text-body-1': $vuetify.breakpoint.xs }"
+              v-text="date"
+            ></span>
+            <!-- 데일리 커밋 -->
+            <daily-commit v-if="isDateToday && this.user.githubid !== ''" />
+          </div>
+          <div class="d-flex align-items-center">
+            <img
+              src="@/assets/images/calendar_black.svg"
+              class="mobile_calendar_btn"
+              @click="mobileCalendarOn"
+            />
+            <img
+              src="@/assets/images/calendar_black.svg"
+              class="mobile_calendar_large_btn"
+              @click="modalOn"
+            />
+          </div>
         </div>
-        </b-container>
         <CalendarSmall
           v-if="isMobileCanlendar"
           @modalOn_child="modalOn"
@@ -50,7 +51,6 @@
           v-model="date"
           class="mobileCalendar"
         ></CalendarSmall>
-        <b-container>
         <div v-show="!isMobileCanlendar">
           <todo-card
             v-for="todo in todoLists"
@@ -62,7 +62,6 @@
         </div>
         <!-- Todo 추가 컴포넌트 -->
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
-        </b-container>
         <!-- Todo 추가 버튼 -->
         <div class="mx-auto" v-if="!isPast">
           <img
@@ -210,11 +209,6 @@ export default {
   cursor: pointer;
 }
 @media (max-width: 767px) {
-  .todo-main{
-    padding-left:24px !important;
-  }
-}
-@media (max-width: 767px) {
   .h2,
   h2 {
     font-size: 14px !important;
@@ -237,7 +231,6 @@ export default {
     display: block;
   }
   .v-application .text-h4 {
-    font-size: 1.5rem !important;
     font-weight: 400;
     line-height: 2.5rem;
     letter-spacing: 0.0073529412em !important;

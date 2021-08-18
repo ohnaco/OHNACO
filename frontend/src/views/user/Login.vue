@@ -8,6 +8,7 @@
         <!-- 이메일 -->
         <b-form-input
           type="text" 
+          :state="null"
           id="email" 
           class="email" 
           placeholder="이메일 주소" 
@@ -16,6 +17,7 @@
         <!-- 비번 -->
         <b-form-input
           type="password"
+          :state="null"
           id="pwd"
           class="pwd"
           placeholder="비밀번호"
