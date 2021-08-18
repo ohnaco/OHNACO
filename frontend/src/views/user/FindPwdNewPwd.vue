@@ -8,7 +8,7 @@
         <div class="change-pwd-text">새로운 비밀번호를 입력해주세요.</div>
         <!-- 비번 -->
         <b-form-input
-          :type="passwordType"
+          type="password"
           :state="null"
           class="pwd"
           placeholder="비밀번호"
@@ -24,7 +24,7 @@
         <!-- 비번 확인 -->
         <div class="input_label">
           <b-form-input
-            :type="passwordConfirmType"
+            type="password"
             :state="null"
             class="pwd-check"
             placeholder="비밀번호 확인"
@@ -65,8 +65,6 @@ export default {
         passwordConfirm: false,
       },
       isSubmit: false,
-      passwordType: "password",
-      passwordConfirmType: "password",
     };
   },
   created() {

@@ -21,7 +21,27 @@
     scroll-behavior: smooth;
   }
 }
-
+@font-face {
+  font-family: "GmarketSansLight";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   margin: 0;
   font-family: var(--bs-body-font-family);
@@ -485,7 +505,6 @@ progress {
     font-size: 4.5rem;
   }
 }
-
 
 .display-4 {
   font-size: calc(1.475rem);
@@ -11575,7 +11594,7 @@ html {
 header.masthead {
   position: relative;
   overflow: hidden;
-  padding-top: calc(7rem);
+  padding-top: calc(7rem + 72px);
   padding-bottom: 7rem;
   background: #607d8b;
   background-repeat: no-repeat;
@@ -11603,8 +11622,8 @@ header.masthead .masthead-content .masthead-subheading {
 
 @media (min-width: 992px) {
   header.masthead {
-    padding-top: calc(10rem);
-    padding-bottom: 10rem;
+    padding-top: calc(10rem + 55px);
+    padding-bottom: 12rem;
   }
   header.masthead .masthead-content .masthead-heading {
     font-size: 4rem;
