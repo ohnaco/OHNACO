@@ -27,11 +27,11 @@
 import MyPageProfile from "@/components/mypage/MyPageProfile.vue";
 import AnswerCard from "@/components/mypage/AnswerCard.vue";
 
-import InfiniteLoading from 'vue-infinite-loading';
+import InfiniteLoading from "vue-infinite-loading";
 import MyPage from "@/api/MyPage";
 
-import { createNamespacedHelpers } from 'vuex';
-const mypageHelper = createNamespacedHelpers('mypageStore');
+import { createNamespacedHelpers } from "vuex";
+const mypageHelper = createNamespacedHelpers("mypageStore");
 
 export default {
   name: 'MyPage',
@@ -43,26 +43,20 @@ export default {
   data: function () {
     return {
       pageno: 1,
-      myAnswers: []
+      myAnswers: [],
     }
   },
   created() {
     this.getMyPage()
   },
   computed: {
-    ...mypageHelper.mapState(['mypageInfo']),
+    ...mypageHelper.mapState(["mypageInfo"]),
   },
   methods: {
-    ...mypageHelper.mapActions(['getMyPage']),
+    ...mypageHelper.mapActions(["getMyPage"]),
     goback: function () {
-      this.$router.push({ name: 'MyPage' })
+      this.$router.push({ name: "MyPage" })
     },
-    // goDetail: function (answer) {
-    //   this.$router.push({
-    //     name: "QuestionDetail",
-    //     query:{ id: answer.questionid },
-    //   });
-    // },
     infiniteHandler($state) {
       MyPage.requestMyAnswers(
         this.pageno,

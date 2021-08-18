@@ -32,8 +32,8 @@ import MyPageProfile from "@/components/mypage/MyPageProfile.vue";
 import MyAnswerCard from "@/components/mypage/MyAnswerCard.vue";
 import MyQuestionCard from "@/components/mypage/MyQuestionCard.vue";
 import MyTechCard from "@/components/mypage/MyTechCard.vue";
-import { createNamespacedHelpers } from 'vuex';
-const mypageHelper = createNamespacedHelpers('mypageStore');
+import { createNamespacedHelpers } from "vuex";
+const mypageHelper = createNamespacedHelpers("mypageStore");
 
 export default {
   name: 'MyPage',
@@ -47,10 +47,10 @@ export default {
     this.getMyPage()
   },
   computed: {
-    ...mypageHelper.mapState(['mypageInfo']),
+    ...mypageHelper.mapState(["mypageInfo"]),
   },
   methods: {
-    ...mypageHelper.mapActions(['getMyPage']),
+    ...mypageHelper.mapActions(["getMyPage"]),
   },
 };
 </script>

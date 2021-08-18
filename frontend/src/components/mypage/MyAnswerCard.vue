@@ -20,6 +20,7 @@
             v-for="(answer, i) in answers"
             :key="i"
             @click="gotoDetail(answer)"
+            style="cursor: pointer;"
           >
             <td>
               <v-list-item three-line class="pa-0">
@@ -47,7 +48,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment"
 
 export default {
   name: 'MyAnswerCard',
