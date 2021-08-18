@@ -28,7 +28,7 @@
         </div>
         <!-- 비번 -->
         <b-form-input
-          :type="passwordType"
+          type="password"
           :state="null"
           class="pwd"
           placeholder="비밀번호"
@@ -44,7 +44,7 @@
         <!-- 비번확인 -->
         <div class="input_label">
           <b-form-input
-            :type="passwordConfirmType"
+            type="password"
             :state="null"
             class="pwd-check"
             placeholder="비밀번호 확인"
@@ -62,7 +62,10 @@
         <!-- 페이지 전환 버튼 -->
         <div class="page-btn">
           <!-- 이전페이지 버튼 -->
-          <button class="mr-15" @click="goLogin">
+          <button 
+            class="mr-15"
+            @click="goBack"
+          >
             <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음페이지 버튼 : 회원가입 이메일 인증 -->
@@ -108,8 +111,6 @@ export default {
       },
       isSubmit: false,
       isCheck: false,
-      passwordType: "password",
-      passwordConfirmType: "password",
     };
   },
   created() {
@@ -141,6 +142,9 @@ export default {
   methods: {
     goMain: function () {
       this.$router.push({ name: "Main" });
+    },
+    goBack: function () {
+      this.$router.go(-1)
     },
     goLogin: function () {
       this.$router.push({ name: "Login" });

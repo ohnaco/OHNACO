@@ -13,7 +13,7 @@
         </div>
         <!-- 현재비번 -->
         <b-form-input
-          :type="passwordType"
+          type="password"
           :state="null"
           class="pwd"
           placeholder="비밀번호"
@@ -28,7 +28,7 @@
         </div>
         <!-- 비번 -->
         <b-form-input
-          :type="newpasswordType"
+          type="password"
           :state="null"
           class="newpwd"
           placeholder="새로운 비밀번호"
@@ -44,7 +44,7 @@
         <!-- 비번확인 -->
         <div class="input_label">
           <b-form-input
-            :type="newpasswordConfirmType"
+            type="password"
             :state="null"
             class="newpwd-check"
             placeholder="새로운 비밀번호 확인"
@@ -97,9 +97,6 @@ export default {
         newpasswordConfirm: false,
       },
       isSubmit: false,
-      passwordType: "password",
-      newpasswordType: "password",
-      newpasswordConfirmType: "password",
     };
   },
   created() {
