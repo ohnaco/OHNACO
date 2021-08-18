@@ -7,7 +7,7 @@
       <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important">
         <TopNavBar />
       </v-col>
-      <v-col cols="10" class="pa-5">
+      <v-col cols="10" class="">
         <!-- 상단 제목 및 버튼 -->
         <div class="mb-3">
           <p
@@ -29,7 +29,7 @@
           </v-btn-toggle>
         </div>
         <v-row wrap class="pb-5 justify-content-center">
-          <v-row>
+          <v-row class="pa-0">
             <v-col lg="6" md="6" sm="12" cols="12">
               <!-- 총 공부시간 -->
               <v-card height="80" class="pa-3">
@@ -37,7 +37,7 @@
               </v-card>
             </v-col>
           </v-row>
-          <v-row>
+          <v-row class="pa-0">
             <!-- 목표시간 공부시간 -->
             <v-col lg="4" md="6" sm="12" cols="12">
               <v-card height="600" class="pa-3">
