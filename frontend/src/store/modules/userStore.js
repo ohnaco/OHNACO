@@ -50,7 +50,8 @@ export default {
           commit("SET_USER", res.data.user);
         },
         (err) => {
-          alert(err);
+          console.log(err);
+          alert("사용자 정보를 불러오는 데에 실패했습니다.");
         }
       );
     },
