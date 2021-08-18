@@ -18,27 +18,30 @@
           >
             To Do
           </p>
-          <img
-            src="@/assets/images/calendar_black.svg"
-            class="mobile_calendar_btn"
-            @click="mobileCalendarOn"
-          />
-          <img
-            src="@/assets/images/calendar_black.svg"
-            class="mobile_calendar_large_btn"
-            @click="modalOn"
-          />
         </div>
-
-        <div class="d-flex flex-row align-center ml-5 mt-3">
+        <div class="d-flex justify-space-between ml-5 mt-3">
           <!-- 날짜 -->
-          <span
-            class="text-h6 font-weight-bold"
-            :class="{ 'text-body-1': $vuetify.breakpoint.xs }"
-            v-text="date"
-          ></span>
-          <!-- 데일리 커밋 -->
-          <daily-commit v-if="isDateToday && this.user.githubid !== ''" />
+          <div class="d-flex align-items-center">
+            <span
+              class="text-h6 font-weight-bold"
+              :class="{ 'text-body-1': $vuetify.breakpoint.xs }"
+              v-text="date"
+            ></span>
+            <!-- 데일리 커밋 -->
+            <daily-commit v-if="isDateToday && this.user.githubid !== ''" />
+          </div>
+          <div class="d-flex align-items-center">
+            <img
+              src="@/assets/images/calendar_black.svg"
+              class="mobile_calendar_btn"
+              @click="mobileCalendarOn"
+            />
+            <img
+              src="@/assets/images/calendar_black.svg"
+              class="mobile_calendar_large_btn"
+              @click="modalOn"
+            />
+          </div>
         </div>
         <CalendarSmall
           v-if="isMobileCanlendar"
