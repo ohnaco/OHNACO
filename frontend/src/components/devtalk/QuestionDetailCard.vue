@@ -51,7 +51,7 @@
             <a
               class="modNdel"
               style="color : #607d8b;"
-              v-b-modal.modal-1
+              @click="showDialog"
               >삭제</a
             >
           </div>
@@ -100,44 +100,9 @@
     <img src="@/assets/images/goback.svg" @click="goBack" />
     <!--답변 끝-->
     <!--삭제 모달-->
-    <b-modal
-      id="modal-1"
-      hide-footer
-      hide-header
-      style="height: 20vh; width: 30%"
-    >
-      <div class="d-block text-center modal_content" style="height: 50%">
-        <br />
-        <br />
-        <br />
-        <h3>정말 삭제하시겠습니까?</h3>
-        <br />
-        <br />
-        <br />
-      </div>
-      <div style="width: 100%" class="mb-3">
-        <div style="width: 50%; float: left; text-align: center">
-          <b-button
-            size="lg"
-            class="ml-5 mb-3"
-            style="color: black; font-family: GmarketSansBold"
-            @click="$bvModal.hide('modal-1')"
-            >취소</b-button
-          >
-        </div>
-
-        <div style="width: 50%; float: left; text-align: center">
-          <b-button
-            size="lg"
-            class="mr-5"
-            variant="danger"
-            style="color: black; font-family: GmarketSansBold"
-            @click="deleteQuestion2()"
-            >확인</b-button
-          >
-        </div>
-      </div>
-    </b-modal>
+    <v-dialog max-width="500" v-model="isModal">
+      <delete-modal @hide="hideDialog" @submit="deleteQuestion2()" :msg="'Question'" />
+    </v-dialog>
     <!--삭제 모달 끝-->
   </div>
 </template>
@@ -145,6 +110,7 @@
 <script>
 import QuestionDetailAnswer from "@/components/devtalk/QuestionDetailAnswer";
 import QuestionDetailAddAnswer from "@/components/devtalk/QuestionDetailAddAnswer";
+import DeleteModal from "@/components/common/DeleteModal.vue";
 import Dev from "@/api/DevTalk";
 import { createNamespacedHelpers } from "vuex";
 const questionHelper = createNamespacedHelpers("devTalkStore");
@@ -154,7 +120,8 @@ import marked from "marked";
 export default {
   data() {
     return {
-      isAuthor: false, //글쓴이인지
+      isAuthor: false, //글쓴이인지,
+      isModal: false,
       profile_img: require("@/assets/images/profile-img.svg"),
       date:"",
     };
@@ -164,6 +131,12 @@ export default {
     ...questionHelper.mapActions(["detailQuestion"]),
     ...questionHelper.mapActions(["deleteQuestion"]),
     ...questionHelper.mapActions(["setAnswer"]),
+    showDialog() {
+      this.isModal = true;
+    },
+    hideDialog() {
+      this.isModal = false;
+    },
     goBack() {
       this.$router.push("devtalk");
     },
@@ -207,6 +180,7 @@ export default {
   components: {
     QuestionDetailAnswer,
     QuestionDetailAddAnswer,
+    DeleteModal
   },
 
   computed: {

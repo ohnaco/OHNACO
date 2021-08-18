@@ -49,7 +49,7 @@
           <a
            class="modNdel"
               style="color : #607d8b;"
-            @click="commentRemove"
+            @click="showDialog"
             >삭제</a
           >
         </div>
@@ -113,11 +113,17 @@
       </div>
     </div>
     <!-- 수정모드-->
+    <!--삭제 모달-->
+    <v-dialog max-width="500" v-model="isModal">
+      <delete-modal @hide="hideDialog" @submit="deleteQuestion2()" :msg="'Answer'" />
+    </v-dialog>
+    <!--삭제 모달 끝-->
   </div>
 </template>
 
 <script>
 import marked from "marked";
+import DeleteModal from "@/components/common/DeleteModal.vue";
 import { createNamespacedHelpers } from "vuex";
 import Dev from "@/api/DevTalk";
 import hljs from "highlight.js";
@@ -146,6 +152,7 @@ export default {
       date: "",
       profile_img: require("@/assets/images/profile-img.svg"),
       isEdit: false,
+      isModal: false,
       modifyContent: "",
     };
   },
@@ -157,6 +164,12 @@ export default {
   methods: {
     ...devtalkHelper.mapActions(["deleteComment"]),
     ...devtalkHelper.mapActions(["updateComment"]),
+    showDialog() {
+      this.isModal = true;
+    },
+    hideDialog() {
+      this.isModal = false;
+    },
     dateModify() {
       this.date +=
         this.item.answerdate.substr(0, 10) +
@@ -212,6 +225,10 @@ export default {
   mounted() {
     this.dateModify();
   },
+
+  components: {
+    DeleteModal
+  }
 };
 </script>
 
