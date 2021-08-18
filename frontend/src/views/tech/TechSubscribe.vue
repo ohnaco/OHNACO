@@ -13,8 +13,11 @@
         cols="12"
         >구독 설정</v-col
       >
-      <v-col cols="12" class="d-flex justify-end pt-0 pb-0">
-        <v-btn text dark color="cyan lighten-1" @click="setSubscribeBlogList()">
+      <v-col cols="12" class="d-flex pt-0 pb-0">
+        <button class="mr-auto" @click="goTech()">
+          <img src="@/assets/images/back-btn.svg" alt="back" />
+        </button>
+        <v-btn text dark color="cyan lighten-1" @click="setSubscribeBlogList()" class="ml-auto">
           <v-icon left color="cyan"> mdi-checkbox-blank-circle </v-icon><b>내 구독 목록</b></v-btn
         >
         <v-btn text dark color="blue-grey" @click="setAllBlogList()">
@@ -71,11 +74,6 @@
             </v-card-actions>
           </div>
         </v-card>
-      </v-col>
-      <v-col cols="12">
-        <button class="mr-15" @click="goTech()">
-          <img src="@/assets/images/back-btn.svg" alt="back" />
-        </button>
       </v-col>
     </v-col>
   </v-row>
