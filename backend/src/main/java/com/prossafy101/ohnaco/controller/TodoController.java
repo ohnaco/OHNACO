@@ -202,7 +202,7 @@ public class TodoController {
             result.put("message", "db 유저 아이디 검색 오류");
             return new ResponseEntity<>(result , HttpStatus.OK);
         }
-        if(user.getGithubid() == null) {
+        if("".equals(user.getGithubid())) {
             result.put("status", false);
             result.put("message", "GitHubID 없음");
         } else {
@@ -273,6 +273,6 @@ public class TodoController {
     public void updateCommit(HttpServletRequest req) {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        todoService.testCommitUpdate(userid);
+        todoService.commitUpdateWeekend(userid);
     }
 }

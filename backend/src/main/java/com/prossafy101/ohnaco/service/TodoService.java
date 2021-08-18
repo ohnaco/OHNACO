@@ -193,7 +193,7 @@ public class TodoService {
     }
 
     //commit기록 업데이트 해서 redis에 저장
-    public void testCommitUpdate(String userid) {
+    public void commitUpdateWeekend(String userid) {
         User user = userRepository.findByUserid(userid);
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());

@@ -190,6 +190,11 @@ public class MyPageController {
         User user = userService.findByUserid(userid);
         userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(user.getPassword())
                 .nickname(userDto.getNickname()).githubid(userDto.getGithubid()).positions(userService.positionsName(userDto.getPosition())).image(userDto.getImage()).build());
+        if(!"".equals(userDto.getGithubid())) {
+            if(!userDto.getGithubid().equals(user.getGithubid())) {
+                todoService.commitUpdateWeekend(user.getUserid());
+            }
+        }
         result.put("status", true);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
