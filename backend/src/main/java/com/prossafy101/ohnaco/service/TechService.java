@@ -159,7 +159,7 @@ public class TechService {
                             .blogid(blog.getBlogid())
                             .image(blog.getBlogname())
                             .title(entry.getTitle())
-                            .content(entry.getDescription()==null? StringEscapeUtils.unescapeHtml4(entry.getContents().get(0).getValue().substring(0, 150)).replaceAll("<[^>]*>",""):StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue().substring(0, 150)).replaceAll("<[^>]*>",""))
+                            .content(entry.getDescription()==null? StringEscapeUtils.unescapeHtml4(entry.getContents().get(0).getValue()).replaceAll("<[^>]*>","").substring(0, 150):StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue()).replaceAll("<[^>]*>","").substring(0, 150))
                             .link(entry.getLink())
                             .publisheddate(entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
                             .build();
