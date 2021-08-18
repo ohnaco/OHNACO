@@ -55,7 +55,6 @@ public class MyPageController {
         if(user.getGithubid() == null) {
             result.put("commit", null);
         } else {
-            todoService.commitUpdate(userid, user.getGithubid(), LocalDate.now().toString());
             result.put("commit", todoService.getCommit(userid));
         }
 
@@ -189,6 +188,13 @@ public class MyPageController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         User user = userService.findByUserid(userid);
+        if(!"".equals(userDto.getGithubid())) {
+            System.out.println(!userDto.getGithubid().equals(user.getGithubid()) + " " + user.getGithubid());
+            if(!userDto.getGithubid().equals(user.getGithubid())) {
+                System.out.println("check");
+                todoService.commitUpdateWeekend(user.getUserid(), userDto.getGithubid());
+            }
+        }
         userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(user.getPassword())
                 .nickname(userDto.getNickname()).githubid(userDto.getGithubid()).positions(userService.positionsName(userDto.getPosition())).image(userDto.getImage()).build());
         result.put("status", true);

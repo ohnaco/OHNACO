@@ -7,7 +7,6 @@ export default {
   },
   mutations: {
     GET_STATS: function (state, statsInfo) {
-      console.log(statsInfo)
       state.statsInfo = statsInfo;
     },
   },

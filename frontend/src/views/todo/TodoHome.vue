@@ -31,11 +31,13 @@
         </div>
 
         <div class="d-flex flex-row align-center ml-5 mt-3">
+          <!-- 날짜 -->
           <span
             class="text-h6 font-weight-bold"
             :class="{ 'text-body-1': $vuetify.breakpoint.xs }"
             v-text="date"
           ></span>
+          <!-- 데일리 커밋 -->
           <daily-commit v-if="isDateToday" />
         </div>
         <CalendarSmall
@@ -55,10 +57,18 @@
             @falseChange="fChange()"
           />
         </div>
+        <!-- Todo 추가 컴포넌트 -->
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
-        <button @click="toggleCreate" v-if="!isCreateTodo" class="mt-3">
-          <img src="@/assets/images/todo-add-btn.svg" class="todo_add" />
-        </button>
+        <!-- Todo 추가 버튼 -->
+        <div class="mx-auto">
+          <img
+            src="@/assets/images/todo-add-btn.svg"
+            class="todo_add mt-3"
+            style="cursor: pointer"
+            @click="toggleCreate"
+            v-if="!isCreateTodo"
+          />
+        </div>
       </v-col>
       <v-col cols="12" sm="0" md="3" lg="3">
         <!-- 우측달력 -->

@@ -27,7 +27,7 @@ export default {
 
 <style>
 .commitImg {
-  width: 164px;
+  width: 150px;
   height: 35px;
 }
 

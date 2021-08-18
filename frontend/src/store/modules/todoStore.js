@@ -78,7 +78,6 @@ export default {
       Todo.loadByMonth(
         data,
         (res) => {
-          console.log(res.data.list);
           commit("SET_TODO_MONTH", res.data.list);
         },
         (err) => {
@@ -91,7 +90,7 @@ export default {
       Todo.createTodo(
         payload,
         (res) => {
-          if (res.data.status === "fail") alert("create fail");
+          if (res.data.status === "fail") alert("To Do 추가에 실패했습니다.");
           commit("CREATE_TODO", res.data.todo);
         },
         (err) => {
@@ -103,7 +102,7 @@ export default {
       Todo.updateTodo(
         payload,
         (res) => {
-          if (res.data.status === "fail") alert("update fail");
+          if (res.data.status === "fail") alert("To Do 수정에 실패했습니다!");
           commit("UPDATE_TODO", res.data.todo);
         },
         (err) => {
@@ -127,7 +126,7 @@ export default {
       Todo.deleteTodo(
         payload,
         (res) => {
-          if (res.data.status === "fail") alert("delete fail");
+          if (res.data.status === "fail") alert("To Do 삭제에 실패했습니다!");
           commit("DELETE_TODO", payload);
         },
         (err) => {

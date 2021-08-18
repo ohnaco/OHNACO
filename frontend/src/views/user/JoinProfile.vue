@@ -10,7 +10,7 @@
           <img src="@/assets/images/profile-img.svg" alt="ohnaco-logo" />
         </div>
         <!-- 닉네임 -->
-        <input
+        <b-form-input
           type="text"
           id="nickname"
           class="nickname"
@@ -18,11 +18,11 @@
           @input="nicknameCheck"
           v-model="nickname"
           v-bind:class="{
-            error: error.nickname && error.nicknameCheck,
+            error: error.nickname || error.nicknameCheck,
             complete:
               !error.nickname && nickname.length !== 0 && error.nicknameCheck,
           }"
-        />
+        ></b-form-input>
         <div class="error-message" v-if="error.nickname">
           {{ error.nickname }}
         </div>
@@ -30,15 +30,15 @@
           {{ error.nicknameCheck }}
         </div>
         <!-- 깃헙 아이디 -->
-        <input
+        <b-form-input
           type="text"
           id="github"
           class="github"
           placeholder="Github ID"
           v-model="githubid"
-        />
+        ></b-form-input>
         <!-- 희망 직무 -->
-        <select v-model="position" class="form-select">
+        <b-form-select v-model="position" class="form-select">
           <option value="" disabled>희망직무</option>
           <option value="Backend">Backend</option>
           <option value="Frontend">Frontend</option>
@@ -48,7 +48,7 @@
           <option value="Embedded">Embedded</option>
           <option value="Game">Game</option>
           <option value="etc.">etc.</option>
-        </select>
+        </b-form-select>
         <!-- 버튼 -->
         <div class="page-btn">
           <!-- 이전 페이지: 회원가입 페이지 -->
@@ -142,8 +142,7 @@ export default {
         this.isSubmit = false;
         User.requestSignupProfile(
           data,
-          (res) => {
-            console.log(res);
+          () => {
             this.isSubmit = true;
             alert("회원가입이 완료 되었습니다. 로그인 해주세요.");
             this.$router.push({ name: "JoinSuccess" });
@@ -204,6 +203,10 @@ export default {
   font-family: GmarketSansTTF;
   font-size: 10px;
   color: crimson;
+}
+.v-application .error {
+  background-color: #ffffff !important;
+  border: solid 1px crimson;
 }
 .github {
   width: 230px;
