@@ -306,7 +306,9 @@ export default {
   text-decoration: underline;
 }
 .content_card{
-    padding: 0px;
+  padding-top:0px;
+    padding-right: calc(var(--bs-gutter-x)*0.5);
+    padding-left: calc(var(--bs-gutter-x)*0.5);
   }
 @media (max-width: 768px) {
   .profile_box{ 

@@ -17,6 +17,7 @@
           <b-form-input
             v-model="title"
             class="mb-3"
+            :state="null"
             placeholder="제목을 입력해주세요."
           ></b-form-input>
           <span class="title_tag">태그</span>

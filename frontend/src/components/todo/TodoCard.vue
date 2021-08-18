@@ -15,7 +15,7 @@
                 <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
               </v-row>
 
-              <div class="d-flex justify-end mr-2">
+              <div class="d-flex justify-end">
                 <v-btn icon @click="activateEditMode">
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
@@ -75,7 +75,7 @@
               </v-row>
 
               <div class="d-flex justify-end">
-                <v-btn icon color="blue" @click="moveToday" class="mr-3">
+                <v-btn icon color="blue" @click="moveToday" class="mr-5">
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
               </div>

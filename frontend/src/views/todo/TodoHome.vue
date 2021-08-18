@@ -48,7 +48,7 @@
           v-model="date"
           class="mobileCalendar"
         ></CalendarSmall>
-        <div v-if="!isMobileCanlendar">
+        <div v-show="!isMobileCanlendar">
           <todo-card
             v-for="todo in todoLists"
             :key="todo.todoid"
@@ -185,11 +185,13 @@ export default {
   width: 25px;
   height: 25px;
   display: none;
+  cursor:pointer;
 }
 .mobile_calendar_large_btn {
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   margin-right: 20px;
+  cursor:pointer;
 }
 @media (max-width: 767px) {
   .h2,

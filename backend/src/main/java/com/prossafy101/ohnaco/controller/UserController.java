@@ -4,6 +4,7 @@ import com.prossafy101.ohnaco.entity.user.*;
 import com.prossafy101.ohnaco.repository.StatisticsRepository;
 import com.prossafy101.ohnaco.service.JwtUtil;
 import com.prossafy101.ohnaco.service.RedisUtil;
+import com.prossafy101.ohnaco.service.TodoService;
 import com.prossafy101.ohnaco.service.UserService;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
@@ -53,6 +54,9 @@ public class UserController {
     
     @Autowired
     private StatisticsRepository stRepo;
+
+    @Autowired
+    private TodoService todoService;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
     @GetMapping("/rss")
@@ -293,8 +297,9 @@ public class UserController {
                 return new ResponseEntity<>(result , HttpStatus.OK);
             }
             try {
+                String userid = userService.createUserid();
                 userService.userSave(User.builder()
-                        .userid(userService.createUserid())
+                        .userid(userid)
                         .email(userDto.getEmail())
                         .password(tempUserDto.get().getPassword())
                         .nickname(userDto.getNickname())
@@ -304,6 +309,9 @@ public class UserController {
                         .build());
 
                 userService.tempUserDelete(userDto.getEmail());
+                if(!"".equals(userDto.getGithubid())) {
+                    todoService.commitUpdateWeekend(userid, userDto.getGithubid());
+                }
                 result.put("status", true);
                 result.put("message", "회원가입 성공.");
             } catch (Exception e) {

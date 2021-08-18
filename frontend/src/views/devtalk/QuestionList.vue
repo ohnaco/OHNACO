@@ -26,6 +26,7 @@
                   @input="search()"
                   placeholder="검색"
                   required
+                  :state="null"
                   style="width: 70%; float: left; font-size: 12px"
                 ></b-form-input>
                 <img
