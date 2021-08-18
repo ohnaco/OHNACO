@@ -38,7 +38,7 @@
             v-text="date"
           ></span>
           <!-- 데일리 커밋 -->
-          <daily-commit v-if="isDateToday" />
+          <daily-commit v-if="isDateToday && this.user.githubid !== ''" />
         </div>
         <CalendarSmall
           v-if="isMobileCanlendar"
@@ -102,6 +102,7 @@ import DailyCommit from "@/components/todo/DailyCommit.vue";
 
 import { createNamespacedHelpers } from "vuex";
 const todoListHelper = createNamespacedHelpers("todoStore");
+const userHelper = createNamespacedHelpers("userStore");
 
 export default {
   data() {
@@ -127,6 +128,7 @@ export default {
   },
   computed: {
     ...todoListHelper.mapState(["todoLists"]),
+    ...userHelper.mapState(["user"]),
   },
   created() {
     this.setTodoList(this.date);
@@ -185,13 +187,13 @@ export default {
   width: 25px;
   height: 25px;
   display: none;
-  cursor:pointer;
+  cursor: pointer;
 }
 .mobile_calendar_large_btn {
   width: 30px;
   height: 30px;
   margin-right: 20px;
-  cursor:pointer;
+  cursor: pointer;
 }
 @media (max-width: 767px) {
   .h2,
