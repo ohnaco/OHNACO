@@ -7,7 +7,7 @@
       <v-btn 
         @click="goMyScraps"
         icon 
-        style="margin-left:20px"
+        style="margin-left:20px;"
       >
         <v-img src="@/assets/images/mypage-all-btn.svg" alt="show-all"></v-img>      </v-btn>
     </v-card-actions>
@@ -19,10 +19,11 @@
             v-for="(scrap, i) in scraps"
             :key="i"
             @click="goBlog(scrap)"
+            style="cursor: pointer;"
           >
             <td align="center">
               <v-img 
-                  :src="require(`@/assets/images/${scrap.image}.png`)" 
+                  :src="require(`@/assets/images/${ scrap.image }.png`)" 
                   alt="blog-img"
                   max-height="120"
                   max-width="120"
@@ -48,7 +49,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment"
 
 export default {
   name: 'MyTechCard',

@@ -7,7 +7,7 @@
       <v-btn 
         @click="goMyQuestions"
         icon 
-        style="margin-left:20px"
+        style="margin-left:20px;"
       >
         <v-img src="@/assets/images/mypage-all-btn.svg" alt="show-all"></v-img>
       </v-btn>
@@ -20,6 +20,7 @@
             v-for="(question, i) in questions"
             :key="i"
             @click="gotoDetail(question)"
+            style="cursor: pointer;"
           >
             <td>
               <div class="mt-3 mb-2">
@@ -37,7 +38,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment"
 
 export default {
   name: 'MyQuestionCard',
