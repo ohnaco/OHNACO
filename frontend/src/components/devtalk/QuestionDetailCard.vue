@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="qd_rectangle">
-      <div class="p-3">
+      <div class="profile">
         <!--제목 -->
         <div style="height: 22px; float: left" class="qCard_title mt-2 mb-2">
           <span style="font-size: 20px">Q.</span>
@@ -11,20 +11,23 @@
 
         <!--따봉수 -->
         <div style="float: right" class="qd_14_medium pt-1" v-if="!question.question.userLike">
-          <img src="@/assets/images/question-like-empty.svg" alt="" @click="like()" />
+          <img src="@/assets/images/question-like-empty.svg" alt="" @click="like()" class="like-img"/>
           {{ question.question.like }}
         </div>
         <div style="float: right" class="qd_14_medium pt-1" v-if="question.question.userLike">
-          <img src="@/assets/images/question-like.svg" style="width:25px ; height:25px" alt="" @click="unlike()"/>
+          <img src="@/assets/images/question-like.svg" style="width:25px ; height:25px" alt="" class="like-img" @click="unlike()"/>
           {{ question.question.like }}
         </div>
         <!--따봉 끝 -->
 
         <div style="clear: both; height: 0; overflow: hidden"></div>
         <!--간략 프로필 -->
-        <div style="width: 110px; height: 35px" class="mb-3 mt-3">
+        <div class="detail_profile">
           <div style="float: left">
-            <img :src="profile_img" style="width: 35px; height: 35px" />
+            <img
+                :src="`${question.question.user.image}`"
+                style="width: 35px; height: 35px"
+              />
           </div>
           <div style="float: left; width: 70px; height: 30px">
             <div class="profile_name">&nbsp;{{ question.question.user.nickname }}</div>
@@ -40,30 +43,17 @@
           </div>
 
           <div style="float: right" v-if="this.question.question.user.userid==this.user.userid">
-            <v-btn
-              elevation="2"
-              style="
-                height: 25px;
-                background-color: #ffc21f;
-                color: white;
-                font-family: GmarketSansMedium;
-                font-size: 14px;
-                margin: 0 7px 0 0;
-              "
+            <a
+              class="modNdel"
+              style="color : #607d8b;"
               @click="this.updateQuestion"
-              >수정</v-btn
+              >수정</a
             >
-            <v-btn
-              elevation="2"
-              style="
-                height: 25px;
-                background-color: #e23131;
-                color: white;
-                font-family: GmarketSansMedium;
-                font-size: 14px;
-              "
+            <a
+              class="modNdel"
+              style="color : #607d8b;"
               v-b-modal.modal-1
-              >삭제</v-btn
+              >삭제</a
             >
           </div>
         </div>
@@ -92,18 +82,20 @@
     </div>
 
     <!-- 답변 시작-->
-    <div class="mt-4 mb-4">
+    <div class="ans_count">
       <span style="font-family: GmarketSansBold; font-size: 22px; color: red"
         >A.</span
       >
       <span style="font-family: GmarketSansMedium; font-size: 22px; color: red"
+      class="ans_cnt"
         >{{ answerList.length }}개의 답변이 있습니다.</span
       >
     </div>
     <div>
       <QuestionDetailAnswer v-for="comment in answerList"
       :key="comment.answerid"
-      :item="comment"></QuestionDetailAnswer>
+      :item="comment"
+      class="comment_margin"></QuestionDetailAnswer>
       <QuestionDetailAddAnswer></QuestionDetailAddAnswer>
     </div>
     <img src="@/assets/images/goback.svg" @click="goBack" />
@@ -234,8 +226,19 @@ export default {
 </script>
 
 <style>
+.modNdel{
+font-family: GmarketSansMedium;
+                font-size: 14px;
+                color : #607d8b;
+                margin: 0 7px 0 0;
+                text-decoration:none;
+                cursor:pointer;
+}
+.comment_margin{
+  margin-bottom: 32px;
+}
 .qd_rectangle {
-  width: 95%;
+  width: 100%;
   border-radius: 10px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #607d8b;
@@ -259,6 +262,12 @@ export default {
   height: 100%;
   font-family: "Helvetica Neue", Arial, sans-serif;
   color: #333;
+}
+.detail_profile{
+  width: 110px;
+  height: 35px;
+  margin-bottom: 12px;
+  margin-top: 12px;
 }
 
 textarea,
@@ -288,7 +297,7 @@ code {
 .tag {
   background-color: #80deea;
   font-family: "GmarketSansLight";
-  font-size: 10px;
+  font-size: 8px;
   height: 80%;
   border: none;
   color: #607d8b;
@@ -301,5 +310,49 @@ code {
 .modal_content {
   font-family: "GmarketSansMedium";
   font-size: 18px;
+}
+.profile{
+    padding: 12px;
+  }
+  .ans_count{
+    margin-top: 24px;
+    margin-bottom: 24px;
+  }
+@media (max-width: 425px) {
+  .comment_margin{
+  margin-bottom: 8px;
+}
+  .ans_count{
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+  }
+}
+@media (max-width: 768px) {
+  .modNdel{
+      font-size: 12px;
+}
+  .comment_margin{
+  margin-bottom: 12px;
+}
+  .ans_count{
+    margin-top: 12px;
+    margin-bottom: 12px;
+  }
+  .qCard_title{
+    height: 20px;
+    font-size:12px;
+  }
+  .profile{
+    padding: 8px !important;
+  }
+  .ans_cnt{
+    font-size:12px !important;
+  }
+  .detail_profile{
+  width: 110px;
+  height: 35px;
+  margin-bottom: 2px;
+  margin-top: 2px;
+}
 }
 </style>

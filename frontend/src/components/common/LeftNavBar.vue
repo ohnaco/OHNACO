@@ -1,33 +1,44 @@
 <template>
   <v-card class="mx-auto">
-    <v-navigation-drawer height="100vh" width="100%" class="blue-grey base pt-3 mx-auto" permanent>
-      <v-container>
-        <v-row justify="center">
-          <router-link to="/todo"><img src="@/assets/images/left-nav-logo.svg" /></router-link>
-        </v-row>
-      </v-container>
-      <v-container>
-        <v-row>
-          <v-col align="center"><profile-image :user="user"></profile-image></v-col>
-        </v-row>
-        <v-row>
-          <v-col align="center"
-            ><router-link to="/mypage"
-              ><div class="text-h6">{{ user.nickname }} 님</div></router-link
-            ></v-col
+    <v-navigation-drawer
+      class="blue-grey base mx-auto"
+      style="max-width: calc(100vw - 84vw)"
+      fixed
+      permanent
+    >
+      <v-row dense class="mt-5">
+        <v-col cols="12" align="center"
+          ><router-link to="/todo"><img src="@/assets/images/left-nav-logo.svg" /></router-link
+        ></v-col>
+      </v-row>
+      <v-row dense class="mt-5">
+        <v-col align="center">
+          <router-link to="/mypage">
+            <profile-image :user="user"></profile-image>
+          </router-link>
+        </v-col>
+      </v-row>
+      <v-row dense class="mt-2">
+        <v-col align="center"
+          ><router-link to="/mypage"
+            ><div class="text-h6 text-decoration-underline">{{ user.nickname }}</div></router-link
+          ></v-col
+        >
+      </v-row>
+      <v-row dense class="mt-15 pl-2 align-start">
+        <v-list class="text-h5 font-weight-bold menu-item">
+          <v-list-item v-for="item in items" :key="item.title" class="mb-5"
+            ><router-link :to="item.path" class="white--text">
+              {{ item.title }}
+            </router-link></v-list-item
+          >
+        </v-list>
+        <v-row dense>
+          <v-col align="right" style="position: absolute; top: calc(100vh - 35px)"
+            ><button class="white--text" @click="logout">Logout</button></v-col
           >
         </v-row>
-      </v-container>
-      <v-container class="mt-15">
-        <v-row v-for="item in items" :key="item.title" class="menu-item">
-          <router-link :to="item.path" class="white--text">
-            {{ item.title }}
-          </router-link>
-        </v-row>
-        <v-row class="mt-15">
-          <v-col align="right"><button class="white--text" @click="logout">Logout</button></v-col>
-        </v-row>
-      </v-container>
+      </v-row>
     </v-navigation-drawer>
   </v-card>
 </template>
@@ -52,11 +63,14 @@ export default {
       ],
     };
   },
+  created() {
+    this.getUserInfo();
+  },
   computed: {
     ...userHelper.mapState(["user"]),
   },
   methods: {
-    ...userHelper.mapActions(["logout"]),
+    ...userHelper.mapActions(["getUserInfo", "logout"]),
   },
 };
 </script>
@@ -69,9 +83,17 @@ export default {
 a {
   text-decoration: none;
 }
-
-.menu-item {
-  font-size: 30px;
-  padding: 20px 30px;
+a:hover,
+.mypage:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+a,
+.mypage {
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 </style>

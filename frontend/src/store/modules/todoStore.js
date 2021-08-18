@@ -7,12 +7,12 @@ export default {
     todoLists: [],
     todoListsByMonth: [],
     todayCommit: null,
-    exitTime:"",
-    goingTime:"",
-    ongoingId:"",
-    ongoingIdFQ:"",
-    goingTimeFG:"",
-    exitTimeFQ:"",
+    exitTime: "",
+    goingTime: "",
+    ongoingId: "",
+    ongoingIdFQ: "",
+    goingTimeFG: "",
+    exitTimeFQ: "",
   },
   mutations: {
     // 여기서 data 를 업데이트
@@ -73,26 +73,22 @@ export default {
         }
       );
     },
-
     loadByMonth({ commit }, data) {
       Todo.loadByMonth(
         data,
         (res) => {
-          console.log(res.data.list)
-          commit('SET_TODO_MONTH', res.data.list);
+          commit("SET_TODO_MONTH", res.data.list);
         },
         (err) => {
           alert(err);
         }
       );
     },
-
-
     createTodo({ commit }, payload) {
       Todo.createTodo(
         payload,
         (res) => {
-          if (res.data.status === "fail") alert("create fail");
+          if (res.data.status === "fail") alert("To Do 추가에 실패했습니다.");
           commit("CREATE_TODO", res.data.todo);
         },
         (err) => {
@@ -104,7 +100,7 @@ export default {
       Todo.updateTodo(
         payload,
         (res) => {
-          if (res.data.status === "fail") alert("update fail");
+          if (res.data.status === "fail") alert("To Do 수정에 실패했습니다!");
           commit("UPDATE_TODO", res.data.todo);
         },
         (err) => {
@@ -112,13 +108,11 @@ export default {
         }
       );
     },
+    // eslint-disable-next-line no-unused-vars
     updateTime({ commit }, payload) {
       Todo.updateTime(
         payload,
-        (res) => {
-          console.log(commit);
-          console.log(res);
-        },
+        () => {},
         (err) => {
           alert(err);
         }
@@ -128,7 +122,7 @@ export default {
       Todo.deleteTodo(
         payload,
         (res) => {
-          if (res.data.status === "fail") alert("delete fail");
+          if (res.data.status === "fail") alert("To Do 삭제에 실패했습니다!");
           commit("DELETE_TODO", payload);
         },
         (err) => {
@@ -143,43 +137,35 @@ export default {
           commit("SET_TODAY_COMMIT", day1 > 0 ? true : false);
         },
         (err) => {
-          alert(err);
+          console.log(err);
         }
       );
     },
-
+    // eslint-disable-next-line no-unused-vars
     stateChange({ commit }, payload) {
       Todo.stateChange(
         payload,
-        (res) => {
-          console.log(commit);
-          console.log(res);
-        },
+        () => {},
         (err) => {
           alert(err);
         }
       );
     },
-
+    // eslint-disable-next-line no-unused-vars
     forceQuit({ commit }, payload) {
       Todo.forceQuit(
         payload,
-        (res) => {
-          console.log(commit);
-          console.log(res);
-        },
+        () => {},
         (err) => {
           alert(err);
         }
       );
     },
-
+    // eslint-disable-next-line no-unused-vars
     moveTodayAdd({ commit }, payload) {
-        Todo.createTodo(
+      Todo.createTodo(
         payload,
-        (res) => {
-          console.log(commit);
-          console.log(res);
+        () => {
           alert("이전이 완료되었습니다.");
         },
         (err) => {
@@ -187,25 +173,24 @@ export default {
         }
       );
     },
-
     setTime({ commit }, payload) {
-      commit("SET_TIME",payload);
+      commit("SET_TIME", payload);
     },
     setGoingTime({ commit }, payload) {
-      commit("SET_GOINGTIME",payload);
+      commit("SET_GOINGTIME", payload);
     },
     setId({ commit }, payload) {
-      commit("SET_ID",payload);
+      commit("SET_ID", payload);
     },
 
     setTimeFQ({ commit }, payload) {
-      commit("SET_TIMEFQ",payload);
+      commit("SET_TIMEFQ", payload);
     },
     setGoingTimeFQ({ commit }, payload) {
-      commit("SET_GOINGTIMEFQ",payload);
+      commit("SET_GOINGTIMEFQ", payload);
     },
     setIdFQ({ commit }, payload) {
-      commit("SET_IDFQ",payload);
+      commit("SET_IDFQ", payload);
     },
   },
   getters: {},

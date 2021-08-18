@@ -7,7 +7,7 @@
         type="radar"
         height="380"
         :options="chartOptions"
-        :series="series1"
+        :series="series"
       ></apexchart>
     </div>
   </div>
@@ -27,7 +27,7 @@ export default {
   },
   data: function () {
     return {
-      series1: [],
+      series: [],
       chartOptions: {
         chart: {
           offsetY: 20,
@@ -90,7 +90,7 @@ export default {
           ],
         },
       ]
-      this.series1 = newSeries
+      this.series = newSeries
     },
   },
 };

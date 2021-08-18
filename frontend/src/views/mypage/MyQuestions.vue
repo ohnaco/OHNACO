@@ -6,7 +6,7 @@
         :commit="mypageInfo.commit"
       />
     </div>
-    <v-container style="width: 60%">
+    <v-container style="width: 80%; height: 100%">
       <div class="mt-10 mb-3 d-flex justify-space-between">
         내 질문 ({{ mypageInfo.questionCount }})
         <button @click="goback"><img src="@/assets/images/mypage-back-btn.svg" alt="back-btn"></button>
@@ -61,7 +61,7 @@ export default {
     goDetail: function (question) {
       this.$router.push({
         name: "QuestionDetail",
-        params:{ id: question.questionid },
+        query:{ id: question.questionid },
       });
     },
     infiniteHandler($state) {

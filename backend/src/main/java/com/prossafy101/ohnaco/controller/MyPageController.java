@@ -1,9 +1,6 @@
 package com.prossafy101.ohnaco.controller;
 
-import com.prossafy101.ohnaco.entity.devtalk.Answer;
-import com.prossafy101.ohnaco.entity.devtalk.AnswerDto;
-import com.prossafy101.ohnaco.entity.devtalk.Question;
-import com.prossafy101.ohnaco.entity.devtalk.QuestionDto;
+import com.prossafy101.ohnaco.entity.devtalk.*;
 import com.prossafy101.ohnaco.entity.tech.Article;
 import com.prossafy101.ohnaco.entity.tech.ArticleDto;
 import com.prossafy101.ohnaco.entity.user.User;
@@ -58,7 +55,6 @@ public class MyPageController {
         if(user.getGithubid() == null) {
             result.put("commit", null);
         } else {
-            todoService.commitUpdate(userid, user.getGithubid(), LocalDate.now().toString());
             result.put("commit", todoService.getCommit(userid));
         }
 
@@ -74,12 +70,11 @@ public class MyPageController {
 
         Page<Answer> answers = answerService.getAnswerByUser(user, PageRequest.of(0, 5, Sort.by("answerdate").descending()));
         List<Answer> answerList = answers.getContent();
-        List<AnswerDto> answerDto = new ArrayList<>();
+        List<AnswerQuestionDto> answerDto = new ArrayList<>();
         for(Answer answer : answerList) {
-            answerDto.add(AnswerDto.builder().answerid(answer.getAnswerid()).answertitle(answer.getAnswertitle())
-                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate())
-                    .user(answer.getUser()).userLike(redisUtil.getLikeUseridData(likeAnswerKey+answer.getAnswerid(), userid))
-                    .like(redisUtil.getLikeCountData(likeAnswerKey+answer.getAnswerid())).build());
+            Question question = questionService.getQuestionByid(answer.getQuestion().getQuestionid());
+            answerDto.add(AnswerQuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).build());
         }
 
         result.put("question", questionDtos);
@@ -107,7 +102,17 @@ public class MyPageController {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        result.put("question", questionService.getQuestionByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("questiondate").descending())).getContent());
+
+        List<Question> questions = questionService.getQuestionByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("questiondate").descending())).getContent();
+        List<QuestionDto> questionDtos = new ArrayList<>();
+        for(Question question : questions) {
+            questionDtos.add(QuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .questioncontent(question.getQuestioncontent()).questiondate(question.getQuestiondate()).user(question.getUser())
+                    .tag(question.getTag()).visit(redisUtil.getData(visitKey+question.getQuestionid()))
+                    .userLike(redisUtil.getLikeUseridData(likeQuestionKey+question.getQuestionid(), userid)).like(redisUtil.getLikeCountData(likeQuestionKey+question.getQuestionid()))
+                    .answercount(answerService.getCountAnswer(question.getQuestionid())).build());
+        }
+        result.put("question", questionDtos);
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
@@ -118,12 +123,11 @@ public class MyPageController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         List<Answer> answers = answerService.getAnswerByUser(userService.findByUserid(userid), PageRequest.of(pageno-1, 10, Sort.by("answerdate").descending())).getContent();
-        List<AnswerDto> answerDto = new ArrayList<>();
+        List<AnswerQuestionDto> answerDto = new ArrayList<>();
         for(Answer answer : answers) {
-            answerDto.add(AnswerDto.builder().answerid(answer.getAnswerid()).answertitle(answer.getAnswertitle())
-                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).questionid(answer.getQuestion().getQuestionid())
-                    .user(answer.getUser()).userLike(redisUtil.getLikeUseridData(likeAnswerKey+answer.getAnswerid(), userid))
-                    .like(redisUtil.getLikeCountData(likeAnswerKey+answer.getAnswerid())).build());
+            Question question = questionService.getQuestionByid(answer.getQuestion().getQuestionid());
+            answerDto.add(AnswerQuestionDto.builder().questionid(question.getQuestionid()).questiontitle(question.getQuestiontitle())
+                    .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate()).build());
         }
         result.put("answer",answerDto);
         return new ResponseEntity<>(result, HttpStatus.OK);
@@ -184,6 +188,13 @@ public class MyPageController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         User user = userService.findByUserid(userid);
+        if(!"".equals(userDto.getGithubid())) {
+            System.out.println(!userDto.getGithubid().equals(user.getGithubid()) + " " + user.getGithubid());
+            if(!userDto.getGithubid().equals(user.getGithubid())) {
+                System.out.println("check");
+                todoService.commitUpdateWeekend(user.getUserid(), userDto.getGithubid());
+            }
+        }
         userService.userSave(User.builder().userid(user.getUserid()).email(user.getEmail()).password(user.getPassword())
                 .nickname(userDto.getNickname()).githubid(userDto.getGithubid()).positions(userService.positionsName(userDto.getPosition())).image(userDto.getImage()).build());
         result.put("status", true);
@@ -215,6 +226,7 @@ public class MyPageController {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
         try {
+            redisUtil.deleteData(userService.findByUserid(userid).getEmail());
             userService.deleteUser(userid);
             result.put("status", "success");
         } catch (Exception e) {

@@ -46,7 +46,8 @@ public class DevtalkController {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        questionService.save(questionDto, userService.findByUserid(userid));
+        Question question = questionService.save(questionDto, userService.findByUserid(userid));
+        redisUtil.setInitalVisitData(visitKey+question.getQuestionid());
         result.put("status", "success");
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
@@ -63,7 +64,7 @@ public class DevtalkController {
         List<Answer> answers = answerService.getAnswers(questionid);
         List<AnswerDto> answerDto = new ArrayList<>();
         for(Answer answer : answers) {
-            answerDto.add(AnswerDto.builder().answerid(answer.getAnswerid()).answertitle(answer.getAnswertitle())
+            answerDto.add(AnswerDto.builder().answerid(answer.getAnswerid())
                     .answercontent(answer.getAnswercontent()).answerdate(answer.getAnswerdate())
                     .user(answer.getUser()).userLike(redisUtil.getLikeUseridData(likeAnswerKey+answer.getAnswerid(), userid))
                     .like(redisUtil.getLikeCountData(likeAnswerKey+answer.getAnswerid())).build());
@@ -233,30 +234,24 @@ public class DevtalkController {
 
 
     @PostMapping("/answer")
-    @ApiOperation(value ="답변 작성하기 => questionid, answertitle, answercontent 전달")
+    @ApiOperation(value ="답변 작성하기 => questionid, answercontent 전달")
     public Object createAnswer(@RequestBody AnswerDto dto, HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
 
-//        Answer answer = answerService.createAnswer(dto, userService.findByUserid(userid));
-//        AnswerDto answerDto = AnswerDto.builder().answertitle(answer.getAnswertitle()).answercontent(answer.getAnswercontent())
-//                .answerdate(answer.getAnswerdate()).answerid(answer.getAnswerid()).build();
         result.put("answer", answerService.createAnswer(dto, userService.findByUserid(userid)));
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @PutMapping("/answer")
-    @ApiOperation(value ="답변 수정하기 => answerid, title, content 전달")
+    @ApiOperation(value ="답변 수정하기 => answerid, answercontent 전달")
     public Object updateAnswer(@RequestBody AnswerDto dto,HttpServletRequest req) {
         Map<String, Object> result = new HashMap<>();
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
 
         try {
-//            Answer answer = answerService.updateAnswer(dto, userid);
-//            AnswerDto answerDto = AnswerDto.builder().answertitle(answer.getAnswertitle()).answercontent(answer.getAnswercontent())
-//                    .answerdate(answer.getAnswerdate()).answerid(answer.getAnswerid()).questionid(answer.getQuestion().getQuestionid()).build();
             result.put("answer", answerService.updateAnswer(dto, userid));
             result.put("status", "success");
         } catch(Exception e) {

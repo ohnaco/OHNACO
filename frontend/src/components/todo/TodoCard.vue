@@ -1,150 +1,101 @@
 <template>
   <v-container>
-    <v-row>
+    <v-row dense>
       <v-col cols="12">
         <!-- default mode - today -->
         <v-card
           color="blue-grey lighten-5 rounded-xl"
-          v-if="!isEdit && !isOngoing && tempus == 'today'"
+          v-if="!isEdit && !isOngoing && (tempus == 'today' || tempus == 'future')"
         >
           <div>
             <div>
-              <v-layout row>
+              <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <v-col
-                  class="text-caption mr-3"
-                  v-text="item.todoid"
-                  align="right"
-                />
-              </v-layout>
+                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
+              </v-row>
 
               <div class="d-flex justify-end">
                 <v-btn icon @click="activateEditMode">
                   <v-icon>mdi-pencil</v-icon>
                 </v-btn>
-                <v-btn icon color="pink" @click="deleteTodo(item.todoid)">
+                <v-btn icon color="red" @click="showDialog">
                   <v-icon>mdi-close</v-icon>
                 </v-btn>
               </div>
 
-              <v-card-title class="text-h5 ml-4" v-text="item.title" />
+              <v-card-title
+                class="text-h5 ml-4"
+                :class="{ 'text-h6': $vuetify.breakpoint.xs }"
+                v-text="item.title"
+              />
 
               <v-card-actions class="justify-space-between align-end pt-0">
-                <div class="d-flex text-caption align-center ml-2">
-                  <img
-                    src="@/assets/images/todo-card-clock.svg"
-                    class="mr-1"
-                  />{{ item.goaltime }} / {{ completetime }}
-                </div>
-                <v-btn
-                  v-if="this.item.goaltime <= this.item.completetime"
-                  class="ml-2 mt-3"
-                  fab
-                  icon
-                  right
+                <div
+                  class="d-flex text-caption align-center font-weight-bold ml-2"
+                  :class="{
+                    'future-target-time': tempus == 'future' || this.$parent.isAnyOneGoing,
+                  }"
                 >
-                  <img src="@/assets/images/todo-create-ok.svg" />
-                </v-btn>
-                <v-btn fab icon right v-if="!this.$parent.isAnyOneGoing">
+                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
+                  /
+                  <span class="cyan--text">&nbsp;{{ completetime }}</span>
+                </div>
+                <img
+                  v-if="this.item.goaltime <= this.item.completetime"
+                  class="mobile-btn-size"
+                  src="@/assets/images/todo-create-ok.svg"
+                />
+                <div v-else>
                   <img
-                    class="start_btn"
+                    v-if="!this.$parent.isAnyOneGoing && tempus == 'today'"
+                    class="mobile-btn-size"
                     src="@/assets/images/start-btn.svg"
                     @click="[(isOngoing = true), start()]"
                   />
-                </v-btn>
+                </div>
               </v-card-actions>
             </div>
           </div>
         </v-card>
 
-        <!-- default mode -past-->
+        <!-- default mode - past-->
         <v-card
           color="blue-grey lighten-5 rounded-xl"
           v-if="!isEdit && !isOngoing && tempus == 'past'"
         >
           <div>
             <div>
-              <v-layout row>
+              <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <v-col
-                  class="text-caption mr-3"
-                  v-text="item.todoid"
-                  align="right"
-                />
-              </v-layout>
+                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
+              </v-row>
 
               <div class="d-flex justify-end">
-                <v-btn icon color="blue" @click="moveToday">
+                <v-btn icon color="blue" @click="moveToday" class="mr-5">
                   <v-icon>mdi-plus</v-icon>
                 </v-btn>
               </div>
 
-              <v-card-title class="text-h5 ml-4" v-text="item.title" />
+              <v-card-title
+                class="text-h5 ml-4"
+                :class="{ 'text-h6': $vuetify.breakpoint.xs }"
+                v-text="item.title"
+              />
 
               <v-card-actions class="justify-space-between align-end pt-0">
-                <div class="d-flex text-caption align-center ml-2">
-                  <img
-                    src="@/assets/images/todo-card-clock.svg"
-                    class="mr-1"
-                  />{{ item.goaltime }} / {{ completetime }}
+                <div class="d-flex text-caption align-center ml-2 font-weight-bold">
+                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
+                  /
+                  <span class="cyan--text">&nbsp;{{ completetime }}</span>
                 </div>
-                <v-btn
+                <img
                   v-if="this.item.goaltime > this.item.completetime"
-                  class="ml-2 mt-3"
-                  fab
-                  icon
-                  right
-                >
-                  <img src="@/assets/images/todo-create-no.svg" />
-                </v-btn>
-                <v-btn v-else class="ml-2 mt-3" fab icon right>
-                  <img src="@/assets/images/todo-create-ok.svg" />
-                </v-btn>
-              </v-card-actions>
-            </div>
-          </div>
-        </v-card>
-
-        <!-- default mode future-->
-        <v-card
-          color="blue-grey lighten-5 rounded-xl"
-          v-if="!isEdit && !isOngoing && tempus == 'future'"
-        >
-          <div>
-            <div>
-              <v-layout row>
-                <!-- 카테고리 명 -->
-                <todo-card-category :todoCategory="item.category" />
-                <v-col
-                  class="text-caption mr-3"
-                  v-text="item.todoid"
-                  align="right"
+                  class="mobile-btn-size"
+                  src="@/assets/images/todo-create-no.svg"
                 />
-              </v-layout>
-
-              <div class="d-flex justify-end">
-                <v-btn icon @click="activateEditMode">
-                  <v-icon>mdi-pencil</v-icon>
-                </v-btn>
-                <v-btn icon color="pink" @click="deleteTodo(item.todoid)">
-                  <v-icon>mdi-close</v-icon>
-                </v-btn>
-              </div>
-
-              <v-card-title class="text-h5 ml-4" v-text="item.title" />
-
-              <v-card-actions class="justify-space-between align-end pt-0">
-                <div
-                  class="d-flex text-caption align-center ml-2"
-                  style="height: 76px"
-                >
-                  <img
-                    src="@/assets/images/todo-card-clock.svg"
-                    class="mr-1"
-                  />{{ item.goaltime }} / {{ completetime }}
-                </div>
+                <img v-else class="mobile-btn-size" src="@/assets/images/todo-create-ok.svg" />
               </v-card-actions>
             </div>
           </div>
@@ -154,40 +105,25 @@
         <v-card color="cyan lighten-3 rounded-xl" v-if="!isEdit && isOngoing">
           <div>
             <div>
-              <v-layout row>
+              <v-row>
                 <!-- 카테고리 명 -->
                 <todo-card-category :todoCategory="item.category" />
-                <div style="height: 36px">
-                  <div
-                    style="font-family: GmarketSansLight; float: left"
-                    class="ml-3 ongoing_title"
-                  >
-                    {{ item.title }}
-                  </div>
-                  <div
-                    class="text-caption mr-3"
-                    v-text="item.todoid"
-                    align="right"
-                  />
-                </div>
-              </v-layout>
+                <v-col class="text-caption mr-3" v-text="item.todoid" align="right" />
+              </v-row>
 
-              <div class="d-flex justify-end"></div>
+              <v-col cols="12" class="text-h6 text-center pa-1" v-text="item.title"></v-col>
+
               <div class="time">
                 {{ formattedElapsedTime }}
               </div>
               <v-card-actions class="justify-space-between align-end pt-0">
-                <div class="d-flex text-caption align-center ml-2">
-                  <img
-                    src="@/assets/images/todo-card-clock.svg"
-                    class="mr-1"
-                  />{{ item.goaltime }}
+                <div class="d-flex text-caption align-center ml-2 font-weight-bold">
+                  <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
                 </div>
-                <v-btn v-if="false" class="ml-2 mt-3" fab icon right> </v-btn>
                 <v-btn fab icon right>
                   <img
-                    class="start_btn"
-                    src="@/assets/images/pause.png"
+                    class="mobile-btn-size margin-bottom-5"
+                    src="@/assets/images/pause.svg"
                     @click="stop"
                   />
                 </v-btn>
@@ -207,18 +143,23 @@
         </div>
       </v-col>
     </v-row>
+    <v-dialog max-width="500" v-model="isModal">
+      <delete-todo-modal @hide="hideDialog" @submit="deleteTodo(item.todoid)" />
+    </v-dialog>
   </v-container>
 </template>
 
 <script>
 import TodoAdd from "./TodoAdd.vue";
 import TodoCardCategory from "./TodoCardCategory.vue";
+import DeleteTodoModal from "./DeleteTodoModal.vue";
 import { createNamespacedHelpers } from "vuex";
 const todoHelper = createNamespacedHelpers("todoStore");
 
 export default {
   data() {
     return {
+      isModal: false,
       isEdit: false,
       isOngoing: false,
       idDone: false,
@@ -228,7 +169,7 @@ export default {
       completetime: "",
     };
   },
-  components: { TodoCardCategory, TodoAdd },
+  components: { TodoCardCategory, TodoAdd, DeleteTodoModal },
   name: "TodoCard",
   props: {
     item: {
@@ -236,25 +177,33 @@ export default {
     },
   },
   methods: {
+    showDialog() {
+      this.isModal = true;
+    },
+    hideDialog() {
+      this.isModal = false;
+    },
     activateEditMode() {
       this.isEdit = true;
     },
     deActivateEditMode() {
       this.isEdit = false;
     },
-    ...todoHelper.mapActions(["deleteTodo"]),
-    ...todoHelper.mapActions(["moveTodayAdd"]),
-    ...todoHelper.mapActions(["moveTodayDelete"]),
-    ...todoHelper.mapActions(["deleteTodo"]),
-    ...todoHelper.mapActions(["stateChange"]),
-    ...todoHelper.mapActions(["forceQuit"]),
-    ...todoHelper.mapActions(["updateTime"]),
-    ...todoHelper.mapActions(["setTime"]),
-    ...todoHelper.mapActions(["setGoingTime"]),
-    ...todoHelper.mapActions(["setId"]),
-    ...todoHelper.mapActions(["setTimeFQ"]),
-    ...todoHelper.mapActions(["setGoingTimeFQ"]),
-    ...todoHelper.mapActions(["setIdFQ"]),
+    ...todoHelper.mapActions([
+      "deleteTodo",
+      "moveTodayAdd",
+      "moveTodayDelete",
+      "deleteTodo",
+      "stateChange",
+      "forceQuit",
+      "updateTime",
+      "setTime",
+      "setGoingTime",
+      "setId",
+      "setTimeFQ",
+      "setGoingTimeFQ",
+      "setIdFQ",
+    ]),
     start() {
       this.parentTrue();
       this.time =
@@ -320,12 +269,14 @@ export default {
     },
   },
   computed: {
-    ...todoHelper.mapState(["exitTime"]),
-    ...todoHelper.mapState(["goingTime"]),
-    ...todoHelper.mapState(["ongoingId"]),
-    ...todoHelper.mapState(["exitTimeFQ"]),
-    ...todoHelper.mapState(["goingTimeFQ"]),
-    ...todoHelper.mapState(["ongoingIdFQ"]),
+    ...todoHelper.mapState([
+      "exitTime",
+      "goingTime",
+      "ongoingId",
+      "exitTimeFQ",
+      "goingTimeFQ",
+      "ongoingIdFQ",
+    ]),
     formattedElapsedTime() {
       const date = new Date(null);
       date.setSeconds(this.time / 1000);
@@ -355,7 +306,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .time {
   height: 64px;
   text-shadow: 0 2px 2px rgba(0, 0, 0, 0.25);
@@ -410,6 +361,10 @@ export default {
   height: 56px;
 }
 
+.future-target-time {
+  margin-top: 35px;
+}
+
 @media (max-width: 768px) {
   .v-card__subtitle,
   .v-card__text,
@@ -420,10 +375,6 @@ export default {
   .v-btn--fab.v-size--default {
     height: 28px;
     width: 28px;
-  }
-  .start_btn {
-    height: 30px;
-    width: 30px;
   }
   .v-btn--icon.v-size--default {
     height: 18px;
@@ -443,79 +394,6 @@ export default {
     margin-right: auto;
     margin-left: auto;
   }
-  .col-xl,
-  .col-xl-auto,
-  .col-xl-12,
-  .col-xl-11,
-  .col-xl-10,
-  .col-xl-9,
-  .col-xl-8,
-  .col-xl-7,
-  .col-xl-6,
-  .col-xl-5,
-  .col-xl-4,
-  .col-xl-3,
-  .col-xl-2,
-  .col-xl-1,
-  .col-lg,
-  .col-lg-auto,
-  .col-lg-12,
-  .col-lg-11,
-  .col-lg-10,
-  .col-lg-9,
-  .col-lg-8,
-  .col-lg-7,
-  .col-lg-6,
-  .col-lg-5,
-  .col-lg-4,
-  .col-lg-3,
-  .col-lg-2,
-  .col-lg-1,
-  .col-md,
-  .col-md-auto,
-  .col-md-12,
-  .col-md-11,
-  .col-md-10,
-  .col-md-9,
-  .col-md-8,
-  .col-md-7,
-  .col-md-6,
-  .col-md-5,
-  .col-md-4,
-  .col-md-3,
-  .col-md-2,
-  .col-md-1,
-  .col-sm,
-  .col-sm-auto,
-  .col-sm-12,
-  .col-sm-11,
-  .col-sm-10,
-  .col-sm-9,
-  .col-sm-8,
-  .col-sm-7,
-  .col-sm-6,
-  .col-sm-5,
-  .col-sm-4,
-  .col-sm-3,
-  .col-sm-2,
-  .col-sm-1,
-  .col,
-  .col-auto,
-  .col-12,
-  .col-11,
-  .col-10,
-  .col-9,
-  .col-8,
-  .col-7,
-  .col-6,
-  .col-5,
-  .col-4,
-  .col-3,
-  .col-2,
-  .col-1 {
-    width: 100%;
-    padding: 6px !important;
-  }
   .v-application .justify-end {
     justify-content: flex-end !important;
   }
@@ -523,7 +401,6 @@ export default {
     margin-right: 0px !important;
     margin-left: 0px !important;
   }
-
   .ongoing_title {
     font-size: 14px;
   }
@@ -532,9 +409,15 @@ export default {
     font-size: 2rem;
     line-height: 38px;
   }
-  .pause_img {
-    width: 25px;
-    height: 25px;
+  .mobile-btn-size {
+    width: 35px;
+    height: 35px;
+  }
+  .future-target-time {
+    margin-top: 15px;
+  }
+  .margin-bottom-5 {
+    margin-bottom: 5px;
   }
 }
 </style>

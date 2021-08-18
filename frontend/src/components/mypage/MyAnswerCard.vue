@@ -20,13 +20,14 @@
             v-for="(answer, i) in answers"
             :key="i"
             @click="gotoDetail(answer)"
+            style="cursor: pointer;"
           >
             <td>
               <v-list-item three-line class="pa-0">
                 <v-list-item-content>
                   <v-list-item-title class="mt-3 mb-5">
                     <img src="@/assets/images/question-mark.svg" style="width: 11px" alt="question">
-                    <b class="ml-1">{{ answer.answertitle }}</b>
+                    <b class="ml-1">{{ answer.questiontitle }}</b>
                   </v-list-item-title>
                   <v-list-item-subtitle class="mb-2">
                     <img src="@/assets/images/answer-mark.svg" style="width: 11px" alt="answer">
@@ -47,7 +48,7 @@
 </template>
 
 <script>
-import moment from 'moment'
+import moment from "moment"
 
 export default {
   name: 'MyAnswerCard',
@@ -72,7 +73,7 @@ export default {
     gotoDetail: function (answer) {
       this.$router.push({
         name: "QuestionDetail",
-        params:{ id: answer.answerid },
+        query:{ id: answer.questionid },
       });
     },
   }

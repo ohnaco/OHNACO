@@ -1,150 +1,161 @@
 <template>
-  <v-row>
-    <v-col cols="2">
-      <left-nav-bar></left-nav-bar>
-    </v-col>
-    <v-col cols="7" class="p-2">
-      <b-container class="bv-example-row" style="height: 120px">
-        <div class="mb-3">
-          <h1
-            style="
-              font-family: 'GmarketSansMedium';
-              font-size: 30px;
-              color: #607d8b;
-            "
-          >
-            Dev Talk
-          </h1>
-        </div>
-        <div style="width: 100%; height: 30px">
-          <div style="float: left; height: 100%" class="p-0">
-            <b-form-input
-              id="input-1"
-              v-model="searchText"
-              placeholder="검색"
-              required
-              style="width: 70%; float: left; font-size: 12px"
-            ></b-form-input>
-            <img
-              src="@/assets/search.svg"
-              style="float: left; width: 28px; height: 28px"
-              @click="search()"
-            />
-          </div>
+  <v-layout>
+    <v-row dense>
+      <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
+        ><left-nav-bar></left-nav-bar
+      ></v-col>
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
+        ><top-nav-bar></top-nav-bar
+      ></v-col>
+      <v-col cols="12" sm="12" md="10" class="d-flex p2" style="padding:0px">
+        <v-col cols="12" sm="12" md="9" class="d-flex flex-column p2">
+          <b-container class="bv-example-row" style="height: 120px">
+            <div class="mb-3">
+              <p
+                class="text-h4 font-weight-bold mb-0 blue-grey--text"
+                :class="{ 'text-h5': $vuetify.breakpoint.xs }"
+              >
+                Dev Talk
+              </p>
+            </div>
+            <div style="width: 100%; height: 30px">
+              <div style="float: left; height: 100%" class="p-0">
+                <b-form-input
+                  id="input-1"
+                  v-model="searchText"
+                  @input="search()"
+                  placeholder="검색"
+                  required
+                  :state="null"
+                  style="width: 70%; float: left; font-size: 12px"
+                ></b-form-input>
+                <img
+                  src="@/assets/search.svg"
+                  style="float: left; width: 28px; height: 28px"
+                  @click="search()"
+                />
+              </div>
 
-          <div
-            style="height: 100%; width: 300px; float: right; height: 100%"
-            class="pl-3 pt-0 pb-0"
-          >
-            <div style="float: right; height: 100%">
-              <span
-                class="filter_devTalk pagelink"
-                v-bind:class="{
-                  filter_selected: isSortDate && !isSortLike && !isSortComment,
-                }"
-                @click="sortDate()"
-                >●최신순&nbsp;&nbsp;</span
+              <div
+                style="height: 100%; width: 300px; float: right; height: 100%"
+                class="pl-3 pt-0 pb-0"
               >
-              <span
-                class="filter_devTalk pagelink"
-                v-bind:class="{
-                  filter_selected: !isSortDate && !isSortLike && isSortComment,
-                }"
-                @click="sortComment()"
-                >●답변순&nbsp;&nbsp;</span
-              >
-              <span
-                class="filter_devTalk pagelink"
-                v-bind:class="{
-                  filter_selected: !isSortDate && isSortLike && !isSortComment,
-                }"
-                @click="sortLike()"
-                >●좋아요순&nbsp;&nbsp;</span
-              >
-              <v-btn
-                elevation="2"
-                style="
-                  background-color: #607d8b;
-                  color: white;
-                  font-family: GmarketSansMedium;
-                  font-size: 14px;
-                  padding: 0px 12px;
-                "
-                @click="addQuestion()"
-                >질문하기</v-btn
-              >
+                <div style="float: right; height: 100%" class="mb-3">
+                  <span
+                    class="filter_devTalk pagelink"
+                    v-bind:class="{
+                      filter_selected: isSortDate && !isSortLike && !isSortComment,
+                    }"
+                    @click="sortDate()"
+                    >●최신순&nbsp;&nbsp;</span
+                  >
+                  <span
+                    class="filter_devTalk pagelink"
+                    v-bind:class="{
+                      filter_selected: !isSortDate && !isSortLike && isSortComment,
+                    }"
+                    @click="sortComment()"
+                    >●답변순&nbsp;&nbsp;</span
+                  >
+                  <span
+                    class="filter_devTalk pagelink"
+                    v-bind:class="{
+                      filter_selected: !isSortDate && isSortLike && !isSortComment,
+                    }"
+                    @click="sortLike()"
+                    >●좋아요순&nbsp;&nbsp;</span
+                  >
+                  <v-btn
+                    elevation="2"
+                    style="
+                      background-color: #607d8b;
+                      color: white;
+                      font-family: GmarketSansMedium;
+                      font-size: 14px;
+                      padding: 0px 12px;
+                    "
+                    @click="addQuestion()"
+                    >질문하기</v-btn
+                  >
+                </div>
+              </div>
+            </div>
+          </b-container>
+          <b-container class="pt-0">
+            <question-card
+              v-for="q in pageOfItems"
+              :key="q.questionid"
+              :item="q"
+              @tagChange="searchTag"
+            />
+            <div class="card-footer pb-0 pt-3" style="text-align: center; background-color: white">
+              <jw-pagination
+                :items="question"
+                @changePage="onChangePage"
+                style="text-align: center"
+              ></jw-pagination>
+            </div>
+          </b-container>
+        </v-col>
+        <v-col cols="12" md="3" sm="0" class="hotissue_section">
+          <!-- 핫이슈, 인기게시물-->
+          <div style="height: 120px"></div>
+
+          <div>
+            <span class="tag_section">인기 태그&nbsp;</span>
+            <span><img src="@/assets/images/hashtag.svg" /></span>
+            <hr class="m-1" style="border: solid 0.5px #607d8b" />
+            <div style="height: 30vh; overflow: scroll" class="box">
+              <a
+                class="tag pt-auto pb-auto pl-2 pr-2 mr-1 ;font-size:8px"
+                v-for="tag in tags"
+                :key="tag"
+                @click="searchTag(tag)"
+                >{{ tag }} <br
+              /></a>
             </div>
           </div>
-        </div>
-      </b-container>
-      <b-container class="pt-0">
-        <question-card v-for="q in pageOfItems" :key="q.questionid" :item="q"  @tagChange=searchTag />
-        <div
-          class="card-footer pb-0 pt-3"
-          style="text-align: center; background-color: white"
-        >
-          <jw-pagination
-            :items="question"
-            @changePage="onChangePage"
-            style="text-align: center"
-          ></jw-pagination>
-        </div>
-      </b-container>
-    </v-col>
 
-    <v-col cols="3">
-      <!-- 핫이슈, 인기게시물-->
-      <div style="height: 120px"></div>
-
-      <div>
-        <span class="tag_section">인기 태그&nbsp;</span>
-        <span><img src="@/assets/images/hashtag.svg" /></span>
-        <hr class="m-1" style="border: solid 0.5px #607d8b" />
-        <div style="height: 30vh; overflow: scroll" class="box">
-          <a
-            class="tag pt-auto pb-auto pl-2 pr-2 mr-1 ;font-size:8px"
-            v-for="tag in tags"
-            :key="tag"
-            @click="searchTag(tag)"
-            >{{ tag }} <br
-          /></a>
-        </div>
-      </div>
-
-      <div>
-        <span class="tag_section">핫이슈&nbsp;</span>
-        <span><img src="@/assets/images/hotissue.svg" /></span>
-        <hr class="m-1" style="border: solid 0.5px #607d8b" />
-        <div style="height: 30vh">
-          <!-- <a
-            v-for="issue in hotIssue"
-            :key="issue.questionid"
-            >{{issue.questiontitle}} <br
-          /></a>
-          -->
-            <p v-for="issue in hotIssue"
-            :key="issue.questionid"
-            class="mb-2 pagelink"
-            style="width:80% ; overflow:hidden ; white-space:nowrap ; text-overflow:ellipsis ;
-            font-family:GmarketSansLight ; color : #607d8b"
-            @click="gotoDetail(issue.questionid)">{{issue.questiontitle}}<br
-          /></p>
-        </div>
-      </div>
-    </v-col>
-  </v-row>
+          <div>
+            <span class="tag_section">핫이슈&nbsp;</span>
+            <span><img src="@/assets/images/hotissue.svg" /></span>
+            <hr class="m-1" style="border: solid 0.5px #607d8b" />
+            <div style="height: 30vh">
+              <p
+                v-for="issue in hotIssue"
+                :key="issue.questionid"
+                class="mb-2 pagelink"
+                style="
+                  width: 80%;
+                  overflow: hidden;
+                  white-space: nowrap;
+                  text-overflow: ellipsis;
+                  font-family: GmarketSansLight;
+                  color: #607d8b;
+                "
+                @click="gotoDetail(issue.questionid)"
+              >
+                {{ issue.questiontitle }}<br />
+              </p>
+            </div>
+          </div>
+        </v-col>
+      </v-col>
+    </v-row>
+  </v-layout>
 </template>
 <script>
 import QuestionCard from "@/components/devtalk/QuestionCard.vue";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
+import TopNavBar from "@/components/common/TopNavBar.vue";
 import http from "@/util/http-common.js";
-
 
 export default {
   name: "App",
   components: {
     QuestionCard,
     LeftNavBar,
+    TopNavBar,
   },
   computed: {},
   data() {
@@ -154,22 +165,13 @@ export default {
       isSortComment: false,
       question: [],
       hotIssue: [],
-      searchText:"",
-      tags: [
-        "Java",
-        "Spring",
-        "Javascript",
-        "MySQL",
-        "C++",
-        "C",
-        "Android",
-        "Ajax",
-      ],
+      searchText: "",
+      tags: ["Java", "Spring", "Javascript", "MySQL", "C++", "C", "Android", "Ajax"],
       pageOfItems: [],
     };
   },
   created() {
-    if(this.$route.params.tag==null) this.setQuestion();
+    if (this.$route.params.tag == null) this.setQuestion();
     else this.searchTag(this.$route.params.tag);
     this.setHotIssue();
   },
@@ -209,7 +211,6 @@ export default {
         //아무것도안함
       } else {
         //클래스 변경, 정렬
-        console.log("날짜날짜");
         this.isSortDate = true;
         this.isSortLike = false;
         this.isSortComment = false;
@@ -247,7 +248,7 @@ export default {
       }
     },
 
-    async search(){
+    async search() {
       await http
         .get("devtalk/listall")
         .then((response) => {
@@ -257,11 +258,13 @@ export default {
           alert(err);
         });
       this.question = this.question.filter(
-        (question) => question.questiontitle.includes(this.searchText) || question.questioncontent.includes(this.searchText)
+        (question) =>
+          question.questiontitle.includes(this.searchText) ||
+          question.questioncontent.includes(this.searchText)
       );
     },
 
-    async searchTag(tag){
+    async searchTag(tag) {
       await http
         .get("devtalk/listall")
         .then((response) => {
@@ -271,24 +274,23 @@ export default {
           alert(err);
         });
       const arr = [];
-      for(var i=0 ; i<this.question.length ; i++){
-        for(var j=0 ; j<this.question[i].tag.length ; j++){
-          if(this.question[i].tag[j].tagname==tag){
+      for (var i = 0; i < this.question.length; i++) {
+        for (var j = 0; j < this.question[i].tag.length; j++) {
+          if (this.question[i].tag[j].tagname == tag) {
             arr.push(this.question[i]);
             break;
           }
         }
       }
-      this.question=arr;
+      this.question = arr;
     },
 
     gotoDetail(qid) {
       this.$router.push({
         name: "QuestionDetail",
-        params:{id:qid},
+        query: { id: qid },
       });
     },
-
   },
 };
 </script>
@@ -343,26 +345,64 @@ export default {
 }
 
 .page-link {
-    position: relative;
-    display: block;
-    color: #607d8b !important;
-    text-decoration: none;
-    background-color: #fff;
-    border: 1px solid #fff !important;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  position: relative;
+  display: block;
+  color: #607d8b !important;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #fff !important;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .page-item.disabled .page-link {
-    color: #6c757d;
-    pointer-events: none;
-    background-color: #fff;
-    border-color: #fff;
+  color: #6c757d;
+  pointer-events: none;
+  background-color: #fff;
+  border-color: #fff;
 }
-.pagelink{
-  cursor:pointer;
+.pagelink {
+  cursor: pointer;
 }
-.pagelink:hover{
+.pagelink:hover {
   text-decoration: underline;
 }
+.page-item.active .page-link {
+  background-color: #c1d5df !important;
+  border-color: #c1d5df !important;
+}
+.side_bar {
+  display: block;
+}
+.top_bar {
+  display: none;
+}
+.previous{
+  display: none !important;
+}
+.next{
+  display: none !important;
+}
+@media (max-width: 767px) {
+  .hotissue_section {
+    display: none;
+  }
+  /* .v-btn:not(.v-btn--round).v-size--default {
+    height: 100% !important;
+} */
+}
+@media (min-width: 768px) {
+  .col-md-9 {
+    flex: 0 0 auto;
+    margin-left: 8.333333%;
+  }
+}
 
+@media (min-width: 950px) {
+  .col-md-9 {
+    flex: 0 0 auto;
+    width: 58.33333333%;
+    margin-left: 0%;
+  }
+}
 </style>

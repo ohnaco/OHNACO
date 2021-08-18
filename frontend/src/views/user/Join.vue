@@ -2,27 +2,27 @@
   <div class="container">
     <!-- 회원가입 폼 -->
     <div class="join-form">
-      <img src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
+      <img @click="goMain" src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
       <div class="join-name">회원가입</div>
       <div class="join-box">
         <!-- 이메일 -->
-        <input
+        <b-form-input
           type="text"
           class="email"
           placeholder="이메일 주소"
           @input="emailCheck"
           v-model="email"
           v-bind:class="{
-            error: error.email && error.emailCheck,
+            error: error.email || error.emailCheck,
             complete: !error.email && email.length != 0 && !error.emailCheck,
           }"
-        />
+        ></b-form-input>
         <div class="error-message" v-if="error.email">{{ error.email }}</div>
         <div class="error-message" v-if="error.emailCheck">
           {{ error.emailCheck }}
         </div>
         <!-- 비번 -->
-        <input
+        <b-form-input
           :type="passwordType"
           class="pwd"
           placeholder="비밀번호"
@@ -31,22 +31,23 @@
             error: error.password,
             complete: !error.password && password.length != 0,
           }"
-        />
+        ></b-form-input>
         <div class="error-message" v-if="error.password">
           {{ error.password }}
         </div>
         <!-- 비번확인 -->
         <div class="input_label">
-          <input
+          <b-form-input
             :type="passwordConfirmType"
             class="pwd-check"
             placeholder="비밀번호 확인"
             v-model="passwordConfirm"
+            @keyup.enter="goJoinEmail"
             v-bind:class="{
               error: error.passwordConfirm,
               complete: !error.passwordConfirm && passwordConfirm.length !== 0,
             }"
-          />
+          ></b-form-input>
           <div class="error-message" v-if="error.passwordConfirm">
             {{ error.passwordConfirm }}
           </div>
@@ -58,7 +59,7 @@
             class="mr-15"
             @click="goLogin"
           >
-            <img src="@/assets/images/back-btn.svg" alt="back" />
+            <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음페이지 버튼 : 회원가입 이메일 인증 -->
           <button
@@ -74,7 +75,7 @@
         <div>
           <div class="join-footer-text">
             이미 계정이 있으신가요?
-            <button class="go-login" @click="goLogin">로그인</button>
+            <button class="go-login ml-1" @click="goLogin">로그인</button>
           </div>
         </div>
       </div>
@@ -135,7 +136,7 @@ export default {
   },
   methods: {
     goMain: function () {
-      this.$router.push({ name: "" });
+      this.$router.push({ name: "Main" });
     },
     goLogin: function () {
       this.$router.push({ name: "Login" });
@@ -172,7 +173,6 @@ export default {
         User.requestSignupIdCheck(
           data,
           (res) => {
-            console.log(res);
             this.isCheck = res.data.status;
             this.error.emailCheck = res.data.message;
             if (this.isCheck) {
@@ -195,8 +195,7 @@ export default {
         this.isSubmit = false;
         User.requestSignup(
           data,
-          (res) => {
-            console.log(res);
+          () => {
             this.isSubmit = true;
             alert("이메일로 인증번호가 발송되었습니다. 메일함을 확인해주세요.");
             this.$router.push({

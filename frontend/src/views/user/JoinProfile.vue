@@ -10,7 +10,7 @@
           <img src="@/assets/images/profile-img.svg" alt="ohnaco-logo" />
         </div>
         <!-- 닉네임 -->
-        <input
+        <b-form-input
           type="text"
           id="nickname"
           class="nickname"
@@ -18,11 +18,11 @@
           @input="nicknameCheck"
           v-model="nickname"
           v-bind:class="{
-            error: error.nickname && error.nicknameCheck,
+            error: error.nickname || error.nicknameCheck,
             complete:
               !error.nickname && nickname.length !== 0 && error.nicknameCheck,
           }"
-        />
+        ></b-form-input>
         <div class="error-message" v-if="error.nickname">
           {{ error.nickname }}
         </div>
@@ -30,15 +30,15 @@
           {{ error.nicknameCheck }}
         </div>
         <!-- 깃헙 아이디 -->
-        <input
+        <b-form-input
           type="text"
           id="github"
           class="github"
           placeholder="Github ID"
           v-model="githubid"
-        />
+        ></b-form-input>
         <!-- 희망 직무 -->
-        <select v-model="position" class="form-select">
+        <b-form-select v-model="position" class="form-select">
           <option value="" disabled>희망직무</option>
           <option value="Backend">Backend</option>
           <option value="Frontend">Frontend</option>
@@ -48,7 +48,7 @@
           <option value="Embedded">Embedded</option>
           <option value="Game">Game</option>
           <option value="etc.">etc.</option>
-        </select>
+        </b-form-select>
         <!-- 버튼 -->
         <div class="page-btn">
           <!-- 이전 페이지: 회원가입 페이지 -->
@@ -56,14 +56,14 @@
             class="mr-15" 
             @click="goJoin"
           >
-            <img src="@/assets/images/back-btn.svg" alt="back" />
+            <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음 페이지 : 회원가입 완료 페이지 -->
           <button
             class="ml-15"
             @click="joinFinish"
           >
-            <img src="@/assets/images/next-btn.svg" alt="next" />
+            <img src="@/assets/images/complete-btn.svg" alt="next" />
           </button>
         </div>
       </div>
@@ -103,8 +103,8 @@ export default {
       this.$router.push({ name: "Join" });
     },
     checkForm: function () {
-      if (this.nickname.length <= 1)
-        this.error.nickname = "두글자 이상 닉네임을 입력해주세요";
+      if (this.nickname.length <= 1 || this.nickname.length >= 9)
+        this.error.nickname = "2자리 이상 8자리 이하 닉네임을 입력해주세요.";
       else this.error.nickname = false;
 
       let isSubmit = true;
@@ -120,7 +120,6 @@ export default {
       };
       if (this.nickname) {
         User.requestSignupNicknameCheck(data, (res) => {
-          console.log(res);
           if (res.data.status) {
             this.error.nicknameCheck = null;
             this.isCheck = res.data.status;
@@ -143,8 +142,7 @@ export default {
         this.isSubmit = false;
         User.requestSignupProfile(
           data,
-          (res) => {
-            console.log(res);
+          () => {
             this.isSubmit = true;
             alert("회원가입이 완료 되었습니다. 로그인 해주세요.");
             this.$router.push({ name: "JoinSuccess" });
@@ -205,6 +203,10 @@ export default {
   font-family: GmarketSansTTF;
   font-size: 10px;
   color: crimson;
+}
+.v-application .error {
+  background-color: #ffffff !important;
+  border: solid 1px crimson;
 }
 .github {
   width: 230px;

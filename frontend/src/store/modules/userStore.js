@@ -36,7 +36,6 @@ export default {
         data,
         () => {
           dispatch("getUserInfo");
-          alert("로그인 되었습니다. 오나코에서 오늘 하루도 힘내 코딩하세요 :)");
           router.push({ name: "Todo" });
         },
         (err) => {
@@ -51,7 +50,8 @@ export default {
           commit("SET_USER", res.data.user);
         },
         (err) => {
-          alert(err);
+          console.log(err);
+          alert("사용자 정보를 불러오는 데에 실패했습니다.");
         }
       );
     },

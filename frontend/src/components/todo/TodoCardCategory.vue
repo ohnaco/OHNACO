@@ -1,9 +1,9 @@
 <!-- Todo Card 왼쪽 상단에 표시되는 Category 부분 -->
 <template>
   <v-col class="d-inline-flex ml-3">
-    <h class="category-underline pr-2 pl-2" :class="todoCategory.categoryid">
+    <p class="category-underline pr-2 pl-2 mb-0" :class="todoCategory.categoryid">
       {{ todoCategory.categoryname }}
-    </h>
+    </p>
   </v-col>
 </template>
 
@@ -17,7 +17,8 @@ export default {
 
 <style lang="scss" scoped>
 .category-underline {
-  font-size:18px;
+  font-size: 18px;
+  font-weight: bold;
   border-bottom: 6px solid black;
 }
 
@@ -36,12 +37,14 @@ export default {
 .certificate {
   border-bottom-color: rgb(149, 151, 235);
 }
-@media ( max-width: 768px ) {
-  .v-card__subtitle, .v-card__text, .v-card__title {
+@media (max-width: 768px) {
+  .v-card__subtitle,
+  .v-card__text,
+  .v-card__title {
     padding: 6px;
-}
-.category-underline {
-  font-size:12px;
-}
+  }
+  .category-underline {
+    font-size: 14px;
+  }
 }
 </style>

@@ -1,10 +1,13 @@
 <template>
-  <div class="qd_rectangle mb-3">
-    <div class="p-3 pt-0">
+  <div class="qd_rectangle">
+    <div class="answer_profile pt-0">
       <!--간략 프로필 -->
       <div style=" width:110px ; height:35px float:left" class="mb-3 mt-3">
         <div style="float: left">
-          <img :src="profile_img" style="width: 35px; height: 35px" />
+          <img
+                :src="`${item.user.image}`"
+                style="width: 35px; height: 35px"
+              />
         </div>
         <div style="float: left; width: 70px; height: 30px">
           <div class="profile_name">&nbsp;{{ item.user.nickname }}</div>
@@ -38,30 +41,17 @@
           style="float: right"
           v-if="this.item.user.userid == this.$parent.user.userid"
         >
-          <v-btn
-            elevation="2"
-            style="
-              height: 25px;
-              background-color: #ffc21f;
-              color: white;
-              font-family: GmarketSansMedium;
-              font-size: 14px;
-              margin: 0 7px 0 0;
-            "
+          <a
+            class="modNdel"
+              style="color : #607d8b;"
             @click="modifyMode()"
-            >수정</v-btn
+            >수정</a
           >
-          <v-btn
-            elevation="2"
-            style="
-              height: 25px;
-              background-color: #e23131;
-              color: white;
-              font-family: GmarketSansMedium;
-              font-size: 14px;
-            "
+          <a
+           class="modNdel"
+              style="color : #607d8b;"
             @click="commentRemove"
-            >삭제</v-btn
+            >삭제</a
           >
         </div>
       </div>
@@ -108,14 +98,14 @@
         <div style="width:100%" class="p-0">
           <v-btn
             elevation="2"
-            class="mt-3 mb-3 "
+            class="mt-3 mb-3 mod-btn"
             style="font-family: GmarketSansMedium; float: right"
             @click="modify"
             >수정</v-btn
           >
           <v-btn
             elevation="2"
-            class="mt-3 mb-3 mr-3"
+            class="mt-3 mb-3 mr-3 mod-btn"
             style="font-family: GmarketSansMedium; float: right"
             @click="modifyCancle"
             >취소</v-btn
@@ -131,7 +121,25 @@
 import marked from "marked";
 import { createNamespacedHelpers } from "vuex";
 import Dev from "@/api/DevTalk";
+import hljs from "highlight.js";
+import 'highlight.js/styles/atom-one-dark.css';
 const devtalkHelper = createNamespacedHelpers("devTalkStore");
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  highlight: function(code) {
+    return hljs.highlightAuto(code).value;
+  },
+  pedantic: false,
+  gfm: true,
+  tables: true,
+  breaks: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false
+  }
+);
 
 export default {
   data() {
@@ -209,11 +217,36 @@ export default {
 </script>
 
 <style>
+.modNdel{
+font-family: GmarketSansMedium;
+                font-size: 14px;
+                color : #607d8b;
+                margin: 0 7px 0 0;
+                text-decoration:none;
+                cursor:pointer;
+}
+.answer_profile{
+  padding:12px;
+}
 .ad_rectangle {
-  width: 95%;
   border-radius: 10px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   border: solid 1px #607d8b;
   background-color: #ffffff;
+}
+@media (max-width: 768px){
+  .modNdel{
+                font-size: 12px;
+}
+.answer_profile {
+    padding: 8px !important;
+}
+.mod-btn{
+  font-size:12px !important;
+  height:20px !important;
+}
+.v-btn:not(.v-btn--round).v-size--default {
+    height: 36px;
+}
 }
 </style>

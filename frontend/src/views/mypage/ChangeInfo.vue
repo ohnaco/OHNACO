@@ -6,7 +6,7 @@
       <div class="update-profile-name">정보 수정</div>
       <div class="update-profile-box">
         <!-- 사진 미리보기 및 변경 -->
-        <div class="profile_circle">
+        <div class="profile-circle">
           <label for="profile" class="imagebtn">
             <img src="@/assets/images/profile-btn.svg" alt="sample_profile">
           </label>
@@ -64,18 +64,32 @@
           <option value="Game">Game</option>
           <option value="etc.">etc.</option>
         </select>
-        <div class="d-flex justify-space-between mt-3 mb-8">
+        <div class="d-flex justify-space-between mb-8">
           <!-- 회원탈퇴 -->
-          <div class="mr-13">
-            <button @click="deleteUser">
-              <img src="@/assets/images/delete-user.svg" alt="delete-user"/>
-            </button>
+          <div class="mr-8">
+            <v-btn
+              text
+              @click="showDialog"
+            >
+              <img src="@/assets/images/delete-user.svg" alt="back" />
+            </v-btn>
+            <v-dialog
+              max-width="500"
+              v-model="isModal"
+            >
+              <DeleteUserModal
+                @hide="hideDialog"
+                @submit="deleteUserInfo"
+              />
+            </v-dialog>
           </div>
           <!-- 비밀번호 변경 -->
-          <div class="ml-13">
-            <button @click="gochangePwd">
+          <div class="ml-8">
+            <v-btn 
+              text 
+              @click="gochangePwd">
               <img src="@/assets/images/change-pwd-btn.svg" alt="change-pwd"/>
-            </button>
+            </v-btn>
           </div>
         </div>
         <!-- 버튼 -->
@@ -85,14 +99,14 @@
             class="mr-15" 
             @click="goMypage"
           >
-            <img src="@/assets/images/back-btn.svg" alt="back" />
+            <img src="@/assets/images/cancel-btn.svg" alt="back" />
           </button>
           <!-- 다음 페이지 : 마이페이지 -->
           <button
             class="ml-15"
             @click="imageUpload"
           >
-            <img src="@/assets/images/next-btn.svg" alt="next" />
+            <img src="@/assets/images/complete-btn.svg" alt="next" />
           </button>
         </div>
       </div>
@@ -103,12 +117,14 @@
 <script>
 import MyPage from "@/api/MyPage";
 import TopNavBar from "@/components/common/TopNavBar.vue";
+import DeleteUserModal from "@/components/mypage/DeleteUserModal.vue";
 import AWS from 'aws-sdk';
 
 export default {
   name: "ChangeInfo",
   components: {
     TopNavBar,
+    DeleteUserModal,
   },
   data: function () {
     return {
@@ -129,10 +145,10 @@ export default {
       isSubmit: false,
       isCheck: false,
       isUpload: 'nomal',
+      isModal: false,
     };
   },
   created() {
-    this.component = this;
     this.getInfo()
   },
   watch: {
@@ -147,12 +163,18 @@ export default {
     gochangePwd: function () {
       this.$router.push({ name: "ChangePwd" });
     },
+    showDialog() {
+      this.isModal = true
+    },
+    hideDialog() {
+      this.isModal = false
+    },
     checkForm: function () {
       if (this.nickname == this.originnickname)
         this.isCheck = true;
       else 
-        if (this.nickname.length <= 1)
-          this.error.nickname = "두글자 이상 닉네임을 입력해주세요"
+        if (this.nickname.length <= 1 || this.nickname.length >= 9)
+          this.error.nickname = "2자리 이상 8자리 이하 닉네임을 입력해주세요."
         else this.error.nickname = false;
         let isSubmit = true;
         Object.values(this.error).map((v) => {
@@ -163,14 +185,13 @@ export default {
     getInfo: function () {
       MyPage.requestMyInfo(
         (res) => {
+          console.log(res)
           this.email = res.data.info.email
           this.originnickname = res.data.info.nickname
           this.nickname = res.data.info.nickname
           this.githubid = res.data.info.githubid
           this.position = res.data.info.position
-          if(res.data.info.image != null) {
-            this.image = res.data.info.image
-          }
+          this.image = res.data.info.image
         },
         (err) => {
           console.log(err)
@@ -189,7 +210,7 @@ export default {
         this.isUpload = 'upload';
       }
     },
-    imageUpload() {
+    imageUpload: function () {
       if (this.isSubmit && this.isCheck) {
         if(this.isUpload == 'upload') {
           AWS.config.update({
@@ -215,7 +236,7 @@ export default {
               console.log(err)
             } else {
               console.log(data)
-              this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" + this.email + ".jpg"
+              this.image = "https://ohnaco.s3.ap-northeast-2.amazonaws.com/" + this.email + ".jpg?test="+Math.random().toString(36).substring(2, 11);
               this.updateProfile()
             }
           });
@@ -261,7 +282,6 @@ export default {
         MyPage.requestMypageNicknameCheck(
           data, 
           (res) => {
-            console.log(res);
             if (res.data.status) {
               this.error.nicknameCheck = null;
               this.isCheck = res.data.status;
@@ -274,7 +294,7 @@ export default {
           };
       }
     },
-    deleteUser: function (res) {
+    deleteImage: function (res) {
       AWS.config.update({
         region: this.bucketRegion,
         credentials: new AWS.CognitoIdentityCredentials({
@@ -290,7 +310,7 @@ export default {
       });
 
       s3.deleteObject({
-        Key: this.email+".jpg"
+        Key: this.email + ".jpg"
       }, (err, data) => {
         if(err) {
           console.log(err)
@@ -300,6 +320,21 @@ export default {
       });
       console.log(res)
     },
+    deleteUserInfo: function () {
+      MyPage.deleteUser(
+        (res) => {
+          console.log(res)
+          this.hideDialog()
+          this.deleteImage()
+          localStorage.removeItem('jwt-access-token')
+          alert('회원 탈퇴가 정상적으로 완료되었습니다.')
+          this.$router.push({ name: 'Main' })
+        },
+        (err) => {
+          console.log(err)
+        }
+      )
+    }
   },
 };
 </script>
@@ -336,7 +371,7 @@ export default {
   border: solid 1px #607d8b;
   background-color: rgba(255, 255, 255, 0);
 }
-.profile_circle {
+.profile-circle {
   position: relative;
   width: 169px;
   height: 169px;
@@ -360,7 +395,7 @@ export default {
   background: #eceff1;
   border: 1px solid #eceff1;
 }
-.profile_circle input[type="file"] {
+.profile-circle input[type="file"] {
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
 }

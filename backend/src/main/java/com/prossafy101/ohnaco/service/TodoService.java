@@ -144,7 +144,8 @@ public class TodoService {
             commitDto = commitOpt.get();
             //최신 update날짜가 같은경우 오늘 날짜만 커밋 업데이트한다.
 
-            if (!commitDto.getUpdatedate().equals(date)) {    //다른경우 하루씩 미뤄주면서 업데이트 해준다.
+            if (!date.equals(commitDto.getUpdatedate())) {    //다른경우 하루씩 미뤄주면서 업데이트 해준다.
+                System.out.println("check!!!!!!!!!!!" + date + " " + commitDto.getUpdatedate());
                 commitDto.setDay7(commitDto.getDay6());
                 commitDto.setDay6(commitDto.getDay5());
                 commitDto.setDay5(commitDto.getDay4());
@@ -153,9 +154,10 @@ public class TodoService {
                 commitDto.setDay2(commitDto.getDay1());
             }
         }
+        System.out.println("commit update : "+date);
         commitDto.setUpdatedate(date);
         commitDto.setDay1(gitHubAPI.isCommit(githubid, date));
-        commitDto.setTimeToLive(2);
+        commitDto.setTimeToLive(48);
         commitSave(commitDto);
     }
 
@@ -165,7 +167,9 @@ public class TodoService {
         List<User> users = userRepository.findAll();
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Date());
+        cal.add(Calendar.HOUR, -9);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("corn time : "+df.format(cal.getTime()));
         for(User user: users) {
             if(user.getGithubid() != null) {
                 commitUpdate(user.getUserid(), user.getGithubid(),df.format(cal.getTime()));
@@ -186,5 +190,31 @@ public class TodoService {
             todo.setCompletetime(completetime);
         }
         todoRepository.save(todo);
+    }
+
+    //commit기록 업데이트 해서 redis에 저장
+    public void commitUpdateWeekend(String userid, String githubid) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+        CommitDto commitDto = new CommitDto();
+        commitDto.setUserid(userid);
+        cal.add(Calendar.HOUR, -9);
+        commitDto.setUpdatedate(df.format(cal.getTime()));
+        commitDto.setDay1(gitHubAPI.isCommit(githubid, df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay2(gitHubAPI.isCommit(githubid, df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay3(gitHubAPI.isCommit(githubid, df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay4(gitHubAPI.isCommit(githubid, df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay5(gitHubAPI.isCommit(githubid, df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay6(gitHubAPI.isCommit(githubid, df.format(cal.getTime())));
+        cal.add(Calendar.DATE, -1);
+        commitDto.setDay7(gitHubAPI.isCommit(githubid, df.format(cal.getTime())));
+        commitDto.setTimeToLive(48);
+        commitSave(commitDto);
     }
 }

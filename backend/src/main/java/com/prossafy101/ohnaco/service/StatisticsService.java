@@ -2,9 +2,11 @@ package com.prossafy101.ohnaco.service;
 
 import com.prossafy101.ohnaco.entity.statistics.StatisticsCategoryDto;
 import com.prossafy101.ohnaco.entity.statistics.StatisticsPositionDto;
+import com.prossafy101.ohnaco.entity.user.User;
 import com.prossafy101.ohnaco.repository.StatisticsRepository;
 import com.prossafy101.ohnaco.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.text.DateFormat;
@@ -21,6 +23,9 @@ public class StatisticsService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     String[] category = {"CS", "알고리즘", "프레임워크", "자격증", "기타"};
 
@@ -257,10 +262,11 @@ public class StatisticsService {
 
     public List<Map<String, Object>> getPositionTimeForWeeks(String userid, String startDate, String endDate) {
         Map<String, Object> map = new HashMap<>();
+        int positionid = userRepository.findByUserid(userid).getPositions().getPositionid();
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
         map.put("userid", userid);
-
+        map.put("positionid", positionid);
         List<Map<String, Object>> list = statisticsRepository.getPositionTimeForWeeks(map);
         for(int i=0; i<list.size(); i++) {
             if(!list.get(i).containsKey("time")) {
@@ -307,4 +313,61 @@ public class StatisticsService {
         }
         return list;
     }
+
+    public void updateWeekAndMonth(String userid) {
+        Map<String, Object> week = new HashMap<>();
+        Map<String, Object> month = new HashMap<>();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+
+        cal.add(Calendar.DATE, -1);
+        List<StatisticsCategoryDto> todayTime = getCategoryTime(userid, df.format(cal.getTime()), df.format(cal.getTime()));
+        week.put("todayTime", todayTime);
+        month.put("todayTime", todayTime);
+
+        cal.add(Calendar.DATE, -1);
+        List<StatisticsCategoryDto> yesterdayTime = getCategoryTime(userid, df.format(cal.getTime()), df.format(cal.getTime()));
+        week.put("yesterdayTime", yesterdayTime);
+        month.put("yesterdayTime", yesterdayTime);
+
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, 0);
+        String endDate = df.format(cal.getTime());
+        cal.add(Calendar.DATE, -6);
+        String startDate = df.format(cal.getTime());
+
+        week.put("totalTime", getToatalTime(userid, startDate, endDate));
+        week.put("categoryTime", getCategoryTime(userid, startDate, endDate));
+        week.put("positionTime", getPositionTime(userid, startDate, endDate));
+        week.put("entireCategoryTime", getEntireCategoryTime(startDate, endDate));
+        week.put("entireMemberTime", getTotalTimeForDays(startDate, endDate));
+        week.put("positionMemberTime", getPositionTimeForDays(userid, startDate, endDate));
+        week.put("myTime", getMyTimeForDays(userid, startDate, endDate));
+
+        cal.setTime(new Date());
+        cal.add(Calendar.DATE, 0);
+        endDate = df.format(cal.getTime());
+        cal.add(Calendar.DATE, -30);
+        startDate = df.format(cal.getTime());
+
+        month.put("totalTime", getToatalTime(userid, startDate, endDate));
+        month.put("categoryTime", getCategoryTime(userid, startDate, endDate));
+        month.put("positionTime", getPositionTime(userid, startDate, endDate));
+        month.put("entireCategoryTime", getEntireCategoryTime(startDate, endDate));
+        month.put("myTime", getMyTimeForWeeks(userid, startDate, endDate));
+        month.put("positionMemberTime", getPositionTimeForWeeks(userid, startDate, endDate));
+        month.put("entireMemberTime", getTotalTimeForWeeks(startDate, endDate));
+        redisUtil.setObject("statistics:week:"+userid, week, 2);
+        redisUtil.setObject("statistics:month:"+userid, month, 2);
+    }
+
+    @Scheduled(cron = "0 0 0 * * *")
+    public void updateStatistics() {
+        List<User> users = userRepository.findAll();
+        for(User user: users) {
+            updateWeekAndMonth(user.getUserid());
+        }
+    }
+
 }

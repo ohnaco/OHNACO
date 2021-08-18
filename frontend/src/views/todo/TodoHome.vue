@@ -4,56 +4,77 @@
       <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
         ><left-nav-bar></left-nav-bar
       ></v-col>
-      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown"
+      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
         ><top-nav-bar></top-nav-bar
       ></v-col>
-      <v-col
-        cols="12"
-        sm="12"
-        md="7"
-        class="d-flex flex-column"
-        style="height: 100vh; overflow: scroll"
-      >
-        <div class="d-flex align-center text-h4 ma-5">
-          <img src="@/assets/images/todo-icon.svg" class="mr-2 pencil-img" />
-          <div class="text-sm-h6 text-md-h4">To Do List</div>
-          <img  
-          src="@/assets/images/calendar_black.svg"
-          class="mobile_calendar_btn"
-          @click="mobileCalendarOn"/>
+      <v-col cols="12" sm="12" md="7" class="d-flex flex-column todo-main">
+        <b-container class="bv-example-row">
+        <div
+          class="d-flex align-center text-h4"
+          style="display: flex; justify-content: space-between"
+        >
+          <p
+            class="text-h4 font-weight-bold blue-grey--text"
+            :class="{ 'text-h5': $vuetify.breakpoint.xs }"
+          >
+            To Do
+          </p>
+          <img
+            src="@/assets/images/calendar_black.svg"
+            class="mobile_calendar_btn"
+            @click="mobileCalendarOn"
+          />
+          <img
+            src="@/assets/images/calendar_black.svg"
+            class="mobile_calendar_large_btn"
+            @click="modalOn"
+          />
         </div>
-        
-        <div class="d-flex flex-row align-center ma-5">
-          <h2 v-text="date"></h2>
-          <daily-commit v-if="isDateToday" />
+
+        <div class="d-flex flex-row align-center ml-5 mt-3">
+          <!-- 날짜 -->
+          <span
+            class="text-h6 font-weight-bold"
+            :class="{ 'text-body-1': $vuetify.breakpoint.xs }"
+            v-text="date"
+          ></span>
+          <!-- 데일리 커밋 -->
+          <daily-commit v-if="isDateToday && this.user.githubid !== ''" />
         </div>
+        </b-container>
         <CalendarSmall
-        v-if="isMobileCanlendar"
+          v-if="isMobileCanlendar"
           @modalOn_child="modalOn"
           @todoDate="moveDate"
           style="width: 100%"
           v-model="date"
           class="mobileCalendar"
         ></CalendarSmall>
-        <div v-if="!isMobileCanlendar">
-        <todo-card
-          v-for="todo in todoLists"
-          :key="todo.todoid"
-          :item="todo"
-          @trueChange="tChange()"
-          @falseChange="fChange()"
-        />
+        <b-container>
+        <div v-show="!isMobileCanlendar">
+          <todo-card
+            v-for="todo in todoLists"
+            :key="todo.todoid"
+            :item="todo"
+            @trueChange="tChange()"
+            @falseChange="fChange()"
+          />
         </div>
-        <todo-add
-          @finish-create="toggleCreate"
-          v-if="isCreateTodo"
-          :date="date"
-        />
-        <button @click="toggleCreate" v-if="!isCreateTodo">
-          <img src="@/assets/images/todo-add-btn.svg" class="todo_add" />
-        </button>
+        <!-- Todo 추가 컴포넌트 -->
+        <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
+        <!-- Todo 추가 버튼 -->
+        <div class="mx-auto">
+          <img
+            src="@/assets/images/todo-add-btn.svg"
+            class="todo_add mt-3"
+            style="cursor: pointer"
+            @click="toggleCreate"
+            v-if="!isCreateTodo"
+          />
+        </div>
+        </b-container>
       </v-col>
-      <v-col cols="12" sm="12" md="3">
+      <v-col cols="12" sm="0" md="3" lg="3">
         <!-- 우측달력 -->
         <CalendarSmall
           @modalOn_child="modalOn"
@@ -85,6 +106,7 @@ import DailyCommit from "@/components/todo/DailyCommit.vue";
 
 import { createNamespacedHelpers } from "vuex";
 const todoListHelper = createNamespacedHelpers("todoStore");
+const userHelper = createNamespacedHelpers("userStore");
 
 export default {
   data() {
@@ -110,6 +132,7 @@ export default {
   },
   computed: {
     ...todoListHelper.mapState(["todoLists"]),
+    ...userHelper.mapState(["user"]),
   },
   created() {
     this.setTodoList(this.date);
@@ -140,8 +163,8 @@ export default {
     fChange() {
       this.isAnyOneGoing = false;
     },
-    mobileCalendarOn(){
-      this.isMobileCanlendar=!this.isMobileCanlendar;
+    mobileCalendarOn() {
+      this.isMobileCanlendar = !this.isMobileCanlendar;
     },
   },
   watch: {
@@ -153,7 +176,7 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 .commit {
   width: 164px;
   height: 35px;
@@ -162,14 +185,26 @@ export default {
   width: 63px;
   height: 63px;
 }
-.mobile_calendar_btn{
-  position:absolute ; 
-  right:20px ; 
-  width:25px ; 
-  height:25px;
-  display:none;
+.mobile_calendar_btn {
+  position: absolute;
+  right: 20px;
+  width: 25px;
+  height: 25px;
+  display: none;
+  cursor: pointer;
 }
-@media (max-width: 768px) {
+.mobile_calendar_large_btn {
+  width: 30px;
+  height: 30px;
+  margin-right: 20px;
+  cursor: pointer;
+}
+@media (max-width: 767px) {
+  .todo-main{
+    padding-left:24px !important;
+  }
+}
+@media (max-width: 767px) {
   .h2,
   h2 {
     font-size: 14px !important;
@@ -181,16 +216,16 @@ export default {
   }
   .todo_add {
     margin-top: 6px;
-    width: 32px;
-    height: 32px;
+    width: 35px;
+    height: 35px;
   }
-  .mobile_calendar_btn{
-  position:absolute ; 
-  right:20px ; 
-  width:25px ; 
-  height:25px;
-  display:block;
-}
+  .mobile_calendar_btn {
+    position: absolute;
+    right: 20px;
+    width: 25px;
+    height: 25px;
+    display: block;
+  }
   .v-application .text-h4 {
     font-size: 1.5rem !important;
     font-weight: 400;
@@ -209,8 +244,25 @@ export default {
     flex: 0 0 auto;
     width: 40% !important;
   }
-  .smallCalendar{
+  .smallCalendar {
     display: none;
+  }
+  .mobile_calendar_large_btn {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) {
+  .col-md-7 {
+    flex: 0 0 auto;
+    margin-left: 8.333333%;
+  }
+}
+
+@media (min-width: 950px) {
+  .col-md-7 {
+    flex: 0 0 auto;
+    margin-left: 0%;
   }
 }
 </style>

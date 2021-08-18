@@ -69,7 +69,7 @@
     <select id="getPositionTimeForWeeks" parameterType="hashmap" resultType="map" >
         select DAYOFWEEK(date) as day, (avg(TIME_TO_SEC(completetime))) as 'time'
         from todo
-        where userid = #{userid} AND date BETWEEN #{startDate} and #{endDate}
+        where userid = #{userid} AND positionid = #{positionid} and date BETWEEN #{startDate} and #{endDate}
         group by DAYOFWEEK(date)
     </select>
 
