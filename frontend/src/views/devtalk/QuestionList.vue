@@ -394,7 +394,6 @@ export default {
 @media (min-width: 768px) {
   .col-md-9 {
     flex: 0 0 auto;
-    width: 58.33333333%;
     margin-left: 8.333333%;
   }
 }
