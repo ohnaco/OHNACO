@@ -7,7 +7,7 @@
           <!-- 프로필 사진 -->
           <v-col cols="12" lg="3">
             <v-list-item-avatar size="200" class="m-0">
-              <v-img :src="`${ mypageInfo.info.image }`" alt="profile-img"></v-img>
+              <v-img :src="info.image" alt="profile-img"></v-img>
             </v-list-item-avatar>
           </v-col>
           <!-- 이름 설정 버튼 -->
