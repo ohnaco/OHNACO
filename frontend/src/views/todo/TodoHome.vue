@@ -56,7 +56,7 @@
           />
         </div>
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
-        <button @click="toggleCreate" v-if="!isCreateTodo">
+        <button @click="toggleCreate" v-if="!isCreateTodo" class="mt-3">
           <img src="@/assets/images/todo-add-btn.svg" class="todo_add" />
         </button>
       </v-col>
