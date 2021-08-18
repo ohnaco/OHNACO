@@ -10,13 +10,14 @@
           <label for="profile" class="imagebtn">
             <img src="@/assets/images/profile-btn.svg" alt="sample_profile">
           </label>
-          <input
+          <b-form-input
             type="file"
+            :state="null"
             id="profile"
             @change="previewImage"
             accept="image/*"
             style="display:none"
-          />
+          ></b-form-input>
           <div v-if="image.length > 0">
             <img class="preview" :src="image" />
           </div>
@@ -25,8 +26,9 @@
           <img src="@/assets/images/reset-profile.svg" alt="">
         </button>
         <!-- 닉네임 -->
-        <input
+        <b-form-input
           type="text"
+          :state="null"
           id="nickname"
           class="nickname"
           placeholder="닉네임*"
@@ -37,7 +39,7 @@
             complete:
               !error.nickname && nickname.length !== 0 && error.nicknameCheck,
           }"
-        />
+        ></b-form-input>
         <div class="error-message" v-if="error.nickname">
           {{ error.nickname }}
         </div>
@@ -45,15 +47,16 @@
           {{ error.nicknameCheck }}
         </div>
         <!-- 깃헙 아이디 -->
-        <input
+        <b-form-input
           type="text"
+          :state="null"
           id="github"
           class="github"
           placeholder="Github ID"
           v-model="githubid"
-        />
+        ></b-form-input>
         <!-- 희망 직무 -->
-        <select v-model="position" class="form-select">
+        <b-form-select v-model="position" class="form-select">
           <option value="" disabled>희망직무</option>
           <option value="Backend">Backend</option>
           <option value="Frontend">Frontend</option>
@@ -63,7 +66,7 @@
           <option value="Embedded">Embedded</option>
           <option value="Game">Game</option>
           <option value="etc.">etc.</option>
-        </select>
+        </b-form-select>
         <div class="d-flex justify-space-between mb-8">
           <!-- 회원탈퇴 -->
           <div class="mr-8">
