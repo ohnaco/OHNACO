@@ -33,7 +33,9 @@
               <v-card-actions class="justify-space-between align-end pt-0">
                 <div
                   class="d-flex text-caption align-center font-weight-bold ml-2"
-                  :class="{ 'future-target-time': tempus == 'future' }"
+                  :class="{
+                    'future-target-time': tempus == 'future' || this.$parent.isAnyOneGoing,
+                  }"
                 >
                   <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
                   /
@@ -44,12 +46,14 @@
                   class="mobile-btn-size"
                   src="@/assets/images/todo-create-ok.svg"
                 />
-                <img
-                  v-if="!this.$parent.isAnyOneGoing && tempus == 'today'"
-                  class="mobile-btn-size"
-                  src="@/assets/images/start-btn.svg"
-                  @click="[(isOngoing = true), start()]"
-                />
+                <div v-else>
+                  <img
+                    v-if="!this.$parent.isAnyOneGoing && tempus == 'today'"
+                    class="mobile-btn-size"
+                    src="@/assets/images/start-btn.svg"
+                    @click="[(isOngoing = true), start()]"
+                  />
+                </div>
               </v-card-actions>
             </div>
           </div>
@@ -358,7 +362,7 @@ export default {
 }
 
 .future-target-time {
-  margin-top: 30px;
+  margin-top: 35px;
 }
 
 @media (max-width: 768px) {
@@ -410,7 +414,7 @@ export default {
     height: 35px;
   }
   .future-target-time {
-    margin-top: 20px;
+    margin-top: 15px;
   }
   .margin-bottom-5 {
     margin-bottom: 5px;
