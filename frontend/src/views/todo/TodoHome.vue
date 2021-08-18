@@ -64,7 +64,7 @@
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
         </b-container>
         <!-- Todo 추가 버튼 -->
-        <div class="mx-auto">
+        <div class="mx-auto" v-if="!isPast">
           <img
             src="@/assets/images/todo-add-btn.svg"
             class="todo_add mt-3"
@@ -115,6 +115,7 @@ export default {
       isModal: false,
       date: this.$moment().format("YYYY-MM-DD"),
       isDateToday: null,
+      isPast: null,
       isAddOnGoing: false,
       isAnyOneGoing: false,
       isMobileCanlendar: false,
@@ -166,11 +167,20 @@ export default {
     mobileCalendarOn() {
       this.isMobileCanlendar = !this.isMobileCanlendar;
     },
+    checkPast(date) {
+      const today = this.$moment().format("YYYY-MM-DD");
+      if (date < today) {
+        this.isPast = true;
+      } else  {
+        this.isPast = false;
+      }
+    },
   },
   watch: {
     date: function () {
       this.setTodoList(this.date);
       this.isDateToday = this.isToday(this.date);
+      this.checkPast(this.date);
     },
   },
 };
