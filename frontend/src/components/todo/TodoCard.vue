@@ -37,13 +37,7 @@
                 >
                   <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
                   /
-                  <span
-                    :class="{
-                      'success-text': this.item.goaltime <= this.item.completetime,
-                      'fail-text': this.item.goaltime > this.item.completetime,
-                    }"
-                    >&nbsp;{{ completetime }}</span
-                  >
+                  <span class="cyan--text">&nbsp;{{ completetime }}</span>
                 </div>
                 <img
                   v-if="this.item.goaltime <= this.item.completetime"
@@ -90,13 +84,7 @@
                 <div class="d-flex text-caption align-center ml-2 font-weight-bold">
                   <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
                   /
-                  <span
-                    :class="{
-                      'success-text': this.item.goaltime <= this.item.completetime,
-                      'fail-text': this.item.goaltime > this.item.completetime,
-                    }"
-                    >&nbsp;{{ completetime }}</span
-                  >
+                  <span class="cyan--text">&nbsp;{{ completetime }}</span>
                 </div>
                 <img
                   v-if="this.item.goaltime > this.item.completetime"
@@ -371,14 +359,6 @@ export default {
 
 .future-target-time {
   margin-top: 30px;
-}
-
-.success-text {
-  color: #4caf50;
-}
-
-.fail-text {
-  color: #e53935;
 }
 
 @media (max-width: 768px) {
