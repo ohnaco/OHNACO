@@ -6,16 +6,22 @@
       <div class="login-name">로그인</div>
       <div class="login-box">
         <!-- 이메일 -->
-        <input type="text" id="email" class="email" placeholder="이메일 주소" v-model="email" />
+        <b-form-input
+          type="text" 
+          id="email" 
+          class="email" 
+          placeholder="이메일 주소" 
+          v-model="email" 
+        ></b-form-input>
         <!-- 비번 -->
-        <input
+        <b-form-input
           type="password"
           id="pwd"
           class="pwd"
           placeholder="비밀번호"
           v-model="password"
           @keyup.enter="doLogin"
-        />
+        ></b-form-input>
         <!-- 로그인 버튼 -->
         <button class="mt-1" @click="doLogin">
           <img src="@/assets/images/login-btn.svg" alt="login" />

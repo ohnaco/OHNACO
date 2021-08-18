@@ -43,9 +43,6 @@ export default {
   mounted() {
     window.addEventListener("beforeunload", this.unLoadEvent);
   },
-  created(){
-    this.getMyPage();
-  },
   beforeUnmount() {
     window.removeEventListener("beforeunload", this.unLoadEvent);
   },

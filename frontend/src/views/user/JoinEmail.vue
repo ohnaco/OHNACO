@@ -16,12 +16,13 @@
           </div>
         </div>
         <!-- 인증번호 -->
-        <input
+        <b-form-input
           type="text"
           class="certify-num"
           placeholder="인증코드"
           v-model="token"
-        />
+          @keyup.enter="goJoinProfile"
+        ></b-form-input>
         <!-- 페이지 전환 버튼 -->
         <div class="page-btn">
           <!-- 이전 : 회원가입 메인 페이지 -->
@@ -72,7 +73,6 @@ export default {
       User.requestSignupEmail(
         data,
         (res) => {
-          console.log(res);
           if (res.data.status) {
             this.$router.push({
               name: "JoinProfile",

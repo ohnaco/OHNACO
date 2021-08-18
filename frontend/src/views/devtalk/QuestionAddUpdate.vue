@@ -105,8 +105,26 @@
 import marked from "marked";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TopNavBar from "@/components/common/TopNavBar.vue";
+import hljs from "highlight.js";
+import 'highlight.js/styles/atom-one-dark.css';
 import { createNamespacedHelpers } from "vuex";
 const devtalkHelper = createNamespacedHelpers("devTalkStore");
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  highlight: function(code) {
+    return hljs.highlightAuto(code).value;
+  },
+  pedantic: false,
+  gfm: true,
+  tables: true,
+  breaks: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false
+  }
+);
 
 export default {
   name: "App",
