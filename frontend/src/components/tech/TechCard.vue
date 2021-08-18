@@ -41,7 +41,7 @@
       </v-img>
       <v-card-text class="pb-0">
         <p class="text-lg-h6 font-weight-bold">{{ item.title }}</p>
-        <p>{{ this.diffTime(item.publisheddate) }}시간 전</p>
+        <p>{{ this.formatTime(item.publisheddate) }}</p>
       </v-card-text>
 
       <v-card-actions class="justify-end">
@@ -102,11 +102,10 @@ export default {
         }
       );
     },
-    diffTime(time) {
+    formatTime(time) {
       const moment = require("moment");
-      const today = moment();
       const publish = moment(time);
-      return moment.duration(today.diff(publish)).hours();
+      return publish.format("LL");
     },
   },
 };
