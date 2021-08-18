@@ -33,29 +33,27 @@
               <v-card-actions class="justify-space-between align-end pt-0">
                 <div
                   class="d-flex text-caption align-center font-weight-bold ml-2"
-                  :class="{ 'future-target-time': tempus == 'future' }"
+                  :class="{
+                    'future-target-time': tempus == 'future' || this.$parent.isAnyOneGoing,
+                  }"
                 >
                   <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
                   /
-                  <span
-                    :class="{
-                      'success-text': this.item.goaltime <= this.item.completetime,
-                      'fail-text': this.item.goaltime > this.item.completetime,
-                    }"
-                    >&nbsp;{{ completetime }}</span
-                  >
+                  <span class="cyan--text">&nbsp;{{ completetime }}</span>
                 </div>
                 <img
                   v-if="this.item.goaltime <= this.item.completetime"
                   class="mobile-btn-size"
                   src="@/assets/images/todo-create-ok.svg"
                 />
-                <img
-                  v-if="!this.$parent.isAnyOneGoing && tempus == 'today'"
-                  class="mobile-btn-size"
-                  src="@/assets/images/start-btn.svg"
-                  @click="[(isOngoing = true), start()]"
-                />
+                <div v-else>
+                  <img
+                    v-if="!this.$parent.isAnyOneGoing && tempus == 'today'"
+                    class="mobile-btn-size"
+                    src="@/assets/images/start-btn.svg"
+                    @click="[(isOngoing = true), start()]"
+                  />
+                </div>
               </v-card-actions>
             </div>
           </div>
@@ -90,13 +88,7 @@
                 <div class="d-flex text-caption align-center ml-2 font-weight-bold">
                   <img src="@/assets/images/todo-card-clock.svg" class="mr-1" />{{ item.goaltime }}
                   /
-                  <span
-                    :class="{
-                      'success-text': this.item.goaltime <= this.item.completetime,
-                      'fail-text': this.item.goaltime > this.item.completetime,
-                    }"
-                    >&nbsp;{{ completetime }}</span
-                  >
+                  <span class="cyan--text">&nbsp;{{ completetime }}</span>
                 </div>
                 <img
                   v-if="this.item.goaltime > this.item.completetime"
@@ -370,15 +362,7 @@ export default {
 }
 
 .future-target-time {
-  margin-top: 30px;
-}
-
-.success-text {
-  color: #4caf50;
-}
-
-.fail-text {
-  color: #e53935;
+  margin-top: 35px;
 }
 
 @media (max-width: 768px) {
@@ -430,7 +414,7 @@ export default {
     height: 35px;
   }
   .future-target-time {
-    margin-top: 20px;
+    margin-top: 15px;
   }
   .margin-bottom-5 {
     margin-bottom: 5px;
