@@ -12,6 +12,7 @@
         <!-- 닉네임 -->
         <b-form-input
           type="text"
+          :state="null"
           id="nickname"
           class="nickname"
           placeholder="닉네임*"
@@ -32,6 +33,7 @@
         <!-- 깃헙 아이디 -->
         <b-form-input
           type="text"
+          :state="null"
           id="github"
           class="github"
           placeholder="Github ID"

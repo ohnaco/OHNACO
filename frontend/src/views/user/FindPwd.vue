@@ -8,8 +8,9 @@
           사용하던 계정의 이메일 주소를 입력해주세요.
         </div>
         <!-- 이메일 -->
-        <input
+        <b-form-input
           type="text"
+          :state="null"
           class="email"
           placeholder="이메일 주소"
           v-model="email"
@@ -17,7 +18,7 @@
             error: error.email,
             complete: !error.email && email.length != 0,
           }"
-        />
+        ></b-form-input>
         <div class="error-message" v-if="error.email">{{ error.email }}</div>
         <!-- 페이지 전환 버튼 -->
         <div class="page-btn">

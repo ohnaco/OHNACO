@@ -7,8 +7,9 @@
       <div class="change-pwd-box">
         <div class="change-pwd-text">새로운 비밀번호를 입력해주세요.</div>
         <!-- 비번 -->
-        <input
+        <b-form-input
           :type="passwordType"
+          :state="null"
           class="pwd"
           placeholder="비밀번호"
           v-model="password"
@@ -16,14 +17,15 @@
             error: error.password,
             complete: !error.password,
           }"
-        />
+        ></b-form-input>
         <div class="error-message" v-if="error.password">
           {{ error.password }}
         </div>
         <!-- 비번 확인 -->
         <div class="input_label">
-          <input
+          <b-form-input
             :type="passwordConfirmType"
+            :state="null"
             class="pwd-check"
             placeholder="비밀번호 확인"
             v-model="passwordConfirm"
@@ -31,7 +33,7 @@
               error: error.passwordConfirm,
               complete: !error.passwordConfirm,
             }"
-          />
+          ></b-form-input>
           <div class="error-message" v-if="error.passwordConfirm">
             {{ error.passwordConfirm }}
           </div>
