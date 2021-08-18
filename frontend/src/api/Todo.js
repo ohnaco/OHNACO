@@ -77,7 +77,6 @@ const getCommitHistory = (callback, errorCallback) => {
 };
 
 const stateChange = (data, callback, errorCallback) => {
-  console.log(data);
   http
     .put("/todo/statechange", { todoid: data })
     .then((res) => {
@@ -100,7 +99,6 @@ const forceQuit = (data, callback, errorCallback) => {
 };
 
 const updateTime = (data, callback, errorCallback) => {
-  console.log(data);
   http
     .put("/todo/timeupdate", { todoid: data[0], completetime: data[1] })
     .then((res) => {
