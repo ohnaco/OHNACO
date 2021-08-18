@@ -4,94 +4,103 @@
       <v-col cols="12" md="2" v-show="$vuetify.breakpoint.mdAndUp"
         ><left-nav-bar></left-nav-bar
       ></v-col>
-      <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
+      <v-col
+        cols="12"
+        v-show="$vuetify.breakpoint.smAndDown"
+        style="padding: 0 !important"
         ><top-nav-bar></top-nav-bar
       ></v-col>
-      <v-col cols="12" sm="12" md="10" class="d-flex p2" style="padding:0px">
+      <v-col cols="12" sm="12" md="10" class="d-flex p2" style="padding: 0px">
         <v-col cols="12" sm="12" md="9" class="d-flex flex-column p2">
-            <div class="mb-3">
-              <p
-                class="text-h4 font-weight-bold mb-0 blue-grey--text"
-                :class="{ 'text-h5': $vuetify.breakpoint.xs }"
-              >
-                Dev Talk
-              </p>
+          <div class="mb-3">
+            <p
+              class="text-h4 font-weight-bold mb-0 blue-grey--text"
+              :class="{ 'text-h5': $vuetify.breakpoint.xs }"
+            >
+              Dev Talk
+            </p>
+          </div>
+          <div style="width: 100%; height: 60px">
+            <div style="float: left; height: 30px" class="p-0">
+              <b-form-input
+                id="input-1"
+                v-model="searchText"
+                @input="search()"
+                placeholder="검색"
+                required
+                :state="null"
+                style="width: 70%; float: left; font-size: 12px"
+              ></b-form-input>
+              <img
+                src="@/assets/search.svg"
+                style="float: left; width: 28px; height: 28px"
+                @click="search()"
+              />
             </div>
-            <div style="width: 100%; height: 30px">
-              <div style="float: left; height: 100%" class="p-0">
-                <b-form-input
-                  id="input-1"
-                  v-model="searchText"
-                  @input="search()"
-                  placeholder="검색"
-                  required
-                  :state="null"
-                  style="width: 70%; float: left; font-size: 12px"
-                ></b-form-input>
-                <img
-                  src="@/assets/search.svg"
-                  style="float: left; width: 28px; height: 28px"
-                  @click="search()"
-                />
-              </div>
 
-              <div
-                style="height: 100%; width: 300px; float: right; height: 100%"
-                class="pl-3 pt-0 pb-0"
-              >
-                <div style="float: right; height: 100%" class="mb-3">
-                  <span
-                    class="filter_devTalk pagelink"
-                    v-bind:class="{
-                      filter_selected: isSortDate && !isSortLike && !isSortComment,
-                    }"
-                    @click="sortDate()"
-                    >●최신순&nbsp;&nbsp;</span
-                  >
-                  <span
-                    class="filter_devTalk pagelink"
-                    v-bind:class="{
-                      filter_selected: !isSortDate && !isSortLike && isSortComment,
-                    }"
-                    @click="sortComment()"
-                    >●답변순&nbsp;&nbsp;</span
-                  >
-                  <span
-                    class="filter_devTalk pagelink"
-                    v-bind:class="{
-                      filter_selected: !isSortDate && isSortLike && !isSortComment,
-                    }"
-                    @click="sortLike()"
-                    >●좋아요순&nbsp;&nbsp;</span
-                  >
-                  <v-btn
-                    elevation="2"
-                    style="
-                      background-color: #607d8b;
-                      color: white;
-                      font-family: GmarketSansMedium;
-                      font-size: 14px;
-                      padding: 0px 12px;
-                    "
-                    @click="addQuestion()"
-                    >질문하기</v-btn
-                  >
-                </div>
+            <div
+              style="height: 30px; width: 300px; float: right"
+              class="pl-3 pt-0 pb-0"
+            >
+              <div style="float: right; height: 30px" class="mb-3">
+                <span
+                  class="filter_devTalk pagelink"
+                  v-bind:class="{
+                    filter_selected:
+                      isSortDate && !isSortLike && !isSortComment,
+                  }"
+                  @click="sortDate()"
+                  >●최신순&nbsp;&nbsp;</span
+                >
+                <span
+                  class="filter_devTalk pagelink"
+                  v-bind:class="{
+                    filter_selected:
+                      !isSortDate && !isSortLike && isSortComment,
+                  }"
+                  @click="sortComment()"
+                  >●답변순&nbsp;&nbsp;</span
+                >
+                <span
+                  class="filter_devTalk pagelink"
+                  v-bind:class="{
+                    filter_selected:
+                      !isSortDate && isSortLike && !isSortComment,
+                  }"
+                  @click="sortLike()"
+                  >●좋아요순&nbsp;&nbsp;</span
+                >
+                <v-btn
+                  elevation="2"
+                  style="
+                    background-color: #607d8b;
+                    color: white;
+                    font-family: GmarketSansMedium;
+                    font-size: 14px;
+                    padding: 0px 12px;
+                  "
+                  @click="addQuestion()"
+                  >질문하기</v-btn
+                >
               </div>
             </div>
-            <question-card
-              v-for="q in pageOfItems"
-              :key="q.questionid"
-              :item="q"
-              @tagChange="searchTag"
-            />
-            <div class="card-footer pb-0 pt-3" style="text-align: center; background-color: white">
-              <jw-pagination
-                :items="question"
-                @changePage="onChangePage"
-                style="text-align: center"
-              ></jw-pagination>
-            </div>
+          </div>
+          <question-card
+            v-for="q in pageOfItems"
+            :key="q.questionid"
+            :item="q"
+            @tagChange="searchTag"
+          />
+          <div
+            class="card-footer pb-0 pt-3"
+            style="text-align: center; background-color: white"
+          >
+            <jw-pagination
+              :items="question"
+              @changePage="onChangePage"
+              style="text-align: center"
+            ></jw-pagination>
+          </div>
         </v-col>
         <v-col cols="12" md="3" sm="0" class="hotissue_section">
           <!-- 핫이슈, 인기게시물-->
@@ -162,7 +171,16 @@ export default {
       question: [],
       hotIssue: [],
       searchText: "",
-      tags: ["Java", "Spring", "Javascript", "MySQL", "C++", "C", "Android", "Ajax"],
+      tags: [
+        "Java",
+        "Spring",
+        "Javascript",
+        "MySQL",
+        "C++",
+        "C",
+        "Android",
+        "Ajax",
+      ],
       pageOfItems: [],
     };
   },
@@ -373,19 +391,19 @@ export default {
 .top_bar {
   display: none;
 }
-.previous{
+.previous {
   display: none !important;
 }
-.next{
+.next {
   display: none !important;
 }
 @media (max-width: 767px) {
   .hotissue_section {
     display: none;
   }
-  /* .v-btn:not(.v-btn--round).v-size--default {
-    height: 100% !important;
-} */
+  .filter_devTalk{
+    font-size:12px;
+  }
 }
 @media (min-width: 768px) {
   .col-md-9 {

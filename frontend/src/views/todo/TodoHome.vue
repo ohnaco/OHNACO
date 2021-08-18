@@ -7,7 +7,7 @@
       <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
         ><top-nav-bar></top-nav-bar
       ></v-col>
-      <v-col cols="12" sm="12" md="7" class="d-flex flex-column todo-main">
+      <v-col cols="12" sm="12" md="7" class="d-flex flex-column">
         <div
           class="d-flex align-center text-h4"
           style="display: flex; justify-content: space-between"
@@ -197,11 +197,6 @@ export default {
   height: 30px;
   margin-right: 20px;
   cursor: pointer;
-}
-@media (max-width: 767px) {
-  .todo-main{
-    padding-left:24px !important;
-  }
 }
 @media (max-width: 767px) {
   .h2,

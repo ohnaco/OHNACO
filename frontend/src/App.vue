@@ -48,3 +48,13 @@ export default {
   },
 };
 </script>
+<style>
+.col-12 {
+    padding:24px;
+}
+@media (min-width: 768px) {
+  .col-12 {
+    padding:36px;
+}
+}
+</style>
