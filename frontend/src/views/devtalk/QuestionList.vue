@@ -11,7 +11,7 @@
         ><top-nav-bar></top-nav-bar
       ></v-col>
       <v-col cols="12" sm="12" md="10" class="d-flex p2" style="padding: 0px">
-        <v-col cols="12" sm="12" md="9" class="d-flex flex-column p2">
+        <v-col cols="12" sm="12" md="9" class="d-flex flex-column p2 m-unite">
           <div class="mb-3">
             <p
               class="text-h4 font-weight-bold mb-0 blue-grey--text"

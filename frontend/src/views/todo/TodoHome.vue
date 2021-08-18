@@ -7,7 +7,7 @@
       <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
         ><top-nav-bar></top-nav-bar
       ></v-col>
-      <v-col cols="12" sm="12" md="7" class="d-flex flex-column">
+      <v-col cols="12" sm="12" md="7" class="d-flex flex-column m-unite">
         <div
           class="d-flex align-center text-h4"
           style="display: flex; justify-content: space-between"
@@ -221,7 +221,6 @@ export default {
     display: block;
   }
   .v-application .text-h4 {
-    font-size: 1.5rem !important;
     font-weight: 400;
     line-height: 2.5rem;
     letter-spacing: 0.0073529412em !important;

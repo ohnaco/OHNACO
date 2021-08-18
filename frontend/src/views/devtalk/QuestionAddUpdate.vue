@@ -6,7 +6,7 @@
     <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
       ><top-nav-bar></top-nav-bar
     ></v-col>
-    <v-col cols="12" md="12" lg="10" class="p-2" style="height: 100vh; overflow-y: scroll">
+    <v-col cols="12" md="12" lg="10" class="m-unite" style="height: 100vh; overflow-y: scroll">
         <h1 style="font-family: 'GmarketSansMedium'; font-size: 30px; color: #607d8b">
           질문 수정
         </h1>

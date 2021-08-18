@@ -49,12 +49,12 @@ export default {
 };
 </script>
 <style>
-.col-12 {
-    padding:24px;
+.m-unite {
+    padding:24px !important;
 }
 @media (min-width: 768px) {
-  .col-12 {
-    padding:36px;
+.m-unite {
+    padding:36px !important;
 }
 }
 </style>

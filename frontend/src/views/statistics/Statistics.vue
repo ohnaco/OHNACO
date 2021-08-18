@@ -11,7 +11,7 @@
       >
         <TopNavBar />
       </v-col>
-      <v-col cols="12" sm="12" md="10">
+      <v-col cols="12" sm="12" md="10" class="m-unite">
         <!-- 상단 제목 및 버튼 -->
           <div class="mb-3">
             <p
