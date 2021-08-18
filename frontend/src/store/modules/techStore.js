@@ -65,7 +65,7 @@ export default {
         id,
         (res) => {
           if (res.data.status) commit("SCRAP_TOGGLE_BLOG", id);
-          else alert("scrap fail");
+          else alert("스크랩에 실패했습니다!");
         },
         (err) => {
           alert(err);
@@ -102,7 +102,7 @@ export default {
         data,
         (res) => {
           if (res.data.status) commit("SUBSCRIBE_BLOG", id);
-          else alert("subscribe fail");
+          else alert("구독 설정에 실패했습니다!");
         },
         (err) => {
           alert(err);
@@ -117,7 +117,7 @@ export default {
         data,
         (res) => {
           if (res.data.status) commit("UNSUBSCRIBE_BLOG", id);
-          else alert("unsubscribe fail");
+          else alert("구독 해제에 실패했습니다!");
         },
         (err) => {
           alert(err);
