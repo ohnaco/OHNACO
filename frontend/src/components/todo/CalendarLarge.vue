@@ -34,7 +34,6 @@
               :events="events"
               :event-color="getEventColor"
               :type="type"
-              @click:event="showEvent"
               @click:date="viewDay"
               @change="updateRange"
             ></v-calendar>
@@ -110,8 +109,11 @@ export default {
   computed: {
     ...todoHelper.mapState(["todoListsByMonth"]),
   },
+  created() {
+    this.focus=this.$moment().format("YYYY-MM-DD");
+  },
+
   mounted() {
-    this.focus = "2021-08-05";
     this.$refs.calendar.checkChange();
   },
   methods: {
@@ -151,7 +153,7 @@ export default {
       await http
         .get("/todo/month", {
           params: {
-            date: "2021-08-13",
+            date: this.focus,
           },
         })
         .then((response) => {
