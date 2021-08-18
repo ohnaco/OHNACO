@@ -159,19 +159,13 @@ public class TechService {
                             .blogid(blog.getBlogid())
                             .image(blog.getBlogname())
                             .title(entry.getTitle())
-                            .content(entry.getDescription()==null? StringEscapeUtils.unescapeHtml4(entry.getContents().get(0).getValue().substring(0, 150)).replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""):StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue().substring(0, 150)).replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""))
+                            .content(entry.getDescription()==null? StringEscapeUtils.unescapeHtml4(entry.getContents().get(0).getValue()).replaceAll("<[^>]*>","").substring(0, 180):StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue()).replaceAll("<[^>]*>","").substring(0, 180))
                             .link(entry.getLink())
                             .publisheddate(entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime())
                             .build();
 
                     if (articleRepository.findArticleByLink(entry.getLink()) == null)
                         articleRepository.save(article);
-
-                    System.out.println(entry.getAuthor());
-                    System.out.println(entry.getDescription()==null? StringEscapeUtils.unescapeHtml4(entry.getContents().get(0).getValue().substring(0, 150)):StringEscapeUtils.unescapeHtml4(entry.getDescription().getValue().substring(0, 150)).replaceAll("<(/)?([a-zA-Z]*)(\\\\s[a-zA-Z]*=[^>]*)?(\\\\s)*(/)?>",""));
-                    System.out.println(entry.getLink());
-                    System.out.println(entry.getPublishedDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime());
-
                 }
             }
         } catch (IllegalArgumentException e) {

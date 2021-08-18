@@ -7,7 +7,7 @@
       <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
         ><top-nav-bar></top-nav-bar
       ></v-col>
-      <v-col cols="12" sm="12" md="10" class="d-flex p2">
+      <v-col cols="12" sm="12" md="10" class="d-flex p2" style="padding:0px">
         <v-col cols="12" sm="12" md="9" class="d-flex flex-column p2">
           <b-container class="bv-example-row" style="height: 120px">
             <div class="mb-3">

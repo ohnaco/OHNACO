@@ -57,8 +57,7 @@ export default {
           show: true,
           labels: {
             formatter: function (val) {
-              const hour = Math.floor(val / 3600)
-              return hour + "시간 "
+              return (val / 3600).toFixed(2) + 'h'
             }
           }
         },
@@ -89,7 +88,7 @@ export default {
         ]
         },
         {
-          name: "전체 유저 평균 공부시간",
+          name: "직군별 유저 평균 공부시간",
           data: [
             this.statsInfo.positionMemberTime[0].time,
             this.statsInfo.positionMemberTime[1].time,
@@ -101,7 +100,7 @@ export default {
           ]
         },
         {
-          name: '직군별 유저 평균 공부시간',
+          name: '전체 유저 평균 공부시간',
           data: [
             this.statsInfo.entireMemberTime[0].time,
             this.statsInfo.entireMemberTime[1].time,
@@ -121,15 +120,15 @@ export default {
         this.statsInfo.myTime[4].date,
         this.statsInfo.myTime[5].date,
         this.statsInfo.myTime[6].date,
-        ]
+      ]
       const monthxaxis = ['월', '화', '수', '목', '금', '토', '일']
-      this.series = newSeries
       if (this.option == 'week') {
         this.chartOptions = {...this.chartOptions, ...{
           xaxis: {
             categories: weekxaxis
           }
         }}
+        this.series = newSeries
       } 
       if (this.option == 'month') {
         this.chartOptions = {...this.chartOptions, ...{
@@ -137,6 +136,7 @@ export default {
             categories: monthxaxis
           }
         }}
+        this.series = newSeries
       }
     },
   },

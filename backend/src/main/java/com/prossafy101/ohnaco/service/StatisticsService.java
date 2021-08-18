@@ -262,10 +262,10 @@ public class StatisticsService {
 
     public List<Map<String, Object>> getPositionTimeForWeeks(String userid, String startDate, String endDate) {
         Map<String, Object> map = new HashMap<>();
+        int positionid = userRepository.findByUserid(userid).getPositions().getPositionid();
         map.put("startDate", LocalDateTime.of(LocalDate.parse(startDate), LocalTime.of(0,0,0)));
         map.put("endDate", LocalDateTime.of(LocalDate.parse(endDate), LocalTime.of(23,59,59)));
-        map.put("userid", userid);
-
+        map.put("positionid", positionid);
         List<Map<String, Object>> list = statisticsRepository.getPositionTimeForWeeks(map);
         for(int i=0; i<list.size(); i++) {
             if(!list.get(i).containsKey("time")) {
@@ -361,7 +361,7 @@ public class StatisticsService {
         redisUtil.setObject("statistics:month:"+userid, month, 2);
     }
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 * * * *")
     public void updateStatistics() {
         List<User> users = userRepository.findAll();
         for(User user: users) {
