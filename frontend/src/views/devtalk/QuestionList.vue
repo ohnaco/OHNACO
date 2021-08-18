@@ -23,6 +23,7 @@
                 <b-form-input
                   id="input-1"
                   v-model="searchText"
+                  @input="search()"
                   placeholder="검색"
                   required
                   style="width: 70%; float: left; font-size: 12px"
