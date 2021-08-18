@@ -6,7 +6,7 @@
         <!-- 프로필 사진 -->
         <v-col cols="12" lg="3">
           <v-list-item-avatar size="200" class="m-0">
-            <v-img :src="`${info.image ? info.image : ''}`" alt="profile-img"></v-img>
+            <v-img :src="`${ mypageInfo.info.image }`" alt="profile-img"></v-img>
           </v-list-item-avatar>
         </v-col>
         <!-- 이름 설정 버튼 -->
@@ -24,7 +24,7 @@
             </v-list-item-title>
             <!-- 희망 직무 -->
             <v-list-item-subtitle class="ml-2 white--text" style="font-size: 1.4rem">
-              {{ info.positions.positionname ? info.positions.positionname : "" }}
+              {{ info.positions ? info.positions.positionname : "" }}
             </v-list-item-subtitle>
             <!-- github -->
             <div v-if="info.githubid">
