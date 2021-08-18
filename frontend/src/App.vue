@@ -51,6 +51,9 @@ export default {
 };
 </script>
 <style>
+.form-control:focus {
+   box-shadow: 0 0 0 0.25rem rgb(134 183 254 / 25%) !important;
+}
 .m-unite {
   padding: 24px !important;
 }
