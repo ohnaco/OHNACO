@@ -24,10 +24,9 @@
         <!--간략 프로필 -->
         <div class="detail_profile">
           <div style="float: left">
-            <img
-                :src="`${question.question.user.image}`"
-                style="width: 35px; height: 35px"
-              />
+            <v-avatar size="35px">
+              <img :src="`${question.question.user.image}`" />
+            </v-avatar>
           </div>
           <div style="float: left; width: 70px; height: 30px">
             <div class="profile_name">&nbsp;{{ question.question.user.nickname }}</div>
