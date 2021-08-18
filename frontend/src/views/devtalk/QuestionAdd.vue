@@ -87,14 +87,14 @@
           </div>
           <v-btn
             elevation="2"
-            class="mt-3 mb-3"
+            class="mt-3 mb-3 btn-update"
             style="font-family: GmarketSansMedium"
             @click="goBack()"
             >취소</v-btn
           >
           <v-btn
             elevation="2"
-            class="mt-3 mb-3"
+            class="mt-3 mb-3 btn-update"
             style="font-family: GmarketSansMedium; float: right"
             @click="onCreateOK()"
             >등록</v-btn
@@ -236,6 +236,10 @@ export default {
   color: #607d8b;
 }
 @media (max-width: 767px) {
+  .btn-update{
+    font-size:12px;
+    height:20px;
+  }
   .md_exp {
     display: none;
     font-family: GmarketSansLight;

@@ -387,9 +387,9 @@ export default {
   .hotissue_section {
     display: none;
   }
-  .v-btn:not(.v-btn--round).v-size--default {
+  /* .v-btn:not(.v-btn--round).v-size--default {
     height: 100% !important;
-}
+} */
 }
 @media (min-width: 768px) {
   .col-md-9 {

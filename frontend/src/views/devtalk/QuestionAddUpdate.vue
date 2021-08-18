@@ -153,7 +153,10 @@ export default {
       this.chips = [...this.chips];
     },
     goBack() {
-      this.$router.push("devtalk");
+      this.$router.push({
+        name: "QuestionDetail",
+        query: { id: this.$route.params.origin.questionid },
+      });
     },
     update() {
       const newQuestion = {

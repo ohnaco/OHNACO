@@ -43,30 +43,17 @@
           </div>
 
           <div style="float: right" v-if="this.question.question.user.userid==this.user.userid">
-            <v-btn
-              elevation="2"
-              style="
-                height: 25px;
-                background-color: #ffc21f;
-                color: white;
-                font-family: GmarketSansMedium;
-                font-size: 14px;
-                margin: 0 7px 0 0;
-              "
+            <a
+              class="modNdel"
+              style="color : #607d8b;"
               @click="this.updateQuestion"
-              >수정</v-btn
+              >수정</a
             >
-            <v-btn
-              elevation="2"
-              style="
-                height: 25px;
-                background-color: #e23131;
-                color: white;
-                font-family: GmarketSansMedium;
-                font-size: 14px;
-              "
+            <a
+              class="modNdel"
+              style="color : #607d8b;"
               v-b-modal.modal-1
-              >삭제</v-btn
+              >삭제</a
             >
           </div>
         </div>
@@ -239,6 +226,14 @@ export default {
 </script>
 
 <style>
+.modNdel{
+font-family: GmarketSansMedium;
+                font-size: 14px;
+                color : #607d8b;
+                margin: 0 7px 0 0;
+                text-decoration:none;
+                cursor:pointer;
+}
 .comment_margin{
   margin-bottom: 32px;
 }
@@ -333,6 +328,9 @@ code {
   }
 }
 @media (max-width: 768px) {
+  .modNdel{
+      font-size: 12px;
+}
   .comment_margin{
   margin-bottom: 12px;
 }
