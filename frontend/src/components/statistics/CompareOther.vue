@@ -125,7 +125,6 @@ export default {
       const monthxaxis = ['월', '화', '수', '목', '금', '토', '일']
       this.series = newSeries
       if (this.option == 'week') {
-        console.log(this.chartOptions)
         this.chartOptions = {...this.chartOptions, ...{
           xaxis: {
             categories: weekxaxis
@@ -133,7 +132,6 @@ export default {
         }}
       } 
       if (this.option == 'month') {
-        console.log(this.chartOptions)
         this.chartOptions = {...this.chartOptions, ...{
           xaxis: {
             categories: monthxaxis
