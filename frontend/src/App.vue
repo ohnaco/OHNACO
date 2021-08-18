@@ -53,6 +53,16 @@ export default {
 <style>
 .form-control:focus {
    box-shadow: 0 0 0 0.25rem rgb(134 183 254 / 25%) !important;
+   border-color: rgb(134 183 254) !important;
+}
+.form-select:focus {
+   box-shadow: 0 0 0 0.25rem rgb(134 183 254 / 25%) !important;
+   border-color: rgb(134 183 254) !important;
+}
+.v-application .error {
+  box-shadow: 0 0 0 0.25rem rgb(255 82 82 / 25%) !important;
+    background-color: #ff5252 !important;
+    border-color: #ff5252 !important;
 }
 .m-unite {
   padding: 24px !important;
