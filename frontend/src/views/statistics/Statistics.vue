@@ -1,6 +1,6 @@
 <template>
-  <v-layout style="background: #efefef">
-    <v-row style="background: #efefef" class="justify-content-center">
+  <v-layout style="background: #EFEFEF; height: 100%;">
+    <v-row class="justify-content-center">
       <v-col cols="12" lg="2" v-show="$vuetify.breakpoint.mdAndUp">
         <LeftNavBar />
       </v-col>
