@@ -30,11 +30,11 @@
               group
               background-color="#EFEFEF"
             >
-              <v-btn value="week" @click="week" color="#607D8B" class="pa-1">
-                <img src="@/assets/images/week-btn.svg" alt="week-btn" />
+              <v-btn value="week" @click="week" color="cyan" class="pa-1 cyan--text">
+                <v-icon left color="cyan"> mdi-checkbox-blank-circle </v-icon><b>주간</b>
               </v-btn>
-              <v-btn value="month" @click="month" color="#607D8B" class="pa-1">
-                <img src="@/assets/images/month-btn.svg" alt="week-btn" />
+              <v-btn value="month" @click="month" color="blue-grey" class="pa-1 blue-grey--text">
+                <v-icon left color="blue-grey"> mdi-checkbox-blank-circle </v-icon><b>월간</b>
               </v-btn>
             </v-btn-toggle>
           </div>

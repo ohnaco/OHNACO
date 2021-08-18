@@ -17,15 +17,17 @@
         <button class="mr-auto" @click="goTech()">
           <img src="@/assets/images/back-btn.svg" alt="back" />
         </button>
-        <v-btn text dark color="cyan lighten-1" @click="setSubscribeBlogList()" class="ml-auto">
-          <v-icon left color="cyan"> mdi-checkbox-blank-circle </v-icon><b>내 구독 목록</b></v-btn
-        >
-        <v-btn text dark color="blue-grey" @click="setAllBlogList()">
-          <v-icon left color="blue-grey"> mdi-checkbox-blank-circle </v-icon><b>전체 목록</b></v-btn
-        >
+        <v-btn-toggle v-model="type" dense borderless mandatory group>
+          <v-btn value="my" text dark color="cyan lighten-1" @click="setSubscribeBlogList()" class="ml-auto">
+            <v-icon left color="cyan"> mdi-checkbox-blank-circle </v-icon><b>내 구독 목록</b></v-btn
+          >
+          <v-btn value="all" text dark color="blue-grey" @click="setAllBlogList()">
+            <v-icon left color="blue-grey"> mdi-checkbox-blank-circle </v-icon><b>전체 목록</b></v-btn
+          >
+        </v-btn-toggle>
       </v-col>
       <!-- 블로그 목록 -->
-      <v-col v-for="item in blogList" :key="item.blogid" cols="12">
+      <v-col v-for="item in blogList" :key="item.blogid" cols="12" class="mr-2">
         <v-card
           class="mb-2 justify-center"
           elevation="4"
@@ -87,6 +89,11 @@ import { createNamespacedHelpers } from "vuex";
 const techHelper = createNamespacedHelpers("techStore");
 
 export default {
+  data() {
+    return {
+      type: "all",
+    }
+  },
   components: {
     LeftNavBar,
     TopNavBar,
