@@ -81,7 +81,9 @@
               src="@/assets/images/qm.svg"
               style="width: 12px; height: 12px; float: left; margin: 2.8px 0; color: #607d8b"
             />
-            &nbsp;markdown 사용방법 링크
+            <a href = "https://gist.github.com/ihoneymon/652be052a0727ad59601" 
+            target = "blank"
+            style="color:#607d8b"> &nbsp;markdown 사용방법 링크 </a>
           </div>
           <v-btn
             elevation="2"
@@ -106,9 +108,27 @@
 import marked from "marked";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TopNavBar from "@/components/common/TopNavBar.vue";
+import hljs from "highlight.js";
+import 'highlight.js/styles/atom-one-dark.css';
 import { createNamespacedHelpers } from "vuex";
 const userHelper = createNamespacedHelpers("userStore");
 const devtalkHelper = createNamespacedHelpers("devTalkStore");
+
+marked.setOptions({
+  renderer: new marked.Renderer(),
+  highlight: function(code) {
+    return hljs.highlightAuto(code).value;
+  },
+  pedantic: false,
+  gfm: true,
+  tables: true,
+  breaks: false,
+  sanitize: false,
+  smartLists: true,
+  smartypants: false,
+  xhtml: false
+  }
+);
 
 export default {
   name: "App",
