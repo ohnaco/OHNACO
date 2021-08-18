@@ -11,9 +11,8 @@
       >
         <TopNavBar />
       </v-col>
-      <v-col cols="12" lg="10" class="">
+      <v-col cols="10" lg="10" class="">
         <!-- 상단 제목 및 버튼 -->
-        <b-container class="bv-example-row">
           <div class="mb-3">
             <p
               class="text-h4 font-weight-bold mb-0 blue-grey--text"
@@ -22,8 +21,6 @@
               Statistics
             </p>
           </div>
-        </b-container>
-        <b-container class="pt-0">
           <!-- 주간 월간 버튼 -->
           <div class="d-flex justify-content-end">
             <v-btn-toggle
@@ -41,8 +38,6 @@
               </v-btn>
             </v-btn-toggle>
           </div>
-        </b-container>
-        <b-container class="pt-0">
           <v-row wrap class="pb-5 justify-content-center">
             <v-row class="pa-0">
               <v-col lg="6" md="6" sm="12" cols="12">
@@ -101,7 +96,6 @@
               </v-col>
             </v-row>
           </v-row>
-        </b-container>
       </v-col>
     </v-row>
   </v-layout>

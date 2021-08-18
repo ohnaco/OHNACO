@@ -7,9 +7,8 @@
       ><top-nav-bar></top-nav-bar
     ></v-col>
     <v-col cols="12" md="12" lg="10" class="p-2" style="height: 100vh; overflow-y: scroll">
-      <b-container class="bv-example-row" style="height: 120px">
         <h1 style="font-family: 'GmarketSansMedium'; font-size: 30px; color: #607d8b">
-          질문 작성하기
+          질문 수정
         </h1>
         <div class="mb-3"></div>
         <span class="title_tag">제목</span>
@@ -97,7 +96,6 @@
           @click="update()"
           >수정</v-btn
         >
-      </b-container>
     </v-col>
   </v-row>
 </template>

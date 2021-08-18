@@ -8,7 +8,6 @@
         ><top-nav-bar></top-nav-bar
       ></v-col>
       <v-col cols="12" sm="12" md="7" class="d-flex flex-column todo-main">
-        <b-container class="bv-example-row">
         <div
           class="d-flex align-center text-h4"
           style="display: flex; justify-content: space-between"
@@ -41,7 +40,6 @@
           <!-- 데일리 커밋 -->
           <daily-commit v-if="isDateToday && this.user.githubid !== ''" />
         </div>
-        </b-container>
         <CalendarSmall
           v-if="isMobileCanlendar"
           @modalOn_child="modalOn"
@@ -50,7 +48,6 @@
           v-model="date"
           class="mobileCalendar"
         ></CalendarSmall>
-        <b-container>
         <div v-show="!isMobileCanlendar">
           <todo-card
             v-for="todo in todoLists"
@@ -62,7 +59,6 @@
         </div>
         <!-- Todo 추가 컴포넌트 -->
         <todo-add @finish-create="toggleCreate" v-if="isCreateTodo" :date="date" />
-        </b-container>
         <!-- Todo 추가 버튼 -->
         <div class="mx-auto">
           <img

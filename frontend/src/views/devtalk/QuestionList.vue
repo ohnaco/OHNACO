@@ -9,7 +9,6 @@
       ></v-col>
       <v-col cols="12" sm="12" md="10" class="d-flex p2" style="padding:0px">
         <v-col cols="12" sm="12" md="9" class="d-flex flex-column p2">
-          <b-container class="bv-example-row" style="height: 120px">
             <div class="mb-3">
               <p
                 class="text-h4 font-weight-bold mb-0 blue-grey--text"
@@ -80,8 +79,6 @@
                 </div>
               </div>
             </div>
-          </b-container>
-          <b-container class="pt-0">
             <question-card
               v-for="q in pageOfItems"
               :key="q.questionid"
@@ -95,7 +92,6 @@
                 style="text-align: center"
               ></jw-pagination>
             </div>
-          </b-container>
         </v-col>
         <v-col cols="12" md="3" sm="0" class="hotissue_section">
           <!-- 핫이슈, 인기게시물-->
