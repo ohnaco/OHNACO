@@ -83,16 +83,14 @@ export default {
 a {
   text-decoration: none;
 }
-a:hover,
-.mypage:hover {
+a:hover {
   -webkit-transform: scale(1.05);
   -moz-transform: scale(1.05);
   -ms-transform: scale(1.05);
   -o-transform: scale(1.05);
   transform: scale(1.05);
 }
-a,
-.mypage {
+a {
   -webkit-transition: all 0.1s linear;
   transition: all 0.1s linear;
 }

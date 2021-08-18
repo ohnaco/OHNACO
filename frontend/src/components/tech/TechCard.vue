@@ -1,5 +1,5 @@
 <template>
-  <div style="display: -webkit-flex">
+  <div style="display: -webkit-flex" class="techcard">
     <v-card
       min-width="280"
       max-width="15vw"
@@ -127,5 +127,18 @@ export default {
   opacity: 1 !important;
   position: absolute;
   width: 100%;
+}
+
+.techcard:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.techcard {
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 </style>
