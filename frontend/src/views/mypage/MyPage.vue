@@ -1,10 +1,7 @@
 <template>
   <div>
     <div>
-      <MyPageProfile
-        :info="mypageInfo.info"
-        :commit="mypageInfo.commit"
-      />
+      <MyPageProfile :info="mypageInfo.info" :commit="mypageInfo.commit" />
     </div>
     <div class="container d-flex flex-wrap">
       <v-col md="6" cols="12">
@@ -36,7 +33,7 @@ import { createNamespacedHelpers } from "vuex";
 const mypageHelper = createNamespacedHelpers("mypageStore");
 
 export default {
-  name: 'MyPage',
+  name: "MyPage",
   components: {
     MyPageProfile,
     MyAnswerCard,
@@ -44,7 +41,7 @@ export default {
     MyTechCard,
   },
   created() {
-    this.getMyPage()
+    this.getMyPage();
   },
   computed: {
     ...mypageHelper.mapState(["mypageInfo"]),

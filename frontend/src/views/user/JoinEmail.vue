@@ -5,15 +5,9 @@
       <div class="join-name">회원가입</div>
       <div class="join-box">
         <div class="check-email-text">
-          <div>
-          '{{ this.$route.params.email }}'
-          </div>
-          <div>
-          인증번호를 입력해주세요. 
-          </div>
-          <div>
-          최대 5분 소요됩니다.
-          </div>
+          <div>'{{ this.$route.params.email }}'</div>
+          <div>인증번호를 입력해주세요.</div>
+          <div>최대 5분 소요됩니다.</div>
         </div>
         <!-- 인증번호 -->
         <b-form-input
@@ -27,17 +21,11 @@
         <!-- 페이지 전환 버튼 -->
         <div class="page-btn">
           <!-- 이전 : 회원가입 메인 페이지 -->
-          <button 
-            class="mr-15" 
-            @click="goJoin"
-          >
+          <button class="mr-15" @click="goJoin">
             <img src="@/assets/images/back-btn.svg" alt="back" />
           </button>
           <!-- 다음 : 회원가입 프로필 페이지 -->
-          <button 
-            class="ms-15" 
-            @click="goJoinProfile"
-          >
+          <button class="ms-15" @click="goJoinProfile">
             <img src="@/assets/images/next-btn.svg" alt="next" />
           </button>
         </div>
@@ -81,7 +69,7 @@ export default {
             });
             alert("인증되었습니다.");
           } else {
-            alert('인증코드가 일치하지 않습니다.')
+            alert("인증코드가 일치하지 않습니다.");
           }
         },
         (err) => {

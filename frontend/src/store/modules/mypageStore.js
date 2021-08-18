@@ -14,15 +14,13 @@ export default {
     getMyPage: function ({ commit }) {
       MyPage.requestMypageinfo(
         (res) => {
-          commit('GET_MY_PAGE', res.data)
+          commit("GET_MY_PAGE", res.data);
         },
         (err) => {
-          console.log(err)
+          console.log(err);
         }
-      )
+      );
     },
   },
-  getters: {
-
-  }
+  getters: {},
 };

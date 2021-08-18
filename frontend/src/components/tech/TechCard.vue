@@ -1,5 +1,5 @@
 <template>
-  <div style="display: -webkit-flex">
+  <div style="display: -webkit-flex" class="techcard">
     <v-card
       min-width="280"
       max-width="15vw"
@@ -45,7 +45,9 @@
       </v-card-text>
 
       <v-card-actions class="justify-end">
-        <v-btn text color="teal accent-4" @click.prevent @click="reveal = true"> 더 보기 </v-btn>
+        <v-btn text color="teal accent-4" @click.prevent @click="reveal = true">
+          더 보기
+        </v-btn>
       </v-card-actions>
 
       <div>
@@ -60,7 +62,12 @@
               <p v-html="item.content"></p>
             </v-card-text>
             <v-card-actions class="pt-0 justify-end">
-              <v-btn text color="teal accent-4" @click.prevent @click="reveal = false">
+              <v-btn
+                text
+                color="teal accent-4"
+                @click.prevent
+                @click="reveal = false"
+              >
                 Close
               </v-btn>
             </v-card-actions>
@@ -127,5 +134,18 @@ export default {
   opacity: 1 !important;
   position: absolute;
   width: 100%;
+}
+
+.techcard:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+
+.techcard {
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
 }
 </style>

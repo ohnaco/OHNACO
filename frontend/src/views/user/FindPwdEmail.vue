@@ -9,18 +9,16 @@
       <p class="findpwd-text1">
         {{ email }}로 비밀번호 변경 링크가 전송되었습니다.
       </p>
-      <p class="findpwd-text2 mb-0">
-        메일함을 확인해주세요.
-      </p>
-      <p class="findpwd-text2">
-        최대 5분 소요됩니다.
-      </p>
+      <p class="findpwd-text2 mb-0">메일함을 확인해주세요.</p>
+      <p class="findpwd-text2">최대 5분 소요됩니다.</p>
       <div class="findpwd-footer-text">
         이메일을 받지 못하셨나요?
         <button class="send-email-again ml-1" @click="sendAgain">재전송</button>
       </div>
       <!-- 로그인 버튼 -->
-      <button class="mt-1" @click="goLogin"><img src="@/assets/images/login-btn.svg" alt="success" /></button>
+      <button class="mt-1" @click="goLogin">
+        <img src="@/assets/images/login-btn.svg" alt="success" />
+      </button>
     </div>
   </div>
 </template>
@@ -32,8 +30,8 @@ export default {
   name: "FindPwdEmail",
   data: function () {
     return {
-      email: this.$route.params.email
-    }
+      email: this.$route.params.email,
+    };
   },
   methods: {
     goLogin: function () {
@@ -41,19 +39,19 @@ export default {
     },
     sendAgain: function () {
       let data = {
-        email: this.$route.params.email
+        email: this.$route.params.email,
       };
       User.requestFindPwdSendEmail(
-        data, 
+        data,
         (res) => {
-          console.log(res)
-          alert('이메일이 재전송 되었습니다. 메일함을 다시 확인해주세요.')
+          console.log(res);
+          alert("이메일이 재전송 되었습니다. 메일함을 다시 확인해주세요.");
         },
         (err) => {
-          console.log(err)
+          console.log(err);
         }
-      )
-    }
+      );
+    },
   },
 };
 </script>

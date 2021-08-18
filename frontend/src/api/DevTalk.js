@@ -2,8 +2,7 @@ import http from "@/util/http-common.js";
 
 const setQuestion = (callback, errorCallback) => {
   http
-    .get("/devtalk/listall", {
-    })
+    .get("/devtalk/listall", {})
     .then((res) => {
       callback(res);
     })
@@ -40,8 +39,8 @@ const detailQuestion = (data, callback, errorCallback) => {
 };
 
 const updateQuestion = (data, callback, errorCallback) => {
-    console.log(data);
-    console.log(typeof data);
+  console.log(data);
+  console.log(typeof data);
   http
     .put("/devtalk/question", data)
     .then((res) => {
@@ -61,7 +60,7 @@ const deleteQuestion = (data, callback, errorCallback) => {
       },
     })
     .then((res) => {
-        console.log("삭제성공!!");
+      console.log("삭제성공!!");
       callback(res);
     })
     .catch((err) => {
@@ -96,7 +95,7 @@ const deleteComment = (data, callback, errorCallback) => {
 };
 
 const updateComment = (data, callback, errorCallback) => {
-    console.log(data);
+  console.log(data);
   http
     .put("/devtalk/answer", data)
     .then((res) => {
@@ -111,7 +110,7 @@ const updateComment = (data, callback, errorCallback) => {
 const questionLike = (data, callback, errorCallback) => {
   http
     .post("/devtalk/question/like", {
-        questionid: data,
+      questionid: data,
     })
     .then((res) => {
       callback(res);
@@ -122,10 +121,10 @@ const questionLike = (data, callback, errorCallback) => {
 };
 
 const answerLike = (data, callback, errorCallback) => {
-    console.log(data);
+  console.log(data);
   http
     .post("/devtalk/answer/like", {
-        answerid: data,
+      answerid: data,
     })
     .then((res) => {
       callback(res);

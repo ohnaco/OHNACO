@@ -1,14 +1,8 @@
 <template>
   <v-container>
     <v-card-actions>
-      <div class="mr-4">
-        내 질문 ({{questionCount}}) 
-      </div>
-      <v-btn 
-        @click="goMyQuestions"
-        icon 
-        style="margin-left:20px;"
-      >
+      <div class="mr-4">내 질문 ({{ questionCount }})</div>
+      <v-btn @click="goMyQuestions" icon style="margin-left: 20px">
         <v-img src="@/assets/images/mypage-all-btn.svg" alt="show-all"></v-img>
       </v-btn>
     </v-card-actions>
@@ -20,11 +14,15 @@
             v-for="(question, i) in questions"
             :key="i"
             @click="gotoDetail(question)"
-            style="cursor: pointer;"
+            style="cursor: pointer"
           >
             <td>
               <div class="mt-3 mb-2">
-                <img src="@/assets/images/question-mark.svg" style="width: 11px" alt="question">
+                <img
+                  src="@/assets/images/question-mark.svg"
+                  style="width: 11px"
+                  alt="question"
+                />
                 <b class="ml-1">{{ question.questiontitle }}</b>
               </div>
             </td>
@@ -38,23 +36,22 @@
 </template>
 
 <script>
-import moment from "moment"
+import moment from "moment";
 
 export default {
-  name: 'MyQuestionCard',
+  name: "MyQuestionCard",
   props: {
     questions: {
-      type: Array
+      type: Array,
     },
     questionCount: {
-      type: Number
-    }
+      type: Number,
+    },
   },
   filters: {
     datetime: function (value) {
-      if (value)
-        return moment(String(value)).format('YYYY.MM.DD')
-    }
+      if (value) return moment(String(value)).format("YYYY.MM.DD");
+    },
   },
   methods: {
     goMyQuestions: function () {
@@ -63,9 +60,9 @@ export default {
     gotoDetail: function (question) {
       this.$router.push({
         name: "QuestionDetail",
-        query:{ id: question.questionid },
+        query: { id: question.questionid },
       });
     },
-  }
-}
+  },
+};
 </script>

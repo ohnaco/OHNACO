@@ -1,7 +1,7 @@
 <template>
   <div>
     <TopNavBar />
-    <header style="background: #607D8B; position: relative;">
+    <header style="background: #607d8b; position: relative">
       <v-container class="pa-3">
         <v-list-item nowrap class="ml-8 mr-8 flex-wrap justify-content-center">
           <!-- 프로필 사진 -->
@@ -13,18 +13,27 @@
           <!-- 이름 설정 버튼 -->
           <v-col cols="12" lg="9">
             <v-list-item-content class="pa-3 white--text">
-              <v-list-item-title class="font-weight-bold" style="font-size: 1.7rem">
+              <v-list-item-title
+                class="font-weight-bold"
+                style="font-size: 1.7rem"
+              >
                 <v-card-actions>
                   <div class="mr-4">
                     {{ mypageInfo.info.nickname }}
                   </div>
                   <v-btn icon @click="goChangeInfo">
-                    <v-img src="@/assets/images/settings-btn.svg" alt="settings-btn"></v-img>
+                    <v-img
+                      src="@/assets/images/settings-btn.svg"
+                      alt="settings-btn"
+                    ></v-img>
                   </v-btn>
                 </v-card-actions>
               </v-list-item-title>
               <!-- 희망 직무 -->
-              <v-list-item-subtitle class="ml-2 white--text" style="font-size: 1.4rem">
+              <v-list-item-subtitle
+                class="ml-2 white--text"
+                style="font-size: 1.4rem"
+              >
                 {{ info.positions ? info.positions.positionname : "" }}
               </v-list-item-subtitle>
               <!-- github -->

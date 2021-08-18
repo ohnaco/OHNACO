@@ -9,14 +9,23 @@
       </v-toolbar-title>
       <v-spacer />
       <v-toolbar-items>
-        <v-btn v-for="item in nav" :key="item.icon" :to="item.path" :title="item.title" text>{{
-          item.text
-        }}</v-btn>
+        <v-btn
+          v-for="item in nav"
+          :key="item.icon"
+          :to="item.path"
+          :title="item.title"
+          text
+          >{{ item.text }}</v-btn
+        >
       </v-toolbar-items>
     </v-app-bar>
 
     <!-- Mobile -->
-    <v-app-bar dark color="blue-grey base" v-show="$vuetify.breakpoint.smAndDown">
+    <v-app-bar
+      dark
+      color="blue-grey base"
+      v-show="$vuetify.breakpoint.smAndDown"
+    >
       <v-toolbar-title
         ><router-link to="/todo" class="d-flex align-center"
           ><img src="@/assets/images/top-nav-logo.svg" /></router-link
@@ -43,7 +52,9 @@
       </v-menu>
       <v-menu offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn dark icon v-bind="attrs" v-on="on"><v-icon>mdi-account</v-icon></v-btn>
+          <v-btn dark icon v-bind="attrs" v-on="on"
+            ><v-icon>mdi-account</v-icon></v-btn
+          >
         </template>
         <v-list class="indigo lighten-3">
           <v-list-item>

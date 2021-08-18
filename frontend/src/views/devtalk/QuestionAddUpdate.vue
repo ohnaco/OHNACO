@@ -3,99 +3,132 @@
     <v-col cols="12" lg="2" v-show="$vuetify.breakpoint.mdAndUp"
       ><left-nav-bar></left-nav-bar
     ></v-col>
-    <v-col cols="12" v-show="$vuetify.breakpoint.smAndDown" style="padding: 0 !important"
+    <v-col
+      cols="12"
+      v-show="$vuetify.breakpoint.smAndDown"
+      style="padding: 0 !important"
       ><top-nav-bar></top-nav-bar
     ></v-col>
-    <v-col cols="12" md="12" lg="10" class="p-2" style="height: 100vh; overflow-y: scroll">
-        <h1 style="font-family: 'GmarketSansMedium'; font-size: 30px; color: #607d8b">
-          질문 수정
-        </h1>
-        <div class="mb-3"></div>
-        <span class="title_tag">제목</span>
-        <b-form-input
-          v-model="title"
-          class="mb-3"
-          :state="null"
-          placeholder="제목을 입력해주세요."
-        ></b-form-input>
-        <span class="title_tag">태그</span>
-        <v-combobox v-model="chips" :items="items" chips clearable multiple solo>
-          <template v-slot:selection="{ attrs, item, select, selected }">
-            <v-chip
-              v-bind="attrs"
-              :input-value="selected"
-              close
-              color="#80DEEA"
-              text-color="white"
-              @click="select"
-              @click:close="remove(item)"
-            >
-              <strong>{{ item }}</strong
-              >&nbsp;
-            </v-chip>
-          </template>
-        </v-combobox>
-        <b-row class="mb-0">
-          <b-col>
-            <span class="md_exp">마크다운으로 작성할 수 있습니다.</span>
-            <div>
-              <b-form-textarea
-                style="
-                  height: 50vw;
-                  border: 1px solid #ced4da;
-                  border-radius: 5px;
-                  background-color: #f3f3f3;
-                  font-size: 12px;
-                "
-                v-model="content"
-                placeholder="내용을 입력해주세요"
-              ></b-form-textarea>
-            </div>
-          </b-col>
-          <b-col>
-            <span class="md_exp">미리보기</span>
-            <div
-              id="editor"
+    <v-col
+      cols="12"
+      md="12"
+      lg="10"
+      class="m-unite"
+      style="height: 100vh; overflow-y: scroll"
+    >
+      <h1
+        style="
+          font-family: 'GmarketSansMedium';
+          font-size: 30px;
+          color: #607d8b;
+        "
+      >
+        질문 수정
+      </h1>
+      <div class="mb-3"></div>
+      <span class="title_tag">제목</span>
+      <b-form-input
+        v-model="title"
+        class="mb-3"
+        :state="null"
+        placeholder="제목을 입력해주세요."
+      ></b-form-input>
+      <span class="title_tag">태그</span>
+      <v-combobox v-model="chips" :items="items" chips clearable multiple solo>
+        <template v-slot:selection="{ attrs, item, select, selected }">
+          <v-chip
+            v-bind="attrs"
+            :input-value="selected"
+            close
+            color="#80DEEA"
+            text-color="white"
+            @click="select"
+            @click:close="remove(item)"
+          >
+            <strong>{{ item }}</strong
+            >&nbsp;
+          </v-chip>
+        </template>
+      </v-combobox>
+      <b-row class="mb-0">
+        <b-col>
+          <span class="md_exp">마크다운으로 작성할 수 있습니다.</span>
+          <div>
+            <b-form-textarea
               style="
-                position: relative;
                 height: 50vw;
                 border: 1px solid #ced4da;
                 border-radius: 5px;
+                background-color: #f3f3f3;
                 font-size: 12px;
-                overflow-y: scroll;
               "
-              class="pt-2 pb-2"
-            >
-              <div v-html="compiledMarkdown" style="width: 100%; word-break: break-all"></div>
-            </div>
-          </b-col>
-        </b-row>
-        <div
-          class="mb-2"
-          style="height: 15px; font-size: 12px; display: table-cell; vertical-align: middle"
+              v-model="content"
+              placeholder="내용을 입력해주세요"
+            ></b-form-textarea>
+          </div>
+        </b-col>
+        <b-col>
+          <span class="md_exp">미리보기</span>
+          <div
+            id="editor"
+            style="
+              position: relative;
+              height: 50vw;
+              border: 1px solid #ced4da;
+              border-radius: 5px;
+              font-size: 12px;
+              overflow-y: scroll;
+            "
+            class="pt-2 pb-2"
+          >
+            <div
+              v-html="compiledMarkdown"
+              style="width: 100%; word-break: break-all"
+            ></div>
+          </div>
+        </b-col>
+      </b-row>
+      <div
+        class="mb-2"
+        style="
+          height: 15px;
+          font-size: 12px;
+          display: table-cell;
+          vertical-align: middle;
+        "
+      >
+        <img
+          src="@/assets/images/qm.svg"
+          style="
+            width: 12px;
+            height: 12px;
+            float: left;
+            margin: 2.8px 0;
+            color: #607d8b;
+          "
+        />
+        <a
+          href="https://gist.github.com/ihoneymon/652be052a0727ad59601"
+          target="blank"
+          style="color: #607d8b"
         >
-          <img
-            src="@/assets/images/qm.svg"
-            style="width: 12px; height: 12px; float: left; margin: 2.8px 0; color: #607d8b"
-          />
-          <a href = "https://gist.github.com/ihoneymon/652be052a0727ad59601" 
-            target = "blank"
-            style="color:#607d8b"> &nbsp;markdown 사용방법 링크 </a>
-        </div>
-        <v-btn
-          elevation="2"
-          class="mt-3 mb-3"
-          style="font-family: GmarketSansMedium"
-          @click="goBack()"
-          >취소</v-btn
-        >
-        <v-btn
-          elevation="2"
-          class="mt-3 mb-3"
-          style="font-family: GmarketSansMedium; float: right"
-          @click="update()"
-          >수정</v-btn
-        >
+          &nbsp;markdown 사용방법 링크
+        </a>
+      </div>
+      <v-btn
+        elevation="2"
+        class="mt-3 mb-3"
+        style="font-family: GmarketSansMedium"
+        @click="goBack()"
+        >취소</v-btn
+      >
+      <v-btn
+        elevation="2"
+        class="mt-3 mb-3"
+        style="font-family: GmarketSansMedium; float: right"
+        @click="update()"
+        >수정</v-btn
+      >
     </v-col>
   </v-row>
 </template>
@@ -104,13 +137,13 @@ import marked from "marked";
 import LeftNavBar from "@/components/common/LeftNavBar.vue";
 import TopNavBar from "@/components/common/TopNavBar.vue";
 import hljs from "highlight.js";
-import 'highlight.js/styles/atom-one-dark.css';
+import "highlight.js/styles/atom-one-dark.css";
 import { createNamespacedHelpers } from "vuex";
 const devtalkHelper = createNamespacedHelpers("devTalkStore");
 
 marked.setOptions({
   renderer: new marked.Renderer(),
-  highlight: function(code) {
+  highlight: function (code) {
     return hljs.highlightAuto(code).value;
   },
   pedantic: false,
@@ -120,9 +153,8 @@ marked.setOptions({
   sanitize: false,
   smartLists: true,
   smartypants: false,
-  xhtml: false
-  }
-);
+  xhtml: false,
+});
 
 export default {
   name: "App",
@@ -135,7 +167,16 @@ export default {
       title: "",
       content: "",
       chips: [],
-      items: ["Java", "Spring", "Javascript", "MySQL", "C++", "C", "Android", "Ajax"],
+      items: [
+        "Java",
+        "Spring",
+        "Javascript",
+        "MySQL",
+        "C++",
+        "C",
+        "Android",
+        "Ajax",
+      ],
     };
   },
   computed: {

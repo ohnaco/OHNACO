@@ -5,8 +5,8 @@ export default {
   state: {
     // data 가 들어가는 곳
     questionList: [],
-    question:{},
-    answerList:[],
+    question: {},
+    answerList: [],
   },
   mutations: {
     // 여기서 data 를 업데이트
@@ -48,12 +48,16 @@ export default {
 
     SEARCH(state, text) {
       state.questionList.question = state.questionList.question.filter(
-        (question) => question.questiontitle.includes(text) || question.questioncontent.includes(text)
+        (question) =>
+          question.questiontitle.includes(text) ||
+          question.questioncontent.includes(text)
       );
     },
 
     UPDATE_ANSWER(state, edit) {
-      const index = state.answerList.findIndex((answer) => answer.answerid === edit.answerid);
+      const index = state.answerList.findIndex(
+        (answer) => answer.answerid === edit.answerid
+      );
 
       if (index !== -1) {
         state.answerList.splice(index, 1, edit);
@@ -72,13 +76,14 @@ export default {
         }
       );
     },
-    setAnswer({commit}, data) {
+    setAnswer({ commit }, data) {
       console.log(data);
       //commit("SET_ANSWER", data);
       console.log(commit);
     },
     addQuestion({ commit }, data) {
-      Dev.addQuestion(data,
+      Dev.addQuestion(
+        data,
         (res) => {
           console.log(commit);
           console.log(res);
@@ -91,7 +96,8 @@ export default {
     },
 
     detailQuestion({ commit }, data) {
-      Dev.detailQuestion(data,
+      Dev.detailQuestion(
+        data,
         (res) => {
           console.log(res);
           commit("SET_QUESTION_DETAIL", res.data);
@@ -104,7 +110,8 @@ export default {
     },
 
     updateQuestion({ commit }, data) {
-      Dev.updateQuestion(data,
+      Dev.updateQuestion(
+        data,
         (res) => {
           console.log(commit);
           console.log(res);
@@ -116,7 +123,8 @@ export default {
     },
 
     updateComment({ commit }, data) {
-      Dev.updateComment(data,
+      Dev.updateComment(
+        data,
         (res) => {
           commit("UPDATE_ANSWER", res.data.answer);
         },
@@ -128,7 +136,8 @@ export default {
 
     deleteQuestion({ commit }, data) {
       console.log(data);
-      Dev.deleteQuestion(data,
+      Dev.deleteQuestion(
+        data,
         (res) => {
           alert("삭제가 완료되었습니다.");
           console.log(commit);
@@ -140,7 +149,8 @@ export default {
       );
     },
     addComment({ commit }, data) {
-      Dev.addComment(data,
+      Dev.addComment(
+        data,
         (res) => {
           commit("ADD_ANSWER", res.data.answer);
         },
@@ -152,7 +162,8 @@ export default {
 
     deleteComment({ commit }, data) {
       console.log(data);
-      Dev.deleteComment(data,
+      Dev.deleteComment(
+        data,
         (res) => {
           console.log(res);
           alert("삭제가 완료되었습니다.");
@@ -169,6 +180,5 @@ export default {
       commit("SEARCH", data);
     },
   },
-  getters: {
-  },
+  getters: {},
 };

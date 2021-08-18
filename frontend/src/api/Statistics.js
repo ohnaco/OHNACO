@@ -13,7 +13,7 @@ const requestStatistics = (data, callback, errorCallback) => {
 
 const StatisticsApi = {
   requestStatistics: (data, callback, errorCallback) =>
-  requestStatistics(data, callback, errorCallback),
+    requestStatistics(data, callback, errorCallback),
 };
 
 export default StatisticsApi;

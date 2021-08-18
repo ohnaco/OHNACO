@@ -8,7 +8,8 @@
     >
       <v-row dense class="mt-5">
         <v-col cols="12" align="center"
-          ><router-link to="/todo"><img src="@/assets/images/left-nav-logo.svg" /></router-link
+          ><router-link to="/todo"
+            ><img src="@/assets/images/left-nav-logo.svg" /></router-link
         ></v-col>
       </v-row>
       <v-row dense class="mt-5">
@@ -21,7 +22,9 @@
       <v-row dense class="mt-2">
         <v-col align="center"
           ><router-link to="/mypage"
-            ><div class="text-h6 text-decoration-underline">{{ user.nickname }}</div></router-link
+            ><div class="text-h6 text-decoration-underline">
+              {{ user.nickname }}
+            </div></router-link
           ></v-col
         >
       </v-row>
@@ -34,7 +37,9 @@
           >
         </v-list>
         <v-row dense>
-          <v-col align="right" style="position: absolute; top: calc(100vh - 35px)"
+          <v-col
+            align="right"
+            style="position: absolute; top: calc(100vh - 35px)"
             ><button class="white--text" @click="logout">Logout</button></v-col
           >
         </v-row>
@@ -83,16 +88,14 @@ export default {
 a {
   text-decoration: none;
 }
-a:hover,
-.mypage:hover {
+a:hover {
   -webkit-transform: scale(1.05);
   -moz-transform: scale(1.05);
   -ms-transform: scale(1.05);
   -o-transform: scale(1.05);
   transform: scale(1.05);
 }
-a,
-.mypage {
+a {
   -webkit-transition: all 0.1s linear;
   transition: all 0.1s linear;
 }

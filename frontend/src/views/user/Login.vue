@@ -2,17 +2,21 @@
   <div class="container">
     <!-- 로그인 폼 -->
     <div class="login-form">
-      <img @click="goMain" src="@/assets/images/full-logo.svg" alt="ohnaco-logo" />
+      <img
+        @click="goMain"
+        src="@/assets/images/full-logo.svg"
+        alt="ohnaco-logo"
+      />
       <div class="login-name">로그인</div>
       <div class="login-box">
         <!-- 이메일 -->
         <b-form-input
-          type="text" 
+          type="text"
           :state="null"
-          id="email" 
-          class="email" 
-          placeholder="이메일 주소" 
-          v-model="email" 
+          id="email"
+          class="email"
+          placeholder="이메일 주소"
+          v-model="email"
         ></b-form-input>
         <!-- 비번 -->
         <b-form-input
