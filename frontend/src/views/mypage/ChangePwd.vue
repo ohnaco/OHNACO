@@ -158,7 +158,6 @@ export default {
         MyPage.updateMyPwd(
           data,
           (res) => {
-            console.log(res);
             if (res.data.status == false) {
               alert("비밀번호를 다시 확인해주세요.");
             } else {

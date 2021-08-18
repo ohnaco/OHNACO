@@ -168,8 +168,7 @@ export default {
     },
     getInfo: function () {
       MyPage.requestMyInfo(
-        (res) => {
-          console.log(res);
+        () => {
           this.email = res.data.info.email;
           this.originnickname = res.data.info.nickname;
           this.nickname = res.data.info.nickname;
