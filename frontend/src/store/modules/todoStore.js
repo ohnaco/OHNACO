@@ -73,7 +73,6 @@ export default {
         }
       );
     },
-
     loadByMonth({ commit }, data) {
       Todo.loadByMonth(
         data,
@@ -85,7 +84,6 @@ export default {
         }
       );
     },
-
     createTodo({ commit }, payload) {
       Todo.createTodo(
         payload,
@@ -110,13 +108,11 @@ export default {
         }
       );
     },
+    // eslint-disable-next-line no-unused-vars
     updateTime({ commit }, payload) {
       Todo.updateTime(
         payload,
-        (res) => {
-          console.log(commit);
-          console.log(res);
-        },
+        () => {},
         (err) => {
           alert(err);
         }
@@ -145,39 +141,31 @@ export default {
         }
       );
     },
-
+    // eslint-disable-next-line no-unused-vars
     stateChange({ commit }, payload) {
       Todo.stateChange(
         payload,
-        (res) => {
-          console.log(commit);
-          console.log(res);
-        },
+        () => {},
         (err) => {
           alert(err);
         }
       );
     },
-
+    // eslint-disable-next-line no-unused-vars
     forceQuit({ commit }, payload) {
       Todo.forceQuit(
         payload,
-        (res) => {
-          console.log(commit);
-          console.log(res);
-        },
+        () => {},
         (err) => {
           alert(err);
         }
       );
     },
-
+    // eslint-disable-next-line no-unused-vars
     moveTodayAdd({ commit }, payload) {
       Todo.createTodo(
         payload,
-        (res) => {
-          console.log(commit);
-          console.log(res);
+        () => {
           alert("이전이 완료되었습니다.");
         },
         (err) => {
@@ -185,7 +173,6 @@ export default {
         }
       );
     },
-
     setTime({ commit }, payload) {
       commit("SET_TIME", payload);
     },
