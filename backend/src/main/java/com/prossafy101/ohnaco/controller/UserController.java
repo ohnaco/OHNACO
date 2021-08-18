@@ -310,7 +310,7 @@ public class UserController {
 
                 userService.tempUserDelete(userDto.getEmail());
                 if(!"".equals(userDto.getGithubid())) {
-                    todoService.commitUpdateWeekend(userid);
+                    todoService.commitUpdateWeekend(userid, userDto.getGithubid());
                 }
                 result.put("status", true);
                 result.put("message", "회원가입 성공.");

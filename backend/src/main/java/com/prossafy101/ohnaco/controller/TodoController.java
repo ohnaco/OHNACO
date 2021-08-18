@@ -273,6 +273,7 @@ public class TodoController {
     public void updateCommit(HttpServletRequest req) {
         String token = req.getHeader("Authorization").substring(7);
         String userid = jwtUtil.getUserid(token);
-        todoService.commitUpdateWeekend(userid);
+        User user = userService.findByUserid(userid);
+        todoService.commitUpdateWeekend(userid, user.getGithubid());
     }
 }
