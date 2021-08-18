@@ -153,7 +153,7 @@ public class TodoService {
                 commitDto.setDay2(commitDto.getDay1());
             }
         }
-        System.out.println("commit update : "+date));
+        System.out.println("commit update : "+date);
         commitDto.setUpdatedate(date);
         commitDto.setDay1(gitHubAPI.isCommit(githubid, date));
         commitDto.setTimeToLive(48);
