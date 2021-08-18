@@ -8,6 +8,7 @@
         <!-- 이메일 -->
         <b-form-input
           type="text"
+          :state="null"
           class="email"
           placeholder="이메일 주소"
           @input="emailCheck"
@@ -24,6 +25,7 @@
         <!-- 비번 -->
         <b-form-input
           :type="passwordType"
+          :state="null"
           class="pwd"
           placeholder="비밀번호"
           v-model="password"
@@ -39,6 +41,7 @@
         <div class="input_label">
           <b-form-input
             :type="passwordConfirmType"
+            :state="null"
             class="pwd-check"
             placeholder="비밀번호 확인"
             v-model="passwordConfirm"

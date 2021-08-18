@@ -9,8 +9,9 @@
           <img src="@/assets/images/change-pwd-message.svg" alt="change-pwd-message">
         </div>
         <!-- 현재비번 -->
-        <input
+        <b-form-input
           :type="passwordType"
+          :state="null"
           class="pwd"
           placeholder="비밀번호"
           v-model="password"
@@ -18,13 +19,14 @@
             error: error.password,
             complete: !error.password && password.length != 0,
           }"
-        />
+        ></b-form-input>
         <div class="error-message" v-if="error.password">
           {{ error.password }}
         </div>
         <!-- 비번 -->
-        <input
+        <b-form-input
           :type="newpasswordType"
+          :state="null"
           class="newpwd"
           placeholder="새로운 비밀번호"
           v-model="newpassword"
@@ -32,14 +34,15 @@
             error: error.newpassword,
             complete: !error.newpassword && newpassword.length != 0,
           }"
-        />
+        ></b-form-input>
         <div class="error-message" v-if="error.newpassword">
           {{ error.newpassword }}
         </div>
         <!-- 비번확인 -->
         <div class="input_label">
-          <input
+          <b-form-input
             :type="newpasswordConfirmType"
+            :state="null"
             class="newpwd-check"
             placeholder="새로운 비밀번호 확인"
             v-model="newpasswordConfirm"
@@ -47,7 +50,7 @@
               error: error.newpasswordConfirm,
               complete: !error.newpasswordConfirm && newpasswordConfirm.length !== 0,
             }"
-          />
+          ></b-form-input>
           <div class="error-message" v-if="error.newpasswordConfirm">
             {{ error.newpasswordConfirm }}
           </div>
