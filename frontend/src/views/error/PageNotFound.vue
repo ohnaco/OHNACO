@@ -3,8 +3,8 @@
     <div class="row"> 
       <div class="col-sm-12 text-center">
         <div class="text-head">
-          <div class="text-center" style="font-size: 80px;">
-            4<span style="color: #80DEEA">O</span>4
+          <div class="d-flex justify-content-center" style="font-size: 80px;">
+            4<div class="animate__animated animate__bounce" style="color: #80DEEA">O</div>4
           </div>
           <img src="@/assets/images/full-logo.svg" alt="">
         </div>
@@ -28,16 +28,10 @@
 </template>
 
 <script>
+import "animate.css"
+
 export default {
   name: "PageNotFound",
-  methods: {
-    // goHome: function () {
-    //   const token = localStorage.getItem("jwt-access-token");
-    //   if (token !== null)
-    //     this.$router.push({ name: "Main" });
-    //   else this.$router.push({ name: "Todo" });
-    // }
-  }
 }
 </script>
 
@@ -55,6 +49,9 @@ export default {
     format("woff");
   font-weight: normal;
   font-style: normal;
+}
+.animate__animated.animate__bounce {
+  --animate-duration: 2s;
 }
 a {
   text-decoration: none;
