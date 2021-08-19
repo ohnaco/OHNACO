@@ -19,7 +19,7 @@
     <v-card
       v-show="$vuetify.breakpoint.xs"
       height="auto"
-      width="200"
+      width="230"
       >
       <v-img
         :src='require("@/assets/main/m-mypage.gif")'

@@ -33,7 +33,6 @@
             v-for="(item, index) in items"
             :key="index"
             :to="item.to"
-            class="d-flex"
           >
             <v-list-item-title style="font-family: GmarketSansMedium; color: #607d8b;">{{ item.title }}</v-list-item-title>
           </v-list-item>
