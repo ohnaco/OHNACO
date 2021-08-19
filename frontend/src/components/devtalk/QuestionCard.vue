@@ -75,7 +75,7 @@
         </div>
 
         <div
-          style="height: 56px"
+          style=""
           class="qCard_content pagelink"
           v-on:click="gotoDetail"
         >
@@ -323,7 +323,6 @@ export default {
     font-size: 9px;
   }
   .qCard_content {
-    height: 40px !important;
     font-size: 10px;
   }
   .tagNdate {
