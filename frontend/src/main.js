@@ -22,6 +22,7 @@ import "firebase/analytics";
 
 // Add the Firebase products that you want to use
 import "firebase/messaging";
+import http from "@/util/http-common.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAjoO1hK9KSuV3oEsXBjxf0BdSoFwJO6HY",
@@ -62,6 +63,16 @@ if (firebase.messaging.isSupported()) {
     .then((currentToken) => {
       if (currentToken) {
         // Send the token to your server and update the UI if necessary
+        const fbToken = {
+          'token': currentToken
+        }
+        http
+        .post("/noti/register", fbToken)
+        .then(() => {
+        })
+        .catch(() => {
+          console.log("noti token fail");
+        });
       } else {
         // Show permission request UI
         console.log(
