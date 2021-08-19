@@ -22,7 +22,7 @@
           absolute
           @click.prevent
           @click="scrapTech(item.articleid)"
-          class="justify-end"
+          class="justify-center"
         >
           <v-icon>mdi-bookmark</v-icon>
         </v-btn>
@@ -34,7 +34,7 @@
           absolute
           @click.prevent
           @click="scrapTech(item.articleid)"
-          class="justify-end"
+          class="justify-center"
         >
           <v-icon>mdi-bookmark-outline</v-icon>
         </v-btn>
