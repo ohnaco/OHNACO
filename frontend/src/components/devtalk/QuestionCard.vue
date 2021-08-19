@@ -320,7 +320,7 @@ export default {
 }
 @media (min-width: 950px) {
   .qcard_size{
-  width:50vw;
+  width:37vw;
 }
 }
 @media (max-width: 768px) {
