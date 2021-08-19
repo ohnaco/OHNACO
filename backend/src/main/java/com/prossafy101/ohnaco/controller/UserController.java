@@ -155,7 +155,7 @@ public class UserController {
     @GetMapping("/signOut")
     public Object signOut(@RequestParam String email) {
         redisUtil.deleteData(email);
-        
+
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

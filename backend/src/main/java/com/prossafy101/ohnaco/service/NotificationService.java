@@ -29,7 +29,7 @@ public class NotificationService {
     }
 
 
-    @Scheduled(cron = "0 0 22,23 * * * *")
+    @Scheduled(cron = "0 0 22,23 * * *")
     public void commitNofify() throws ExecutionException, InterruptedException {
         for (String userid : tokenMap.keySet()) {
             if (gitHubAPI.isCommit(userService.findByUserid(userid).getGithubid(), LocalDate.now().toString()) == 0) {
