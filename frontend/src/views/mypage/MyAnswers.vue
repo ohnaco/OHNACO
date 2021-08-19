@@ -1,7 +1,10 @@
 <template>
   <div>
     <div>
-      <MyPageProfile :info="mypageInfo.info" :commit="mypageInfo.commit" />
+      <MyPageProfile 
+        :info="mypageInfo.info" 
+        :commit="mypageInfo.commit" 
+      />
     </div>
     <v-container style="width: 80%; height: 100%">
       <div class="mt-10 mb-3 d-flex justify-space-between">
@@ -11,7 +14,12 @@
         </button>
       </div>
       <v-divider></v-divider>
-      <AnswerCard v-for="(answer, i) in myAnswers" :key="i" :item="answer" />
+      <AnswerCard 
+        v-for="(answer, i) in myAnswers" 
+        :key="i" 
+        :item="answer" 
+        style="cursor: pointer"  
+      />
       <infinite-loading
         @infinite="infiniteHandler"
         spinner="circles"
