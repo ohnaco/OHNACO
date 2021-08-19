@@ -201,15 +201,15 @@ export default {
           password,
         };
         this.isSubmit = false;
+        this.$router.push({
+          name: "JoinEmail",
+          params: { email: this.email },
+        });
+        alert("이메일로 인증번호가 발송되었습니다. 메일함을 확인해주세요.");
         User.requestSignup(
           data,
           () => {
             this.isSubmit = true;
-            alert("이메일로 인증번호가 발송되었습니다. 메일함을 확인해주세요.");
-            this.$router.push({
-              name: "JoinEmail",
-              params: { email: this.email },
-            });
           },
           (err) => {
             this.isSubmit = true;
