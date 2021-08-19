@@ -2,7 +2,10 @@ package com.prossafy101.ohnaco.controller;
 
 import com.prossafy101.ohnaco.entity.user.*;
 import com.prossafy101.ohnaco.repository.StatisticsRepository;
-import com.prossafy101.ohnaco.service.*;
+import com.prossafy101.ohnaco.service.JwtUtil;
+import com.prossafy101.ohnaco.service.RedisUtil;
+import com.prossafy101.ohnaco.service.TodoService;
+import com.prossafy101.ohnaco.service.UserService;
 import com.rometools.rome.feed.synd.SyndEntry;
 import com.rometools.rome.feed.synd.SyndFeed;
 import com.rometools.rome.io.FeedException;
@@ -54,9 +57,6 @@ public class UserController {
 
     @Autowired
     private TodoService todoService;
-
-    @Autowired
-    private NotificationService notificationService;
 
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
     @GetMapping("/rss")
@@ -155,7 +155,7 @@ public class UserController {
     @GetMapping("/signOut")
     public Object signOut(@RequestParam String email) {
         redisUtil.deleteData(email);
-        notificationService.tokenMap.remove(email);
+        
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

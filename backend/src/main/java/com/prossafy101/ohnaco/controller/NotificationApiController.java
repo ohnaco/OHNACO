@@ -19,8 +19,11 @@ public class NotificationApiController {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @Autowired
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
+
+    public NotificationApiController(NotificationService notificationService) {
+        this.notificationService = notificationService;
+    }
 
     @PostMapping("/register")
     public ResponseEntity register(@RequestBody Map<String,String> token, HttpServletRequest req) {
