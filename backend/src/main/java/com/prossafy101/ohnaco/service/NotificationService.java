@@ -22,14 +22,14 @@ public class NotificationService {
     @Autowired
     private FCMService fcmService;
 
-    private final Map<String, String> tokenMap = new HashMap<>();
+    public static final Map<String, String> tokenMap = new HashMap<>();
 
     public void register(final String userid, final String token) {
         tokenMap.put(userid, token);
     }
 
 
-    @Scheduled(cron = "0 0/5 * * * *")
+    @Scheduled(cron = "0 0 22,23 * * * *")
     public void commitNofify() throws ExecutionException, InterruptedException {
         for (String userid : tokenMap.keySet()) {
             if (gitHubAPI.isCommit(userService.findByUserid(userid).getGithubid(), LocalDate.now().toString()) == 0) {

@@ -361,7 +361,7 @@ public class StatisticsService {
         redisUtil.setObject("statistics:month:"+userid, month, 2);
     }
 
-    @Scheduled(cron = "0 0/10 * * * *")
+    @Scheduled(cron = "0 0 0 * * * *")
     public void updateStatistics() {
         List<User> users = userRepository.findAll();
         for(User user: users) {
