@@ -318,7 +318,7 @@ export default {
   width:80vw;
 }
 }
-@media (min-width: 1024px) {
+@media (min-width: 950px) {
   .qcard_size{
   width:50vw;
 }
