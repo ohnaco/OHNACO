@@ -70,19 +70,19 @@
         </div>
       </v-col>
       <v-col cols="11" class="content_card">
-        <div class="qCard_title mt-2 mb-2 pagelink" v-on:click="gotoDetail">
+        <div class="qCard_title mt-2 mb-2 pagelink qcard_size" v-on:click="gotoDetail">
           {{ item.questiontitle }}
         </div>
 
         <div
-          style="height: 56px"
-          class="qCard_content pagelink"
+          style=""
+          class="qCard_content pagelink qcard_size"
           v-on:click="gotoDetail"
         >
           {{ item.questioncontent }}
         </div>
 
-        <div style="height: 40%">
+        <div style="height: 40% ; width:90% ; position:absolute ; bottom:0px;">
           <div class="tagNdate">
             <div
               style="
@@ -187,6 +187,7 @@ export default {
 }
 
 .qCard {
+  display:block;
   width: 100%;
   height: 160px;
   border-radius: 10px;
@@ -309,6 +310,19 @@ export default {
   padding-right: calc(var(--bs-gutter-x) * 0.5);
   padding-left: calc(var(--bs-gutter-x) * 0.5);
 }
+.qcard_size{
+  width:60vw;
+}
+@media (max-width: 768px) {
+  .qcard_size{
+  width:80vw;
+}
+}
+@media (min-width: 950px) {
+  .qcard_size{
+  width:37vw;
+}
+}
 @media (max-width: 768px) {
   .profile_box {
     width: 110px;
@@ -323,7 +337,6 @@ export default {
     font-size: 9px;
   }
   .qCard_content {
-    height: 40px !important;
     font-size: 10px;
   }
   .tagNdate {
@@ -356,6 +369,11 @@ export default {
 @media (max-width: 425px) {
   .tag {
     display: none;
+  }
+}
+
+@media (max-width: 425px) {
+  .qCard{
   }
 }
 </style>
