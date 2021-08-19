@@ -53,6 +53,17 @@
     font-size: 2.5rem;
   }
 }
+.move-btn:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.move-btn {
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
 header.masthead {
   position: relative;
   overflow: hidden;
@@ -93,7 +104,6 @@ header.masthead .masthead-content .masthead-subheading {
 }
 .display-content {
   font-family: "GmarketSansLight";
-  margin-top: 5px;
 }
 
 @media (min-width: 992px) {
@@ -113,7 +123,7 @@ header.masthead .masthead-content .masthead-subheading {
     padding-top: 10rem;
     padding-bottom: 10rem;
   }
-  .content {
-    padding-top: calc(5rem);
+  .display-content {
+    padding: 2rem !important;
   }
 }
