@@ -10,14 +10,13 @@
           <label for="profile" class="imagebtn">
             <img src="@/assets/images/profile-btn.svg" alt="sample_profile" />
           </label>
-          <b-form-input
+          <input
             type="file"
-            :state="null"
             id="profile"
             @change="previewImage"
             accept="image/*"
             style="display: none"
-          ></b-form-input>
+          />
           <div v-if="image.length > 0">
             <img class="preview" :src="image" />
           </div>
