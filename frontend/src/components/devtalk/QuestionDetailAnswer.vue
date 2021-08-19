@@ -117,7 +117,7 @@
     <v-dialog max-width="500" v-model="isModal">
       <delete-modal
         @hide="hideDialog"
-        @submit="deleteQuestion2()"
+        @submit="commentRemove()"
         :msg="'Answer'"
       />
     </v-dialog>
