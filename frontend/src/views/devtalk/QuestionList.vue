@@ -174,7 +174,7 @@ export default {
       question: [],
       hotIssue: [],
       searchText: "",
-      items: [
+      tags: [
         "Java",
         "Spring",
         "Javascript",
