@@ -1,8 +1,8 @@
 <template>
   <v-carousel 
     cycle
-    width="380"
     height="auto"
+    width="400"
     interval="3000"
     hide-delimiter-background
     show-arrows-on-hover
@@ -22,10 +22,10 @@
       return {
         items: [
           {
-            src: require('@/assets/main/devtalk-list.png'),
+            src: require('@/assets/main/mypage.png'),
           },
           {
-            src: require('@/assets/main/devtalk-detail.png'),
+            src: require('@/assets/main/mypage2.png'),
           },
         ],
       }

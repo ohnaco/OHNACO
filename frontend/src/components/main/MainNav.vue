@@ -2,7 +2,7 @@
   <v-layout>
     <v-app-bar dark color="blue-grey base" v-show="$vuetify.breakpoint.mdAndUp">
       <v-toolbar-title>
-        <img src="@/assets/images/simple-logo.svg" />
+        <img src="@/assets/images/simple-logo.svg"/>
       </v-toolbar-title>
       <v-spacer />
       <v-toolbar-items>
@@ -19,7 +19,7 @@
       v-show="$vuetify.breakpoint.smAndDown"
     >
       <v-toolbar-title>
-        <img src="@/assets/images/simple-logo.svg" />
+        <img src="@/assets/main/main-nav-logo.svg" />
       </v-toolbar-title>
       <v-spacer />
       <v-menu offset-y>
@@ -29,14 +29,13 @@
           </v-btn>
         </template>
         <v-list class="cyan lighten-3">
-          <v-list-item>
-            <v-list-item
-              v-for="(item, index) in items"
-              :key="index"
-              :to="item.to"
-            >
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item>
+          <v-list-item
+            v-for="(item, index) in items"
+            :key="index"
+            :to="item.to"
+            class="d-flex"
+          >
+            <v-list-item-title style="font-family: GmarketSansMedium; color: #607d8b;">{{ item.title }}</v-list-item-title>
           </v-list-item>
         </v-list>
       </v-menu>
@@ -57,4 +56,3 @@ export default {
 };
 </script>
 
-<style></style>
