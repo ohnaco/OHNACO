@@ -55,6 +55,9 @@ public class UserController {
     @Autowired
     private TodoService todoService;
 
+    @Autowired
+    private NotificationService notificationService;
+
     private final Logger logger = LoggerFactory.getLogger(this.getClass().getSimpleName());
     @GetMapping("/rss")
     public Object rss() {
@@ -152,7 +155,7 @@ public class UserController {
     @GetMapping("/signOut")
     public Object signOut(@RequestParam String email) {
         redisUtil.deleteData(email);
-        NotificationService.tokenMap.remove(email);
+        notificationService.tokenMap.remove(email);
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

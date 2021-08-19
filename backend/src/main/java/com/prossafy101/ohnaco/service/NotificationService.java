@@ -22,7 +22,7 @@ public class NotificationService {
     @Autowired
     private FCMService fcmService;
 
-    public static final Map<String, String> tokenMap = new HashMap<>();
+    public final Map<String, String> tokenMap = new HashMap<>();
 
     public void register(final String userid, final String token) {
         tokenMap.put(userid, token);
