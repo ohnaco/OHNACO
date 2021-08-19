@@ -34,7 +34,7 @@ public class NotificationService {
         for (String userid : tokenMap.keySet()) {
             if (gitHubAPI.isCommit(userService.findByUserid(userid).getGithubid(), LocalDate.now().toString()) == 0) {
                 fcmService.send(new NotificationRequest(
-                        "1일 1커밋 알림"
+                        "✅ 1일 1커밋 알림"
                         , "오늘 커밋을 아직 하지 않았습니다!"
                         , tokenMap.get(userid)));
             }
