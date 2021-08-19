@@ -3,9 +3,9 @@
     <div class="qd_rectangle">
       <div class="profile">
         <!--제목 -->
-        <div style="height: 22px; float: left" class="qCard_title mt-2 mb-2">
+        <div style="height: 22px; float: left" class="qCard_title mt-2 mb-2 q-width">
           <span style="font-size: 20px">Q.</span>
-          {{ question.question.questiontitle }}
+          <span>{{ question.question.questiontitle }}</span>
         </div>
         <!--제목끝 -->
 
@@ -337,6 +337,9 @@ code {
   }
 }
 @media (max-width: 768px) {
+  textarea, #editor div {
+    width: 100vw;
+}
   .modNdel {
     font-size: 12px;
   }
