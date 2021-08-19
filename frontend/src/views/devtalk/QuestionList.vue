@@ -110,7 +110,7 @@
           <div style="height: 120px"></div>
 
           <div>
-            <span class="tag_section">인기 태그&nbsp;</span>
+            <span class="tag_section">태그&nbsp;</span>
             <span><img src="@/assets/images/hashtag.svg" /></span>
             <hr class="m-1" style="border: solid 0.5px #607d8b" />
             <div style="height: 30vh; overflow: scroll" class="box">
@@ -174,15 +174,20 @@ export default {
       question: [],
       hotIssue: [],
       searchText: "",
-      tags: [
+      items: [
         "Java",
         "Spring",
         "Javascript",
+        "Python",
         "MySQL",
         "C++",
         "C",
         "Android",
         "Ajax",
+        "Vue",
+        "React",
+        "Linux",
+        "ios",
       ],
       pageOfItems: [],
     };
