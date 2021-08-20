@@ -66,7 +66,11 @@
 ## 📜 기획
 
 ### 와이어프레임 
-[와이어프레임 링크](https://www.figma.com/file/Ybb6iYwJCP9iihZ2bNyI1R/OHNACO?node-id=0%3A1)
+### [Ohnaco 와이어프레임](https://www.figma.com/file/Ybb6iYwJCP9iihZ2bNyI1R/OHNACO?node-id=0%3A1)
+
+### Swagger API 문서
+### [Ohnaco API](https://app.swaggerhub.com/apis/Changhwan-Son/OhnacoAPI/1.0.0#/) 
+
 
 ### 기능 구조 
 
