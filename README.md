@@ -12,17 +12,22 @@
 
 ## 🎯 핵심 기능
 
-### Todo 타이머 
+### Todo 타이머
 
-<img src="/uploads/b53a186e146fa734f57679b802fad4b4/timer.gif" alt="timer" width="700"/>
+<img src="/uploads/1b2c9ff4bb8103d491fee186a131521b/Todo_생성플레이.gif" alt="timer" width="700"/>
 
-### 1일 1커밋 알림
-
-<img src="/uploads/1969c068107f22bf30b89138a22ac339/커밋.gif" alt="commit" width="700"/>
 
 ### 공부시간 통계
 
-<img src="/uploads/a5cc685ac67e6a4d9f6bf1b058e15529/통계.gif" alt="statistics" width="700"/>
+<img src="/uploads/5e34a56f30c6b6d53496482e45474cf4/통계.gif" alt="statistics" width="700"/>
+
+### Tech 구독
+
+<img src="/uploads/59a915941e379cef3184f84120fcc54a/Tech_구독.gif" width="700"/>
+
+### 1일 1커밋 알림
+
+<img src="/uploads/bc55eb55bc09d3d37c80cd4018c08b0b/알림.gif" alt="commit" width="700"/>
 
 <br>
 <br>
