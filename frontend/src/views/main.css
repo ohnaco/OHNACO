@@ -1,0 +1,129 @@
+@charset "UTF-8";
+/*!
+* Start Bootstrap - One Page Wonder v6.0.3 (https://startbootstrap.com/theme/one-page-wonder)
+* Copyright 2013-2021 Start Bootstrap
+* Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-one-page-wonder/blob/master/LICENSE)
+*/
+/*!
+ * Bootstrap v5.1.0 (https://getbootstrap.com/)
+ * Copyright 2011-2021 The Bootstrap Authors
+ * Copyright 2011-2021 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
+ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    scroll-behavior: smooth;
+  }
+}
+@font-face {
+  font-family: "GmarketSansLight";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansMedium";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: "GmarketSansBold";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff")
+    format("woff");
+  font-weight: normal;
+  font-style: normal;
+}
+.display-title {
+  font-size: calc(1.375rem + 1.5vw);
+  font-weight: 300;
+  line-height: 1.2;
+  font-family: "GmarketSansMedium";
+}
+@media (min-width: 1200px) {
+  .display-title {
+    font-size: 2.5rem;
+  }
+}
+.move-btn:hover {
+  -webkit-transform: scale(1.05);
+  -moz-transform: scale(1.05);
+  -ms-transform: scale(1.05);
+  -o-transform: scale(1.05);
+  transform: scale(1.05);
+}
+.move-btn {
+  -webkit-transition: all 0.1s linear;
+  transition: all 0.1s linear;
+}
+header.masthead {
+  position: relative;
+  overflow: hidden;
+  padding-top: calc(7rem + 72px);
+  padding-bottom: 10rem;
+  background: #607d8b;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: scroll;
+  background-size: cover;
+}
+header.masthead .masthead-content .masthead-heading {
+  font-size: 3rem;
+  font-family: "GmarketSansBold";
+  color: #80deea;
+  animation: bounceIn;
+  animation-duration: 3s;
+  --animate-repeat: 2;
+}
+header.masthead .masthead-content .masthead-subheading {
+  font-size: 1rem;
+  font-family: "GmarketSansMedium";
+}
+/* .bg-circle {
+  z-index: 0;
+  border-radius: 100%;
+  background: linear-gradient(0deg, #ee0979 0%, #ff6a00 100%);
+  height: 20rem;
+  width: 20rem;
+} */
+.page-content {
+  padding-top: 5rem;
+  padding-bottom: 5rem;
+  color: #607d8b;
+}
+.display-title {
+  font-family: "GmarketSansMedium";
+}
+.display-content {
+  font-family: "GmarketSansLight";
+}
+
+@media (min-width: 992px) {
+  header.masthead {
+    padding-top: calc(10rem + 55px);
+    padding-bottom: 12rem;
+  }
+  header.masthead .masthead-content .masthead-heading {
+    font-size: 5rem;
+    font-family: "GmarketSansBold";
+  }
+  header.masthead .masthead-content .masthead-subheading {
+    font-size: 2rem;
+    font-family: "GmarketSansMedium";
+  }
+  .page-content {
+    padding-top: 10rem;
+    padding-bottom: 10rem;
+  }
+  .display-content {
+    padding: 2rem !important;
+  }
+}

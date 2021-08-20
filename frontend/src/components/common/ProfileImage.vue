@@ -1,5 +1,16 @@
 <template>
-  <v-avatar :tile="false" :size="200" color="grey lighten-4">
-    <img src="@/assets/images/profile-img.svg" alt="avatar" />
+  <v-avatar :tile="false" :size="150" color="blue-grey">
+    <img :src="`${user.image}`" alt="avatar" />
   </v-avatar>
 </template>
+
+<script>
+export default {
+  name: "ProfileImage",
+  props: {
+    user: {
+      type: [Array, Object],
+    },
+  },
+};
+</script>

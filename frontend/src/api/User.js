@@ -1,83 +1,124 @@
-import axios from 'axios';
+import http from "@/util/http-common.js";
 
 const requestLogin = (data, callback, errorCallback) => {
-  axios.post('http://i5a101.p.ssafy.io:8197/user/signIn', data)
-  .then((res) => {
-    callback(res);
-  })
-  .catch((err) => {
-    errorCallback(err);
-  });
+  http
+    .post("/user/signIn", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+const requestUserInfo = (callback, errorCallback) => {
+  http
+    .get("/user/info")
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
 };
 
 const requestSignup = (data, callback, errorCallback) => {
-  axios.post('http://i5a101.p.ssafy.io:8197/user/join', data)
-  .then((res) => {
-    callback(res);
-  })
-  .catch((err) => {
-    errorCallback(err);
-  });
+  http
+    .post("/user/join", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
 };
 
 const requestSignupEmail = (data, callback, errorCallback) => {
-  axios.post('http://i5a101.p.ssafy.io:8197/user/join/codecheck', data)
-  .then((res) => {
-    callback(res);
-  })
-  .catch((err) => {
-    errorCallback(err);
-  });
+  http
+    .post("/user/join/codecheck", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
 };
 
 const requestSignupEmailAgain = (data, callback, errorCallback) => {
-  axios.get('http://i5a101.p.ssafy.io:8197/user/join/resend?email=' + data.email)
-  .then((res) => {
-    callback(res);
-  })
-  .catch((err) => {
-    errorCallback(err);
-  });
+  http
+    .get("/user/join/resend?email=" + data.email)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
 };
 
 const requestSignupProfile = (data, callback, errorCallback) => {
-  axios.post('http://i5a101.p.ssafy.io:8197/user/join/profile', data)
-  .then((res) => {
-    callback(res);
-  })
-  .catch((err) => {
-    errorCallback(err);
-  });
+  http
+    .post("/user/join/profile", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
 };
 
 const requestSignupIdCheck = (data, callback, errorCallback) => {
-  axios.get('http://i5a101.p.ssafy.io:8197/user/join/idcheck?email=' + data.email)
-  .then((res) => {
-    callback(res);
-  })
-  .catch((err) => {
-    errorCallback(err);
-  });
+  http
+    .get("/user/join/idcheck?email=" + data.email)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
 };
 
 const requestSignupNicknameCheck = (data, callback, errorCallback) => {
-  axios.get('http://i5a101.p.ssafy.io:8197/user/namecheck?nickname=' + data.nickname)
-  .then((res) => {
-    callback(res);
-  })
-  .catch((err) => {
-    errorCallback(err);
-  });
+  http
+    .get("/user/namecheck?nickname=" + data.nickname)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
 };
 
-const UserApi = {
-  requestLogin: (data, callback, errorCallback) => requestLogin(data, callback, errorCallback),
-  requestSignup: (data, callback, errorCallback) => requestSignup(data, callback, errorCallback),
-  requestSignupEmail: (data, callback, errorCallback) => requestSignupEmail(data, callback, errorCallback),
-  requestSignupEmailAgain: (data, callback, errorCallback) => requestSignupEmailAgain(data, callback, errorCallback),
-  requestSignupProfile: (data, callback, errorCallback) => requestSignupProfile(data, callback, errorCallback),
-  requestSignupIdCheck: (data, callback, errorCallback) => requestSignupIdCheck(data, callback, errorCallback),
-  requestSignupNicknameCheck: (data, callback, errorCallback) => requestSignupNicknameCheck(data, callback, errorCallback),
+const requestFindPwdSendEmail = (data, callback, errorCallback) => {
+  http
+    .post("/user/findpwd", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
 };
 
-export default UserApi;
+const requestFindPwd = (data, callback, errorCallback) => {
+  http
+    .put("/user/findpwd", data)
+    .then((res) => {
+      callback(res);
+    })
+    .catch((err) => {
+      errorCallback(err);
+    });
+};
+
+export default {
+  requestLogin,
+  requestUserInfo,
+  requestSignup,
+  requestSignupEmail,
+  requestSignupEmailAgain,
+  requestSignupProfile,
+  requestSignupIdCheck,
+  requestSignupNicknameCheck,
+  requestFindPwdSendEmail,
+  requestFindPwd,
+};
