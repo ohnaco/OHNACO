@@ -76,6 +76,9 @@
 ### Swagger API 문서
 ### [Ohnaco API](https://app.swaggerhub.com/apis/Changhwan-Son/OhnacoAPI/1.0.0#/) 
 
+### 기능명세서
+### [Ohnaco 기능명세서](https://docs.google.com/spreadsheets/d/1gn3qHPVeoRsfY3zmd7fn3OHfk1eC3mWzFUCCXG4bpmc/edit#gid=1249323812) 
+
 
 ### 기능 구조 
 
