@@ -134,7 +134,7 @@ server {
 
     index index.html;
 
-    server_name i5a101.p.ssafy.io;
+    server_name 13.125.58.16;
 
     location / {
             try_files $uri $uri/ /index.html;
