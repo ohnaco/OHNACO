@@ -13,22 +13,12 @@ instance.interceptors.request.use(
     // 요청을 보내기 전에 수행할 일
     // ...
     // 1. 로그인, 회원가입을 위해 요청을 보내는 경우(/user), 토큰 없이 보냄.
-    if (
-      config.url.split("/")[3] === "user" &&
-      config.url.split("/")[4] !== "info"
-    ) {
+    if (config.url.split("/")[3] === "user" && config.url.split("/")[4] !== "info") {
       return config;
     }
     // 2. 그 외의 요청에는 항상 토큰을 헤더에 넣어서 보냄.
     else {
-      config.headers["Authorization"] =
-        "Bearer " + storage.getItem("jwt-access-token");
-      // if (
-      //   storage.getItem('jwt-access-token') &&
-      //   jwt_decode(storage.getItem('jwt-access-token')).exp < Date.now() / 1000 + 60
-      // ) {
-      //   config.headers['Authorization'] = 'Bearer ' + storage.getItem('jwt-refresh-token');
-      // }
+      config.headers["Authorization"] = "Bearer " + storage.getItem("jwt-access-token");
       return config;
     }
   },
@@ -45,10 +35,7 @@ instance.interceptors.response.use(
     // 응답 데이터를 가공
     // ...
     if (response.headers["authorization"]) {
-      storage.setItem(
-        "jwt-access-token",
-        response.headers["authorization"].substring(7)
-      );
+      storage.setItem("jwt-access-token", response.headers["authorization"].substring(7));
     }
     return response;
   },
