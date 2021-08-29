@@ -1,4 +1,4 @@
-<img src="/uploads/eff350a368323e6d4c1a6d87aa0652ad/logo.png" alt="logo" width="500"/>
+<img src="https://user-images.githubusercontent.com/17819249/131244525-0cba9043-f16f-42da-b552-c3e6d4d828d0.png" alt="logo" width="500"/>
 
 # 🎈 프로젝트 이름 : 오나코 (오늘도 나는 코딩한다)
 
@@ -14,36 +14,31 @@
 
 ### Todo 타이머
 
-<img src="/uploads/1b2c9ff4bb8103d491fee186a131521b/Todo_생성플레이.gif" alt="timer" width="700"/>
+<img src="https://user-images.githubusercontent.com/17819249/131249396-33a158ba-37aa-4dd4-a389-05dc63224698.gif" alt="timer" width="700"/>
 
 
 ### 공부시간 통계
 
-<img src="/uploads/5e34a56f30c6b6d53496482e45474cf4/통계.gif" alt="statistics" width="700"/>
+<img src="https://user-images.githubusercontent.com/17819249/131249389-aa447832-1ad2-4c02-bc95-b775799130f2.gif" alt="statistics" width="700"/>
 
 ### Tech 구독
 
-<img src="/uploads/59a915941e379cef3184f84120fcc54a/Tech_구독.gif" width="700"/>
+<img src="https://user-images.githubusercontent.com/17819249/131249391-d7b9df03-01e9-4566-a2a5-de5c9eb1c33f.gif" alert="tech" width="700"/>
 
 ### 1일 1커밋 알림
 
-<img src="/uploads/bc55eb55bc09d3d37c80cd4018c08b0b/알림.gif" alt="commit" width="700"/>
+<img src="https://user-images.githubusercontent.com/17819249/131249387-42505fb6-ba2e-457a-9ed4-20b320cc8faf.gif" alt="commit" width="700"/>
 
 <br>
 <br>
 
 ## 👨‍👩‍👦‍👦 팀원소개
 
-#### 🧑 고노윤(Frontend)
-
-#### 👦 김우현(Frontend)
-
-#### 👦 김현홍(Backend)
-
-#### 👦 손창환(Backend)
-
-#### 🧑 양다연(Frontend)
-
+| Name | 손창환 | 김현홍 | 고노윤 | 김우현 | 양다연 | 
+| :----: | :----: | :----: | :----: | :----: | :----: |
+| Role | 👑 &nbsp; 팀장  | 📝 &nbsp; 문서 작성  | 📹 &nbsp; UCC 담당자  | 🎤 &nbsp; 발표자  | 📊 &nbsp; 발표자료 제작 | 
+| Position | `Backend` | `Backend` | `Frontend`  | `Frontend` | `Frontend` | 
+| Git |  [@Changhwan-Son](https://github.com/Changhwan-Son) | [@kimho1995](https://github.com/kimho1995) | [@nohyoonko](https://github.com/nohyoonko) | [@dnguszz](https://github.com/dnguszz) | [@dayeonyang0324](https://github.com/dayeonyang0324) |
 <br>
 
 ## 📆 개발 기간
@@ -63,7 +58,7 @@
 
 
 ### 아키텍처 
-<img src="/uploads/8e6cf08bd6882e38de84d50df36d3ff5/스크린샷_2021-08-16_오후_2.29.20.png" alt="architecture" width="800"/>
+<img src="https://user-images.githubusercontent.com/17819249/131244635-ef2ff591-d644-46b0-86c3-250766c1ce60.png" alt="architecture" width="800"/>
 
 
 <br>
@@ -82,7 +77,7 @@
 
 ### 기능 구조 
 
-<img src="/uploads/8d1f06b828350f1a8e06def2f9ee24e7/dtd2.png" alt="dfd" width="700"/>
+<img src="https://user-images.githubusercontent.com/17819249/131244642-4435d763-9b23-42cf-81ee-8b08e750d308.png" alt="feature" width="700"/>
 
 ### ERD
 
@@ -94,7 +89,7 @@
 
 - 먼저 git repository를 clone해서 받아온다. 
 ```
-git clone https://lab.ssafy.com/s05-webmobile2-sub3/S05P13A101.git
+git clone https://github.com/ohnaco/OHNACO.git
 ```
 
 ### Database Setting
@@ -130,7 +125,7 @@ upstream backend {
   server localhost:8196;
 }
 server {
-    root /'프로젝트 디렉토리'/S05P13A101/frontend/dist;
+    root /'프로젝트 디렉토리'/OHNACO/frontend/dist;
 
     index index.html;
 
